@@ -11,22 +11,22 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- Schema mydb
 -- -----------------------------------------------------
 -- -----------------------------------------------------
--- Schema QLHS
+-- Schema quanlyhocsinh
 -- -----------------------------------------------------
 -- DROP SCHEMA IF EXISTS `QLHS` ;
 
 -- -----------------------------------------------------
 -- Schema QLHS
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `QLHS` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ;
-USE `QLHS` ;
+CREATE SCHEMA IF NOT EXISTS `quanlyhocsinh` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ;
+USE `quanlyhocsinh` ;
 
 -- -----------------------------------------------------
 -- Table `QLHS`.`Lop`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `QLHS`.`Lop` ;
+DROP TABLE IF EXISTS `quanlyhocsinh`.`Lop` ;
 
-CREATE TABLE IF NOT EXISTS `QLHS`.`Lop` (
+CREATE TABLE IF NOT EXISTS `quanlyhocsinh`.`Lop` (
   `idLop` INT NOT NULL AUTO_INCREMENT,
   `TenLop` VARCHAR(45) CHARACTER SET 'utf8' NOT NULL,
   `SiSo` INT NOT NULL,
@@ -40,9 +40,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `QLHS`.`HocSinh`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `QLHS`.`HocSinh` ;
+DROP TABLE IF EXISTS `quanlyhocsinh`.`HocSinh` ;
 
-CREATE TABLE IF NOT EXISTS `QLHS`.`HocSinh` (
+CREATE TABLE IF NOT EXISTS `quanlyhocsinh`.`HocSinh` (
   `idHocSinh` INT NOT NULL AUTO_INCREMENT,
   `HoTen` VARCHAR(45) CHARACTER SET 'utf8' NOT NULL,
   `NgaySinh` DATE NOT NULL,
@@ -64,9 +64,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `QLHS`.`MonHoc`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `QLHS`.`MonHoc` ;
+DROP TABLE IF EXISTS `quanlyhocsinh`.`MonHoc` ;
 
-CREATE TABLE IF NOT EXISTS `QLHS`.`MonHoc` (
+CREATE TABLE IF NOT EXISTS `quanlyhocsinh`.`MonHoc` (
   `idMonHoc` INT NOT NULL AUTO_INCREMENT,
   `TenMH` VARCHAR(45) CHARACTER SET 'utf8' NOT NULL,
   PRIMARY KEY (`idMonHoc`))
@@ -76,9 +76,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `QLHS`.`HocKy`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `QLHS`.`HocKy` ;
+DROP TABLE IF EXISTS `quanlyhocsinh`.`HocKy` ;
 
-CREATE TABLE IF NOT EXISTS `QLHS`.`HocKy` (
+CREATE TABLE IF NOT EXISTS `quanlyhocsinh`.`HocKy` (
   `idHocKy` INT NOT NULL AUTO_INCREMENT,
   `TenHocKy` INT NOT NULL,
   PRIMARY KEY (`idHocKy`))
@@ -88,9 +88,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `QLHS`.`Diem`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `QLHS`.`Diem` ;
+DROP TABLE IF EXISTS `quanlyhocsinh`.`Diem` ;
 
-CREATE TABLE IF NOT EXISTS `QLHS`.`Diem` (
+CREATE TABLE IF NOT EXISTS `quanlyhocsinh`.`Diem` (
   `idDiem` INT NOT NULL AUTO_INCREMENT,
   `15Phut` DOUBLE NULL DEFAULT NULL,
   `1Tiet` DOUBLE NULL DEFAULT NULL,
@@ -125,9 +125,9 @@ COMMENT = '		';
 -- -----------------------------------------------------
 -- Table `QLHS`.`CauHinh`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `QLHS`.`CauHinh` ;
+DROP TABLE IF EXISTS `quanlyhocsinh`.`CauHinh` ;
 
-CREATE TABLE IF NOT EXISTS `QLHS`.`CauHinh` (
+CREATE TABLE IF NOT EXISTS `quanlyhocsinh`.`CauHinh` (
   `idCauHinh` INT NOT NULL AUTO_INCREMENT,
   `TenThuocTinh` VARCHAR(45) NOT NULL,
   `LoaiThuocTinh` VARCHAR(45) NOT NULL,
@@ -140,9 +140,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `QLHS`.`ChiTiet_CauHinh_HocSinh`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `QLHS`.`ChiTiet_CauHinh_HocSinh` ;
+DROP TABLE IF EXISTS `quanlyhocsinh`.`ChiTiet_CauHinh_HocSinh` ;
 
-CREATE TABLE IF NOT EXISTS `QLHS`.`ChiTiet_CauHinh_HocSinh` (
+CREATE TABLE IF NOT EXISTS `quanlyhocsinh`.`ChiTiet_CauHinh_HocSinh` (
   `idHocSinh` INT NOT NULL,
   `idCauHinh` INT NOT NULL,
   PRIMARY KEY (`idHocSinh`, `idCauHinh`),
@@ -164,9 +164,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `QLHS`.`ChiTiet_CauHinh_Lop`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `QLHS`.`ChiTiet_CauHinh_Lop` ;
+DROP TABLE IF EXISTS `quanlyhocsinh`.`ChiTiet_CauHinh_Lop` ;
 
-CREATE TABLE IF NOT EXISTS `QLHS`.`ChiTiet_CauHinh_Lop` (
+CREATE TABLE IF NOT EXISTS `quanlyhocsinh`.`ChiTiet_CauHinh_Lop` (
   `idLop` INT NOT NULL,
   `idCauHinh` INT NOT NULL,
   PRIMARY KEY (`idLop`, `idCauHinh`),
@@ -188,9 +188,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `QLHS`.`ChiTiet_CauHinh_Diem`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `QLHS`.`ChiTiet_CauHinh_Diem` ;
+DROP TABLE IF EXISTS `quanlyhocsinh`.`ChiTiet_CauHinh_Diem` ;
 
-CREATE TABLE IF NOT EXISTS `QLHS`.`ChiTiet_CauHinh_Diem` (
+CREATE TABLE IF NOT EXISTS `quanlyhocsinh`.`ChiTiet_CauHinh_Diem` (
   `idDiem` INT NOT NULL,
   `idCauHinh` INT NOT NULL,
   PRIMARY KEY (`idDiem`, `idCauHinh`),
@@ -212,9 +212,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `QLHS`.`NguoiDung`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `QLHS`.`NguoiDung` ;
+DROP TABLE IF EXISTS `quanlyhocsinh`.`NguoiDung` ;
 
-CREATE TABLE IF NOT EXISTS `QLHS`.`NguoiDung` (
+CREATE TABLE IF NOT EXISTS `quanlyhocsinh`.`NguoiDung` (
   `idNguoiDung` INT NOT NULL AUTO_INCREMENT,
   `HoTen` VARCHAR(45) NOT NULL,
   `TenTaiKhoan` VARCHAR(45) NOT NULL,
