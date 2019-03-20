@@ -55,14 +55,14 @@ CREATE TABLE IF NOT EXISTS `quanlyhocsinh`.`HocSinh` (
   INDEX `fk_HocSinh_Lop1_idx` (`idLop` ASC),
   CONSTRAINT `fk_HocSinh_Lop1`
     FOREIGN KEY (`idLop`)
-    REFERENCES `QLHS`.`Lop` (`idLop`)
+    REFERENCES `quanlyhocsinh`.`Lop` (`idLop`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `QLHS`.`MonHoc`
+-- Table `quanlyhocsinh`.`MonHoc`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `quanlyhocsinh`.`MonHoc` ;
 
@@ -74,7 +74,7 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `QLHS`.`HocKy`
+-- Table `quanlyhocsinh`.`HocKy`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `quanlyhocsinh`.`HocKy` ;
 
@@ -86,7 +86,7 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `QLHS`.`Diem`
+-- Table `quanlyhocsinh`.`Diem`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `quanlyhocsinh`.`Diem` ;
 
@@ -105,17 +105,17 @@ CREATE TABLE IF NOT EXISTS `quanlyhocsinh`.`Diem` (
   INDEX `fk_Diem_HocKy1_idx` (`idHocKy` ASC),
   CONSTRAINT `fk_Diem_HocSinh1`
     FOREIGN KEY (`idHocSinh`)
-    REFERENCES `QLHS`.`HocSinh` (`idHocSinh`)
+    REFERENCES `quanlyhocsinh`.`HocSinh` (`idHocSinh`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Diem_MonHoc1`
     FOREIGN KEY (`idMonHoc`)
-    REFERENCES `QLHS`.`MonHoc` (`idMonHoc`)
+    REFERENCES `quanlyhocsinh`.`MonHoc` (`idMonHoc`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Diem_HocKy1`
     FOREIGN KEY (`idHocKy`)
-    REFERENCES `QLHS`.`HocKy` (`idHocKy`)
+    REFERENCES `quanlyhocsinh`.`HocKy` (`idHocKy`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -123,7 +123,7 @@ COMMENT = '		';
 
 
 -- -----------------------------------------------------
--- Table `QLHS`.`CauHinh`
+-- Table `quanlyhocsinh`.`CauHinh`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `quanlyhocsinh`.`CauHinh` ;
 
@@ -138,7 +138,7 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `QLHS`.`ChiTiet_CauHinh_HocSinh`
+-- Table `quanlyhocsinh`.`ChiTiet_CauHinh_HocSinh`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `quanlyhocsinh`.`ChiTiet_CauHinh_HocSinh` ;
 
@@ -198,12 +198,12 @@ CREATE TABLE IF NOT EXISTS `quanlyhocsinh`.`ChiTiet_CauHinh_Diem` (
   INDEX `fk_Diem_has_CauHinh_Diem1_idx` (`idDiem` ASC),
   CONSTRAINT `fk_Diem_has_CauHinh_Diem1`
     FOREIGN KEY (`idDiem`)
-    REFERENCES `QLHS`.`Diem` (`idDiem`)
+    REFERENCES `quanlyhocsinh`.`Diem` (`idDiem`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Diem_has_CauHinh_CauHinh1`
     FOREIGN KEY (`idCauHinh`)
-    REFERENCES `QLHS`.`CauHinh` (`idCauHinh`)
+    REFERENCES `quanlyhocsinh`.`CauHinh` (`idCauHinh`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
