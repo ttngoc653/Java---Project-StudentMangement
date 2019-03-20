@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 20, 2019 5:24:08 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="hirbenate.Diem" table="diem" catalog="quanlyhocsinh" optimistic-lock="version">
+        <id name="idDiem" type="java.lang.Integer">
+            <column name="idDiem" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="hocky" class="hirbenate.Hocky" fetch="select">
+            <column name="idHocKy" not-null="true" />
+        </many-to-one>
+        <many-to-one name="hocsinh" class="hirbenate.Hocsinh" fetch="select">
+            <column name="idHocSinh" not-null="true" />
+        </many-to-one>
+        <many-to-one name="monhoc" class="hirbenate.Monhoc" fetch="select">
+            <column name="idMonHoc" not-null="true" />
+        </many-to-one>
+        <property name="15phut" type="java.lang.Double">
+            <column name="15Phut" precision="22" scale="0" />
+        </property>
+        <property name="1tiet" type="java.lang.Double">
+            <column name="1Tiet" precision="22" scale="0" />
+        </property>
+        <property name="cuoiKy" type="java.lang.Double">
+            <column name="CuoiKy" precision="22" scale="0" />
+        </property>
+        <property name="dtb" type="java.lang.Double">
+            <column name="DTB" precision="22" scale="0" />
+        </property>
+        <set name="cauhinhs" table="chitiet_cauhinh_diem" inverse="false" lazy="true" fetch="select">
+            <key>
+                <column name="idDiem" not-null="true" />
+            </key>
+            <many-to-many entity-name="hirbenate.Cauhinh">
+                <column name="idCauHinh" not-null="true" />
+            </many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>

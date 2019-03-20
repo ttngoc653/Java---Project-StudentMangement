@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 20, 2019 5:24:08 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="hirbenate.Hocsinh" table="hocsinh" catalog="quanlyhocsinh" optimistic-lock="version">
+        <id name="idHocSinh" type="java.lang.Integer">
+            <column name="idHocSinh" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="lop" class="hirbenate.Lop" fetch="select">
+            <column name="idLop" not-null="true" />
+        </many-to-one>
+        <property name="hoTen" type="string">
+            <column name="HoTen" length="45" not-null="true" />
+        </property>
+        <property name="ngaySinh" type="date">
+            <column name="NgaySinh" length="10" not-null="true" />
+        </property>
+        <property name="email" type="string">
+            <column name="Email" length="45" not-null="true" />
+        </property>
+        <property name="gioiTinh" type="string">
+            <column name="GioiTinh" length="45" not-null="true" />
+        </property>
+        <property name="diaChi" type="string">
+            <column name="DiaChi" length="200" not-null="true" />
+        </property>
+        <property name="tinhTrang" type="byte">
+            <column name="TinhTrang" not-null="true" />
+        </property>
+        <set name="diems" table="diem" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idHocSinh" not-null="true" />
+            </key>
+            <one-to-many class="hirbenate.Diem" />
+        </set>
+        <set name="cauhinhs" table="chitiet_cauhinh_hocsinh" inverse="false" lazy="true" fetch="select">
+            <key>
+                <column name="idHocSinh" not-null="true" />
+            </key>
+            <many-to-many entity-name="hirbenate.Cauhinh">
+                <column name="idCauHinh" not-null="true" />
+            </many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>
