@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 23, 2019 12:36:48 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="hibernate.HocsinhLophoc" table="hocsinh_lophoc" catalog="quanlyhocsinh" optimistic-lock="version">
+        <composite-id name="id" class="hibernate.HocsinhLophocId">
+            <key-property name="idHocSinh" type="int">
+                <column name="idHocSinh" />
+            </key-property>
+            <key-property name="idLopHoc" type="int">
+                <column name="idLopHoc" />
+            </key-property>
+            <key-property name="idNamHoc" type="int">
+                <column name="idNamHoc" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="hocsinh" class="hibernate.Hocsinh" update="false" insert="false" fetch="select">
+            <column name="idHocSinh" not-null="true" />
+        </many-to-one>
+        <many-to-one name="lop" class="hibernate.Lop" update="false" insert="false" fetch="select">
+            <column name="idLopHoc" not-null="true" />
+        </many-to-one>
+        <many-to-one name="namhoc" class="hibernate.Namhoc" update="false" insert="false" fetch="select">
+            <column name="idNamHoc" not-null="true" />
+        </many-to-one>
+        <set name="diems" table="diem" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idHocSinh" not-null="true" />
+                <column name="idNamHoc" not-null="true" />
+                <column name="idLop" not-null="true" />
+            </key>
+            <one-to-many class="hibernate.Diem" />
+        </set>
+    </class>
+</hibernate-mapping>
