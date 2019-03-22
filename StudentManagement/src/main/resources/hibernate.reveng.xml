@@ -2,14 +2,16 @@
 <!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
 <hibernate-reverse-engineering>
   <schema-selection match-catalog="quanlyhocsinh"/>
-  <table-filter match-name="hocsinh"/>
-  <table-filter match-name="diem"/>
-  <table-filter match-name="nguoidung"/>
-  <table-filter match-name="cauhinh"/>
-  <table-filter match-name="monhoc"/>
   <table-filter match-name="chitiet_cauhinh_diem"/>
+  <table-filter match-name="hocsinh"/>
   <table-filter match-name="hocky"/>
-  <table-filter match-name="chitiet_cauhinh_hocsinh"/>
+  <table-filter match-name="diem"/>
+  <table-filter match-name="hocsinh_lophoc"/>
   <table-filter match-name="lop"/>
+  <table-filter match-name="namhoc"/>
+  <table-filter match-name="chitiet_cauhinh_hocsinh"/>
+  <table-filter match-name="nguoidung"/>
+  <table-filter match-name="monhoc"/>
   <table-filter match-name="chitiet_cauhinh_lop"/>
+  <table-filter match-name="cauhinh"/>
 </hibernate-reverse-engineering>

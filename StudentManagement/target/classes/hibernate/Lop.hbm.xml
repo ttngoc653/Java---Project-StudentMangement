@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 22, 2019 9:31:06 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="hibernate.Lop" table="lop" catalog="quanlyhocsinh" optimistic-lock="version">
+        <id name="idLop" type="java.lang.Integer">
+            <column name="idLop" />
+            <generator class="identity" />
+        </id>
+        <property name="tenLop" type="string">
+            <column name="TenLop" length="45" not-null="true" />
+        </property>
+        <property name="khoi" type="int">
+            <column name="Khoi" not-null="true" />
+        </property>
+        <property name="tinhTrang" type="byte">
+            <column name="TinhTrang" not-null="true" />
+        </property>
+        <set name="chitietCauhinhLops" table="chitiet_cauhinh_lop" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idLop" not-null="true" />
+            </key>
+            <one-to-many class="hibernate.ChitietCauhinhLop" />
+        </set>
+    </class>
+</hibernate-mapping>

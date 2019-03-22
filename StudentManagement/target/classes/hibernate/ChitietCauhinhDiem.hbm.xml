@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 22, 2019 9:31:06 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="hibernate.ChitietCauhinhDiem" table="chitiet_cauhinh_diem" catalog="quanlyhocsinh" optimistic-lock="version">
+        <composite-id name="id" class="hibernate.ChitietCauhinhDiemId">
+            <key-property name="idDiem" type="int">
+                <column name="idDiem" />
+            </key-property>
+            <key-property name="idCauHinh" type="int">
+                <column name="idCauHinh" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="cauhinh" class="hibernate.Cauhinh" update="false" insert="false" fetch="select">
+            <column name="idCauHinh" not-null="true" />
+        </many-to-one>
+        <many-to-one name="diem" class="hibernate.Diem" update="false" insert="false" fetch="select">
+            <column name="idDiem" not-null="true" />
+        </many-to-one>
+        <property name="apDung" type="java.lang.Boolean">
+            <column name="apDung" />
+        </property>
+    </class>
+</hibernate-mapping>
