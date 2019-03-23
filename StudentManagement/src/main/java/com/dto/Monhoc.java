@@ -2,7 +2,9 @@ package com.dto;
 // Generated Mar 24, 2019 2:56:57 AM by Hibernate Tools 4.3.1
 
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -70,7 +72,14 @@ public class Monhoc  implements java.io.Serializable {
         this.diems = diems;
     }
 
-
+@OneToMany
+    public List<Diem> getDieml() {
+        return new ArrayList<Diem>(this.diems);
+    }
+    
+    public void setDieml(List<Diem> dieml) {
+        this.diems =new HashSet<Diem>(dieml);
+    }
 
 
 }
