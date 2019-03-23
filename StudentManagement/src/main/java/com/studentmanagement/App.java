@@ -1,7 +1,7 @@
 package com.studentmanagement;
 
 import com.bll.HocsinhController;
-import hibernate.Hocsinh;
+import com.dto.Hocsinh;
 import java.util.List;
 
 /**
@@ -15,7 +15,7 @@ public class App
         System.out.println( "Hello World!" );
         List<Hocsinh> lHs=new HocsinhController().getList();
         for (Hocsinh hs : lHs) {
-            System.out.println(hs.getIdHocSinh()+" "+hs.getHoTen());
+            System.out.println(hs.getIdHocSinh()+" "+hs.getHoTen()+" "+hs.getHocsinhLophocs().toArray().length);
         }
     }
 }

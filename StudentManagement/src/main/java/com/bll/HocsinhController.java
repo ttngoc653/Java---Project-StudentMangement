@@ -6,7 +6,7 @@
 package com.bll;
 
 import com.dal.HocsinhHibernate;
-import hibernate.Hocsinh;
+import com.dto.Hocsinh;
 import java.util.List;
 /**
  *

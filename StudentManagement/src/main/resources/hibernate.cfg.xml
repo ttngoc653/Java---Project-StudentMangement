@@ -10,17 +10,17 @@
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.current_session_context_class">thread</property>
     <property name="hibernate.query.factory_class">org.hibernate.hql.internal.classic.ClassicQueryTranslatorFactory</property>
-    <mapping resource="hibernate/ChitietCauhinhDiem.hbm.xml"/>
-    <mapping resource="hibernate/Namhoc.hbm.xml"/>
-    <mapping resource="hibernate/Hocky.hbm.xml"/>
-    <mapping resource="hibernate/Diem.hbm.xml"/>
-    <mapping resource="hibernate/Hocsinh.hbm.xml"/>
-    <mapping resource="hibernate/ChitietCauhinhHocsinh.hbm.xml"/>
-    <mapping resource="hibernate/HocsinhLophoc.hbm.xml"/>
-    <mapping resource="hibernate/Nguoidung.hbm.xml"/>
-    <mapping resource="hibernate/ChitietCauhinhLop.hbm.xml"/>
-    <mapping resource="hibernate/Lop.hbm.xml"/>
-    <mapping resource="hibernate/Monhoc.hbm.xml"/>
-    <mapping resource="hibernate/Cauhinh.hbm.xml"/>
+    <mapping resource="com/dto/ChitietCauhinhDiem.hbm.xml"/>
+    <mapping resource="com/dto/Namhoc.hbm.xml"/>
+    <mapping resource="com/dto/Hocky.hbm.xml"/>
+    <mapping resource="com/dto/Diem.hbm.xml"/>
+    <mapping resource="com/dto/Hocsinh.hbm.xml"/>
+    <mapping resource="com/dto/ChitietCauhinhHocsinh.hbm.xml"/>
+    <mapping resource="com/dto/HocsinhLophoc.hbm.xml"/>
+    <mapping resource="com/dto/Nguoidung.hbm.xml"/>
+    <mapping resource="com/dto/ChitietCauhinhLop.hbm.xml"/>
+    <mapping resource="com/dto/Lop.hbm.xml"/>
+    <mapping resource="com/dto/Monhoc.hbm.xml"/>
+    <mapping resource="com/dto/Cauhinh.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

@@ -5,8 +5,8 @@
  */
 package com.dal;
 
-import hibernate.HibernateUtil;
-import hibernate.Hocsinh;
+import com.dto.HibernateUtil;
+import com.dto.Hocsinh;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Query;
