@@ -10,8 +10,8 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class ChitietCauhinhHocsinhId implements java.io.Serializable {
 
-    private int idHocSinh;
-    private int idCauHinh;
+    private int idHocSinh = -1;
+    private int idCauHinh = -1;
 
     public ChitietCauhinhHocsinhId() {
     }

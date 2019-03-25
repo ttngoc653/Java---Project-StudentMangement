@@ -20,9 +20,9 @@ import javax.persistence.Table;
 public class ChitietCauhinhHocsinh implements java.io.Serializable {
 
     private ChitietCauhinhHocsinhId id;
-    private Cauhinh cauhinh;
-    private Hocsinh hocsinh;
-    private Boolean apDung;
+    private Cauhinh cauhinh = null;
+    private Hocsinh hocsinh = null;
+    private Boolean apDung = null;
 
     public ChitietCauhinhHocsinh() {
     }

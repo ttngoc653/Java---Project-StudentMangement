@@ -5,8 +5,8 @@
  */
 package dal;
 
+import dto.*;
 import dto.HibernateUtil;
-import dto.Hocsinh;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Query;
@@ -17,21 +17,21 @@ import org.hibernate.Transaction;
  *
  * @author Jossion
  */
-public class HocsinhDAL {
-
+public class ChitietCauhinhHocsinhDAL {
+    
     Session session = null;
     Transaction tst = null;
-    List<Hocsinh> lHs;
+    List<ChitietCauhinhHocsinh> list;
 
-    public HocsinhDAL() {
+    public ChitietCauhinhHocsinhDAL() {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
     }
 
-    public Integer add(Hocsinh hs) {
-        int result = -1;
+    public ChitietCauhinhHocsinhId add(ChitietCauhinhHocsinh q) {
+        ChitietCauhinhHocsinhId result = null;
         try {
             tst = session.beginTransaction();
-            result = (Integer) session.save(hs);
+            result = (ChitietCauhinhHocsinhId) session.save(q);
             tst.commit();
         } catch (Exception e) {
             if (tst != null) {
@@ -44,22 +44,15 @@ public class HocsinhDAL {
         return result;
     }
 
-    public boolean update(Hocsinh hs) {
+    public boolean update(ChitietCauhinhHocsinh q) {
         Boolean result = false;
         try {
             tst = session.beginTransaction();
-            Hocsinh n = (Hocsinh) session.get(Hocsinh.class, hs.getIdHocSinh());
+            ChitietCauhinhHocsinh n = (ChitietCauhinhHocsinh) session.get(ChitietCauhinhHocsinh.class, q.getId());
 
-            n.setChitietCauhinhHocsinhs(hs.getChitietCauhinhHocsinhs() != null ? hs.getChitietCauhinhHocsinhs() : n.getChitietCauhinhHocsinhs());
-            n.setDiaChi(hs.getDiaChi().length() > 0 ? hs.getDiaChi() : n.getDiaChi());
-            n.setEmail(hs.getEmail().length() > 0 ? hs.getEmail() : n.getDiaChi());
-            n.setGioiTinh(hs.getGioiTinh().length() > 0 ? hs.getGioiTinh() : n.getGioiTinh());
-            n.setHoTen(hs.getHoTen().length() > 0 ? hs.getHoTen() : n.getHoTen());
-            n.setHocsinhLophocs(hs.getHocsinhLophocs().isEmpty() ? hs.getHocsinhLophocs() : n.getHocsinhLophocs());
-            n.setNgaySinh(hs.getNgaySinh() != null ? hs.getNgaySinh() : n.getNgaySinh());
-            n.setSdtCaNhan(hs.getSdtCaNhan().length() > 0 ? hs.getSdtCaNhan() : n.getSdtCaNhan());
-            n.setSdtGiamHo(hs.getSdtGiamHo().length() > 0 ? hs.getSdtGiamHo() : n.getSdtGiamHo());
-            n.setTinhTrang(hs.getTinhTrang() == null ? hs.getTinhTrang() : n.getTinhTrang());
+            n.setApDung(q.getApDung() != null ? q.getApDung() : n.getApDung());
+            n.setCauhinh(q.getCauhinh() != null ? q.getCauhinh() : n.getCauhinh());
+            n.setHocsinh(q.getHocsinh()!=null?q.getHocsinh():n.getHocsinh());
 
             session.update(n);
             tst.commit();
@@ -75,11 +68,11 @@ public class HocsinhDAL {
         return result;
     }
 
-    public boolean delete(int idHocsinh) {
+    public boolean delete(ChitietCauhinhHocsinhId idChitietCauhinhHocsinhId) {
         Boolean result = false;
         try {
             tst = session.beginTransaction();
-            Hocsinh n = (Hocsinh) session.get(Hocsinh.class, idHocsinh);
+            ChitietCauhinhHocsinh n = (ChitietCauhinhHocsinh) session.get(ChitietCauhinhHocsinh.class, idChitietCauhinhHocsinhId);
             session.delete(n);
             tst.commit();
             result = true;
@@ -95,12 +88,12 @@ public class HocsinhDAL {
     }
 
     @SuppressWarnings("unchecked")
-    public List<Hocsinh> getAll() {
-        lHs = new ArrayList<Hocsinh>();
+    public List<ChitietCauhinhHocsinh> getAll() {
+        list = new ArrayList<ChitietCauhinhHocsinh>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Hocsinh as hocsinh");
-            lHs = (List<Hocsinh>) q.list();
+            Query q = session.createQuery("from ChitietCauhinhHocsinh");
+            list = (List<ChitietCauhinhHocsinh>) q.list();
             tst.commit();
         } catch (Exception e) {
             if (tst != null) {
@@ -110,15 +103,15 @@ public class HocsinhDAL {
         } finally {
             session.close();
         }
-        return lHs;
+        return list;
     }
 
-    public Hocsinh getById(int idHocSinh) {
-        Hocsinh hs = null;
+    public ChitietCauhinhHocsinh getById(ChitietCauhinhHocsinhId idChitietCauhinhHocsinh) {
+        ChitietCauhinhHocsinh hs = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Hocsinh as hocsinh where hocsinh.idHocSinh = " + idHocSinh);
-            hs = (Hocsinh) q.uniqueResult();
+            Query q = session.createQuery("from ChitietCauhinhHocsinh as q where q.ChitietCauhinhHocsinhId = " + idChitietCauhinhHocsinh);
+            hs = (ChitietCauhinhHocsinh) q.uniqueResult();
             tst.commit();
         } catch (Exception e) {
             if (tst != null) {
@@ -131,12 +124,12 @@ public class HocsinhDAL {
         return hs;
     }
 
-    public Hocsinh getByName(String name) {
-        Hocsinh hs = null;
+    public List<ChitietCauhinhHocsinh> getByCauhinh(Cauhinh ch) {
+         list=new ArrayList<>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Hocsinh as hs where hs.hoTen like '" + name + "'");
-            hs = (Hocsinh) q.uniqueResult();
+            Query q = session.createQuery("from ChitietCauhinhHocsinh as q where q.Cauhinh like '" + ch + "'");
+            list = (List<ChitietCauhinhHocsinh>)  q.list();
             tst.commit();
         } catch (Exception e) {
             if (tst != null) {
@@ -146,6 +139,24 @@ public class HocsinhDAL {
         } finally {
             session.close();
         }
-        return hs;
+        return list;
+    }
+
+    public List<ChitietCauhinhHocsinh> getByHocsinh(Hocsinh hs) {
+        list=new ArrayList<>();
+        try {
+            tst = session.beginTransaction();
+            Query q = session.createQuery("from ChitietCauhinhHocsinh as q where q.Hocsinh like '" + hs + "'");
+            list = (List<ChitietCauhinhHocsinh>) q.list();
+            tst.commit();
+        } catch (Exception e) {
+            if (tst != null) {
+                tst.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return list;
     }
 }

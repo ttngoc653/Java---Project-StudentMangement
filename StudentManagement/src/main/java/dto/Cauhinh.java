@@ -22,11 +22,11 @@ import javax.persistence.Table;
 )
 public class Cauhinh implements java.io.Serializable {
 
-    private Integer idCauHinh;
-    private String tenThuocTinh;
-    private String loaiThuocTinh;
-    private String giaTri;
-    private String tenDayDu;
+    private Integer idCauHinh=null;
+    private String tenThuocTinh="";
+    private String loaiThuocTinh="";
+    private String giaTri="";
+    private String tenDayDu="";
     private Set<ChitietCauhinhHocsinh> chitietCauhinhHocsinhs = new HashSet<ChitietCauhinhHocsinh>(0);
     private Set<ChitietCauhinhLop> chitietCauhinhLops = new HashSet<ChitietCauhinhLop>(0);
     private Set<ChitietCauhinhDiem> chitietCauhinhDiems = new HashSet<ChitietCauhinhDiem>(0);
