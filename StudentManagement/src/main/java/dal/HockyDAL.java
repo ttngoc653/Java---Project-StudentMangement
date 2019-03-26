@@ -5,11 +5,8 @@
  */
 package dal;
 
-import dto.ChitietCauhinhDiem;
-import dto.ChitietCauhinhDiemId;
-import dto.Cauhinh;
-import dto.Diem;
 import dto.HibernateUtil;
+import dto.Hocky;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Query;
@@ -20,13 +17,13 @@ import org.hibernate.Transaction;
  *
  * @author Jossion
  */
-public class ChitietCauhinhDiemDAL {
+public class HockyDAL {
 
     private Session session = null;
     private Transaction tst = null;
-    private List<ChitietCauhinhDiem> lHs;
+    private List<Hocky> list;
 
-    public ChitietCauhinhDiemDAL() {
+    public HockyDAL() {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
     }
 
@@ -39,11 +36,11 @@ public class ChitietCauhinhDiemDAL {
         }
     }
 
-    public Integer add(ChitietCauhinhDiem q) {
+    public Integer add(Hocky p) {
         int result = -1;
         try {
             tst = session.beginTransaction();
-            result = (Integer) session.save(q);
+            result = (Integer) session.save(p);
             tst.commit();
         } catch (Exception e) {
             if (tst != null) {
@@ -54,15 +51,13 @@ public class ChitietCauhinhDiemDAL {
         return result;
     }
 
-    public boolean update(ChitietCauhinhDiem q) {
+    public boolean update(Hocky p) {
         Boolean result = false;
         try {
             tst = session.beginTransaction();
-            ChitietCauhinhDiem n = (ChitietCauhinhDiem) session.get(ChitietCauhinhDiem.class, q.getId());
+            Hocky n = (Hocky) session.get(Hocky.class, p.getIdHocKy());
 
-            n.setApDung(q.getApDung() != null ? q.getApDung() : n.getApDung());
-            n.setCauhinh(q.getCauhinh() != null ? q.getCauhinh() : n.getCauhinh());
-            n.setDiem(q.getDiem() != null ? q.getDiem() : n.getDiem());
+            n.setTenHocKy(p.getTenHocKy() != -1 ? p.getTenHocKy() : n.getTenHocKy());
 
             session.update(n);
             tst.commit();
@@ -76,11 +71,11 @@ public class ChitietCauhinhDiemDAL {
         return result;
     }
 
-    public boolean delete(ChitietCauhinhDiemId idChitietCauhinhDiemId) {
+    public boolean delete(int id) {
         Boolean result = false;
         try {
             tst = session.beginTransaction();
-            ChitietCauhinhDiem n = (ChitietCauhinhDiem) session.get(ChitietCauhinhDiem.class, idChitietCauhinhDiemId);
+            Hocky n = (Hocky) session.get(Hocky.class, id);
             session.delete(n);
             tst.commit();
             result = true;
@@ -94,12 +89,12 @@ public class ChitietCauhinhDiemDAL {
     }
 
     @SuppressWarnings("unchecked")
-    public List<ChitietCauhinhDiem> getAll() {
-        lHs = new ArrayList<ChitietCauhinhDiem>();
+    public List<Hocky> getAll() {
+        list = new ArrayList<Hocky>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from ChitietCauhinhDiem");
-            lHs = (List<ChitietCauhinhDiem>) q.list();
+            Query q = session.createQuery("from Hocky");
+            list = (List<Hocky>) q.list();
             tst.commit();
         } catch (Exception e) {
             if (tst != null) {
@@ -107,15 +102,15 @@ public class ChitietCauhinhDiemDAL {
             }
             e.printStackTrace();
         }
-        return lHs;
+        return list;
     }
 
-    public ChitietCauhinhDiem getById(ChitietCauhinhDiemId idChitietCauhinhDiem) {
-        ChitietCauhinhDiem hs = null;
+    public Hocky getById(int id) {
+        Hocky n = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from ChitietCauhinhDiem as q where q.ChitietCauhinhDiemId = " + idChitietCauhinhDiem);
-            hs = (ChitietCauhinhDiem) q.uniqueResult();
+            Query q = session.createQuery("from Hocky as t where t.idHocKy = " + id);
+            n = (Hocky) q.uniqueResult();
             tst.commit();
         } catch (Exception e) {
             if (tst != null) {
@@ -123,15 +118,15 @@ public class ChitietCauhinhDiemDAL {
             }
             e.printStackTrace();
         }
-        return hs;
+        return n;
     }
 
-    public List<ChitietCauhinhDiem> getByCauHinh(Cauhinh ch) {
-        List<ChitietCauhinhDiem> pL = null;
+    public Hocky getByTenHocKy(int nameHocKy) {
+        Hocky n = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from ChitietCauhinhDiem as q where q.Cauhinh like '" + ch + "'");
-            pL = (List<ChitietCauhinhDiem>) q.list();
+            Query q = session.createQuery("from Hocky as t where t.tenHocKy = " + nameHocKy + "");
+            n = (Hocky) q.uniqueResult();
             tst.commit();
         } catch (Exception e) {
             if (tst != null) {
@@ -139,22 +134,6 @@ public class ChitietCauhinhDiemDAL {
             }
             e.printStackTrace();
         }
-        return pL;
-    }
-
-    public List<ChitietCauhinhDiem> getByDiem(Diem d) {
-        List<ChitietCauhinhDiem> pL = null;
-        try {
-            tst = session.beginTransaction();
-            Query q = session.createQuery("from ChitietCauhinhDiem as q where q.Diem like '" + d + "'");
-            pL = (List<ChitietCauhinhDiem>) q.list();
-            tst.commit();
-        } catch (Exception e) {
-            if (tst != null) {
-                tst.rollback();
-            }
-            e.printStackTrace();
-        }
-        return pL;
+        return n;
     }
 }

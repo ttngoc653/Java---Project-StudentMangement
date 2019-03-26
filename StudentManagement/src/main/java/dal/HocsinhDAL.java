@@ -19,12 +19,21 @@ import org.hibernate.Transaction;
  */
 public class HocsinhDAL {
 
-    Session session = null;
-    Transaction tst = null;
-    List<Hocsinh> lHs;
+    private Session session = null;
+    private Transaction tst = null;
+    private List<Hocsinh> lHs;
 
     public HocsinhDAL() {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        try {
+            session.clear();
+        } finally {
+            super.finalize();
+        }
     }
 
     public Integer add(Hocsinh hs) {
@@ -38,8 +47,6 @@ public class HocsinhDAL {
                 tst.rollback();
             }
             e.printStackTrace();
-        } finally {
-            session.close();
         }
         return result;
     }
@@ -69,8 +76,6 @@ public class HocsinhDAL {
                 tst.rollback();
             }
             e.printStackTrace();
-        } finally {
-            session.close();
         }
         return result;
     }
@@ -88,8 +93,6 @@ public class HocsinhDAL {
                 tst.rollback();
             }
             e.printStackTrace();
-        } finally {
-            session.close();
         }
         return result;
     }
@@ -107,8 +110,6 @@ public class HocsinhDAL {
                 tst.rollback();
             }
             e.printStackTrace();
-        } finally {
-            session.close();
         }
         return lHs;
     }
@@ -125,8 +126,6 @@ public class HocsinhDAL {
                 tst.rollback();
             }
             e.printStackTrace();
-        } finally {
-            session.close();
         }
         return hs;
     }
@@ -143,8 +142,6 @@ public class HocsinhDAL {
                 tst.rollback();
             }
             e.printStackTrace();
-        } finally {
-            session.close();
         }
         return hs;
     }

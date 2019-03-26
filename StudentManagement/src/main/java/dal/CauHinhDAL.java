@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 /**
@@ -19,12 +20,21 @@ import org.hibernate.Transaction;
  */
 public class CauHinhDAL {
 
-    Session session = null;
-    Transaction tst = null;
-    List<Cauhinh> lHs;
+    private Session session = null;
+    private Transaction tst = null;
+    private List<Cauhinh> lHs;
 
     public CauHinhDAL() {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        try {
+            session.clear();
+        } finally {
+            super.finalize();
+        }
     }
 
     public Integer add(Cauhinh ch) {
@@ -38,8 +48,6 @@ public class CauHinhDAL {
                 tst.rollback();
             }
             e.printStackTrace();
-        } finally {
-            session.close();
         }
         return result;
     }
@@ -53,11 +61,11 @@ public class CauHinhDAL {
             n.setChitietCauhinhDiems(ch.getChitietCauhinhDiems().size() > 0 ? ch.getChitietCauhinhDiems() : n.getChitietCauhinhDiems());
             n.setChitietCauhinhHocsinhs(ch.getChitietCauhinhHocsinhs().size() > 0 ? ch.getChitietCauhinhHocsinhs() : n.getChitietCauhinhHocsinhs());
             n.setChitietCauhinhLops(ch.getChitietCauhinhLops().size() > 0 ? ch.getChitietCauhinhLops() : n.getChitietCauhinhLops());
-            n.setGiaTri(ch.getGiaTri().length()>0?ch.getGiaTri():n.getGiaTri());
-            n.setLoaiThuocTinh(ch.getLoaiThuocTinh().length()>0?ch.getLoaiThuocTinh():n.getLoaiThuocTinh());
-            n.setTenDayDu(ch.getTenDayDu().length()>0?ch.getTenDayDu():n.getTenDayDu());
-            n.setTenThuocTinh(ch.getTenThuocTinh().length()>0?ch.getTenThuocTinh():n.getTenThuocTinh());
-            
+            n.setGiaTri(ch.getGiaTri().length() > 0 ? ch.getGiaTri() : n.getGiaTri());
+            n.setLoaiThuocTinh(ch.getLoaiThuocTinh().length() > 0 ? ch.getLoaiThuocTinh() : n.getLoaiThuocTinh());
+            n.setTenDayDu(ch.getTenDayDu().length() > 0 ? ch.getTenDayDu() : n.getTenDayDu());
+            n.setTenThuocTinh(ch.getTenThuocTinh().length() > 0 ? ch.getTenThuocTinh() : n.getTenThuocTinh());
+
             session.update(n);
             tst.commit();
             result = true;
@@ -66,8 +74,6 @@ public class CauHinhDAL {
                 tst.rollback();
             }
             e.printStackTrace();
-        } finally {
-            session.close();
         }
         return result;
     }
@@ -85,8 +91,6 @@ public class CauHinhDAL {
                 tst.rollback();
             }
             e.printStackTrace();
-        } finally {
-            session.close();
         }
         return result;
     }
@@ -104,8 +108,6 @@ public class CauHinhDAL {
                 tst.rollback();
             }
             e.printStackTrace();
-        } finally {
-            session.close();
         }
         return lHs;
     }
@@ -122,8 +124,6 @@ public class CauHinhDAL {
                 tst.rollback();
             }
             e.printStackTrace();
-        } finally {
-            session.close();
         }
         return hs;
     }
@@ -140,8 +140,6 @@ public class CauHinhDAL {
                 tst.rollback();
             }
             e.printStackTrace();
-        } finally {
-            session.close();
         }
         return hs;
     }
