@@ -24,7 +24,7 @@
     <property name="diem1tiet" type="java.lang.Double">
       <column name="1Tiet" precision="22" scale="0"/>
     </property>
-    <property name="cuoiKy" type="java.lang.Double">
+    <property name="diemCuoiKy" type="java.lang.Double">
       <column name="CuoiKy" precision="22" scale="0"/>
     </property>
     <set fetch="select" inverse="true" lazy="true" name="chitietCauhinhDiems" table="chitiet_cauhinh_diem">

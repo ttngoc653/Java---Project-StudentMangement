@@ -25,13 +25,13 @@ import javax.persistence.Table;
 )
 public class Diem implements java.io.Serializable {
 
-    private Integer idDiem;
-    private Hocky hocky;
-    private HocsinhLophoc hocsinhLophoc;
-    private Monhoc monhoc;
-    private Double diem15phut;
-    private Double diem1tiet;
-    private Double cuoiKy;
+    private Integer idDiem=null;
+    private Hocky hocky=null;
+    private HocsinhLophoc hocsinhLophoc=null;
+    private Monhoc monhoc=null;
+    private Double diem15phut=null;
+    private Double diem1tiet=null;
+    private Double diemCuoiKy=null;
     private Set<ChitietCauhinhDiem> chitietCauhinhDiems = new HashSet<ChitietCauhinhDiem>(0);
 
     public Diem() {
@@ -43,13 +43,13 @@ public class Diem implements java.io.Serializable {
         this.monhoc = monhoc;
     }
 
-    public Diem(Hocky hocky, HocsinhLophoc hocsinhLophoc, Monhoc monhoc, Double diem15phut, Double diem1tiet, Double cuoiKy, Set<ChitietCauhinhDiem> chitietCauhinhDiems) {
+    public Diem(Hocky hocky, HocsinhLophoc hocsinhLophoc, Monhoc monhoc, Double diem15phut, Double diem1tiet, Double diemCuoiKy, Set<ChitietCauhinhDiem> chitietCauhinhDiems) {
         this.hocky = hocky;
         this.hocsinhLophoc = hocsinhLophoc;
         this.monhoc = monhoc;
         this.diem15phut = diem15phut;
         this.diem1tiet = diem1tiet;
-        this.cuoiKy = cuoiKy;
+        this.diemCuoiKy = diemCuoiKy;
         this.chitietCauhinhDiems = chitietCauhinhDiems;
     }
 
@@ -99,30 +99,30 @@ public class Diem implements java.io.Serializable {
     }
 
     @Column(name = "15Phut", precision = 22, scale = 0)
-    public Double getdiem15phut() {
+    public Double getDiem15phut() {
         return this.diem15phut;
     }
 
-    public void setdiem15phut(Double diem15phut) {
+    public void setDiem15phut(Double diem15phut) {
         this.diem15phut = diem15phut;
     }
 
     @Column(name = "1Tiet", precision = 22, scale = 0)
-    public Double getdiem1tiet() {
+    public Double getDiem1tiet() {
         return this.diem1tiet;
     }
 
-    public void setdiem1tiet(Double diem1tiet) {
+    public void setDiem1tiet(Double diem1tiet) {
         this.diem1tiet = diem1tiet;
     }
 
     @Column(name = "CuoiKy", precision = 22, scale = 0)
-    public Double getCuoiKy() {
-        return this.cuoiKy;
+    public Double getDiemCuoiKy() {
+        return this.diemCuoiKy;
     }
 
-    public void setCuoiKy(Double cuoiKy) {
-        this.cuoiKy = cuoiKy;
+    public void setDiemCuoiKy(Double diemCuoiKy) {
+        this.diemCuoiKy = diemCuoiKy;
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "diem")

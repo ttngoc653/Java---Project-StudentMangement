@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -191,6 +192,10 @@ public class Hocsinh implements java.io.Serializable {
 
     public void setChitietCauhinhHocsinhl(List<ChitietCauhinhHocsinh> chitietCauhinhHocsinhl) {
         this.chitietCauhinhHocsinhs = new HashSet<ChitietCauhinhHocsinh>(chitietCauhinhHocsinhl);
+    }
+
+    public boolean equals(Hocsinh obj) {
+        return Objects.equals(obj.idHocSinh, this.idHocSinh) || this.hoTen.equals(obj.hoTen);
     }
 
 }

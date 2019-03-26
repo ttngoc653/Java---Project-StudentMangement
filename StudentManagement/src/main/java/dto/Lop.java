@@ -4,6 +4,7 @@ package dto;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -118,6 +119,10 @@ public class Lop implements java.io.Serializable {
 
     public void setChitietCauhinhLopl(List<ChitietCauhinhLop> chitietCauhinhLopl) {
         this.chitietCauhinhLops = new HashSet<ChitietCauhinhLop>(chitietCauhinhLopl);
+    }
+
+    public boolean equals(Lop obj) {
+        return Objects.equals(obj.idLop, this.idLop) || obj.tenLop.equals(this.tenLop);
     }
 
 }

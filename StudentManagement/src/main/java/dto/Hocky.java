@@ -4,6 +4,7 @@ package dto;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -76,6 +77,10 @@ public class Hocky implements java.io.Serializable {
 
     public void setDieml(List<Diem> dieml) {
         this.diems = new HashSet<Diem>(dieml);
+    }
+
+    public boolean equals(Hocky obj) {
+        return Objects.equals(obj.idHocKy, this.idHocKy) ||obj.tenHocKy==this.tenHocKy;
     }
 
 }

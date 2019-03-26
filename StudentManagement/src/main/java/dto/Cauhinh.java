@@ -4,6 +4,7 @@ package dto;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,11 +23,11 @@ import javax.persistence.Table;
 )
 public class Cauhinh implements java.io.Serializable {
 
-    private Integer idCauHinh=null;
-    private String tenThuocTinh="";
-    private String loaiThuocTinh="";
-    private String giaTri="";
-    private String tenDayDu="";
+    private Integer idCauHinh = null;
+    private String tenThuocTinh = "";
+    private String loaiThuocTinh = "";
+    private String giaTri = "";
+    private String tenDayDu = "";
     private Set<ChitietCauhinhHocsinh> chitietCauhinhHocsinhs = new HashSet<ChitietCauhinhHocsinh>(0);
     private Set<ChitietCauhinhLop> chitietCauhinhLops = new HashSet<ChitietCauhinhLop>(0);
     private Set<ChitietCauhinhDiem> chitietCauhinhDiems = new HashSet<ChitietCauhinhDiem>(0);
@@ -150,4 +151,9 @@ public class Cauhinh implements java.io.Serializable {
     public void setChitietCauhinhDieml(List<ChitietCauhinhDiem> chitietCauhinhDieml) {
         this.chitietCauhinhDiems = new HashSet<ChitietCauhinhDiem>(chitietCauhinhDieml);
     }
+
+    public boolean equals(Cauhinh obj) {
+        return Objects.equals(obj.idCauHinh, this.idCauHinh) || obj.tenDayDu.equals(this.getTenDayDu());
+    }
+
 }

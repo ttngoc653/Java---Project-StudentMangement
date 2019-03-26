@@ -4,6 +4,7 @@ package dto;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -96,6 +97,10 @@ public class Namhoc implements java.io.Serializable {
 
     public void setChitietCauhinhLopl(List<ChitietCauhinhLop> chitietCauhinhLopl) {
         this.chitietCauhinhLops = new HashSet<ChitietCauhinhLop>(chitietCauhinhLopl);
+    }
+
+    public boolean equals(Namhoc obj) {
+        return Objects.equals(obj.idNamHoc, this.idNamHoc) || obj.tenNamHoc.equals(this.tenNamHoc);
     }
 
 }
