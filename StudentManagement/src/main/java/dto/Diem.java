@@ -4,6 +4,7 @@ package dto;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,13 +26,13 @@ import javax.persistence.Table;
 )
 public class Diem implements java.io.Serializable {
 
-    private Integer idDiem=null;
-    private Hocky hocky=null;
-    private HocsinhLophoc hocsinhLophoc=null;
-    private Monhoc monhoc=null;
-    private Double diem15phut=null;
-    private Double diem1tiet=null;
-    private Double diemCuoiKy=null;
+    private Integer idDiem = null;
+    private Hocky hocky = null;
+    private HocsinhLophoc hocsinhLophoc = null;
+    private Monhoc monhoc = null;
+    private Double diem15phut = null;
+    private Double diem1tiet = null;
+    private Double diemCuoiKy = null;
     private Set<ChitietCauhinhDiem> chitietCauhinhDiems = new HashSet<ChitietCauhinhDiem>(0);
 
     public Diem() {
@@ -142,4 +143,10 @@ public class Diem implements java.io.Serializable {
     public void setChitietCauhinhDieml(List<ChitietCauhinhDiem> chitietCauhinhDieml) {
         this.chitietCauhinhDiems = new HashSet<ChitietCauhinhDiem>(chitietCauhinhDieml);
     }
+
+    // so sanh theo Id
+    public boolean equals(Diem obj) {
+        return Objects.equals(obj.idDiem, this.idDiem);
+    }
+
 }

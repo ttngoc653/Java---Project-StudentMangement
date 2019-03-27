@@ -111,8 +111,7 @@ public class ChitietCauhinhHocsinhDAL {
         ChitietCauhinhHocsinh hs = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from ChitietCauhinhHocsinh as q where q.ChitietCauhinhHocsinhId = " + idChitietCauhinhHocsinh);
-            hs = (ChitietCauhinhHocsinh) q.uniqueResult();
+            hs = (ChitietCauhinhHocsinh) session.get(ChitietCauhinhHocsinh.class, idChitietCauhinhHocsinh);
             tst.commit();
         } catch (Exception e) {
             if (tst != null) {
@@ -124,33 +123,23 @@ public class ChitietCauhinhHocsinhDAL {
     }
 
     public List<ChitietCauhinhHocsinh> getByCauhinh(Cauhinh ch) {
-        list = new ArrayList<>();
-        try {
-            tst = session.beginTransaction();
-            Query q = session.createQuery("from ChitietCauhinhHocsinh as q where q.Cauhinh like '" + ch + "'");
-            list = (List<ChitietCauhinhHocsinh>) q.list();
-            tst.commit();
-        } catch (Exception e) {
-            if (tst != null) {
-                tst.rollback();
+        list = getAll();
+        for (int i = 0; i < list.size(); i++) {
+            if (!list.get(i).getCauhinh().equals(ch)) {
+                list.get(i);
+                i--;
             }
-            e.printStackTrace();
         }
         return list;
     }
 
     public List<ChitietCauhinhHocsinh> getByHocsinh(Hocsinh hs) {
-        list = new ArrayList<>();
-        try {
-            tst = session.beginTransaction();
-            Query q = session.createQuery("from ChitietCauhinhHocsinh as q where q.Hocsinh like '" + hs + "'");
-            list = (List<ChitietCauhinhHocsinh>) q.list();
-            tst.commit();
-        } catch (Exception e) {
-            if (tst != null) {
-                tst.rollback();
+        list = getAll();
+        for (int i = 0; i < list.size(); i++) {
+            if (!list.get(i).getHocsinh().equals(hs)) {
+                list.remove(i);
+                i--;
             }
-            e.printStackTrace();
         }
         return list;
     }

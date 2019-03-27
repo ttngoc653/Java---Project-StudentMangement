@@ -6,7 +6,7 @@
 package dal;
 
 import dto.HibernateUtil;
-import dto.Hocky;
+import dto.Lop;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Query;
@@ -17,13 +17,13 @@ import org.hibernate.Transaction;
  *
  * @author Jossion
  */
-public class HockyDAL {
+public class LopDAL {
 
     private Session session = null;
     private Transaction tst = null;
-    private List<Hocky> list;
+    private List<Lop> list;
 
-    public HockyDAL() {
+    public LopDAL() {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
     }
 
@@ -36,7 +36,7 @@ public class HockyDAL {
         }
     }
 
-    public Integer add(Hocky p) {
+    public Integer add(Lop p) {
         int result = -1;
         try {
             tst = session.beginTransaction();
@@ -51,13 +51,15 @@ public class HockyDAL {
         return result;
     }
 
-    public boolean update(Hocky p) {
+    public boolean update(Lop p) {
         Boolean result = false;
         try {
             tst = session.beginTransaction();
-            Hocky n = (Hocky) session.get(Hocky.class, p.getIdHocKy());
+            Lop n = (Lop) session.get(Lop.class, p.getIdLop());
 
-            n.setTenHocKy(p.getTenHocKy() != -1 ? p.getTenHocKy() : n.getTenHocKy());
+            n.setKhoi(p.getKhoi() > -1 ? p.getKhoi() : n.getKhoi());
+            n.setTenLop(p.getTenLop().length() > 0 ? p.getTenLop() : n.getTenLop());
+            n.setTinhTrang(p.getTinhTrang() != null ? p.getTinhTrang() : n.getTinhTrang());
 
             session.update(n);
             tst.commit();
@@ -75,7 +77,7 @@ public class HockyDAL {
         Boolean result = false;
         try {
             tst = session.beginTransaction();
-            Hocky n = (Hocky) session.get(Hocky.class, id);
+            Lop n = (Lop) session.get(Lop.class, id);
             session.delete(n);
             tst.commit();
             result = true;
@@ -89,12 +91,12 @@ public class HockyDAL {
     }
 
     @SuppressWarnings("unchecked")
-    public List<Hocky> getAll() {
-        list = new ArrayList<Hocky>();
+    public List<Lop> getAll() {
+        list = new ArrayList<Lop>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Hocky");
-            list = (List<Hocky>) q.list();
+            Query q = session.createQuery("from Lop");
+            list = (List<Lop>) q.list();
             tst.commit();
         } catch (Exception e) {
             if (tst != null) {
@@ -105,12 +107,11 @@ public class HockyDAL {
         return list;
     }
 
-    public Hocky getById(int id) {
-        Hocky n = null;
+    public Lop getById(int id) {
+        Lop n = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Hocky as t where t.idHocKy = " + id);
-            n = (Hocky) q.uniqueResult();
+            n = (Lop) session.get(Lop.class, id);
             tst.commit();
         } catch (Exception e) {
             if (tst != null) {
@@ -121,12 +122,12 @@ public class HockyDAL {
         return n;
     }
 
-    public Hocky getByTen(int soHocKy) {
-        Hocky n = null;
+    public Lop getByTen(String name) {
+        Lop n = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Hocky as t where t.tenHocKy = " + soHocKy);
-            n = (Hocky) q.uniqueResult();
+            Query q = session.createQuery("from Lop as t where t.tenLop = '" + name + "'");
+            n = (Lop) q.uniqueResult();
             tst.commit();
         } catch (Exception e) {
             if (tst != null) {
@@ -135,5 +136,37 @@ public class HockyDAL {
             e.printStackTrace();
         }
         return n;
+    }
+
+    public List<Lop> getByKhoi(int khoi) {
+        list = new ArrayList<>();
+        try {
+            tst = session.beginTransaction();
+            Query q = session.createQuery("from Lop as t where t.khoi = '" + khoi + "'");
+            list = q.list();
+            tst.commit();
+        } catch (Exception e) {
+            if (tst != null) {
+                tst.rollback();
+            }
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public List<Lop> getByTinhTrang(Byte tinhTrang) {
+        list = new ArrayList<>();
+        try {
+            tst = session.beginTransaction();
+            Query q = session.createQuery("from Lop as t where t.tinhTrangi = '" + tinhTrang + "'");
+            list = q.list();
+            tst.commit();
+        } catch (Exception e) {
+            if (tst != null) {
+                tst.rollback();
+            }
+            e.printStackTrace();
+        }
+        return list;
     }
 }

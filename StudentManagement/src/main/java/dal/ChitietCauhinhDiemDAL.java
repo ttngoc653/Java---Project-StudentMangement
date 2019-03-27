@@ -24,7 +24,7 @@ public class ChitietCauhinhDiemDAL {
 
     private Session session = null;
     private Transaction tst = null;
-    private List<ChitietCauhinhDiem> lHs;
+    private List<ChitietCauhinhDiem> list;
 
     public ChitietCauhinhDiemDAL() {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -95,11 +95,11 @@ public class ChitietCauhinhDiemDAL {
 
     @SuppressWarnings("unchecked")
     public List<ChitietCauhinhDiem> getAll() {
-        lHs = new ArrayList<ChitietCauhinhDiem>();
+        list = new ArrayList<ChitietCauhinhDiem>();
         try {
             tst = session.beginTransaction();
             Query q = session.createQuery("from ChitietCauhinhDiem");
-            lHs = (List<ChitietCauhinhDiem>) q.list();
+            list = (List<ChitietCauhinhDiem>) q.list();
             tst.commit();
         } catch (Exception e) {
             if (tst != null) {
@@ -107,15 +107,14 @@ public class ChitietCauhinhDiemDAL {
             }
             e.printStackTrace();
         }
-        return lHs;
+        return list;
     }
 
     public ChitietCauhinhDiem getById(ChitietCauhinhDiemId idChitietCauhinhDiem) {
         ChitietCauhinhDiem hs = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from ChitietCauhinhDiem as q where q.ChitietCauhinhDiemId = " + idChitietCauhinhDiem);
-            hs = (ChitietCauhinhDiem) q.uniqueResult();
+            hs = (ChitietCauhinhDiem) session.get(ChitietCauhinhDiem.class, idChitietCauhinhDiem);
             tst.commit();
         } catch (Exception e) {
             if (tst != null) {
@@ -127,34 +126,24 @@ public class ChitietCauhinhDiemDAL {
     }
 
     public List<ChitietCauhinhDiem> getByCauHinh(Cauhinh ch) {
-        List<ChitietCauhinhDiem> pL = null;
-        try {
-            tst = session.beginTransaction();
-            Query q = session.createQuery("from ChitietCauhinhDiem as q where q.Cauhinh like '" + ch + "'");
-            pL = (List<ChitietCauhinhDiem>) q.list();
-            tst.commit();
-        } catch (Exception e) {
-            if (tst != null) {
-                tst.rollback();
+        list = getAll();
+        for (int i = 0; i < list.size(); i++) {
+            if (!list.get(i).getCauhinh().equals(ch)) {
+                list.get(i);
+                i--;
             }
-            e.printStackTrace();
         }
-        return pL;
+        return list;
     }
 
     public List<ChitietCauhinhDiem> getByDiem(Diem d) {
-        List<ChitietCauhinhDiem> pL = null;
-        try {
-            tst = session.beginTransaction();
-            Query q = session.createQuery("from ChitietCauhinhDiem as q where q.Diem like '" + d + "'");
-            pL = (List<ChitietCauhinhDiem>) q.list();
-            tst.commit();
-        } catch (Exception e) {
-            if (tst != null) {
-                tst.rollback();
+        list = getAll();
+        for (int i = 0; i < list.size(); i++) {
+            if (!list.get(i).getDiem().equals(d)) {
+                list.get(i);
+                i--;
             }
-            e.printStackTrace();
         }
-        return pL;
+        return list;
     }
 }

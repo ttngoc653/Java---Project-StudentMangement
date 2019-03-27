@@ -6,7 +6,7 @@
 package dal;
 
 import dto.HibernateUtil;
-import dto.Hocky;
+import dto.Namhoc;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Query;
@@ -17,13 +17,13 @@ import org.hibernate.Transaction;
  *
  * @author Jossion
  */
-public class HockyDAL {
-
+public class NamhocDAL {
+    
     private Session session = null;
     private Transaction tst = null;
-    private List<Hocky> list;
+    private List<Namhoc> list;
 
-    public HockyDAL() {
+    public NamhocDAL() {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
     }
 
@@ -36,7 +36,7 @@ public class HockyDAL {
         }
     }
 
-    public Integer add(Hocky p) {
+    public Integer add(Namhoc p) {
         int result = -1;
         try {
             tst = session.beginTransaction();
@@ -51,14 +51,14 @@ public class HockyDAL {
         return result;
     }
 
-    public boolean update(Hocky p) {
+    public boolean update(Namhoc p) {
         Boolean result = false;
         try {
             tst = session.beginTransaction();
-            Hocky n = (Hocky) session.get(Hocky.class, p.getIdHocKy());
+            Namhoc n = (Namhoc) session.get(Namhoc.class, p.getIdNamHoc());
 
-            n.setTenHocKy(p.getTenHocKy() != -1 ? p.getTenHocKy() : n.getTenHocKy());
-
+            n.setTenNamHoc(p.getTenNamHoc().length()>0 ? p.getTenNamHoc(): n.getTenNamHoc());
+            
             session.update(n);
             tst.commit();
             result = true;
@@ -75,7 +75,7 @@ public class HockyDAL {
         Boolean result = false;
         try {
             tst = session.beginTransaction();
-            Hocky n = (Hocky) session.get(Hocky.class, id);
+            Namhoc n = (Namhoc) session.get(Namhoc.class, id);
             session.delete(n);
             tst.commit();
             result = true;
@@ -89,12 +89,12 @@ public class HockyDAL {
     }
 
     @SuppressWarnings("unchecked")
-    public List<Hocky> getAll() {
-        list = new ArrayList<Hocky>();
+    public List<Namhoc> getAll() {
+        list = new ArrayList<Namhoc>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Hocky");
-            list = (List<Hocky>) q.list();
+            Query q = session.createQuery("from Namhoc");
+            list = (List<Namhoc>) q.list();
             tst.commit();
         } catch (Exception e) {
             if (tst != null) {
@@ -105,12 +105,12 @@ public class HockyDAL {
         return list;
     }
 
-    public Hocky getById(int id) {
-        Hocky n = null;
+    public Namhoc getById(int id) {
+        Namhoc n = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Hocky as t where t.idHocKy = " + id);
-            n = (Hocky) q.uniqueResult();
+            Query q = session.createQuery("from Namhoc as t where t.idNamhoc = " + id);
+            n = (Namhoc) q.uniqueResult();
             tst.commit();
         } catch (Exception e) {
             if (tst != null) {
@@ -121,12 +121,12 @@ public class HockyDAL {
         return n;
     }
 
-    public Hocky getByTen(int soHocKy) {
-        Hocky n = null;
+    public Namhoc getByTen(String ten) {
+        Namhoc n = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Hocky as t where t.tenHocKy = " + soHocKy);
-            n = (Hocky) q.uniqueResult();
+            Query q = session.createQuery("from Namhoc as t where t.tenNamHoc = '" + ten + "'");
+            n = (Namhoc) q.uniqueResult();
             tst.commit();
         } catch (Exception e) {
             if (tst != null) {
