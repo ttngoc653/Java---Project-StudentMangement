@@ -18,7 +18,7 @@ import org.hibernate.Transaction;
  * @author Jossion
  */
 public class MonhocDAL {
-    
+
     private Session session = null;
     private Transaction tst = null;
     private List<Monhoc> list;
@@ -57,7 +57,7 @@ public class MonhocDAL {
             tst = session.beginTransaction();
             Monhoc n = (Monhoc) session.get(Monhoc.class, p.getIdMonHoc());
 
-            n.setTenMh(p.getTenMh().length()>0 ? p.getTenMh() : n.getTenMh());
+            n.setTenMh(p.getTenMh().length() > 0 ? p.getTenMh() : n.getTenMh());
 
             session.update(n);
             tst.commit();
