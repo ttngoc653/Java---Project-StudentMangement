@@ -15,12 +15,12 @@ import javax.swing.JOptionPane;
  *
  * @author tuhuy
  */
-public class LoginFrame extends javax.swing.JFrame {
+public class LoginJFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form LoginFrame
      */
-    public LoginFrame() {
+    public LoginJFrame() {
         initComponents();
     }
 
@@ -84,9 +84,9 @@ public class LoginFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnDangNhap)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -101,13 +101,17 @@ public class LoginFrame extends javax.swing.JFrame {
         if(!Ten.equals("") && !MatKhau.equals("")){
             try {
                 if(user.LogIn(Ten, MatKhau) != null){
-                    JOptionPane.showMessageDialog(null, "Đăng nhập thành công");
+                    //JOptionPane.showMessageDialog(null, "Đăng nhập thành công");
+                    ManageMainJFrame f = new ManageMainJFrame();
+                    f.setLocationRelativeTo(null);
+                    f.setVisible(true);
+                    this.setVisible(false);
                 }
                 else{
                     JOptionPane.showMessageDialog(null, "Đăng nhập thất bại");
                 }
             } catch (NoSuchAlgorithmException ex) {
-                Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(LoginJFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         else{
@@ -132,20 +136,25 @@ public class LoginFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LoginFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LoginFrame().setVisible(true);
+                //new LoginJFrame().setVisible(true);
+                LoginJFrame f = new LoginJFrame();
+                f.setVisible(true);
+                f.setLocationRelativeTo(null);
+                f.setResizable(false);
             }
         });
     }
