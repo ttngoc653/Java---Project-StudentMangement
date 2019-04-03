@@ -5,17 +5,43 @@
  */
 package gui;
 
+import dal.HocsinhDAL;
+import dto.Hocsinh;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+
 /**
  *
  * @author tuhuy
  */
 public class ManageStudentJFrame extends javax.swing.JFrame {
-
+    HocsinhDAL hsDao = new HocsinhDAL();
     /**
      * Creates new form ManageStudentJFrame
      */
     public ManageStudentJFrame() {
         initComponents();
+        LoadData();
+    }
+    
+    public void LoadData(){
+        DefaultTableModel dtm = new DefaultTableModel();
+        dtm.addColumn("MSHS");
+        dtm.addColumn("Họ tên");
+        dtm.addColumn("Ngày sinh");
+        dtm.addColumn("Email");
+        dtm.addColumn("Giới tính");
+        dtm.addColumn("Địa chỉ");
+        dtm.addColumn("SĐT cá nhân");
+        dtm.addColumn("SĐT giám hộ");
+        dtm.addColumn("Tình trạng");
+        
+        for(Hocsinh hs : this.hsDao.getAll()){
+            dtm.addRow(new Object[] {hs.getIdHocSinh(), hs.getHoTen(), hs.getNgaySinh(), hs.getEmail(),
+                                     hs.getGioiTinh(), hs.getDiaChi(), hs.getSdtCaNhan(), hs.getSdtGiamHo(),
+                                     hs.getTinhTrang()});
+        }
+        this.jTableHocSinh.setModel(dtm);
     }
 
     /**
@@ -29,7 +55,7 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableHocSinh = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -40,18 +66,20 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         jLabel1.setText("Quản lý học sinh");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableHocSinh.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "MSHS", "Họ tên", "Ngày sinh", "Email", "Giới tính", "Địa chỉ", "SĐT cá nhân", "SĐT giám hộ", "Tình trạng"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jTableHocSinh.setFillsViewportHeight(true);
+        jTableHocSinh.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(jTableHocSinh);
 
         jButton1.setText("Thêm");
 
@@ -66,27 +94,29 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(128, 128, 128)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3)))
-                .addContainerGap(15, Short.MAX_VALUE))
+                        .addComponent(jButton3)
+                        .addGap(0, 462, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1)))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(236, 236, 236)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(6, 6, 6)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
@@ -131,7 +161,7 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
                 //new ManageStudentJFrame().setVisible(true);
                 ManageStudentJFrame f = new ManageStudentJFrame();
                 f.setVisible(true);
-                f.setResizable(false);
+                //f.setResizable(false);
             }
         });
     }
@@ -142,6 +172,6 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableHocSinh;
     // End of variables declaration//GEN-END:variables
 }
