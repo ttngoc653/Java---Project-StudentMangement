@@ -50,6 +50,7 @@ public class ManageMainJFrame extends javax.swing.JFrame {
         btnTaiKhoan = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         lblTenTaiKhoan = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         jInternalFrame1.setVisible(true);
 
@@ -115,6 +116,11 @@ public class ManageMainJFrame extends javax.swing.JFrame {
 
         lblTenTaiKhoan.setText("jLabel2");
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jLabel2.setText("Danh sách học sinh");
+        jLabel2.setVerticalAlignment(jLabel1.CENTER);
+        jLabel1.setHorizontalAlignment(jLabel1.CENTER);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -144,6 +150,11 @@ public class ManageMainJFrame extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(lblTenTaiKhoan)
                 .addGap(19, 19, 19))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -163,6 +174,11 @@ public class ManageMainJFrame extends javax.swing.JFrame {
                     .addComponent(btnCauHinh, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnTaiKhoan, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(55, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(115, 115, 115)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addGap(116, 116, 116)))
         );
 
         pack();
@@ -170,9 +186,11 @@ public class ManageMainJFrame extends javax.swing.JFrame {
 
     private void btnHocSinhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHocSinhActionPerformed
         // TODO add your handling code here:
-        ManageStudentJFrame f = new ManageStudentJFrame();
+       // ManageStudentJFrame f = new ManageStudentJFrame();
+       ManageStudentJFrame f = new ManageStudentJFrame();
         f.setLocationRelativeTo(null);
         f.setVisible(true);
+        f.setResizable(false);
         this.setVisible(false);
     }//GEN-LAST:event_btnHocSinhActionPerformed
 
@@ -215,8 +233,9 @@ public class ManageMainJFrame extends javax.swing.JFrame {
             public void run() {
                 //new ManageMainJFrame().setVisible(true);
                 ManageMainJFrame f = new ManageMainJFrame();
+                f.setLocationRelativeTo(null);
                 f.setVisible(true);
-                f.setResizable(false);
+                f.setResizable(false);               
             }
         });
     }
@@ -231,6 +250,7 @@ public class ManageMainJFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
