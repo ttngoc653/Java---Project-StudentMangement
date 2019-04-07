@@ -11,7 +11,7 @@
       <column length="45" name="HoTen" not-null="true"/>
     </property>
     <property name="tenTaiKhoan" type="string">
-      <column length="45" name="TenTaiKhoan" not-null="true"/>
+      <column length="45" name="TenTaiKhoan" unique="true"  not-null="true"/>
     </property>
     <property name="matKhau" type="string">
       <column length="45" name="MatKhau" not-null="true"/>
