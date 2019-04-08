@@ -5,6 +5,11 @@
  */
 package gui;
 
+import java.io.UnsupportedEncodingException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Jossion
@@ -15,7 +20,7 @@ public class ForgotPasswordJFrame extends javax.swing.JFrame {
      * Creates new form ForgotPasswordJFrame
      */
     public ForgotPasswordJFrame() {
-        initComponents();
+        initComponents(true);
     }
 
     /**
@@ -27,21 +32,127 @@ public class ForgotPasswordJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jSplitPane1 = new javax.swing.JSplitPane();
+        panelStart = new javax.swing.JPanel();
+        label1 = new java.awt.Label();
+        label2 = new java.awt.Label();
+        label3 = new java.awt.Label();
+        textField1 = new java.awt.TextField();
+        textField2 = new java.awt.TextField();
+        textField3 = new java.awt.TextField();
+
+        jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+        jSplitPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
+
+        panelStart.setBackground(new java.awt.Color(255, 255, 0));
+        panelStart.setName("panelStart"); // NOI18N
+        panelStart.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panelStartMouseClicked(evt);
+            }
+        });
+
+        label1.setAlignment(java.awt.Label.RIGHT);
+        label1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        label1.setText("Tên đăng nhập: ");
+
+        label2.setAlignment(java.awt.Label.RIGHT);
+        label2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        label2.setText("Email: ");
+
+        label3.setAlignment(java.awt.Label.RIGHT);
+        label3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        label3.setText("Số điện thoại: ");
+
+        textField1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        textField1.setText("textField1");
+
+        textField2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        textField2.setText("textField2");
+
+        textField3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        textField3.setText("textField3");
+
+        javax.swing.GroupLayout panelStartLayout = new javax.swing.GroupLayout(panelStart);
+        panelStart.setLayout(panelStartLayout);
+        panelStartLayout.setHorizontalGroup(
+            panelStartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelStartLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelStartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(label2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelStartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(textField2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(textField1, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+                    .addComponent(textField3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelStartLayout.setVerticalGroup(
+            panelStartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelStartLayout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addGroup(panelStartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panelStartLayout.createSequentialGroup()
+                        .addGroup(panelStartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(textField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(label1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelStartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(244, Short.MAX_VALUE))
+        );
+
+        label2.getAccessibleContext().setAccessibleName("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(panelStart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelStart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        JOptionPane.showMessageDialog(rootPane, "Trần Thế Ngọc");
+        panelStart.setVisible(false);
+    }//GEN-LAST:event_formWindowOpened
+
+    private void panelStartMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelStartMouseClicked
+        // TODO add your handling code here:
+        panelStart.setVisible(false);
+    }//GEN-LAST:event_panelStartMouseClicked
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        // TODO add your handling code here:
+        panelStart.setVisible(true);
+    }//GEN-LAST:event_formMouseClicked
 
     /**
      * @param args the command line arguments
@@ -79,5 +190,17 @@ public class ForgotPasswordJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JSplitPane jSplitPane1;
+    private java.awt.Label label1;
+    private java.awt.Label label2;
+    private java.awt.Label label3;
+    private javax.swing.JPanel panelStart;
+    private java.awt.TextField textField1;
+    private java.awt.TextField textField2;
+    private java.awt.TextField textField3;
     // End of variables declaration//GEN-END:variables
+
+    private void initComponents(boolean b) {
+        initComponents();
+    }
 }

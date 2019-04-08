@@ -25,3 +25,6 @@ hs_err_pid*
 /StudentManagement/build/
 StudentManagement/target/test-classes/.netbeans_automatic_build
 StudentManagement/target/classes/.netbeans_automatic_build
+StudentManagement/target/surefire-reports/TEST-com.studentmanagement.AppTest.xml
+StudentManagement/target/surefire-reports/TEST-com.studentmanagement.AppTest.xml
+StudentManagement/target/surefire-reports/com.studentmanagement.AppTest.txt
