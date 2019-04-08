@@ -50,6 +50,18 @@ public class HocsinhDAL {
         }
         return result;
     }
+    
+        public boolean SaveOrUpdate(Hocsinh hs) {
+        try {
+            tst = session.beginTransaction();
+            session.saveOrUpdate(hs);
+            tst.commit();
+            return true;
+        } catch (Exception e) {
+            tst.rollback();
+            return false;
+        }
+    }
 
     public boolean update(Hocsinh hs) {
         Boolean result = false;

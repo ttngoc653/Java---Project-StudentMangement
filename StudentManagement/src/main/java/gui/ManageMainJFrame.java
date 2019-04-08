@@ -5,6 +5,9 @@
  */
 package gui;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 /**
  *
  * @author tuhuy
@@ -170,8 +173,10 @@ public class ManageMainJFrame extends javax.swing.JFrame {
 
     private void btnHocSinhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHocSinhActionPerformed
         // TODO add your handling code here:
-       // ManageStudentJFrame f = new ManageStudentJFrame();
-       ManageStudentJFrame f = new ManageStudentJFrame();
+        // ManageStudentJFrame f = new ManageStudentJFrame();
+        ManageStudentJFrame f = new ManageStudentJFrame();
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        f.setSize(screenSize.width, 500);
         f.setLocationRelativeTo(null);
         f.setVisible(true);
         f.setResizable(false);
