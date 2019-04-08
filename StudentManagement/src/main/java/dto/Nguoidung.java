@@ -55,7 +55,7 @@ public class Nguoidung implements java.io.Serializable {
         this.hoTen = hoTen;
     }
 
-    @Column(name = "TenTaiKhoan", nullable = false, length = 45)
+    @Column(name = "TenTaiKhoan", unique = true, nullable = false, length = 45)
     public String getTenTaiKhoan() {
         return this.tenTaiKhoan;
     }

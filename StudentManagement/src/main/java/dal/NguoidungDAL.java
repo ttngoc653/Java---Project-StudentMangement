@@ -280,4 +280,21 @@ public class NguoidungDAL {
         }
         return list;
     }
+
+    public Object getByTenDangNhap(String ten) {
+        
+        Nguoidung n = null;
+        try {
+            tst = session.beginTransaction();
+            Query q = session.createQuery("from Nguoidung as t where t.tenTaiKhoan = '" + ten + "'");
+            n = (Nguoidung) q.uniqueResult();
+            tst.commit();
+        } catch (Exception e) {
+            if (tst != null) {
+                tst.rollback();
+            }
+            e.printStackTrace();
+        }
+        return n;
+    }
 }
