@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 /**
@@ -23,6 +24,8 @@ public class LopDAL {
     private Transaction tst = null;
     private List<Lop> list;
 
+    private final SessionFactory sf = HibernateUtil.getSessionFactory();
+    
     public LopDAL() {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
     }
@@ -36,20 +39,44 @@ public class LopDAL {
         }
     }
 
-    public Integer add(Lop p) {
-        int result = -1;
+//    public Integer add(Lop p) {
+//        int result = -1;
+//        try {
+//            tst = session.beginTransaction();
+//            result = (Integer) session.save(p);
+//            tst.commit();
+//        } catch (Exception e) {
+//            if (tst != null) {
+//                tst.rollback();
+//            }
+//            e.printStackTrace();
+//        }
+//        return result;
+//    }
+    
+//    public boolean SaveOrUpdate(Lop p) {
+//        try {
+//            tst = session.beginTransaction();
+//            session.saveOrUpdate(p);
+//            tst.commit();
+//            return true;
+//        } catch (Exception e) {
+//            tst.rollback();
+//            return false;
+//        }
+//    }    
+        
+    public boolean add(Lop p) {
         try {
-            tst = session.beginTransaction();
-            result = (Integer) session.save(p);
-            tst.commit();
+            sf.getCurrentSession().beginTransaction();
+            sf.getCurrentSession().save(p);
+            sf.getCurrentSession().getTransaction().commit();
+            return true;
         } catch (Exception e) {
-            if (tst != null) {
-                tst.rollback();
-            }
-            e.printStackTrace();
+            sf.getCurrentSession().getTransaction().rollback();
+            return false;
         }
-        return result;
-    }
+    } 
 
     public boolean update(Lop p) {
         Boolean result = false;
