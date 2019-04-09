@@ -1,5 +1,5 @@
 package dto;
-// Generated Mar 24, 2019 2:56:57 AM by Hibernate Tools 4.3.1
+// Generated Apr 9, 2019 7:50:29 PM by Hibernate Tools 4.3.1
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -24,16 +24,16 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "hocsinh_lophoc", catalog = "quanlyhocsinh", uniqueConstraints = @UniqueConstraint(columnNames = {"idHocSinh", "idNamHoc"})
 )
 public class HocsinhLophoc implements java.io.Serializable {
-    
+
     private HocsinhLophocId id = null;
     private Hocsinh hocsinh = null;
     private Lop lop = null;
     private Namhoc namhoc = null;
     private Set<Diem> diems = new HashSet<Diem>(0);
-    
+
     public HocsinhLophoc() {
     }
-    
+
     public HocsinhLophoc(HocsinhLophocId id) {
         this.id = id;
     }
@@ -44,7 +44,7 @@ public class HocsinhLophoc implements java.io.Serializable {
         this.lop = lop;
         this.namhoc = namhoc;
     }
-    
+
     public HocsinhLophoc(HocsinhLophocId id, Hocsinh hocsinh, Lop lop, Namhoc namhoc, Set<Diem> diems) {
         this.id = id;
         this.hocsinh = hocsinh;
@@ -52,9 +52,9 @@ public class HocsinhLophoc implements java.io.Serializable {
         this.namhoc = namhoc;
         this.diems = diems;
     }
-    
+
     @EmbeddedId
-    
+
     @AttributeOverrides({
         @AttributeOverride(name = "idHocSinh", column = @Column(name = "idHocSinh", nullable = false)),
         @AttributeOverride(name = "idLopHoc", column = @Column(name = "idLopHoc", nullable = false)),
@@ -62,59 +62,59 @@ public class HocsinhLophoc implements java.io.Serializable {
     public HocsinhLophocId getId() {
         return this.id;
     }
-    
+
     public void setId(HocsinhLophocId id) {
         this.id = id;
     }
-    
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idHocSinh", nullable = false, insertable = false, updatable = false)
     public Hocsinh getHocsinh() {
         return this.hocsinh;
     }
-    
+
     public void setHocsinh(Hocsinh hocsinh) {
         this.hocsinh = hocsinh;
     }
-    
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idLopHoc", nullable = false, insertable = false, updatable = false)
     public Lop getLop() {
         return this.lop;
     }
-    
+
     public void setLop(Lop lop) {
         this.lop = lop;
     }
-    
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idNamHoc", nullable = false, insertable = false, updatable = false)
     public Namhoc getNamhoc() {
         return this.namhoc;
     }
-    
+
     public void setNamhoc(Namhoc namhoc) {
         this.namhoc = namhoc;
     }
-    
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "hocsinhLophoc")
     public Set<Diem> getDiems() {
         return this.diems;
     }
-    
+
     public void setDiems(Set<Diem> diems) {
         this.diems = diems;
     }
-    
+
     @OneToMany
     public List<Diem> getDieml() {
         return new ArrayList<Diem>(this.diems);
     }
-    
+
     public void setDieml(List<Diem> dieml) {
         this.diems = new HashSet<Diem>(dieml);
     }
-    
+
     public boolean equals(HocsinhLophoc obj) {
         return (obj.id.getIdHocSinh() == this.id.getIdHocSinh()
                 && obj.id.getIdLopHoc() == this.id.getIdLopHoc()
@@ -123,5 +123,5 @@ public class HocsinhLophoc implements java.io.Serializable {
                 && obj.getLop().equals(this.lop)
                 && obj.getNamhoc().equals(this.namhoc));
     }
-    
+
 }

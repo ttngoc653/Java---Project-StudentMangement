@@ -1,5 +1,5 @@
 package dto;
-// Generated Mar 24, 2019 2:56:57 AM by Hibernate Tools 4.3.1
+// Generated Apr 9, 2019 7:50:29 PM by Hibernate Tools 4.3.1
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -19,10 +19,10 @@ import javax.persistence.Table;
 )
 public class ChitietCauhinhLop implements java.io.Serializable {
 
-    private ChitietCauhinhLopId id;
-    private Cauhinh cauhinh;
-    private Lop lop;
-    private Namhoc namhoc;
+    private ChitietCauhinhLopId id = null;
+    private Cauhinh cauhinh = null;
+    private Lop lop = null;
+    private Namhoc namhoc = null;
 
     public ChitietCauhinhLop() {
     }

@@ -1,5 +1,5 @@
 package dto;
-// Generated Mar 24, 2019 2:56:57 AM by Hibernate Tools 4.3.1
+// Generated Apr 9, 2019 7:50:29 PM by Hibernate Tools 4.3.1
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -23,8 +23,8 @@ import javax.persistence.Table;
 )
 public class Monhoc implements java.io.Serializable {
 
-    private Integer idMonHoc;
-    private String tenMh;
+    private Integer idMonHoc = null;
+    private String tenMh = "";
     private Set<Diem> diems = new HashSet<Diem>(0);
 
     public Monhoc() {

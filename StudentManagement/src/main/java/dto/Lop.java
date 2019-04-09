@@ -1,5 +1,5 @@
 package dto;
-// Generated Mar 24, 2019 2:56:57 AM by Hibernate Tools 4.3.1
+// Generated Apr 9, 2019 7:50:29 PM by Hibernate Tools 4.3.1
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -23,10 +23,10 @@ import javax.persistence.Table;
 )
 public class Lop implements java.io.Serializable {
 
-    private Integer idLop;
-    private String tenLop;
-    private int khoi;
-    private Byte tinhTrang;
+    private Integer idLop = null;
+    private String tenLop = "";
+    private int khoi = -1;
+    private Byte tinhTrang = null;
     private Set<HocsinhLophoc> hocsinhLophocs = new HashSet<HocsinhLophoc>(0);
     private Set<ChitietCauhinhLop> chitietCauhinhLops = new HashSet<ChitietCauhinhLop>(0);
 

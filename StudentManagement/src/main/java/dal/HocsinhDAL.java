@@ -78,7 +78,7 @@ public class HocsinhDAL {
             n.setNgaySinh(hs.getNgaySinh() != null ? hs.getNgaySinh() : n.getNgaySinh());
             n.setSdtCaNhan(hs.getSdtCaNhan().length() > 0 ? hs.getSdtCaNhan() : n.getSdtCaNhan());
             n.setSdtGiamHo(hs.getSdtGiamHo().length() > 0 ? hs.getSdtGiamHo() : n.getSdtGiamHo());
-            n.setTinhTrang(hs.getTinhTrang() != null ? hs.getTinhTrang() : n.getTinhTrang());
+            n.setTinhTrang(hs.getTinhTrang() != -1 ? hs.getTinhTrang() : n.getTinhTrang());
 
             session.update(n);
             tst.commit();

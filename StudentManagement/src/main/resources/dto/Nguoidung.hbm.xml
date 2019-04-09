@@ -1,26 +1,33 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Mar 24, 2019 2:56:58 AM by Hibernate Tools 4.3.1 -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 9, 2019 7:50:35 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class catalog="quanlyhocsinh" name="dto.Nguoidung" optimistic-lock="version" table="nguoidung">
-    <id name="idNguoiDung" type="java.lang.Integer">
-      <column name="idNguoiDung"/>
-      <generator class="identity"/>
-    </id>
-    <property name="hoTen" type="string">
-      <column length="45" name="HoTen" not-null="true"/>
-    </property>
-    <property name="tenTaiKhoan" type="string">
-      <column length="45" name="TenTaiKhoan" unique="true"  not-null="true"/>
-    </property>
-    <property name="matKhau" type="string">
-      <column length="45" name="MatKhau" not-null="true"/>
-    </property>
-    <property name="loaiNguoiDung" type="byte">
-      <column name="LoaiNguoiDung" not-null="true"/>
-    </property>
-    <property name="tinhTrang" type="byte">
-      <column name="TinhTrang" not-null="true"/>
-    </property>
-  </class>
+    <class name="dto.Nguoidung" table="nguoidung" catalog="quanlyhocsinh" optimistic-lock="version">
+        <id name="idNguoiDung" type="java.lang.Integer">
+            <column name="idNguoiDung" />
+            <generator class="identity" />
+        </id>
+        <property name="hoTen" type="string">
+            <column name="HoTen" length="45" not-null="true" />
+        </property>
+        <property name="tenTaiKhoan" type="string">
+            <column name="TenTaiKhoan" length="45" not-null="true" unique="true" />
+        </property>
+        <property name="matKhau" type="string">
+            <column name="MatKhau" length="45" not-null="true" />
+        </property>
+        <property name="loaiNguoiDung" type="byte">
+            <column name="LoaiNguoiDung" not-null="true" />
+        </property>
+        <property name="tinhTrang" type="byte">
+            <column name="TinhTrang" not-null="true" />
+        </property>
+        <property name="sdt" type="string">
+            <column name="Sdt" length="16" />
+        </property>
+        <property name="email" type="string">
+            <column name="Email" length="128" />
+        </property>
+    </class>
 </hibernate-mapping>

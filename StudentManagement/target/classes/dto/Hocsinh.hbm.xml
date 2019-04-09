@@ -1,47 +1,48 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Mar 24, 2019 2:56:58 AM by Hibernate Tools 4.3.1 -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 9, 2019 7:50:35 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class catalog="quanlyhocsinh" name="dto.Hocsinh" optimistic-lock="version" table="hocsinh">
-    <id name="idHocSinh" type="java.lang.Integer">
-      <column name="idHocSinh"/>
-      <generator class="identity"/>
-    </id>
-    <property name="hoTen" type="string">
-      <column length="45" name="HoTen" not-null="true"/>
-    </property>
-    <property name="ngaySinh" type="date">
-      <column length="10" name="NgaySinh" not-null="true"/>
-    </property>
-    <property name="email" type="string">
-      <column length="45" name="Email"/>
-    </property>
-    <property name="gioiTinh" type="string">
-      <column length="45" name="GioiTinh" not-null="true"/>
-    </property>
-    <property name="diaChi" type="string">
-      <column length="200" name="DiaChi" not-null="true"/>
-    </property>
-    <property name="sdtCaNhan" type="string">
-      <column length="16" name="sdtCaNhan"/>
-    </property>
-    <property name="sdtGiamHo" type="string">
-      <column length="16" name="sdtGiamHo"/>
-    </property>
-    <property name="tinhTrang" type="byte">
-      <column name="TinhTrang" not-null="true"/>
-    </property>
-    <set fetch="select" inverse="true" lazy="true" name="hocsinhLophocs" table="hocsinh_lophoc">
-      <key>
-        <column name="idHocSinh" not-null="true"/>
-      </key>
-      <one-to-many class="dto.HocsinhLophoc"/>
-    </set>
-    <set fetch="select" inverse="true" lazy="true" name="chitietCauhinhHocsinhs" table="chitiet_cauhinh_hocsinh">
-      <key>
-        <column name="idHocSinh" not-null="true"/>
-      </key>
-      <one-to-many class="dto.ChitietCauhinhHocsinh"/>
-    </set>
-  </class>
+    <class name="dto.Hocsinh" table="hocsinh" catalog="quanlyhocsinh" optimistic-lock="version">
+        <id name="idHocSinh" type="java.lang.Integer">
+            <column name="idHocSinh" />
+            <generator class="identity" />
+        </id>
+        <property name="hoTen" type="string">
+            <column name="HoTen" length="45" not-null="true" />
+        </property>
+        <property name="ngaySinh" type="string">
+            <column name="NgaySinh" length="12" not-null="true" />
+        </property>
+        <property name="email" type="string">
+            <column name="Email" length="45" />
+        </property>
+        <property name="gioiTinh" type="string">
+            <column name="GioiTinh" length="45" not-null="true" />
+        </property>
+        <property name="diaChi" type="string">
+            <column name="DiaChi" length="200" not-null="true" />
+        </property>
+        <property name="sdtCaNhan" type="string">
+            <column name="sdtCaNhan" length="16" />
+        </property>
+        <property name="sdtGiamHo" type="string">
+            <column name="sdtGiamHo" length="16" />
+        </property>
+        <property name="tinhTrang" type="byte">
+            <column name="TinhTrang" not-null="true" />
+        </property>
+        <set name="hocsinhLophocs" table="hocsinh_lophoc" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idHocSinh" not-null="true" />
+            </key>
+            <one-to-many class="dto.HocsinhLophoc" />
+        </set>
+        <set name="chitietCauhinhHocsinhs" table="chitiet_cauhinh_hocsinh" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idHocSinh" not-null="true" />
+            </key>
+            <one-to-many class="dto.ChitietCauhinhHocsinh" />
+        </set>
+    </class>
 </hibernate-mapping>
