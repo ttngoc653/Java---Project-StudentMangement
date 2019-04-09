@@ -2,7 +2,10 @@ package dto;
 // Generated Apr 9, 2019 10:15:09 AM by Hibernate Tools 4.3.1
 
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -139,11 +142,11 @@ public class Diem  implements java.io.Serializable {
 
 @OneToMany
     public List<ChitietCauhinhDiem> getChitietCauhinhDieml() {
-        return new ArrayList<ChitietCauhinhDiem>(this.chitietCauhinhDiems);
+        return new ArrayList<>(this.chitietCauhinhDiems);
     }
 
     public void setChitietCauhinhDieml(List<ChitietCauhinhDiem> chitietCauhinhDieml) {
-        this.chitietCauhinhDiems = new HashSet<ChitietCauhinhDiem>(chitietCauhinhDieml);
+        this.chitietCauhinhDiems = new HashSet<>(chitietCauhinhDieml);
     }
 
     // so sanh theo Id
