@@ -2,8 +2,8 @@
 -- version 4.8.4
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3308
--- Generation Time: Apr 09, 2019 at 02:50 AM
+-- Host: 127.0.0.1:3306
+-- Generation Time: Apr 09, 2019 at 03:09 AM
 -- Server version: 5.7.24
 -- PHP Version: 7.2.14
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `quanlysinhvien`
+-- Database: `quanlyhocsinh`
 --
 
 -- --------------------------------------------------------
