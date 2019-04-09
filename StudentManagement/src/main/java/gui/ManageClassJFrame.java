@@ -28,7 +28,7 @@ public class ManageClassJFrame extends javax.swing.JFrame {
         LoadData();
     }
 
-    public final void LoadData() {
+    private void LoadData() {
         DefaultTableModel dtm = new DefaultTableModel();
         dtm.addColumn("Mã lớp");
         dtm.addColumn("Tên lớp");
@@ -41,6 +41,9 @@ public class ManageClassJFrame extends javax.swing.JFrame {
 
         this.jTableLop.setModel(dtm);
         this.jTableLop.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+        //SwingUtilities.updateComponentTreeUI(this);
+        this.jTableLop.repaint();
+        this.jTableLop.revalidate();
     }
 
     /**
@@ -61,11 +64,11 @@ public class ManageClassJFrame extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtTinhTrang = new javax.swing.JTextField();
         btnThem = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnXoa = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnSua = new javax.swing.JButton();
         cboKhoi = new javax.swing.JComboBox<>();
-        btnXemDanhSach = new javax.swing.JButton();
+        btnXem = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Quản lý lớp");
@@ -81,11 +84,14 @@ public class ManageClassJFrame extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTableLop.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableLopMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableLop);
 
         jLabel1.setText("Tên lớp:");
-
-        txtTenLop.setText("a");
 
         jLabel2.setText("Khối:");
 
@@ -101,18 +107,28 @@ public class ManageClassJFrame extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Xóa");
+        btnXoa.setText("Xóa");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Quay lại");
 
-        jButton3.setText("Sửa");
+        btnSua.setText("Sửa");
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaActionPerformed(evt);
+            }
+        });
 
         cboKhoi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "10", "11", "12" }));
 
-        btnXemDanhSach.setText("Xem danh sách");
-        btnXemDanhSach.addActionListener(new java.awt.event.ActionListener() {
+        btnXem.setLabel("Xem");
+        btnXem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnXemDanhSachActionPerformed(evt);
+                btnXemActionPerformed(evt);
             }
         });
 
@@ -123,16 +139,16 @@ public class ManageClassJFrame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnXemDanhSach, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnXem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnThem)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cboKhoi, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cboKhoi, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)))))
                 .addContainerGap())
@@ -160,10 +176,10 @@ public class ManageClassJFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnThem)
                     .addComponent(jButton4)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(btnXoa)
+                    .addComponent(btnSua))
                 .addGap(3, 3, 3)
-                .addComponent(btnXemDanhSach)
+                .addComponent(btnXem)
                 .addContainerGap())
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
@@ -186,7 +202,7 @@ public class ManageClassJFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -194,9 +210,9 @@ public class ManageClassJFrame extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -225,14 +241,14 @@ public class ManageClassJFrame extends javax.swing.JFrame {
                 if (lopDao.add(a)) {
                     //if (lopDao.add(a) == -1) {
                     JOptionPane.showMessageDialog(null, "Thêm lớp thành công");
-                    //LoadData();
+                    LoadData();
 //                    SwingUtilities.updateComponentTreeUI(this);
 //                    this.invalidate();
 //                    this.validate();
 //                    this.repaint();
-                    this.revalidate();
-                    this.repaint();
 
+//                    this.revalidate();
+//                    this.repaint();
                 } else {
                     JOptionPane.showMessageDialog(null, "Thêm lớp thất bại");
                 }
@@ -245,13 +261,56 @@ public class ManageClassJFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnThemActionPerformed
 
-    private void btnXemDanhSachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemDanhSachActionPerformed
+    private void btnXemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemActionPerformed
         // TODO add your handling code here:
-        SwingUtilities.updateComponentTreeUI(this);
-        this.invalidate();
-        this.validate();
-        this.repaint();
-    }//GEN-LAST:event_btnXemDanhSachActionPerformed
+//        SwingUtilities.updateComponentTreeUI(this);
+//        this.invalidate();
+//        this.validate();
+//        this.repaint();
+        LoadData();
+    }//GEN-LAST:event_btnXemActionPerformed
+
+    private void jTableLopMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableLopMouseClicked
+        // TODO add your handling code here:
+        String tenLop = this.jTableLop.getValueAt(this.jTableLop.getSelectedRow(), 1).toString();
+        Lop a = this.lopDao.getByTen2(tenLop);
+        this.txtTenLop.setText(a.getTenLop());
+        this.cboKhoi.setSelectedItem(a.getKhoi());
+        this.txtTinhTrang.setText(a.getTinhTrang().toString());
+    }//GEN-LAST:event_jTableLopMouseClicked
+
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        // TODO add your handling code here:
+        String tenLop = this.jTableLop.getValueAt(this.jTableLop.getSelectedRow(), 1).toString();
+        int idLop = Integer.parseInt(this.jTableLop.getValueAt(this.jTableLop.getSelectedRow(), 0).toString());
+        int cf = JOptionPane.showConfirmDialog(null, "Bạn có chắc xóa lớp " + tenLop + " không?", "Xác nhận", JOptionPane.YES_OPTION);
+
+        if (cf == JOptionPane.YES_OPTION) {
+            //if (this.lopDao.delete(lopDao.find(idLop))) {
+            if (this.lopDao.delete(idLop)) {
+                JOptionPane.showMessageDialog(null, "Xóa lớp thành công");
+                LoadData();
+            } else {
+                JOptionPane.showMessageDialog(null, "Xóa lớp thất bại");
+            }
+        }
+    }//GEN-LAST:event_btnXoaActionPerformed
+
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+        // TODO add your handling code here:
+        Lop a = this.lopDao.find(this.txtTenLop.getText());
+        a.setTenLop(this.txtTenLop.getText());
+        a.setKhoi(Integer.parseInt(this.cboKhoi.getSelectedItem().toString()));
+        a.setTinhTrang(Byte.parseByte(this.txtTinhTrang.getText()));
+        
+        if(this.lopDao.update(a)){
+            JOptionPane.showMessageDialog(null, "Cập nhật lớp thành công");
+            LoadData();
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Cập nhật lớp thất bại");
+        }
+    }//GEN-LAST:event_btnSuaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -293,11 +352,11 @@ public class ManageClassJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnSua;
     private javax.swing.JButton btnThem;
-    private javax.swing.JButton btnXemDanhSach;
+    private javax.swing.JButton btnXem;
+    private javax.swing.JButton btnXoa;
     private javax.swing.JComboBox<String> cboKhoi;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

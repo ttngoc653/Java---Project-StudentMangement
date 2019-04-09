@@ -5,14 +5,9 @@
  */
 package dal;
 
-import dto.HibernateUtil;
-import dto.Lop;
-import java.util.ArrayList;
-import java.util.List;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import dto.*;
+import java.util.*;
+import org.hibernate.*;
 
 /**
  *
@@ -25,7 +20,7 @@ public class LopDAL {
     private List<Lop> list;
 
     private final SessionFactory sf = HibernateUtil.getSessionFactory();
-    
+
     public LopDAL() {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
     }
@@ -36,6 +31,24 @@ public class LopDAL {
             session.clear();
         } finally {
             super.finalize();
+        }
+    }
+
+    public List<Lop> findAll() {
+        try {
+            sf.getCurrentSession().beginTransaction();
+            return sf.getCurrentSession().createCriteria(Lop.class).list();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public Lop find(String tenLop) {
+        try {
+            sf.getCurrentSession().beginTransaction();
+            return (Lop) sf.getCurrentSession().get(Lop.class, tenLop);
+        } catch (HibernateException e) {
+            return null;
         }
     }
 
@@ -53,7 +66,6 @@ public class LopDAL {
 //        }
 //        return result;
 //    }
-    
 //    public boolean SaveOrUpdate(Lop p) {
 //        try {
 //            tst = session.beginTransaction();
@@ -65,7 +77,6 @@ public class LopDAL {
 //            return false;
 //        }
 //    }    
-        
     public boolean add(Lop p) {
         try {
             sf.getCurrentSession().beginTransaction();
@@ -76,46 +87,82 @@ public class LopDAL {
             sf.getCurrentSession().getTransaction().rollback();
             return false;
         }
-    } 
+    }
 
+//    public boolean update(Lop p) {
+//        Boolean result = false;
+//        try {
+//            tst = session.beginTransaction();
+//            Lop n = (Lop) session.get(Lop.class, p.getIdLop());
+//
+//            n.setKhoi(p.getKhoi() > -1 ? p.getKhoi() : n.getKhoi());
+//            n.setTenLop(p.getTenLop().length() > 0 ? p.getTenLop() : n.getTenLop());
+//            n.setTinhTrang(p.getTinhTrang() != null ? p.getTinhTrang() : n.getTinhTrang());
+//
+//            session.update(n);
+//            tst.commit();
+//            result = true;
+//        } catch (Exception e) {
+//            if (tst != null) {
+//                tst.rollback();
+//            }
+//            e.printStackTrace();
+//        }
+//        return result;
+//    }
     public boolean update(Lop p) {
-        Boolean result = false;
         try {
-            tst = session.beginTransaction();
-            Lop n = (Lop) session.get(Lop.class, p.getIdLop());
-
-            n.setKhoi(p.getKhoi() > -1 ? p.getKhoi() : n.getKhoi());
-            n.setTenLop(p.getTenLop().length() > 0 ? p.getTenLop() : n.getTenLop());
-            n.setTinhTrang(p.getTinhTrang() != null ? p.getTinhTrang() : n.getTinhTrang());
-
-            session.update(n);
-            tst.commit();
-            result = true;
+            sf.getCurrentSession().beginTransaction();
+            sf.getCurrentSession().saveOrUpdate(p);
+            sf.getCurrentSession().getTransaction().commit();
+            return true;
         } catch (Exception e) {
-            if (tst != null) {
-                tst.rollback();
-            }
-            e.printStackTrace();
+            sf.getCurrentSession().getTransaction().rollback();
+            return false;
         }
-        return result;
     }
 
+//    public boolean delete(int id) {
+//        Boolean result = false;
+//        try {
+//            tst = session.beginTransaction();
+//            Lop n = (Lop) session.get(Lop.class, id);
+//            session.delete(n);
+//            tst.commit();
+//            result = true;
+//        } catch (Exception e) {
+//            if (tst != null) {
+//                tst.rollback();
+//            }
+//            e.printStackTrace();
+//        }
+//        return result;
+//    }
     public boolean delete(int id) {
-        Boolean result = false;
         try {
-            tst = session.beginTransaction();
-            Lop n = (Lop) session.get(Lop.class, id);
-            session.delete(n);
-            tst.commit();
-            result = true;
+            sf.getCurrentSession().beginTransaction();
+            Lop n = (Lop) sf.getCurrentSession().get(Lop.class, id);
+            sf.getCurrentSession().delete(n);
+            sf.getCurrentSession().getTransaction().commit();
+            return true;
         } catch (Exception e) {
-            if (tst != null) {
-                tst.rollback();
-            }
-            e.printStackTrace();
+            sf.getCurrentSession().getTransaction().rollback();
+            return false;
         }
-        return result;
     }
+
+
+//    public boolean delete4(Lop p) {
+//        try {
+//            sf.getCurrentSession().beginTransaction();
+//            sf.getCurrentSession().delete(p);
+//            sf.getCurrentSession().getTransaction().commit();
+//            return true;
+//        } catch (Exception e) {
+//            sf.getCurrentSession().getTransaction().rollback();
+//            return false;
+//        }
+//    }
 
     @SuppressWarnings("unchecked")
     public List<Lop> getAll() {
@@ -156,6 +203,22 @@ public class LopDAL {
             Query q = session.createQuery("from Lop as t where t.tenLop = '" + name + "'");
             n = (Lop) q.uniqueResult();
             tst.commit();
+        } catch (Exception e) {
+            if (tst != null) {
+                tst.rollback();
+            }
+            e.printStackTrace();
+        }
+        return n;
+    }
+
+    public Lop getByTen2(String name) {
+        Lop n = null;
+        try {
+            sf.getCurrentSession().beginTransaction();
+            Query q = sf.getCurrentSession().createQuery("from Lop as t where t.tenLop = '" + name + "'");
+            n = (Lop) q.uniqueResult();
+            sf.getCurrentSession().getTransaction().commit();
         } catch (Exception e) {
             if (tst != null) {
                 tst.rollback();
