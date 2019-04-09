@@ -7,6 +7,8 @@ package gui;
 
 import dal.HocsinhDAL;
 import dto.Hocsinh;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -297,8 +299,18 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
         Hocsinh hs = new Hocsinh();
+
+        String gioiTinh = "";
+        if (rbNam.isSelected()) {
+            gioiTinh = "Nam";
+        } else {
+            gioiTinh = "Nu";
+        }
+        
         hs.setHoTen(this.txtHoTen.getText());
+        hs.setNgaySinh(this.txtNgaySinh.getText());
         hs.setEmail(this.txtEmail.getText());
+        hs.setGioiTinh(gioiTinh);
         hs.setDiaChi(this.txtDiaChi.getText());
         hs.setSdtCaNhan(this.txtSdtCaNhan.getText());
         hs.setSdtGiamHo(this.txtSdtGiamHo.getText());
@@ -317,15 +329,6 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
 //            //e.printStackTrace();
 //            System.out.println("Loi Ngay Sinh: ");
 //        }
-        hs.setNgaySinh(this.txtNgaySinh.getText());
-
-        String gioiTinh = "";
-        if (rbNam.isSelected()) {
-            gioiTinh = "Nam";
-        } else {
-            gioiTinh = "Nu";
-        }
-        hs.setGioiTinh(gioiTinh);
 
         //if(hsDao.SaveOrUpdate(hs)){
         if (hsDao.add(hs) != -1) {
@@ -367,7 +370,9 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 ManageStudentJFrame f = new ManageStudentJFrame();
-                //f.setLocationRelativeTo(null);
+                Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+                f.setSize(screenSize.width, 500);
+                f.setLocationRelativeTo(null);
                 f.setVisible(true);
                 f.setResizable(false);
 

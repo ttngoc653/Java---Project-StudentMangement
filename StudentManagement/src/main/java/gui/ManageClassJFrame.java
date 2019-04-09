@@ -5,17 +5,39 @@
  */
 package gui;
 
+import dal.LopDAL;
+import dto.Lop;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author tuhuy
  */
 public class ManageClassJFrame extends javax.swing.JFrame {
 
+    LopDAL lopDao = new LopDAL();
     /**
      * Creates new form ManageClassJFrame
      */
     public ManageClassJFrame() {
         initComponents();
+        LoadData();
+    }
+    
+    public void LoadData() {
+        DefaultTableModel dtm = new DefaultTableModel();
+        dtm.addColumn("Mã lớp");
+        dtm.addColumn("Tên lớp");
+        dtm.addColumn("Khối");
+        dtm.addColumn("Tình trạng");
+
+        for (Lop a : this.lopDao.getAll()) {
+            dtm.addRow(new Object[]{a.getIdLop(), a.getTenLop(), a.getKhoi(), a.getTinhTrang()});
+        }
+
+        this.jTableLop.setModel(dtm);
+        this.jTableLop.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
     }
 
     /**
@@ -28,7 +50,7 @@ public class ManageClassJFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableLop = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
@@ -43,7 +65,7 @@ public class ManageClassJFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableLop.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -54,7 +76,7 @@ public class ManageClassJFrame extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTableLop);
 
         jLabel1.setText("Tên lớp:");
 
@@ -194,7 +216,7 @@ public class ManageClassJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableLop;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;

@@ -104,6 +104,11 @@ public class ManageMainJFrame extends javax.swing.JFrame {
         });
 
         btnLop.setText("Lớp");
+        btnLop.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLopActionPerformed(evt);
+            }
+        });
 
         btnDiem.setText("Điểm");
 
@@ -173,7 +178,6 @@ public class ManageMainJFrame extends javax.swing.JFrame {
 
     private void btnHocSinhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHocSinhActionPerformed
         // TODO add your handling code here:
-        // ManageStudentJFrame f = new ManageStudentJFrame();
         ManageStudentJFrame f = new ManageStudentJFrame();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         f.setSize(screenSize.width, 500);
@@ -182,6 +186,17 @@ public class ManageMainJFrame extends javax.swing.JFrame {
         f.setResizable(false);
         this.setVisible(false);
     }//GEN-LAST:event_btnHocSinhActionPerformed
+
+    private void btnLopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLopActionPerformed
+        // TODO add your handling code here:
+        ManageClassJFrame f = new ManageClassJFrame();
+//        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+//        f.setSize(screenSize.width, 500);
+        f.setLocationRelativeTo(null);
+        f.setVisible(true);
+        f.setResizable(false);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnLopActionPerformed
 
     /**
      * @param args the command line arguments

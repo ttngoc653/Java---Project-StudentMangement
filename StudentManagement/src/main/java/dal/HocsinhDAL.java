@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 /**
@@ -23,6 +24,8 @@ public class HocsinhDAL {
     private Transaction tst = null;
     private List<Hocsinh> lHs;
 
+    private final SessionFactory sf = HibernateUtil.getSessionFactory();
+    
     public HocsinhDAL() {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
     }
@@ -45,13 +48,15 @@ public class HocsinhDAL {
         } catch (Exception e) {
             if (tst != null) {
                 tst.rollback();
+                System.out.println("LOI O HAM: dal.HocsinhDAL.add()");
             }
             e.printStackTrace();
+            System.out.println("dal.HocsinhDAL.add()");
         }
         return result;
     }
-    
-        public boolean SaveOrUpdate(Hocsinh hs) {
+
+    public boolean SaveOrUpdate(Hocsinh hs) {
         try {
             tst = session.beginTransaction();
             session.saveOrUpdate(hs);
@@ -62,6 +67,20 @@ public class HocsinhDAL {
             return false;
         }
     }
+        
+    public boolean saveorupdate(Hocsinh hs) {
+        try {
+            sf.getCurrentSession().beginTransaction();
+            sf.getCurrentSession().saveOrUpdate(hs);
+            sf.getCurrentSession().getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            sf.getCurrentSession().getTransaction().rollback();
+            return false;
+        }
+    }         
+
+    
 
     public boolean update(Hocsinh hs) {
         Boolean result = false;
