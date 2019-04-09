@@ -118,8 +118,8 @@ public class ReportJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBox1PopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jComboBox1PopupMenuWillBecomeVisible
-        JOptionPane.showMessageDialog(this, "Da chon dc");
         List<Namhoc> l=new NamhocDAL().getAll();
+        jComboBox1.removeAllItems();
         for (int i = 0; i < l.size(); i++) {
             jComboBox1.addItem(l.get(i).getTenNamHoc());
         }

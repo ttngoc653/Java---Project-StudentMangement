@@ -1,5 +1,5 @@
 package dto;
-// Generated Mar 24, 2019 2:56:57 AM by Hibernate Tools 4.3.1
+// Generated Apr 9, 2019 7:50:29 PM by Hibernate Tools 4.3.1
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -10,9 +10,9 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class ChitietCauhinhLopId implements java.io.Serializable {
 
-    private int idLop;
-    private int idNamHoc;
-    private int idCauHinh;
+    private int idLop = -1;
+    private int idNamHoc = -1;
+    private int idCauHinh = -1;
 
     public ChitietCauhinhLopId() {
     }
@@ -50,7 +50,7 @@ public class ChitietCauhinhLopId implements java.io.Serializable {
         this.idCauHinh = idCauHinh;
     }
 
-    public boolean equals(Object other) {
+    public boolean equals(ChitietCauhinhLopId other) {
         if ((this == other)) {
             return true;
         }
@@ -67,6 +67,7 @@ public class ChitietCauhinhLopId implements java.io.Serializable {
                 && (this.getIdCauHinh() == castOther.getIdCauHinh());
     }
 
+    @Override
     public int hashCode() {
         int result = 17;
 
@@ -74,6 +75,27 @@ public class ChitietCauhinhLopId implements java.io.Serializable {
         result = 37 * result + this.getIdNamHoc();
         result = 37 * result + this.getIdCauHinh();
         return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ChitietCauhinhLopId other = (ChitietCauhinhLopId) obj;
+        if (this.idLop != other.idLop) {
+            return false;
+        }
+        if (this.idNamHoc != other.idNamHoc) {
+            return false;
+        }
+        if (this.idCauHinh != other.idCauHinh) {
+            return false;
+        }
+        return true;
     }
 
 }
