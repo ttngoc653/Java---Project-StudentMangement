@@ -19,8 +19,9 @@ import javax.swing.table.DefaultTableModel;
  * @author tuhuy
  */
 public class ManageStudentJFrame extends javax.swing.JFrame {
+
     HocsinhDAL hsDao = new HocsinhDAL();
-    
+
     /**
      * Creates new form ManageHSJFrame
      */
@@ -29,8 +30,8 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
         initComponents();
         LoadData();
     }
-    
-        public void LoadData(){
+
+    public void LoadData() {
         DefaultTableModel dtm = new DefaultTableModel();
         dtm.addColumn("MSHS");
         dtm.addColumn("Họ tên");
@@ -41,15 +42,15 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
         dtm.addColumn("SĐT cá nhân");
         dtm.addColumn("SĐT giám hộ");
         dtm.addColumn("Tình trạng");
-        
-        for(Hocsinh hs : this.hsDao.getAll()){
-            dtm.addRow(new Object[] {hs.getIdHocSinh(), hs.getHoTen(), hs.getNgaySinh(), hs.getEmail(),
-                                     hs.getGioiTinh(), hs.getDiaChi(), hs.getSdtCaNhan(), hs.getSdtGiamHo(),
-                                     hs.getTinhTrang()});
+
+        for (Hocsinh hs : this.hsDao.getAll()) {
+            dtm.addRow(new Object[]{hs.getIdHocSinh(), hs.getHoTen(), hs.getNgaySinh(), hs.getEmail(),
+                hs.getGioiTinh(), hs.getDiaChi(), hs.getSdtCaNhan(), hs.getSdtGiamHo(),
+                hs.getTinhTrang()});
         }
-        
+
         this.jTableHocSinh.setModel(dtm);
-        
+
         this.jTableHocSinh.getColumnModel().getColumn(0).setPreferredWidth(10);  //MSHS
         this.jTableHocSinh.getColumnModel().getColumn(1).setPreferredWidth(150); //Họ tên
         this.jTableHocSinh.getColumnModel().getColumn(2).setPreferredWidth(120); //Ngày sinh
@@ -59,10 +60,9 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
         this.jTableHocSinh.getColumnModel().getColumn(6).setPreferredWidth(100); //SĐT cá nhân
         this.jTableHocSinh.getColumnModel().getColumn(7).setPreferredWidth(100); //SĐT giám hộ
         this.jTableHocSinh.getColumnModel().getColumn(8).setPreferredWidth(100); //Tình trạng
-        
+
         this.jTableHocSinh.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -286,17 +286,17 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnQuayLaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuayLaiActionPerformed
-        // TODO add your handling code here:
-        ManageMainJFrame f = new ManageMainJFrame();
-        f.setLocationRelativeTo(null);
-        f.setVisible(true);
-        f.setResizable(false);
-        this.setVisible(false);
+//        // TODO add your handling code here:
+//        ManageMainJFrame f = new ManageMainJFrame();
+//        f.setLocationRelativeTo(null);
+//        f.setVisible(true);
+//        f.setResizable(false);
+//        this.setVisible(false);
     }//GEN-LAST:event_btnQuayLaiActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
-                Hocsinh hs = new Hocsinh();
+        Hocsinh hs = new Hocsinh();
         hs.setHoTen(this.txtHoTen.getText());
         hs.setEmail(this.txtEmail.getText());
         hs.setDiaChi(this.txtDiaChi.getText());
@@ -304,18 +304,20 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
         hs.setSdtGiamHo(this.txtSdtGiamHo.getText());
         hs.setTinhTrang(Byte.parseByte("1"));
 
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        String dateInString = this.txtNgaySinh.getText();
-        try {
-
-            Date date = formatter.parse(dateInString);
-            //System.out.println(date);
-            //System.out.println(formatter.format(date));
-            hs.setNgaySinh(date);
-        } catch (ParseException e) {
-            //e.printStackTrace();
-            System.out.println("Loi Ngay Sinh: ");
-        }
+//        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+//        String dateInString = this.txtNgaySinh.getText();
+//
+//        try {
+//
+//            Date date = formatter.parse(dateInString);
+//            //System.out.println(date);
+//            //System.out.println(formatter.format(date));
+//            hs.setNgaySinh(date);
+//        } catch (ParseException e) {
+//            //e.printStackTrace();
+//            System.out.println("Loi Ngay Sinh: ");
+//        }
+        hs.setNgaySinh(this.txtNgaySinh.getText());
 
         String gioiTinh = "";
         if (rbNam.isSelected()) {
@@ -324,12 +326,11 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
             gioiTinh = "Nu";
         }
         hs.setGioiTinh(gioiTinh);
-        
+
         //if(hsDao.SaveOrUpdate(hs)){
-        if(hsDao.add(hs)!= -1){
+        if (hsDao.add(hs) != -1) {
             JOptionPane.showMessageDialog(null, "Thêm học sinh thành công");
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(null, "Thêm học sinh thất bại");
         }
     }//GEN-LAST:event_btnThemActionPerformed

@@ -112,6 +112,7 @@ public class LoginJFrame extends javax.swing.JFrame {
                 }
             } catch (NoSuchAlgorithmException ex) {
                 Logger.getLogger(LoginJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                //System.out.println("LOI KIEM TRA LOGIN");
             }
         }
         else{
