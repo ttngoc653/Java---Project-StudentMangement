@@ -202,7 +202,7 @@ public class NguoidungDAL {
         try {
             tst = session.beginTransaction();
             Query q = session.createQuery("from Nguoidung as t where MD5(t.tenTaiKhoan) LIKE MD5( '" + userName + "')"
-                    + "AND MD5(matKhau) LIKE MD5('" + passWord + "')");
+                    + "AND MD5(t.matKhau) LIKE MD5('" + passWord + "')");
             n = (Nguoidung) q.uniqueResult();
             tst.commit();
         } catch (Exception e) {
