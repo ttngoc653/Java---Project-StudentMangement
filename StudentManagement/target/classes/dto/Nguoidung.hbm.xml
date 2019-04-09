@@ -9,7 +9,8 @@
     </id>
     <property name="hoTen" type="string">
       <column length="45" name="HoTen" not-null="true"/>
-    </property>    <property name="tenTaiKhoan" type="string">
+    </property>
+    <property name="tenTaiKhoan" type="string">
       <column length="45" name="TenTaiKhoan" unique="true"  not-null="true"/>
     </property>
     <property name="matKhau" type="string">
