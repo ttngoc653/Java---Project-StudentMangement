@@ -238,7 +238,7 @@ public class NguoidungDAL {
         try {
             tst = session.beginTransaction();
             Query q = session.createQuery("from Nguoidung as t where t.tenTaiKhoan LIKE '" + userName + "' "
-                    + "AND matKhau LIKE '" + password + "' ");
+                    + "AND t.matKhau LIKE '" + password + "' ");
             n = (Nguoidung) q.uniqueResult();
             tst.commit();
         } catch (HibernateException e) {
@@ -282,7 +282,7 @@ public class NguoidungDAL {
         return list;
     }
 
-    public Object getByTenDangNhap(String ten) {
+    public Nguoidung getByTenDangNhap(String ten) {
         
         Nguoidung n = null;
         try {
