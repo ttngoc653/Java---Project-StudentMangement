@@ -1,26 +1,27 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Mar 24, 2019 2:56:58 AM by Hibernate Tools 4.3.1 -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 9, 2019 10:15:10 AM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class catalog="quanlyhocsinh" name="dto.Namhoc" optimistic-lock="version" table="namhoc">
-    <id name="idNamHoc" type="java.lang.Integer">
-      <column name="idNamHoc"/>
-      <generator class="identity"/>
-    </id>
-    <property name="tenNamHoc" type="string">
-      <column length="45" name="TenNamHoc" not-null="true" unique="true"/>
-    </property>
-    <set fetch="select" inverse="true" lazy="true" name="hocsinhLophocs" table="hocsinh_lophoc">
-      <key>
-        <column name="idNamHoc" not-null="true"/>
-      </key>
-      <one-to-many class="dto.HocsinhLophoc"/>
-    </set>
-    <set fetch="select" inverse="true" lazy="true" name="chitietCauhinhLops" table="chitiet_cauhinh_lop">
-      <key>
-        <column name="idNamHoc" not-null="true"/>
-      </key>
-      <one-to-many class="dto.ChitietCauhinhLop"/>
-    </set>
-  </class>
+    <class name="dto.Namhoc" table="namhoc" catalog="quanlyhocsinh" optimistic-lock="version">
+        <id name="idNamHoc" type="java.lang.Integer">
+            <column name="idNamHoc" />
+            <generator class="identity" />
+        </id>
+        <property name="tenNamHoc" type="string">
+            <column name="TenNamHoc" length="45" not-null="true" unique="true" />
+        </property>
+        <set name="hocsinhLophocs" table="hocsinh_lophoc" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idNamHoc" not-null="true" />
+            </key>
+            <one-to-many class="dto.HocsinhLophoc" />
+        </set>
+        <set name="chitietCauhinhLops" table="chitiet_cauhinh_lop" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idNamHoc" not-null="true" />
+            </key>
+            <one-to-many class="dto.ChitietCauhinhLop" />
+        </set>
+    </class>
 </hibernate-mapping>

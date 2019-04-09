@@ -1,27 +1,28 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Mar 24, 2019 2:56:58 AM by Hibernate Tools 4.3.1 -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 9, 2019 10:15:10 AM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class catalog="quanlyhocsinh" name="dto.ChitietCauhinhLop" optimistic-lock="version" table="chitiet_cauhinh_lop">
-    <composite-id class="dto.ChitietCauhinhLopId" name="id">
-      <key-property name="idLop" type="int">
-        <column name="idLop"/>
-      </key-property>
-      <key-property name="idNamHoc" type="int">
-        <column name="idNamHoc"/>
-      </key-property>
-      <key-property name="idCauHinh" type="int">
-        <column name="idCauHinh"/>
-      </key-property>
-    </composite-id>
-    <many-to-one class="dto.Cauhinh" fetch="select" insert="false" name="cauhinh" update="false">
-      <column name="idCauHinh" not-null="true"/>
-    </many-to-one>
-    <many-to-one class="dto.Lop" fetch="select" insert="false" name="lop" update="false">
-      <column name="idLop" not-null="true"/>
-    </many-to-one>
-    <many-to-one class="dto.Namhoc" fetch="select" insert="false" name="namhoc" update="false">
-      <column name="idNamHoc" not-null="true"/>
-    </many-to-one>
-  </class>
+    <class name="dto.ChitietCauhinhLop" table="chitiet_cauhinh_lop" catalog="quanlyhocsinh" optimistic-lock="version">
+        <composite-id name="id" class="dto.ChitietCauhinhLopId">
+            <key-property name="idLop" type="int">
+                <column name="idLop" />
+            </key-property>
+            <key-property name="idNamHoc" type="int">
+                <column name="idNamHoc" />
+            </key-property>
+            <key-property name="idCauHinh" type="int">
+                <column name="idCauHinh" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="cauhinh" class="dto.Cauhinh" update="false" insert="false" fetch="select">
+            <column name="idCauHinh" not-null="true" />
+        </many-to-one>
+        <many-to-one name="lop" class="dto.Lop" update="false" insert="false" fetch="select">
+            <column name="idLop" not-null="true" />
+        </many-to-one>
+        <many-to-one name="namhoc" class="dto.Namhoc" update="false" insert="false" fetch="select">
+            <column name="idNamHoc" not-null="true" />
+        </many-to-one>
+    </class>
 </hibernate-mapping>

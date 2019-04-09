@@ -1,5 +1,5 @@
 package dto;
-// Generated Mar 24, 2019 2:56:57 AM by Hibernate Tools 4.3.1
+// Generated Apr 9, 2019 10:15:09 AM by Hibernate Tools 4.3.1
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,15 +28,15 @@ public class Hocsinh implements java.io.Serializable {
 
     private Integer idHocSinh;
     private String hoTen;
-    private Date ngaySinh;
+    private String ngaySinh;
     private String email;
     private String gioiTinh;
     private String diaChi;
     private String sdtCaNhan;
     private String sdtGiamHo;
     private Byte tinhTrang;
-    private Set<HocsinhLophoc> hocsinhLophocs = new HashSet<HocsinhLophoc>(0);
-    private Set<ChitietCauhinhHocsinh> chitietCauhinhHocsinhs = new HashSet<ChitietCauhinhHocsinh>(0);
+    private Set<HocsinhLophoc> hocsinhLophocs = new HashSet<>(0);
+    private Set<ChitietCauhinhHocsinh> chitietCauhinhHocsinhs = new HashSet<>(0);
 
     public Hocsinh() {
         this.idHocSinh = null;
@@ -52,7 +52,7 @@ public class Hocsinh implements java.io.Serializable {
         this.chitietCauhinhHocsinhs = new HashSet<>(0);
     }
 
-    public Hocsinh(String hoTen, Date ngaySinh, String gioiTinh, String diaChi, byte tinhTrang) {
+    public Hocsinh(String hoTen, String ngaySinh, String gioiTinh, String diaChi, Byte tinhTrang) {
         this.hoTen = hoTen;
         this.ngaySinh = ngaySinh;
         this.gioiTinh = gioiTinh;
@@ -60,7 +60,7 @@ public class Hocsinh implements java.io.Serializable {
         this.tinhTrang = tinhTrang;
     }
 
-    public Hocsinh(String hoTen, Date ngaySinh, String email, String gioiTinh, String diaChi, String sdtCaNhan, String sdtGiamHo, byte tinhTrang, Set<HocsinhLophoc> hocsinhLophocs, Set<ChitietCauhinhHocsinh> chitietCauhinhHocsinhs) {
+    public Hocsinh(String hoTen, String ngaySinh, String email, String gioiTinh, String diaChi, String sdtCaNhan, String sdtGiamHo, Byte tinhTrang, Set<ChitietCauhinhHocsinh> chitietCauhinhHocsinhs, Set<HocsinhLophoc> hocsinhLophocs) {
         this.hoTen = hoTen;
         this.ngaySinh = ngaySinh;
         this.email = email;
@@ -69,8 +69,8 @@ public class Hocsinh implements java.io.Serializable {
         this.sdtCaNhan = sdtCaNhan;
         this.sdtGiamHo = sdtGiamHo;
         this.tinhTrang = tinhTrang;
-        this.hocsinhLophocs = hocsinhLophocs;
         this.chitietCauhinhHocsinhs = chitietCauhinhHocsinhs;
+        this.hocsinhLophocs = hocsinhLophocs;
     }
 
     @Id
@@ -94,13 +94,12 @@ public class Hocsinh implements java.io.Serializable {
         this.hoTen = hoTen;
     }
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "NgaySinh", nullable = false, length = 10)
-    public Date getNgaySinh() {
+    @Column(name = "NgaySinh", nullable = false, length = 12)
+    public String getNgaySinh() {
         return this.ngaySinh;
     }
 
-    public void setNgaySinh(Date ngaySinh) {
+    public void setNgaySinh(String ngaySinh) {
         this.ngaySinh = ngaySinh;
     }
 
@@ -154,17 +153,8 @@ public class Hocsinh implements java.io.Serializable {
         return this.tinhTrang;
     }
 
-    public void setTinhTrang(byte tinhTrang) {
+    public void setTinhTrang(Byte tinhTrang) {
         this.tinhTrang = tinhTrang;
-    }
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "hocsinh")
-    public Set<HocsinhLophoc> getHocsinhLophocs() {
-        return this.hocsinhLophocs;
-    }
-
-    public void setHocsinhLophocs(Set<HocsinhLophoc> hocsinhLophocs) {
-        this.hocsinhLophocs = hocsinhLophocs;
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "hocsinh")
@@ -176,22 +166,31 @@ public class Hocsinh implements java.io.Serializable {
         this.chitietCauhinhHocsinhs = chitietCauhinhHocsinhs;
     }
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "hocsinh")
+    public Set<HocsinhLophoc> getHocsinhLophocs() {
+        return this.hocsinhLophocs;
+    }
+
+    public void setHocsinhLophocs(Set<HocsinhLophoc> hocsinhLophocs) {
+        this.hocsinhLophocs = hocsinhLophocs;
+    }
+
     @OneToMany
     public List<HocsinhLophoc> getHocsinhLophocl() {
-        return new ArrayList<HocsinhLophoc>(this.hocsinhLophocs);
+        return new ArrayList<>(this.hocsinhLophocs);
     }
 
     public void setHocsinhLophocl(List<HocsinhLophoc> hocsinhLophocl) {
-        this.hocsinhLophocs = new HashSet<HocsinhLophoc>(hocsinhLophocl);
+        this.hocsinhLophocs = new HashSet<>(hocsinhLophocl);
     }
 
     @OneToMany
     public List<ChitietCauhinhHocsinh> getChitietCauhinhHocsinhl() {
-        return new ArrayList<ChitietCauhinhHocsinh>(this.chitietCauhinhHocsinhs);
+        return new ArrayList<>(this.chitietCauhinhHocsinhs);
     }
 
     public void setChitietCauhinhHocsinhl(List<ChitietCauhinhHocsinh> chitietCauhinhHocsinhl) {
-        this.chitietCauhinhHocsinhs = new HashSet<ChitietCauhinhHocsinh>(chitietCauhinhHocsinhl);
+        this.chitietCauhinhHocsinhs = new HashSet<>(chitietCauhinhHocsinhl);
     }
 
     public boolean equals(Hocsinh obj) {

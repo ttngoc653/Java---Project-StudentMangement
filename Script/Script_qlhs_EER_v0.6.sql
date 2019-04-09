@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 03, 2019 at 02:10 PM
+-- Generation Time: Apr 09, 2019 at 03:09 AM
 -- Server version: 5.7.24
 -- PHP Version: 7.2.14
 
@@ -147,7 +147,7 @@ DROP TABLE IF EXISTS `hocsinh`;
 CREATE TABLE IF NOT EXISTS `hocsinh` (
   `idHocSinh` int(11) NOT NULL AUTO_INCREMENT,
   `HoTen` varchar(45) CHARACTER SET utf8 NOT NULL,
-  `NgaySinh` date NOT NULL,
+  `NgaySinh` varchar(12) COLLATE utf8_unicode_ci NOT NULL,
   `Email` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `GioiTinh` varchar(45) CHARACTER SET utf8 NOT NULL,
   `DiaChi` varchar(200) CHARACTER SET utf8 NOT NULL,
@@ -280,6 +280,8 @@ CREATE TABLE IF NOT EXISTS `nguoidung` (
   `MatKhau` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
   `LoaiNguoiDung` tinyint(4) NOT NULL,
   `TinhTrang` tinyint(4) NOT NULL,
+  `Sdt` varchar(16) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Email` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`idNguoiDung`),
   UNIQUE KEY `TenTaiKhoan` (`TenTaiKhoan`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
