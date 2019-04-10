@@ -27,7 +27,7 @@ public class ManageMainJFrame extends javax.swing.JFrame {
     ManageMainJFrame(Nguoidung nguoidung) {
         initComponents();
         nd = nguoidung;
-        JOptionPane.showMessageDialog(rootPane, "Xin chào "+nd.getHoTen());
+        JOptionPane.showMessageDialog(rootPane, "Xin chào " + nd.getHoTen());
         lblTenTaiKhoan.setText(nd.getHoTen());
     }
 
