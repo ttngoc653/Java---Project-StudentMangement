@@ -181,11 +181,27 @@ public class NguoidungDAL {
         return n;
     }
 
-    public Nguoidung getByTen(String ten) {
+    public Nguoidung getByHoTen(String ten) {
         Nguoidung n = null;
         try {
             tst = session.beginTransaction();
             Query q = session.createQuery("from Nguoidung as t where t.hoTen = '" + ten + "'");
+            n = (Nguoidung) q.uniqueResult();
+            tst.commit();
+        } catch (Exception e) {
+            if (tst != null) {
+                tst.rollback();
+            }
+            e.printStackTrace();
+        }
+        return n;
+    }
+    
+    public Nguoidung getByTenDangNhap(String tenDN) {
+        Nguoidung n = null;
+        try {
+            tst = session.beginTransaction();
+            Query q = session.createQuery("from Nguoidung as t where t.tenDangNhap = '" + tenDN + "'");
             n = (Nguoidung) q.uniqueResult();
             tst.commit();
         } catch (Exception e) {
