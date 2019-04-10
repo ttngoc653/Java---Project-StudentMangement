@@ -100,6 +100,7 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
         btnThem = new javax.swing.JButton();
         rbNam = new javax.swing.JRadioButton();
         jButton2 = new javax.swing.JButton();
+        btnXepLop = new javax.swing.JButton();
 
         buttonGroup2.add(rbNam);
         buttonGroup2.add(rbNu);
@@ -174,11 +175,21 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
 
         jButton2.setText("Xóa");
 
+        btnXepLop.setText("Xếp lớp");
+        btnXepLop.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXepLopActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 649, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnXepLop)
+                .addGap(297, 297, 297))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
@@ -226,7 +237,10 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 174, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(140, Short.MAX_VALUE)
+                .addComponent(btnXepLop)
+                .addContainerGap())
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
@@ -270,7 +284,7 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 649, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 668, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -289,11 +303,11 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
 
     private void btnQuayLaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuayLaiActionPerformed
 //        // TODO add your handling code here:
-//        ManageMainJFrame f = new ManageMainJFrame();
-//        f.setLocationRelativeTo(null);
-//        f.setVisible(true);
-//        f.setResizable(false);
-//        this.setVisible(false);
+        ManageMainJFrame f = new ManageMainJFrame();
+        f.setLocationRelativeTo(null);
+        f.setVisible(true);
+        f.setResizable(false);
+        this.setVisible(false);
     }//GEN-LAST:event_btnQuayLaiActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
@@ -306,7 +320,7 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
         } else {
             gioiTinh = "Nu";
         }
-        
+
         hs.setHoTen(this.txtHoTen.getText());
         hs.setNgaySinh(this.txtNgaySinh.getText());
         hs.setEmail(this.txtEmail.getText());
@@ -329,7 +343,6 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
 //            //e.printStackTrace();
 //            System.out.println("Loi Ngay Sinh: ");
 //        }
-
         //if(hsDao.SaveOrUpdate(hs)){
         if (hsDao.add(hs) != -1) {
             JOptionPane.showMessageDialog(null, "Thêm học sinh thành công");
@@ -337,6 +350,15 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Thêm học sinh thất bại");
         }
     }//GEN-LAST:event_btnThemActionPerformed
+
+    private void btnXepLopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXepLopActionPerformed
+        // TODO add your handling code here:
+        ManageClassArrangeJFrame f = new ManageClassArrangeJFrame();
+        f.setLocationRelativeTo(null);
+        f.setVisible(true);
+        f.setResizable(false);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnXepLopActionPerformed
 
     /**
      * @param args the command line arguments
@@ -394,6 +416,7 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnQuayLai;
     private javax.swing.JButton btnThem;
+    private javax.swing.JButton btnXepLop;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JButton jButton2;

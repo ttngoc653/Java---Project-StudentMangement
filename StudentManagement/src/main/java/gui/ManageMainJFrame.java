@@ -190,8 +190,6 @@ public class ManageMainJFrame extends javax.swing.JFrame {
     private void btnLopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLopActionPerformed
         // TODO add your handling code here:
         ManageClassJFrame f = new ManageClassJFrame();
-//        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-//        f.setSize(screenSize.width, 500);
         f.setLocationRelativeTo(null);
         f.setVisible(true);
         f.setResizable(false);

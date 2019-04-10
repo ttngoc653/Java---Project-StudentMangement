@@ -65,7 +65,7 @@ public class ManageClassJFrame extends javax.swing.JFrame {
         txtTinhTrang = new javax.swing.JTextField();
         btnThem = new javax.swing.JButton();
         btnXoa = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnQuayLai = new javax.swing.JButton();
         btnSua = new javax.swing.JButton();
         cboKhoi = new javax.swing.JComboBox<>();
         btnXem = new javax.swing.JButton();
@@ -116,7 +116,12 @@ public class ManageClassJFrame extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setText("Quay lại");
+        btnQuayLai.setText("Quay lại");
+        btnQuayLai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuayLaiActionPerformed(evt);
+            }
+        });
 
         btnSua.setText("Sửa");
         btnSua.addActionListener(new java.awt.event.ActionListener() {
@@ -163,7 +168,7 @@ public class ManageClassJFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(btnQuayLai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(txtTenLop, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -198,7 +203,7 @@ public class ManageClassJFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnThem)
-                    .addComponent(jButton4)
+                    .addComponent(btnQuayLai)
                     .addComponent(btnXoa)
                     .addComponent(btnSua))
                 .addGap(3, 3, 3)
@@ -334,7 +339,7 @@ public class ManageClassJFrame extends javax.swing.JFrame {
                 if (cboKhoi.getSelectedIndex() != -1) {
                     Khoi = Integer.parseInt(cboKhoi.getSelectedItem().toString());
                 }
-                
+
                 Lop a = new Lop();
                 a.setIdLop(id);
                 a.setTenLop(tenLop);
@@ -355,6 +360,15 @@ public class ManageClassJFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Nhập tên lớp");
         }
     }//GEN-LAST:event_btnSuaActionPerformed
+
+    private void btnQuayLaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuayLaiActionPerformed
+        // TODO add your handling code here:
+        ManageMainJFrame f = new ManageMainJFrame();
+        f.setLocationRelativeTo(null);
+        f.setVisible(true);
+        f.setResizable(false);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnQuayLaiActionPerformed
 
     /**
      * @param args the command line arguments
@@ -396,12 +410,12 @@ public class ManageClassJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnQuayLai;
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnXem;
     private javax.swing.JButton btnXoa;
     private javax.swing.JComboBox<String> cboKhoi;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
