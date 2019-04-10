@@ -5,18 +5,47 @@
  */
 package gui;
 
+import dal.HocsinhLophocDAL;
+import dto.HocsinhLophoc;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author tuhuy
  */
 public class ManageClassArrangeJFrame extends javax.swing.JFrame {
 
+    HocsinhLophocDAL hslopDao = new HocsinhLophocDAL();
     /**
      * Creates new form ArrangeClassJFrame
      */
     public ManageClassArrangeJFrame() {
         initComponents();
+        LoadData();
     }
+    
+    private void LoadData() {
+        DefaultTableModel dtm = new DefaultTableModel();
+        dtm.addColumn("STT");
+        dtm.addColumn("MSHS");
+        dtm.addColumn("Mã lớp");
+        dtm.addColumn("Mã năm học");
+        //int Size = this.hslopDao.getAll().size();
+        int i = 1;
+
+        for (HocsinhLophoc a : this.hslopDao.getAll()) {
+            dtm.addRow(new Object[]{i, a.getHocsinh().getIdHocSinh(), a.getLop().getIdLop(), a.getNamhoc().getIdNamHoc()});
+            i++;
+        }
+
+        this.jTableXepLop.setModel(dtm);
+        this.jTableXepLop.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+        //SwingUtilities.updateComponentTreeUI(this);
+        this.jTableXepLop.repaint();
+        this.jTableXepLop.revalidate();
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,7 +57,7 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableXepLop = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
@@ -44,7 +73,7 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Quản lý xếp lớp");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableXepLop.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -55,9 +84,11 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTableXepLop);
 
         jLabel1.setText("STT:");
+
+        jTextField1.setEditable(false);
 
         jLabel2.setText("MSHS:");
 
@@ -203,7 +234,7 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableXepLop;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
