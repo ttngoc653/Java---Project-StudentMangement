@@ -35,7 +35,7 @@ public class ManageClassJFrame extends javax.swing.JFrame {
         dtm.addColumn("Khối");
         dtm.addColumn("Tình trạng");
 
-        for (Lop a : this.lopDao.getAll()) {
+        for (Lop a : new LopDAL().getAll()) {
             dtm.addRow(new Object[]{a.getIdLop(), a.getTenLop(), a.getKhoi(), a.getTinhTrang()});
         }
 
@@ -288,7 +288,8 @@ public class ManageClassJFrame extends javax.swing.JFrame {
     private void jTableLopMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableLopMouseClicked
         // TODO add your handling code here:
         String tenLop = this.jTableLop.getValueAt(this.jTableLop.getSelectedRow(), 1).toString();
-        Lop a = this.lopDao.getByTen2(tenLop);
+        //Lop a = this.lopDao.getByTen2(tenLop);
+        Lop a = new LopDAL().getByTen(tenLop);
 
         int indexCbo = 0;
         if (a.getKhoi() == 10) {

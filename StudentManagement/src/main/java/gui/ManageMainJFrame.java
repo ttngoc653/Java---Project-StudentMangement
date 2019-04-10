@@ -5,8 +5,10 @@
  */
 package gui;
 
+import dto.Nguoidung;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,6 +21,14 @@ public class ManageMainJFrame extends javax.swing.JFrame {
      */
     public ManageMainJFrame() {
         initComponents();
+    }
+    
+    dto.Nguoidung nd;
+    ManageMainJFrame(Nguoidung nguoidung) {
+        initComponents();
+        nd = nguoidung;
+        JOptionPane.showMessageDialog(rootPane, "Xin chào "+nd.getHoTen());
+        lblTenTaiKhoan.setText(nd.getHoTen());
     }
 
     /**

@@ -100,9 +100,10 @@ public class LoginJFrame extends javax.swing.JFrame {
 
         if(!Ten.equals("") && !MatKhau.equals("")){
             try {
-                if(user.LogIn(Ten, MatKhau) != null){
+                dto.Nguoidung nd = user.LogIn(Ten, MatKhau);
+                if(nd != null){
                     //JOptionPane.showMessageDialog(null, "Đăng nhập thành công");
-                    ManageMainJFrame f = new ManageMainJFrame();
+                    ManageMainJFrame f = new ManageMainJFrame(nd);
                     f.setLocationRelativeTo(null);
                     f.setVisible(true);
                     this.setVisible(false);
