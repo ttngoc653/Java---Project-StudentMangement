@@ -5,10 +5,20 @@
  */
 package bll;
 
+import dto.Nguoidung;
+
 /**
  *
  * @author Jossion
  */
 public class ForgotPasswordBLL {
-    
+    public static Nguoidung getInfo(String tenDangNhap,String soDienThoai, String email){
+        if(tenDangNhap!=null){
+            Nguoidung nd=new dal.NguoidungDAL().getByTenDangNhap(tenDangNhap);
+            if(email.equals(nd.getEmail())){
+                
+            }
+        }
+        return null;
+    }
 }
