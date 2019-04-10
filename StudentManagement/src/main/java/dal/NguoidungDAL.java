@@ -196,7 +196,7 @@ public class NguoidungDAL {
         }
         return n;
     }
-    
+
     public Nguoidung getByTenDangNhap(String tenDN) {
         Nguoidung n = null;
         try {
@@ -246,7 +246,7 @@ public class NguoidungDAL {
         return list;
     }
 
-    public List<Nguoidung> getByTrinhTrang(byte tinhTrang) {
+    public List<Nguoidung> getByTinhTrang(byte tinhTrang) {
         list = new ArrayList<>();
         try {
             tst = session.beginTransaction();
@@ -260,5 +260,24 @@ public class NguoidungDAL {
             e.printStackTrace();
         }
         return list;
+    }
+
+    public Nguoidung getByEmail(String email) {
+        list = new ArrayList<>();
+        try {
+            tst = session.beginTransaction();
+            Query q = session.createQuery("from Nguoidung as t where t.email = '" + email + "'");
+            list = q.list();
+            tst.commit();
+        } catch (Exception e) {
+            if (tst != null) {
+                tst.rollback();
+            }
+            e.printStackTrace();
+        }
+        if (list.size() > 0) {
+            return list.get(0);
+        }
+        return null;
     }
 }
