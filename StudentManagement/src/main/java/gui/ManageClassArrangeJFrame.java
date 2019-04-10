@@ -16,18 +16,18 @@ import javax.swing.table.DefaultTableModel;
  * @author tuhuy
  */
 public class ManageClassArrangeJFrame extends javax.swing.JFrame {
-
-    HocsinhLophocDAL hslopDao = new HocsinhLophocDAL();
+/*
+    HocsinhLophocDAL hslopDao = null;
     HocsinhDAL hsDao = new HocsinhDAL();
     LopDAL lopDao = new LopDAL();
     NamhocDAL namhocDao = new NamhocDAL();
-
+*/
     /**
      * Creates new form ArrangeClassJFrame
      */
     public ManageClassArrangeJFrame() {
         initComponents();
-        //LoadCbo();
+        LoadCbo();
         LoadData();
         //LoadCbo();
     }
@@ -40,8 +40,8 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
         dtm.addColumn("Mã năm học");
         //int Size = this.hslopDao.getAll().size();
         int i = 1;
-
-        for (HocsinhLophoc a : this.hslopDao.getAll()) {
+        
+        for (HocsinhLophoc a : new HocsinhLophocDAL().getAll()) {
             dtm.addRow(new Object[]{i, a.getHocsinh().getIdHocSinh(), a.getLop().getIdLop(), a.getNamhoc().getIdNamHoc()});
             i++;
         }
@@ -54,13 +54,13 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
     }
 
     private void LoadCbo() {
-        for (Hocsinh a : this.hsDao.getAll()) {
+        for (Hocsinh a : new HocsinhDAL().getAll()) {
             cboMSHS.addItem(a.getIdHocSinh().toString());
         }
-        for (Lop a : this.lopDao.getAll()) {
+        for (Lop a : new LopDAL().getAll()) {
             cboMaLop.addItem(a.getIdLop().toString());
         }
-        for (Namhoc a : this.namhocDao.getAll()) {
+        for (Namhoc a : new NamhocDAL().getAll()) {
             cboMaNamHoc.addItem(a.getIdNamHoc().toString());
         }
 
