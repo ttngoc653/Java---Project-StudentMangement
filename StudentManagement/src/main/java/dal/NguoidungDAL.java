@@ -7,12 +7,8 @@ package dal;
 
 import dto.HibernateUtil;
 import dto.Nguoidung;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
-import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -185,11 +181,27 @@ public class NguoidungDAL {
         return n;
     }
 
-    public Nguoidung getByTen(String ten) {
+    public Nguoidung getByHoTen(String ten) {
         Nguoidung n = null;
         try {
             tst = session.beginTransaction();
             Query q = session.createQuery("from Nguoidung as t where t.hoTen = '" + ten + "'");
+            n = (Nguoidung) q.uniqueResult();
+            tst.commit();
+        } catch (Exception e) {
+            if (tst != null) {
+                tst.rollback();
+            }
+            e.printStackTrace();
+        }
+        return n;
+    }
+
+    public Nguoidung getByTenDangNhap(String tenDN) {
+        Nguoidung n = null;
+        try {
+            tst = session.beginTransaction();
+            Query q = session.createQuery("from Nguoidung as t where t.tenDangNhap = '" + tenDN + "'");
             n = (Nguoidung) q.uniqueResult();
             tst.commit();
         } catch (Exception e) {
@@ -206,42 +218,10 @@ public class NguoidungDAL {
         try {
             tst = session.beginTransaction();
             Query q = session.createQuery("from Nguoidung as t where MD5(t.tenTaiKhoan) LIKE MD5( '" + userName + "')"
-                    + "AND MD5(matKhau) LIKE MD5('" + passWord + "')");
+                    + "AND MD5(t.matKhau) LIKE MD5('" + passWord + "')");
             n = (Nguoidung) q.uniqueResult();
             tst.commit();
         } catch (Exception e) {
-            if (tst != null) {
-                tst.rollback();
-            }
-            e.printStackTrace();
-        }
-        return n;
-    }
-    
-    public String PasswordMD5(String password) throws NoSuchAlgorithmException {
-        String kq = ""; 
-        MessageDigest md = MessageDigest.getInstance("MD5");
-        byte[] hashInBytes = md.digest(password.getBytes(StandardCharsets.UTF_8));
-
-        StringBuilder sb = new StringBuilder();
-        for (byte b : hashInBytes) {
-            sb.append(String.format("%02x", b));
-        }
-        //System.out.println(sb.toString());
-        kq = sb.toString();
-        return kq;
-    }
-    
-    public Nguoidung LogIn(String userName, String passWord) throws NoSuchAlgorithmException  {
-        String password = PasswordMD5(passWord);
-        Nguoidung n = null;
-        try {
-            tst = session.beginTransaction();
-            Query q = session.createQuery("from Nguoidung as t where t.tenTaiKhoan LIKE '" + userName + "' "
-                    + "AND t.matKhau LIKE '" + password + "' ");
-            n = (Nguoidung) q.uniqueResult();
-            tst.commit();
-        } catch (HibernateException e) {
             if (tst != null) {
                 tst.rollback();
             }
@@ -266,7 +246,7 @@ public class NguoidungDAL {
         return list;
     }
 
-    public List<Nguoidung> getByTrinhTrang(byte tinhTrang) {
+    public List<Nguoidung> getByTinhTrang(byte tinhTrang) {
         list = new ArrayList<>();
         try {
             tst = session.beginTransaction();
@@ -282,13 +262,12 @@ public class NguoidungDAL {
         return list;
     }
 
-    public Nguoidung getByTenDangNhap(String ten) {
-        
-        Nguoidung n = null;
+    public Nguoidung getByEmail(String email) {
+        list = new ArrayList<>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Nguoidung as t where t.tenTaiKhoan = '" + ten + "'");
-            n = (Nguoidung) q.uniqueResult();
+            Query q = session.createQuery("from Nguoidung as t where t.email = '" + email + "'");
+            list = q.list();
             tst.commit();
         } catch (Exception e) {
             if (tst != null) {
@@ -296,6 +275,9 @@ public class NguoidungDAL {
             }
             e.printStackTrace();
         }
-        return n;
+        if (list.size() > 0) {
+            return list.get(0);
+        }
+        return null;
     }
 }
