@@ -358,21 +358,7 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
         hs.setSdtGiamHo(this.txtSdtGiamHo.getText());
         hs.setTinhTrang(Byte.parseByte("1"));
 
-//        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-//        String dateInString = this.txtNgaySinh.getText();
-//
-//        try {
-//
-//            Date date = formatter.parse(dateInString);
-//            //System.out.println(date);
-//            //System.out.println(formatter.format(date));
-//            hs.setNgaySinh(date);
-//        } catch (ParseException e) {
-//            //e.printStackTrace();
-//            System.out.println("Loi Ngay Sinh: ");
-//        }
-        //if(hsDao.SaveOrUpdate(hs)){
-        if (hsDao.add(hs) != -1) {
+        if (new HocsinhDAL().add(hs) != -1) {
             JOptionPane.showMessageDialog(null, "Thêm học sinh thành công");
         } else {
             JOptionPane.showMessageDialog(null, "Thêm học sinh thất bại");

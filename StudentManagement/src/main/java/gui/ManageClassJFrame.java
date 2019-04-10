@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import dal.LopDAL;
@@ -254,16 +249,8 @@ public class ManageClassJFrame extends javax.swing.JFrame {
                 a.setTinhTrang(tinhTrang);
 
                 if (lopDao.add(a)) {
-                    //if (lopDao.add(a) == -1) {
                     JOptionPane.showMessageDialog(null, "Thêm lớp thành công");
                     LoadData();
-//                    SwingUtilities.updateComponentTreeUI(this);
-//                    this.invalidate();
-//                    this.validate();
-//                    this.repaint();
-
-//                    this.revalidate();
-//                    this.repaint();
                 } else {
                     JOptionPane.showMessageDialog(null, "Thêm lớp thất bại");
                 }
@@ -278,10 +265,6 @@ public class ManageClassJFrame extends javax.swing.JFrame {
 
     private void btnXemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemActionPerformed
         // TODO add your handling code here:
-//        SwingUtilities.updateComponentTreeUI(this);
-//        this.invalidate();
-//        this.validate();
-//        this.repaint();
         LoadData();
     }//GEN-LAST:event_btnXemActionPerformed
 

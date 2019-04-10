@@ -48,10 +48,8 @@ public class HocsinhDAL {
         } catch (Exception e) {
             if (tst != null) {
                 tst.rollback();
-                System.out.println("LOI O HAM: dal.HocsinhDAL.add()");
             }
             e.printStackTrace();
-            System.out.println("dal.HocsinhDAL.add()");
         }
         return result;
     }

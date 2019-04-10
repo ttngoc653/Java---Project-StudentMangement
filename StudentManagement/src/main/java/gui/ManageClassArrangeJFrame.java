@@ -48,9 +48,6 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
 
         this.jTableXepLop.setModel(dtm);
         this.jTableXepLop.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
-        //SwingUtilities.updateComponentTreeUI(this);
-        this.jTableXepLop.repaint();
-        this.jTableXepLop.revalidate();
     }
 
     private void LoadCbo() {
@@ -63,16 +60,6 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
         for (Namhoc a : new NamhocDAL().getAll()) {
             cboMaNamHoc.addItem(a.getIdNamHoc().toString());
         }
-
-//        int Size = this.hsDao.getAll().size();
-//        String[] dsMaLop = new String[Size]; 
-//        int j = 1;
-//        for (Hocsinh i : this.hsDao.getAll()) {
-//            dsMaLop[j].equals(i.getIdHocSinh().toString());
-//            j++;
-//        }
-//        DefaultComboBoxModel cbm = new DefaultComboBoxModel(dsMaLop);
-//        cboMSHS.setModel(cbm);
     }
 
     /**

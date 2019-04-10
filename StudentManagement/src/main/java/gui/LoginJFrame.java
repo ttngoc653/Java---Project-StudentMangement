@@ -98,25 +98,24 @@ public class LoginJFrame extends javax.swing.JFrame {
         String MatKhau = txtMatKhau.getText();
         NguoidungDAL user = new NguoidungDAL();
 
-        if(!Ten.equals("") && !MatKhau.equals("")){
+        if (!Ten.equals("") && !MatKhau.equals("")) {
+            dto.Nguoidung nd;
             try {
-                dto.Nguoidung nd = user.LogIn(Ten, MatKhau);
-                if(nd != null){
+                nd = user.LogIn(Ten, MatKhau);
+
+                if (nd != null) {
                     //JOptionPane.showMessageDialog(null, "Đăng nhập thành công");
                     ManageMainJFrame f = new ManageMainJFrame(nd);
                     f.setLocationRelativeTo(null);
                     f.setVisible(true);
                     this.setVisible(false);
-                }
-                else{
+                } else {
                     JOptionPane.showMessageDialog(null, "Đăng nhập thất bại");
                 }
             } catch (NoSuchAlgorithmException ex) {
                 Logger.getLogger(LoginJFrame.class.getName()).log(Level.SEVERE, null, ex);
-                //System.out.println("LOI KIEM TRA LOGIN");
             }
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(null, "Nhập tên tài khoản, mật khẩu");
         }
     }//GEN-LAST:event_btnDangNhapActionPerformed

@@ -7,6 +7,9 @@ package dal;
 
 import dto.HibernateUtil;
 import dto.Nguoidung;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Query;
@@ -213,12 +216,43 @@ public class NguoidungDAL {
         return n;
     }
 
-    public Nguoidung logIn(String userName, String passWord) {
+//    public Nguoidung logIn(String userName, String passWord) {
+//        Nguoidung n = null;
+//        try {
+//            tst = session.beginTransaction();
+//            Query q = session.createQuery("from Nguoidung as t where MD5(t.tenTaiKhoan) LIKE MD5( '" + userName + "')"
+//                    + "AND MD5(t.matKhau) LIKE MD5('" + passWord + "')");
+//            n = (Nguoidung) q.uniqueResult();
+//            tst.commit();
+//        } catch (Exception e) {
+//            if (tst != null) {
+//                tst.rollback();
+//            }
+//            e.printStackTrace();
+//        }
+//        return n;
+//    }
+    public String PasswordMD5(String password) throws NoSuchAlgorithmException {
+        String kq = "";
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        byte[] hashInBytes = md.digest(password.getBytes(StandardCharsets.UTF_8));
+
+        StringBuilder sb = new StringBuilder();
+        for (byte b : hashInBytes) {
+            sb.append(String.format("%02x", b));
+        }
+        //System.out.println(sb.toString());
+        kq = sb.toString();
+        return kq;
+    }
+
+    public Nguoidung LogIn(String userName, String passWord) throws NoSuchAlgorithmException {
+        String password = PasswordMD5(passWord);
         Nguoidung n = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Nguoidung as t where MD5(t.tenTaiKhoan) LIKE MD5( '" + userName + "')"
-                    + "AND MD5(t.matKhau) LIKE MD5('" + passWord + "')");
+            Query q = session.createQuery("from Nguoidung as t where t.tenTaiKhoan LIKE '" + userName + "' "
+                    + "AND matKhau LIKE '" + password + "' ");
             n = (Nguoidung) q.uniqueResult();
             tst.commit();
         } catch (Exception e) {
