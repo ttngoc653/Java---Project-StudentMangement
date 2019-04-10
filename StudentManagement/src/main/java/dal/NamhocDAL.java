@@ -9,22 +9,28 @@ import dto.HibernateUtil;
 import dto.Namhoc;
 import java.util.ArrayList;
 import java.util.List;
+import org.hibernate.FlushMode;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.context.internal.ManagedSessionContext;
 
 /**
  *
  * @author Jossion
  */
 public class NamhocDAL {
-    
+
     private Session session = null;
     private Transaction tst = null;
     private List<Namhoc> list;
 
+    private final SessionFactory sf = HibernateUtil.getSessionFactory();
+
     public NamhocDAL() {
-        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        //session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session = HibernateUtil.getSessionFactory().openSession();
     }
 
     @Override
@@ -57,8 +63,8 @@ public class NamhocDAL {
             tst = session.beginTransaction();
             Namhoc n = (Namhoc) session.get(Namhoc.class, p.getIdNamHoc());
 
-            n.setTenNamHoc(p.getTenNamHoc().length()>0 ? p.getTenNamHoc(): n.getTenNamHoc());
-            
+            n.setTenNamHoc(p.getTenNamHoc().length() > 0 ? p.getTenNamHoc() : n.getTenNamHoc());
+
             session.update(n);
             tst.commit();
             result = true;
