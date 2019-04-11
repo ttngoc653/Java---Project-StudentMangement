@@ -9,6 +9,7 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Random;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -27,9 +28,9 @@ public class HelperBLL {
     }
 
     /*
-    convert string to MD5
-    source: https://www.geeksforgeeks.org/md5-hash-in-java/
-    */
+     convert string to MD5
+     source: https://www.geeksforgeeks.org/md5-hash-in-java/
+     */
     public static String getMd5(String input) {
         try {
 
@@ -53,5 +54,21 @@ public class HelperBLL {
         catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    /*
+     source: https://www.geeksforgeeks.org/check-email-address-valid-not-java/
+     */
+    public static boolean checkEmail(String emailStr) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."
+                + "[a-zA-Z0-9_+&*-]+)*@"
+                + "(?:[a-zA-Z0-9-]+\\.)+[a-z"
+                + "A-Z]{2,7}$";
+
+        Pattern pat = Pattern.compile(emailRegex);
+        if (emailStr == null) {
+            return false;
+        }
+        return pat.matcher(emailStr).matches();
     }
 }

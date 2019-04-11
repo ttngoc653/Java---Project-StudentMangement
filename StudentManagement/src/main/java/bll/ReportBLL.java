@@ -18,18 +18,17 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
 
 /**
  *
  * @author Jossion
  */
 public class ReportBLL {
-   public void returnReport() {
+
+    public void returnReport() {
         //JasperPrint jp =JasperFillManager.fillReport(jasperReport, parameter, jrDataSource)
-        
-        File f=new File(new File("").getAbsolutePath()+"\\src\\main\\java\\gui\\ReportFinalSemesterReport.jrxml");
+
+        File f = new File(new File("").getAbsolutePath() + "\\src\\main\\java\\gui\\ReportFinalSemesterReport.jrxml");
         System.out.println(f.getAbsolutePath());
         System.out.println(f.exists());
     }
@@ -102,7 +101,7 @@ public class ReportBLL {
         return lResult;
     }
 
-    public List<Map<String, ?>> dataReportBySemester(String subject, String schoolYear, int semester) {
+    public List<Map<String, ?>> dataReportBySemester(String schoolYear, int semester) {
         List<Map<String, ?>> lResult = new ArrayList<>();
         List<Lop> lLop = new LopDAL().getAll();
         for (int i = 0; i < lLop.size() - 1; i++) {

@@ -7,9 +7,6 @@ package gui;
 
 import bll.ForgotPasswordBLL;
 import dto.Nguoidung;
-import java.io.UnsupportedEncodingException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -49,12 +46,13 @@ public class ForgotPasswordJFrame extends javax.swing.JFrame {
         jSplitPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("StuMng - QUÊN MẬT KHẨU");
         setName("StuMng"); // NOI18N
         setResizable(false);
 
         jLabel1.setFont(jLabel1.getFont().deriveFont(jLabel1.getFont().getSize()+1f));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel1.setText("Tên đăng nhập (*):");
+        jLabel1.setText("Tên đăng nhập:");
 
         jLabel2.setFont(jLabel2.getFont().deriveFont(jLabel2.getFont().getSize()+1f));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -139,14 +137,12 @@ public class ForgotPasswordJFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jLabel4.getAccessibleContext().setAccessibleName("(Yêu cầu: Nhập chính xác email để nhận thông tin đăng nhập mới.)");
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRecoveryPaswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecoveryPaswordActionPerformed
         // TODO add your handling code here:
-        int result = ForgotPasswordBLL.RecoveryPass(new Nguoidung(null, txtUser.getText().length()>0?txtUser.getText():null, null, Byte.valueOf(" "), Byte.valueOf(""), txtPhone.getText(),txtEmail.getText()));
+        int result = ForgotPasswordBLL.RecoveryPass(new Nguoidung(null, txtUser.getText().length() > 0 ? txtUser.getText() : null, null, Byte.valueOf(" "), Byte.valueOf(""), txtPhone.getText(), txtEmail.getText()));
         switch (result) {
             case 0:
                 JOptionPane.showMessageDialog(rootPane, "Vui lòng kiểm tra hộp thư email để thực hiện bước tiếp theo.");
@@ -155,13 +151,12 @@ public class ForgotPasswordJFrame extends javax.swing.JFrame {
             case 1:
                 JOptionPane.showMessageDialog(rootPane, "Thông tin đã nhập không chính xác.");
                 break;
-            case 2: 
+            case 2:
                 JOptionPane.showMessageDialog(rootPane, "Lỗi khi gửi phương thức khôi phục mật khẩu qua email.");
                 break;
             case 3:
                 JOptionPane.showMessageDialog(rootPane, "Lỗi khi cập nhật email mới vào dữ liệu.");
                 break;
-            default:
         }
     }//GEN-LAST:event_btnRecoveryPaswordActionPerformed
 
@@ -194,6 +189,7 @@ public class ForgotPasswordJFrame extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new ForgotPasswordJFrame().setVisible(true);
             }
