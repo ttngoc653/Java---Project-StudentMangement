@@ -1,10 +1,8 @@
 package gui;
 
-import dal.LopDAL;
-import dto.Lop;
-import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.SwingUtilities;
+import dal.*;
+import dto.*;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -20,6 +18,13 @@ public class ManageClassJFrame extends javax.swing.JFrame {
      */
     public ManageClassJFrame() {
         initComponents();
+    }
+
+    dto.Nguoidung nd;
+    public ManageClassJFrame(Nguoidung nguoidung) {
+        initComponents();
+        nd = nguoidung;
+        lblTenTaiKhoan.setText(nd.getHoTen());
         LoadData();
     }
 
@@ -66,6 +71,7 @@ public class ManageClassJFrame extends javax.swing.JFrame {
         btnXem = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         txtMaLop = new javax.swing.JTextField();
+        lblTenTaiKhoan = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Quản lý lớp");
@@ -195,7 +201,7 @@ public class ManageClassJFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTinhTrang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnThem)
                     .addComponent(btnQuayLai)
@@ -206,23 +212,32 @@ public class ManageClassJFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        lblTenTaiKhoan.setText("Tên tài khoản");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(lblTenTaiKhoan)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(lblTenTaiKhoan)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -231,7 +246,7 @@ public class ManageClassJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        // TODO add your handling code here:
+
         if (!this.txtTenLop.getText().equals("")) {
             String tenLop = this.txtTenLop.getText();
             Byte tinhTrang = Byte.parseByte("1");
@@ -264,12 +279,11 @@ public class ManageClassJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnXemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemActionPerformed
-        // TODO add your handling code here:
         LoadData();
     }//GEN-LAST:event_btnXemActionPerformed
 
     private void jTableLopMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableLopMouseClicked
-        // TODO add your handling code here:
+        
         String tenLop = this.jTableLop.getValueAt(this.jTableLop.getSelectedRow(), 1).toString();
         //Lop a = this.lopDao.getByTen2(tenLop);
         Lop a = new LopDAL().getByTen(tenLop);
@@ -292,7 +306,7 @@ public class ManageClassJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jTableLopMouseClicked
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        // TODO add your handling code here:
+
         String tenLop = this.jTableLop.getValueAt(this.jTableLop.getSelectedRow(), 1).toString();
         int idLop = Integer.parseInt(this.jTableLop.getValueAt(this.jTableLop.getSelectedRow(), 0).toString());
         int cf = JOptionPane.showConfirmDialog(null, "Bạn có chắc xóa lớp " + tenLop + " không?", "Xác nhận", JOptionPane.YES_OPTION);
@@ -309,7 +323,7 @@ public class ManageClassJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-        // TODO add your handling code here:
+
         if (!this.txtTenLop.getText().equals("")) {
             int id = Integer.parseInt(this.txtMaLop.getText());
             String tenLop = this.txtTenLop.getText();
@@ -346,8 +360,8 @@ public class ManageClassJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnQuayLaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuayLaiActionPerformed
-        // TODO add your handling code here:
-        ManageMainJFrame f = new ManageMainJFrame();
+
+        ManageMainJFrame f = new ManageMainJFrame(nd);
         f.setLocationRelativeTo(null);
         f.setVisible(true);
         f.setResizable(false);
@@ -407,6 +421,7 @@ public class ManageClassJFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableLop;
+    private javax.swing.JLabel lblTenTaiKhoan;
     private javax.swing.JTextField txtMaLop;
     private javax.swing.JTextField txtTenLop;
     private javax.swing.JTextField txtTinhTrang;

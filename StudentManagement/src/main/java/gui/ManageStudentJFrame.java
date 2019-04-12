@@ -1,20 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
-import dal.HocsinhDAL;
-import dto.Hocsinh;
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
+import dal.*;
+import dto.*;
+import java.awt.*;
+import java.text.*;
+import java.util.*;
+import javax.swing.*;
+import javax.swing.table.*;
 
 /**
  *
@@ -30,6 +22,15 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
     public ManageStudentJFrame() {
         //setUndecorated(true); //Bỏ khung viền tiêu đề frame (bỏ 3 nút trên cùng bên phải)
         initComponents();
+        LoadData();
+    }
+
+    dto.Nguoidung nd;
+
+    public ManageStudentJFrame(Nguoidung nguoidung) {
+        initComponents();
+        nd = nguoidung;
+        lblTenTaiKhoan.setText(nd.getHoTen());
         LoadData();
     }
 
@@ -104,6 +105,7 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
         btnQuayLai = new javax.swing.JButton();
         btnXepLop = new javax.swing.JButton();
         btnNgaySinh = new java.awt.Button();
+        lblTenTaiKhoan = new javax.swing.JLabel();
 
         buttonGroup2.add(rbNam);
         buttonGroup2.add(rbNu);
@@ -218,7 +220,7 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
                 .addComponent(jDateChooserNgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(txtTinhTrang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -246,7 +248,7 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
                         .addComponent(jLabel5)
                         .addComponent(jLabel8)
                         .addComponent(txtSdtGiamHo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(33, Short.MAX_VALUE)))
+                    .addContainerGap(38, Short.MAX_VALUE)))
         );
 
         btnThem.setText("Thêm");
@@ -281,6 +283,8 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
             }
         });
 
+        lblTenTaiKhoan.setText("Tên tài khoản");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -304,16 +308,21 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
                                 .addComponent(btnXepLop)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnNgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(lblTenTaiKhoan)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(42, 42, 42)
+                .addContainerGap()
+                .addComponent(lblTenTaiKhoan)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -330,8 +339,8 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnQuayLaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuayLaiActionPerformed
-//        // TODO add your handling code here:
-        ManageMainJFrame f = new ManageMainJFrame();
+
+        ManageMainJFrame f = new ManageMainJFrame(nd);
         f.setLocationRelativeTo(null);
         f.setVisible(true);
         f.setResizable(false);
@@ -339,7 +348,7 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnQuayLaiActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        // TODO add your handling code here:
+
         Hocsinh hs = new Hocsinh();
 
         String gioiTinh = "";
@@ -349,8 +358,12 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
             gioiTinh = "Nu";
         }
 
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date newDate = jDateChooserNgaySinh.getDate();
+
         hs.setHoTen(this.txtHoTen.getText());
-        hs.setNgaySinh(this.jDateChooserNgaySinh.getDateFormatString());
+        //hs.setNgaySinh(this.jDateChooserNgaySinh.getDateFormatString());
+        hs.setNgaySinh(dateFormat.format(newDate));
         hs.setEmail(this.txtEmail.getText());
         hs.setGioiTinh(gioiTinh);
         hs.setDiaChi(this.txtDiaChi.getText());
@@ -360,14 +373,15 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
 
         if (new HocsinhDAL().add(hs) != -1) {
             JOptionPane.showMessageDialog(null, "Thêm học sinh thành công");
+            LoadData();
         } else {
             JOptionPane.showMessageDialog(null, "Thêm học sinh thất bại");
         }
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnXepLopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXepLopActionPerformed
-        // TODO add your handling code here:
-        ManageClassArrangeJFrame f = new ManageClassArrangeJFrame();
+
+        ManageClassArrangeJFrame f = new ManageClassArrangeJFrame(nd);
         f.setLocationRelativeTo(null);
         f.setVisible(true);
         f.setResizable(false);
@@ -375,7 +389,7 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnXepLopActionPerformed
 
     private void btnNgaySinhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNgaySinhActionPerformed
-        // TODO add your handling code here:
+
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date newDate = jDateChooserNgaySinh.getDate();
         System.out.println(dateFormat.format(newDate));
@@ -458,6 +472,7 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableHocSinh;
+    private javax.swing.JLabel lblTenTaiKhoan;
     private javax.swing.JRadioButton rbNam;
     private javax.swing.JRadioButton rbNu;
     private javax.swing.JTextArea txtDiaChi;
