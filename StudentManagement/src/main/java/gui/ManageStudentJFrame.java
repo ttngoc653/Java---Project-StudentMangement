@@ -1,5 +1,6 @@
 package gui;
 
+import static bll.HelperBLL.*;
 import dal.*;
 import dto.*;
 import java.awt.*;
@@ -15,6 +16,8 @@ import javax.swing.table.*;
 public class ManageStudentJFrame extends javax.swing.JFrame {
 
     HocsinhDAL hsDao = new HocsinhDAL();
+    DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+    int TuoiToiDa = 15, TuoiToiThieu = 20;
 
     /**
      * Creates new form ManageHSJFrame
@@ -31,6 +34,14 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
         initComponents();
         nd = nguoidung;
         lblTenTaiKhoan.setText(nd.getHoTen());
+
+        /*
+        //Customize Code cho jDateChooserNgaySinh để đặt ngày hiển thị mặc định
+        long millis = System.currentTimeMillis();
+        Date NgayHienTai = new Date(millis);
+        //String Nam = dateFormat.format(NgayHienTai).substring(6);
+        jDateChooserNgaySinh.setDate(NgayHienTai);
+         */
         LoadData();
     }
 
@@ -132,7 +143,7 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
 
         jLabel7.setText("SĐT cá nhân:");
 
-        jLabel3.setText("Ngày sinh:");
+        jLabel3.setText("Ngày sinh (*):");
 
         rbNu.setText("Nữ");
 
@@ -140,16 +151,16 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
 
         jLabel4.setText("Email:");
 
-        jLabel5.setText("Giới tính:");
+        jLabel5.setText("Giới tính (*):");
 
         txtDiaChi.setColumns(20);
         txtDiaChi.setRows(5);
         txtDiaChi.setText("227 nguyen van cu phuong 6 quan 5");
         jScrollPane2.setViewportView(txtDiaChi);
 
-        jLabel2.setText("Họ tên:");
+        jLabel2.setText("Họ tên (*):");
 
-        jLabel6.setText("Địa chỉ:");
+        jLabel6.setText("Địa chỉ (*):");
 
         txtHoTen.setText("a");
 
@@ -162,7 +173,12 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
         rbNam.setSelected(true);
         rbNam.setText("Nam");
 
-        jDateChooserNgaySinh.setDateFormatString("dd/MM/yyyy");
+        jDateChooserNgaySinh.setDateFormatString("dd-MM-yyyy");
+        long millis = System.currentTimeMillis();
+        Date NgayHienTai = new Date(millis);
+        //String Nam = dateFormat.format(NgayHienTai).substring(6);
+        jDateChooserNgaySinh.setVerifyInputWhenFocusTarget(false);
+        jDateChooserNgaySinh.setDate(NgayHienTai);
 
         jLabel9.setText("Tình trạng:");
 
@@ -348,35 +364,53 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnQuayLaiActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-
-        Hocsinh hs = new Hocsinh();
-
-        String gioiTinh = "";
-        if (rbNam.isSelected()) {
-            gioiTinh = "Nam";
-        } else {
-            gioiTinh = "Nu";
-        }
-
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        //DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date newDate = jDateChooserNgaySinh.getDate();
-
-        hs.setHoTen(this.txtHoTen.getText());
-        //hs.setNgaySinh(this.jDateChooserNgaySinh.getDateFormatString());
-        hs.setNgaySinh(dateFormat.format(newDate));
-        hs.setEmail(this.txtEmail.getText());
-        hs.setGioiTinh(gioiTinh);
-        hs.setDiaChi(this.txtDiaChi.getText());
-        hs.setSdtCaNhan(this.txtSdtCaNhan.getText());
-        hs.setSdtGiamHo(this.txtSdtGiamHo.getText());
-        hs.setTinhTrang(Byte.parseByte("1"));
-
-        if (new HocsinhDAL().add(hs) != -1) {
-            JOptionPane.showMessageDialog(null, "Thêm học sinh thành công");
-            LoadData();
-        } else {
-            JOptionPane.showMessageDialog(null, "Thêm học sinh thất bại");
+        String ngaySinh = dateFormat.format(newDate);
+        if(!dateFormat.format(newDate).equals("") && checkDate2(dateFormat.format(newDate))){
+            JOptionPane.showMessageDialog(null, "Ngày sinh hợp lệ");
         }
+        else{
+            JOptionPane.showMessageDialog(null, "Ngày sinh không được để trống hoặc không hợp lệ");
+        }
+
+//        if (!this.txtHoTen.getText().equals("") && !this.txtDiaChi.getText().equals("")) {
+//            Hocsinh hs = new Hocsinh();
+//            String hoTen = this.txtHoTen.getText();
+//            String email = this.txtEmail.getText();
+//            String gioiTinh = "";
+//            if (rbNam.isSelected()) {
+//                gioiTinh = "Nam";
+//            } else {
+//                gioiTinh = "Nu";
+//            }
+//            String diaChi = this.txtDiaChi.getText();
+//            String sdtCaNhan = this.txtSdtCaNhan.getText();
+//            String sdtGiamHo = this.txtSdtGiamHo.getText();
+//
+//            if (checkAge(ngaySinh, TuoiToiDa, TuoiToiThieu)) {
+//                hs.setHoTen(hoTen);
+//                hs.setNgaySinh(ngaySinh);
+//                hs.setEmail(email);
+//                hs.setGioiTinh(gioiTinh);
+//                hs.setDiaChi(diaChi);
+//                hs.setSdtCaNhan(sdtCaNhan);
+//                hs.setSdtGiamHo(sdtGiamHo);
+//                hs.setTinhTrang(Byte.parseByte("1"));
+//
+//                if (new HocsinhDAL().add(hs) != -1) {
+//                    JOptionPane.showMessageDialog(null, "Thêm học sinh thành công");
+//                    LoadData();
+//                } else {
+//                    JOptionPane.showMessageDialog(null, "Thêm học sinh thất bại");
+//                }
+//            } else {
+//                JOptionPane.showMessageDialog(null, "Tuổi từ " + TuoiToiThieu + " đến " + TuoiToiDa);
+//            }
+//
+//        } else {
+//            JOptionPane.showMessageDialog(null, "Điền thông tin cho các ô có (*)");
+//        }
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnXepLopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXepLopActionPerformed
@@ -390,11 +424,34 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
 
     private void btnNgaySinhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNgaySinhActionPerformed
 
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Date newDate = jDateChooserNgaySinh.getDate();
-        System.out.println(dateFormat.format(newDate));
+        String kq = checkPhoneNumber(txtSdtCaNhan.getText());
+        //JOptionPane.showMessageDialog(null, kq);     
+        String kq2 = checkEmail(txtEmail.getText());
+        //JOptionPane.showMessageDialog(null, kq2);
 
-        JOptionPane.showMessageDialog(null, "Ngày sinh: " + dateFormat.format(newDate));
+        long millis = System.currentTimeMillis();
+        Date date = new java.sql.Date(millis);
+        String year1 = dateFormat.format(date).substring(6);
+        int year = Integer.parseInt(year1);
+        //JOptionPane.showMessageDialog(null, year);
+
+        Date newDate = jDateChooserNgaySinh.getDate();
+        String NamSinh1 = dateFormat.format(newDate).substring(6);
+        //JOptionPane.showMessageDialog(null, NamSinh1);
+        int NamSinh = 0;
+        try {
+            NamSinh = Integer.parseInt(NamSinh1);
+        } catch (NumberFormatException e) {
+            System.out.println("ERROR: NamSinh");
+        }
+
+        int tuoi = year - NamSinh;
+        int tuoiToiThieu = 15, tuoiToiDa = 20;
+        if (tuoi < tuoiToiThieu || tuoi > tuoiToiDa) {
+            JOptionPane.showMessageDialog(null, "Tuoi: " + year + "-" + NamSinh + "=" + tuoi + "khong hop le");
+        } else {
+            JOptionPane.showMessageDialog(null, "Tuoi hop le");
+        }
     }//GEN-LAST:event_btnNgaySinhActionPerformed
 
     /**

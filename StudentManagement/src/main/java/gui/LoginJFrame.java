@@ -37,7 +37,7 @@ public class LoginJFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Đăng nhập");
 
-        txtTenTaiKhoan.setText("gv01");
+        txtTenTaiKhoan.setText("admin");
 
         btnDangNhap.setLabel("Đăng nhập");
         btnDangNhap.addActionListener(new java.awt.event.ActionListener() {
