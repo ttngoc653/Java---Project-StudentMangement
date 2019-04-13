@@ -78,9 +78,9 @@ public class ReportBLL {
             Double diem15, diem1, diemhk, dtb;
             for (HocsinhLophoc lHL1 : lHL) {
                 List<Diem> lDiem = new DiemDAL().getByHocSinhLopHocMonHoc(new HocsinhLophocDAL().get(new HocsinhLophocId(lHL1.getHocsinh().getIdHocSinh(), lLop.get(i).getIdLop(), new NamhocDAL().getByTen(schoolYear).getIdNamHoc())), new MonhocDAL().getByTen(subject));
-                summary++;
                 for (Diem lDiem1 : lDiem) {
                     if (lDiem1.getHocky().getTenHocKy() == semester) {
+                        summary++;
                         diem15 = lDiem1.getDiem15phut();
                         diem1 = lDiem1.getDiem1tiet();
                         diemhk = lDiem1.getDiemCuoiKy();
@@ -91,12 +91,13 @@ public class ReportBLL {
                     }
                 }
             }
-
-            mL.put("no", i + 1);
-            mL.put("class", lLop.get(i).getTenLop());
-            mL.put("summary", summary);
-            mL.put("reacted", reacted);
-            lResult.add(mL);
+            if (summary > 0) {
+                mL.put("no", i + 1);
+                mL.put("class", lLop.get(i).getTenLop());
+                mL.put("summary", summary);
+                mL.put("reacted", reacted);
+                lResult.add(mL);
+            }
         }
         return lResult;
     }
@@ -126,7 +127,7 @@ public class ReportBLL {
                     diem1 = lDiem1.getDiem1tiet();
                     diemhk = lDiem1.getDiemCuoiKy();
                     dtb = ((diem15 != null ? diem15 : 0) + (diem1 != null ? diem1 : 0) * 2 + (diemhk != null ? diemhk : 0) * 3) / ((diem15 != null ? 1 : 0) + (diem1 != null ? 2 : 0) + (diemhk != null ? 3 : 0));
-                    if (dtb >= 5 && bReacted) {
+                    if (dtb < 5) {
                         bReacted = false;
                     }
                 }
@@ -134,12 +135,13 @@ public class ReportBLL {
                     reacted++;
                 }
             }
-
-            mL.put("no", i + 1);
-            mL.put("class", lLop.get(i).getTenLop());
-            mL.put("summary", summary);
-            mL.put("reacted", reacted);
-            lResult.add(mL);
+            if (summary > 0) {
+                mL.put("no", i + 1);
+                mL.put("class", lLop.get(i).getTenLop());
+                mL.put("summary", summary);
+                mL.put("reacted", reacted);
+                lResult.add(mL);
+            }
         }
         return lResult;
     }

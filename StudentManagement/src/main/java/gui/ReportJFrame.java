@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JOptionPane;
@@ -190,14 +191,25 @@ public class ReportJFrame extends javax.swing.JFrame {
     private void btnSummarySubjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSummarySubjectActionPerformed
         if (cbbSchoolYear.getSelectedItem().equals("") || cbbSemester.getSelectedItem().equals("") || cbbSubject.getSelectedItem().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn đủ thông tin!");
+            return;
         }
-        String dirReport = System.getProperty("user.dir") + "\\src\\main\\java\\gui\\ReportFinalSubjectReport.jrxml";
         List<Map<String, ?>> dataSource = new bll.ReportBLL().dataReportBySubject(cbbSubject.getSelectedItem().toString(), cbbSchoolYear.getSelectedItem().toString(), Integer.parseInt((String) cbbSemester.getSelectedItem()));
+        if (dataSource.isEmpty()) {
+            JOptionPane.showMessageDialog(rootPane, "Môn " + cbbSubject.getSelectedItem().toString() + " ở học kỳ " + cbbSemester.getSelectedItem().toString() + " thuộc năm học " + cbbSchoolYear.getSelectedItem().toString() + " hiện tại chưa có lớp nào có điểm.");
+            return;
+        }
         JRDataSource jrSource = new JRBeanCollectionDataSource(dataSource);
+
+        HashMap param = new HashMap();
+        param.put("subjectName", cbbSubject.getSelectedItem().toString());
+        param.put("semester", cbbSemester.getSelectedItem().toString());
+        param.put("schoolYear", cbbSchoolYear.getSelectedItem().toString());
+
+        String dirReport = System.getProperty("user.dir") + "\\src\\main\\java\\gui\\ReportFinalSubjectReport.jrxml";
         try {
             InputStream input = new FileInputStream(new File(dirReport));
             JasperReport jR = JasperCompileManager.compileReport(input);
-            JasperPrint jP = JasperFillManager.fillReport(jR, null, jrSource);
+            JasperPrint jP = JasperFillManager.fillReport(jR, param, jrSource);
             JasperExportManager.exportReportToPdf(jP);
         } catch (FileNotFoundException | JRException ex) {
             ex.printStackTrace();
@@ -207,14 +219,24 @@ public class ReportJFrame extends javax.swing.JFrame {
     private void btnSummarySemesterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSummarySemesterActionPerformed
         if (cbbSchoolYear.getSelectedItem().equals("") || cbbSemester.getSelectedItem().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn đủ thông tin!");
+            return;
         }
-        String dirReport = System.getProperty("user.dir") + "\\src\\main\\java\\gui\\ReportFinalSemesterReport.jrxml";
         List<Map<String, ?>> dataSource = new bll.ReportBLL().dataReportBySemester(cbbSchoolYear.getSelectedItem().toString(), Integer.parseInt((String) cbbSemester.getSelectedItem()));
+        if (dataSource.isEmpty()) {
+            JOptionPane.showMessageDialog(rootPane, "Học kỳ " + cbbSemester.getSelectedItem().toString() + " thuộc năm học " + cbbSchoolYear.getSelectedItem().toString() + " này hiện tại chưa có lớp nào điểm.");
+            return;
+        }
         JRDataSource jrSource = new JRBeanCollectionDataSource(dataSource);
+
+        HashMap param = new HashMap();
+        param.put("semester", cbbSemester.getSelectedItem().toString());
+        param.put("schoolYear", cbbSchoolYear.getSelectedItem().toString());
+
+        String dirReport = System.getProperty("user.dir") + "\\src\\main\\java\\gui\\ReportFinalSemesterReport.jrxml";
         try {
             InputStream input = new FileInputStream(new File(dirReport));
             JasperReport jR = JasperCompileManager.compileReport(input);
-            JasperPrint jP = JasperFillManager.fillReport(jR, null, jrSource);
+            JasperPrint jP = JasperFillManager.fillReport(jR, param, jrSource);
             JasperExportManager.exportReportToPdf(jP);
         } catch (FileNotFoundException | JRException ex) {
             ex.printStackTrace();
