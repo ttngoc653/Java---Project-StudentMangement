@@ -50,7 +50,7 @@ public class HocsinhBLL {
 //        } else {
 //            return "Độ dài số điện thoại không hợp lệ!";
 //        }
-        if (matcher.matches() && number.length() == 10) {
+        if ((matcher.matches() && number.length() == 10) || number.equals("")) {
             return true;
         } else {
             return false;
@@ -65,7 +65,7 @@ public class HocsinhBLL {
         String emailPattern = "^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
         Pattern regex = Pattern.compile(emailPattern);
         Matcher matcher = regex.matcher(email);
-        if (matcher.find()) {
+        if (matcher.find() || email.equals("")) {
             return true; //Email hợp lệ
         } else {
             return false; //Email không hợp lệ
@@ -79,7 +79,7 @@ public class HocsinhBLL {
         String year1 = dateFormat.format(date).substring(6);
         int year = Integer.parseInt(year1);
 
-        String NamSinh1 = ngaySinh.substring(6);       
+        String NamSinh1 = ngaySinh.substring(6);
         int NamSinh = 0;
         try {
             NamSinh = Integer.parseInt(NamSinh1);
@@ -103,6 +103,17 @@ public class HocsinhBLL {
             } else {
                 return true;
             }
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean checkUpdateStudent(int maHS, String hoTen) {
+        HocsinhDAL hsDALmoi = new HocsinhDAL();
+        Hocsinh HocSinhMoi = hsDALmoi.getByName(hoTen);
+
+        if (HocSinhMoi == null || HocSinhMoi.getIdHocSinh() == maHS) {
+            return true;
         } else {
             return false;
         }
