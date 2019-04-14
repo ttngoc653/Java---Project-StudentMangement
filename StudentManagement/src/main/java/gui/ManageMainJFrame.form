@@ -209,10 +209,10 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btnDiem" alignment="3" min="-2" pref="53" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="btnLop" alignment="0" min="-2" pref="53" max="-2" attributes="0"/>
                       <Component id="btnHocSinh" alignment="0" min="-2" pref="53" max="-2" attributes="0"/>
+                      <Component id="btnDiem" min="-2" pref="53" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">

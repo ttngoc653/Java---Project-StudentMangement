@@ -25,7 +25,7 @@ public class HocsinhDAL {
     private List<Hocsinh> lHs;
 
     private final SessionFactory sf = HibernateUtil.getSessionFactory();
-    
+
     public HocsinhDAL() {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
     }
@@ -65,7 +65,7 @@ public class HocsinhDAL {
             return false;
         }
     }
-        
+
     public boolean saveorupdate(Hocsinh hs) {
         try {
             sf.getCurrentSession().beginTransaction();
@@ -76,9 +76,7 @@ public class HocsinhDAL {
             sf.getCurrentSession().getTransaction().rollback();
             return false;
         }
-    }         
-
-    
+    }
 
     public boolean update(Hocsinh hs) {
         Boolean result = false;
