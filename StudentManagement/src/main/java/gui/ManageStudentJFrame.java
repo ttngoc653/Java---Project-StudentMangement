@@ -427,6 +427,7 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
             String diaChi = this.txtDiaChi.getText();
             String sdtCaNhan = this.txtSdtCaNhan.getText();
             String sdtGiamHo = this.txtSdtGiamHo.getText();
+            Byte tinhTrang = Byte.parseByte("1");
 
             if (checkAge(ngaySinh, TuoiToiDa, TuoiToiThieu) == true) {
                 hs.setHoTen(hoTen);
@@ -436,7 +437,7 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
                 hs.setDiaChi(diaChi);
                 hs.setSdtCaNhan(sdtCaNhan);
                 hs.setSdtGiamHo(sdtGiamHo);
-                hs.setTinhTrang(Byte.parseByte("1"));
+                hs.setTinhTrang(tinhTrang);
 
                 if (checkEmail(email)) {
                     if (checkPhoneNumber(sdtCaNhan) && checkPhoneNumber(sdtGiamHo)) {
@@ -549,7 +550,7 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-        // TODO add your handling code here:
+
         Date newDate = jDateChooserNgaySinh.getDate();
         int kqNgaySinh = 0;
         if (checkDateOfBirth(newDate)) {
@@ -573,10 +574,9 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
             String diaChi = this.txtDiaChi.getText();
             String sdtCaNhan = this.txtSdtCaNhan.getText();
             String sdtGiamHo = this.txtSdtGiamHo.getText();
-            Byte tinhTrang = Byte.parseByte(this.txtTinhTrang.getText());
+            Byte tinhTrang = Byte.parseByte("1");
 
-            if (checkAge(ngaySinh, TuoiToiDa, TuoiToiThieu)) {
-                
+            if (checkAge(ngaySinh, TuoiToiDa, TuoiToiThieu) == true) {
                 hs.setHoTen(hoTen);
                 hs.setNgaySinh(ngaySinh);
                 hs.setEmail(email);
@@ -584,7 +584,7 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
                 hs.setDiaChi(diaChi);
                 hs.setSdtCaNhan(sdtCaNhan);
                 hs.setSdtGiamHo(sdtGiamHo);
-                hs.setTinhTrang(Byte.parseByte("1"));
+                hs.setTinhTrang(tinhTrang);
 
                 if (checkEmail(email)) {
                     if (checkPhoneNumber(sdtCaNhan) && checkPhoneNumber(sdtGiamHo)) {
@@ -592,7 +592,7 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
                             JOptionPane.showMessageDialog(null, "thanh cong");
                         }
                         else{
-                            JOptionPane.showMessageDialog(null, "that bai");
+                            JOptionPane.showMessageDialog(null, "no");
                         }
 //                        if (checkStudentExists(hoTen, diaChi, ngaySinh)) {
 //                            if (new HocsinhDAL().add(hs) != -1) {

@@ -106,6 +106,36 @@ public class HocsinhLophocDAL {
         return n;
     }
 
+    public HocsinhLophoc get2(int id) {
+        HocsinhLophoc n = null;
+        try {
+            tst = session.beginTransaction();
+            n = (HocsinhLophoc) session.get(HocsinhLophoc.class, id);
+            tst.commit();
+        } catch (Exception e) {
+            if (tst != null) {
+                tst.rollback();
+            }
+            e.printStackTrace();
+        }
+        return n;
+    }
+
+    public HocsinhLophoc getByIdHocsinh(int id) {
+        HocsinhLophoc n = null;
+        try {
+            tst = session.beginTransaction();
+            n = (HocsinhLophoc) session.get(HocsinhLophoc.class, id);
+            tst.commit();
+        } catch (Exception e) {
+            if (tst != null) {
+                tst.rollback();
+            }
+            e.printStackTrace();
+        }
+        return n;
+    }
+
     public List<HocsinhLophoc> getByNamHoc(Namhoc p) {
         list = getAll();
         for (int i = 0; i < list.size(); i++) {
@@ -138,4 +168,5 @@ public class HocsinhLophocDAL {
         }
         return list;
     }
+
 }

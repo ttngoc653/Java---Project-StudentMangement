@@ -345,10 +345,10 @@
         </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="jDateChooserNgaySinh">
           <Properties>
-            <Property name="dateFormatString" type="java.lang.String" value="dd-MM-yyyy" postCode="long millis = System.currentTimeMillis();&#xa;Date NgayHienTai = new Date(millis);&#xa;//String Nam = dateFormat.format(NgayHienTai).substring(6);"/>
+            <Property name="dateFormatString" type="java.lang.String" value="dd-MM-yyyy"/>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="jDateChooserNgaySinh.setDate(NgayHienTai);"/>
+            <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="long millis = System.currentTimeMillis();&#xa;Date NgayHienTai = new Date(millis);&#xa;//String Nam = dateFormat.format(NgayHienTai).substring(6);&#xa;jDateChooserNgaySinh.setDate(NgayHienTai);"/>
           </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel9">

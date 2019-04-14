@@ -43,12 +43,14 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
         dtm.addColumn("STT");
         dtm.addColumn("MSHS");
         dtm.addColumn("Mã lớp");
+        //dtm.addColumn("Tên lớp");
         dtm.addColumn("Mã năm học");
         //int Size = this.hslopDao.getAll().size();
         int i = 1;
 
         for (HocsinhLophoc a : new HocsinhLophocDAL().getAll()) {
             dtm.addRow(new Object[]{i, a.getHocsinh().getIdHocSinh(), a.getLop().getIdLop(), a.getNamhoc().getIdNamHoc()});
+            //dtm.addRow(new Object[]{i, a.getHocsinh().getIdHocSinh(), a.getLop().getTenLop(), a.getNamhoc().getIdNamHoc()});
             i++;
         }
 
@@ -63,6 +65,9 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
         for (Lop a : new LopDAL().getAll()) {
             cboMaLop.addItem(a.getIdLop().toString());
         }
+//        for (Lop a : new LopDAL().getAll()) {
+//            cboMaLop.addItem(a.getTenLop());
+//        }
         for (Namhoc a : new NamhocDAL().getAll()) {
             cboMaNamHoc.addItem(a.getIdNamHoc().toString());
         }
@@ -83,7 +88,7 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         cboMaNamHoc = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnThem = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         btnQuayLai = new javax.swing.JButton();
@@ -105,7 +110,12 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
 
         jLabel3.setText("Mã năm học:");
 
-        jButton1.setText("Thêm");
+        btnThem.setText("Thêm");
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Xóa");
 
@@ -138,7 +148,7 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
                             .addComponent(cboMaLop, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cboMSHS, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(btnThem)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -173,7 +183,7 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addGap(37, 37, 37)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(btnThem)
                     .addComponent(jButton3)
                     .addComponent(btnQuayLai)
                     .addComponent(jButton2))
@@ -191,6 +201,11 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTableXepLop.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableXepLopMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTableXepLop);
 
         lblTenTaiKhoan.setText("Tên tài khoản");
@@ -237,9 +252,43 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnQuayLaiActionPerformed
 
+    private void jTableXepLopMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableXepLopMouseClicked
+
+        String stt = this.jTableXepLop.getValueAt(this.jTableXepLop.getSelectedRow(), 0).toString();
+//        int idHS = Integer.parseInt(this.jTableXepLop.getValueAt(this.jTableXepLop.getSelectedRow(), 1).toString());
+//        int idLop = Integer.parseInt(this.jTableXepLop.getValueAt(this.jTableXepLop.getSelectedRow(), 2).toString());
+//        int idNamHoc = Integer.parseInt(this.jTableXepLop.getValueAt(this.jTableXepLop.getSelectedRow(), 3).toString());
+
+        String idHS = this.jTableXepLop.getValueAt(this.jTableXepLop.getSelectedRow(), 1).toString();
+        String idLop = this.jTableXepLop.getValueAt(this.jTableXepLop.getSelectedRow(), 2).toString();
+        String idNamHoc = this.jTableXepLop.getValueAt(this.jTableXepLop.getSelectedRow(), 3).toString();
+
+        //Lop a = this.lopDao.getByTen2(tenLop);
+        //HocsinhLophoc a = new HocsinhLophocDAL().getByIdHocsinh(idHS);
+        this.txtSTT.setText(stt);
+        //this.cboMSHS.setSelectedItem(a.getHocsinh().getIdHocSinh().toString());
+        this.cboMSHS.setSelectedItem(idHS);
+        this.cboMaLop.setSelectedItem(idLop);
+        this.cboMaNamHoc.setSelectedItem(idNamHoc);
+    }//GEN-LAST:event_jTableXepLopMouseClicked
+
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        // TODO add your handling code here:
+        int maHS = Integer.parseInt(this.cboMSHS.getSelectedItem().toString());
+        String maLop = this.cboMaLop.getSelectedItem().toString();
+        String maNamHoc = this.cboMaNamHoc.getSelectedItem().toString();
+
+        HocsinhLophocDAL hslopDAL = new HocsinhLophocDAL();
+        if (hslopDAL.getByIdHocsinh(maHS) == null) {
+            JOptionPane.showMessageDialog(null, "yes");
+        }else{
+            JOptionPane.showMessageDialog(null, "no");
+        }
+    }//GEN-LAST:event_btnThemActionPerformed
+
     /**
-     * @param args the command line arguments
-     */
+         * @param args the command line arguments
+         */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -280,10 +329,10 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnQuayLai;
+    private javax.swing.JButton btnThem;
     private javax.swing.JComboBox<String> cboMSHS;
     private javax.swing.JComboBox<String> cboMaLop;
     private javax.swing.JComboBox<String> cboMaNamHoc;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
