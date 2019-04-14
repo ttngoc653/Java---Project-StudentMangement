@@ -75,19 +75,11 @@ public class ScoreFrame extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Lớp");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Học Kỳ");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Môn");
-
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel5.setText("Năm Học");
 
@@ -204,7 +196,7 @@ public class ScoreFrame extends javax.swing.JFrame {
               //  new ScoreFrame().setVisible(true);
                 ScoreFrame f = new ScoreFrame();
                 Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-                f.setSize(screenSize.width, 600);
+                f.setSize(750, 600);
                 f.setLocationRelativeTo(null);
                 f.setVisible(true);
                 //f.setResizable(false);
