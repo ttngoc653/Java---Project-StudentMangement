@@ -1,5 +1,5 @@
 package dto;
-// Generated Apr 9, 2019 7:50:29 PM by Hibernate Tools 4.3.1
+// Generated Apr 15, 2019 3:40:32 PM by Hibernate Tools 4.3.1
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -24,8 +24,8 @@ import javax.persistence.UniqueConstraint;
 )
 public class Namhoc implements java.io.Serializable {
 
-    private Integer idNamHoc = null;
-    private String tenNamHoc = "";
+    private Integer idNamHoc;
+    private String tenNamHoc;
     private Set<HocsinhLophoc> hocsinhLophocs = new HashSet<HocsinhLophoc>(0);
     private Set<ChitietCauhinhLop> chitietCauhinhLops = new HashSet<ChitietCauhinhLop>(0);
 
@@ -84,7 +84,7 @@ public class Namhoc implements java.io.Serializable {
     @OneToMany
     public List<HocsinhLophoc> getHocsinhLophocl() {
         return new ArrayList<HocsinhLophoc>(this.hocsinhLophocs);
-    }
+}
 
     public void setHocsinhLophocl(List<HocsinhLophoc> hocsinhLophocl) {
         this.hocsinhLophocs = new HashSet<HocsinhLophoc>(hocsinhLophocl);

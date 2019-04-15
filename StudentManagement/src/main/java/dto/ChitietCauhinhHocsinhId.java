@@ -1,5 +1,5 @@
 package dto;
-// Generated Apr 9, 2019 7:50:29 PM by Hibernate Tools 4.3.1
+// Generated Apr 15, 2019 3:40:32 PM by Hibernate Tools 4.3.1
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -10,8 +10,8 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class ChitietCauhinhHocsinhId implements java.io.Serializable {
 
-    private int idHocSinh = -1;
-    private int idCauHinh = -1;
+    private int idHocSinh;
+    private int idCauHinh;
 
     public ChitietCauhinhHocsinhId() {
     }
@@ -39,7 +39,7 @@ public class ChitietCauhinhHocsinhId implements java.io.Serializable {
         this.idCauHinh = idCauHinh;
     }
 
-    public boolean equals(ChitietCauhinhHocsinhId other) {
+    public boolean equals(Object other) {
         if ((this == other)) {
             return true;
         }
@@ -63,12 +63,18 @@ public class ChitietCauhinhHocsinhId implements java.io.Serializable {
         result = 37 * result + this.getIdCauHinh();
         return result;
     }
+    /**/
 
-    @Override
-    public boolean equals(Object obj) {
+    /**
+     *
+     * @param obj
+     * @return 
+     */
+    
+    public boolean equals(ChitietCauhinhHocsinhId obj) {
         if (obj == null) {
             return false;
-        }
+}
         if (getClass() != obj.getClass()) {
             return false;
         }
@@ -76,10 +82,7 @@ public class ChitietCauhinhHocsinhId implements java.io.Serializable {
         if (this.idHocSinh != other.idHocSinh) {
             return false;
         }
-        if (this.idCauHinh != other.idCauHinh) {
-            return false;
-        }
-        return true;
+        return this.idCauHinh == other.idCauHinh;
     }
 
 }

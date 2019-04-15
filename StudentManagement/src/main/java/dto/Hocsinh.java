@@ -1,5 +1,5 @@
 package dto;
-// Generated Apr 9, 2019 7:50:29 PM by Hibernate Tools 4.3.1
+// Generated Apr 15, 2019 3:40:32 PM by Hibernate Tools 4.3.1
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -23,15 +23,15 @@ import javax.persistence.Table;
 )
 public class Hocsinh implements java.io.Serializable {
 
-    private Integer idHocSinh = null;
-    private String hoTen = "";
-    private String ngaySinh = null;
-    private String email = "";
-    private String gioiTinh = "";
-    private String diaChi = "";
-    private String sdtCaNhan = "";
-    private String sdtGiamHo = "";
-    private byte tinhTrang = 1;
+    private Integer idHocSinh;
+    private String hoTen;
+    private String ngaySinh;
+    private String email;
+    private String gioiTinh;
+    private String diaChi;
+    private String sdtCaNhan;
+    private String sdtGiamHo;
+    private byte tinhTrang;
     private Set<HocsinhLophoc> hocsinhLophocs = new HashSet<HocsinhLophoc>(0);
     private Set<ChitietCauhinhHocsinh> chitietCauhinhHocsinhs = new HashSet<ChitietCauhinhHocsinh>(0);
 

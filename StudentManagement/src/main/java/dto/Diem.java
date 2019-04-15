@@ -1,5 +1,5 @@
 package dto;
-// Generated Apr 9, 2019 7:50:29 PM by Hibernate Tools 4.3.1
+// Generated Apr 15, 2019 3:40:32 PM by Hibernate Tools 4.3.1
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -27,13 +27,13 @@ import javax.persistence.UniqueConstraint;
 )
 public class Diem implements java.io.Serializable {
 
-    private Integer idDiem = null;
-    private Hocky hocky = null;
-    private HocsinhLophoc hocsinhLophoc = null;
-    private Monhoc monhoc = null;
-    private Double diem15phut = null;
-    private Double diem1tiet = null;
-    private Double diemCuoiKy = null;
+    private Integer idDiem;
+    private Hocky hocky;
+    private HocsinhLophoc hocsinhLophoc;
+    private Monhoc monhoc;
+    private Double diem15Phut;
+    private Double diem1Tiet;
+    private Double diemCuoiKy;
     private Set<ChitietCauhinhDiem> chitietCauhinhDiems = new HashSet<ChitietCauhinhDiem>(0);
 
     public Diem() {
@@ -45,12 +45,12 @@ public class Diem implements java.io.Serializable {
         this.monhoc = monhoc;
     }
 
-    public Diem(Hocky hocky, HocsinhLophoc hocsinhLophoc, Monhoc monhoc, Double diem15phut, Double diem1tiet, Double diemCuoiKy, Set<ChitietCauhinhDiem> chitietCauhinhDiems) {
+    public Diem(Hocky hocky, HocsinhLophoc hocsinhLophoc, Monhoc monhoc, Double diem15Phut, Double diem1Tiet, Double diemCuoiKy, Set<ChitietCauhinhDiem> chitietCauhinhDiems) {
         this.hocky = hocky;
         this.hocsinhLophoc = hocsinhLophoc;
         this.monhoc = monhoc;
-        this.diem15phut = diem15phut;
-        this.diem1tiet = diem1tiet;
+        this.diem15Phut = diem15Phut;
+        this.diem1Tiet = diem1Tiet;
         this.diemCuoiKy = diemCuoiKy;
         this.chitietCauhinhDiems = chitietCauhinhDiems;
     }
@@ -101,21 +101,21 @@ public class Diem implements java.io.Serializable {
     }
 
     @Column(name = "15Phut", precision = 22, scale = 0)
-    public Double getDiem15phut() {
-        return this.diem15phut;
+    public Double getDiem15Phut() {
+        return this.diem15Phut;
     }
 
-    public void setDiem15phut(Double diem15phut) {
-        this.diem15phut = diem15phut;
+    public void setDiem15Phut(Double diem15Phut) {
+        this.diem15Phut = diem15Phut;
     }
 
     @Column(name = "1Tiet", precision = 22, scale = 0)
-    public Double getDiem1tiet() {
-        return this.diem1tiet;
+    public Double getDiem1Tiet() {
+        return this.diem1Tiet;
     }
 
-    public void setDiem1tiet(Double diem1tiet) {
-        this.diem1tiet = diem1tiet;
+    public void setDiem1Tiet(Double diem1Tiet) {
+        this.diem1Tiet = diem1Tiet;
     }
 
     @Column(name = "CuoiKy", precision = 22, scale = 0)
