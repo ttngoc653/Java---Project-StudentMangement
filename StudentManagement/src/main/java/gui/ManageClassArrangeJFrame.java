@@ -1,5 +1,6 @@
 package gui;
 
+import static bll.HocsinhLopHocBLL.*;
 import dal.*;
 import dto.*;
 import java.awt.Dimension;
@@ -13,12 +14,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ManageClassArrangeJFrame extends javax.swing.JFrame {
 
-    /*
-    HocsinhLophocDAL hslopDao = null;
-    HocsinhDAL hsDao = new HocsinhDAL();
-    LopDAL lopDao = new LopDAL();
-    NamhocDAL namhocDao = new NamhocDAL();
-     */
+    int SiSoToiDa = 2;
+
     /**
      * Creates new form ArrangeClassJFrame
      */
@@ -62,12 +59,14 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
         for (Hocsinh a : new HocsinhDAL().getAll()) {
             cboMSHS.addItem(a.getIdHocSinh().toString());
         }
+
         for (Lop a : new LopDAL().getAll()) {
             cboMaLop.addItem(a.getIdLop().toString());
         }
 //        for (Lop a : new LopDAL().getAll()) {
-//            cboMaLop.addItem(a.getTenLop());
+//            cboMaLop.addItem(a.getTenLop().toString());
 //        }
+
         for (Namhoc a : new NamhocDAL().getAll()) {
             cboMaNamHoc.addItem(a.getIdNamHoc().toString());
         }
@@ -273,22 +272,39 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jTableXepLopMouseClicked
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        // TODO add your handling code here:
-        int maHS = Integer.parseInt(this.cboMSHS.getSelectedItem().toString());
-        String maLop = this.cboMaLop.getSelectedItem().toString();
-        String maNamHoc = this.cboMaNamHoc.getSelectedItem().toString();
 
-        HocsinhLophocDAL hslopDAL = new HocsinhLophocDAL();
-        if (hslopDAL.getByIdHocsinh(maHS) == null) {
-            JOptionPane.showMessageDialog(null, "yes");
-        }else{
-            JOptionPane.showMessageDialog(null, "no");
+        int idHS = Integer.parseInt(this.cboMSHS.getSelectedItem().toString());
+        int idLop = Integer.parseInt(this.cboMaLop.getSelectedItem().toString());
+        int idNamHoc = Integer.parseInt(this.cboMaNamHoc.getSelectedItem().toString());
+
+        if (checkStudentArrangedClass(idHS, idLop, idNamHoc)) {
+            if (checkMaximumStudentInClass(idLop, SiSoToiDa)) {
+                JOptionPane.showMessageDialog(null, "Lớp này đã đủ sỉ số");
+            } else {
+                HocsinhLophocDAL hslophocDAL = new HocsinhLophocDAL();
+
+                HocsinhLophocId a = new HocsinhLophocId();
+                a.setIdHocSinh(idHS);
+                a.setIdLopHoc(idLop);
+                a.setIdNamHoc(idNamHoc);
+
+                if (hslophocDAL.add(a) != null) {
+                    JOptionPane.showMessageDialog(null, "Xếp lớp cho học sinh thành công");
+                    LoadData();
+                    LoadCbo();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Xếp lớp cho học sinh thất bại");
+                }
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "MSHS này đã có lớp rồi");
         }
     }//GEN-LAST:event_btnThemActionPerformed
 
     /**
-         * @param args the command line arguments
-         */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

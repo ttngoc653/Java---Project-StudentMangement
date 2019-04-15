@@ -91,6 +91,40 @@ public class HocsinhLophocDAL {
         return list;
     }
 
+    @SuppressWarnings("unchecked")
+    public List<HocsinhLophoc> getAllStudentByIdLopHoc(int id) {
+        list = new ArrayList<HocsinhLophoc>();
+        try {
+            tst = session.beginTransaction();
+            Query q = session.createQuery("from HocsinhLophoc as t where t.idLopHoc = '" + id + "'");
+            list = (List<HocsinhLophoc>) q.list();
+            tst.commit();
+        } catch (Exception e) {
+            if (tst != null) {
+                tst.rollback();
+            }
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<HocsinhLophoc> getAllStudentByIdLopHoc2(int id) {
+        list = new ArrayList<HocsinhLophoc>();
+        try {
+            tst = session.beginTransaction();
+            Query q = session.createQuery("from HocsinhLophoc as t where t.idLopHoc = '" + id + "'");
+            list = (List<HocsinhLophoc>) q.list();
+            tst.commit();
+        } catch (Exception e) {
+            if (tst != null) {
+                tst.rollback();
+            }
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     public HocsinhLophoc get(HocsinhLophocId id) {
         HocsinhLophoc n = null;
         try {
