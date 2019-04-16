@@ -124,5 +124,11 @@ public class Lop implements java.io.Serializable {
     public boolean equals(Lop obj) {
         return Objects.equals(obj.idLop, this.idLop) || obj.tenLop.equals(this.tenLop);
     }
+    
+    @Override
+    public String toString()
+    {
+        return this.tenLop;
+    }
 
 }

@@ -5,8 +5,19 @@
  */
 package gui;
 
+import dal.HockyDAL;
+import dal.LopDAL;
+import dal.MonhocDAL;
+import dal.NamhocDAL;
+import dto.Hocky;
+import dto.Lop;
+import dto.Monhoc;
+import dto.Namhoc;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 
 /**
  *
@@ -19,6 +30,78 @@ public class ScoreFrame extends javax.swing.JFrame {
      */
     public ScoreFrame() {
         initComponents();
+        initLop();
+        initHocky();
+        initMonhoc();
+        initNamhoc();
+        this.setLocationRelativeTo(null);
+        
+        
+    }
+    
+    
+    private void initLop(){
+        DefaultComboBoxModel modelLop = new DefaultComboBoxModel();
+        LopDAL lopdal = new LopDAL();
+        List<Lop> DSlop = new ArrayList<Lop>();
+        DSlop = lopdal.getAll();
+        
+        lopCBX.removeAllItems();
+        if(DSlop != null)
+        {
+            for( Lop _lop : DSlop)
+                modelLop.addElement(_lop);
+            lopCBX.setModel(modelLop);
+                
+        }
+    }
+    
+    private void initHocky()
+    {
+        DefaultComboBoxModel modelHocky = new DefaultComboBoxModel();
+        HockyDAL hockydal = new HockyDAL();
+        List<Hocky> DSHocky = new ArrayList<Hocky>();
+        DSHocky = hockydal.getAll();
+        lopCBX.removeAllItems();
+        if(DSHocky != null)
+        {
+            for( Hocky hk : DSHocky)
+                modelHocky.addElement(hk);
+            lopCBX.setModel(modelHocky);
+                
+        }
+    }
+    
+    private void initMonhoc()
+    {
+        DefaultComboBoxModel modelmonhoc = new DefaultComboBoxModel();
+        MonhocDAL monhocdal = new MonhocDAL();
+        List<Monhoc> DSmon = new ArrayList<Monhoc>();
+        DSmon = monhocdal.getAll();
+        lopCBX.removeAllItems();
+        if(DSmon != null)
+        {
+            for( Monhoc mh : DSmon)
+                modelmonhoc.addElement(mh);
+            lopCBX.setModel(modelmonhoc);
+                
+        }
+    }
+    
+    private void initNamhoc()
+    {
+        DefaultComboBoxModel modelNamhoc = new DefaultComboBoxModel();
+        NamhocDAL namhocdal = new NamhocDAL();
+        List<Namhoc> DSnamhoc = new ArrayList<Namhoc>();
+        DSnamhoc = namhocdal.getAll();
+        lopCBX.removeAllItems();
+        if(DSnamhoc != null)
+        {
+            for( Namhoc nh : DSnamhoc)
+                modelNamhoc.addElement(nh);
+            lopCBX.setModel(modelNamhoc);
+                
+        }
     }
 
     /**
@@ -223,6 +306,7 @@ public class ScoreFrame extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new ScoreFrame().setVisible(true);
+                
               //  ScoreFrame f = new ScoreFrame();
               //  Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
               //  f.setSize(750, 600);
