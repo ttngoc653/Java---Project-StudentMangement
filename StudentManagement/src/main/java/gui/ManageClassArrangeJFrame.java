@@ -37,18 +37,18 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
 
     private void LoadData() {
         DefaultTableModel dtm = new DefaultTableModel();
-        dtm.addColumn("STT");
+        dtm.addColumn("ID");
         dtm.addColumn("MSHS");
         dtm.addColumn("Mã lớp");
         //dtm.addColumn("Tên lớp");
         dtm.addColumn("Mã năm học");
         //int Size = this.hslopDao.getAll().size();
-        int i = 1;
+        //int i = 1;
 
         for (HocsinhLophoc a : new HocsinhLophocDAL().getAll()) {
-            dtm.addRow(new Object[]{i, a.getHocsinh().getIdHocSinh(), a.getLop().getIdLop(), a.getNamhoc().getIdNamHoc()});
+            dtm.addRow(new Object[]{a.getId(), a.getHocsinh().getIdHocSinh(), a.getLop().getIdLop(), a.getNamhoc().getIdNamHoc()});
             //dtm.addRow(new Object[]{i, a.getHocsinh().getIdHocSinh(), a.getLop().getTenLop(), a.getNamhoc().getIdNamHoc()});
-            i++;
+            //i++;
         }
 
         this.jTableXepLop.setModel(dtm);

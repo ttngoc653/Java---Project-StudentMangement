@@ -241,7 +241,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnXem">
           <Properties>
-            <Property name="label" type="java.lang.String" value="Xem"/>
+            <Property name="text" type="java.lang.String" value="Xem danh s&#xe1;ch l&#x1edb;p"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnXemActionPerformed"/>

@@ -37,7 +37,7 @@ public class HocsinhLophoc implements java.io.Serializable {
     public HocsinhLophoc(HocsinhLophocId id) {
         this.id = id;
     }
-    
+
     public HocsinhLophoc(HocsinhLophocId id, Hocsinh hocsinh, Lop lop, Namhoc namhoc) {
         this.id = id;
         this.hocsinh = hocsinh;
@@ -56,8 +56,10 @@ public class HocsinhLophoc implements java.io.Serializable {
     @EmbeddedId
 
     @AttributeOverrides({
-        @AttributeOverride(name = "idHocSinh", column = @Column(name = "idHocSinh", nullable = false)),
-        @AttributeOverride(name = "idLopHoc", column = @Column(name = "idLopHoc", nullable = false)),
+        @AttributeOverride(name = "idHocSinh", column = @Column(name = "idHocSinh", nullable = false))
+        ,
+        @AttributeOverride(name = "idLopHoc", column = @Column(name = "idLopHoc", nullable = false))
+        ,
         @AttributeOverride(name = "idNamHoc", column = @Column(name = "idNamHoc", nullable = false))})
     public HocsinhLophocId getId() {
         return this.id;

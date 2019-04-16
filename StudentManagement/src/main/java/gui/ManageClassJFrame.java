@@ -21,6 +21,7 @@ public class ManageClassJFrame extends javax.swing.JFrame {
     }
 
     dto.Nguoidung nd;
+
     public ManageClassJFrame(Nguoidung nguoidung) {
         initComponents();
         nd = nguoidung;
@@ -133,7 +134,7 @@ public class ManageClassJFrame extends javax.swing.JFrame {
 
         cboKhoi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "10", "11", "12" }));
 
-        btnXem.setLabel("Xem");
+        btnXem.setText("Xem danh sách lớp");
         btnXem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnXemActionPerformed(evt);
@@ -279,11 +280,15 @@ public class ManageClassJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnXemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemActionPerformed
-        LoadData();
+        ShowListClassJFrame f = new ShowListClassJFrame(nd);
+        f.setLocationRelativeTo(null);
+        f.setVisible(true);
+        f.setResizable(false);
+        this.setVisible(false);
     }//GEN-LAST:event_btnXemActionPerformed
 
     private void jTableLopMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableLopMouseClicked
-        
+
         String tenLop = this.jTableLop.getValueAt(this.jTableLop.getSelectedRow(), 1).toString();
         //Lop a = this.lopDao.getByTen2(tenLop);
         Lop a = new LopDAL().getByTen(tenLop);
