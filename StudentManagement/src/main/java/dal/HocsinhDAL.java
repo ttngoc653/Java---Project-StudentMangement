@@ -23,7 +23,7 @@ public class HocsinhDAL {
     private Session session = null;
     private Transaction tst = null;
     private List<Hocsinh> lHs;
-    
+
     public HocsinhDAL() {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
     }
@@ -128,6 +128,23 @@ public class HocsinhDAL {
 
     @SuppressWarnings("unchecked")
     public List<Hocsinh> getAll() {
+        lHs = new ArrayList<Hocsinh>();
+        try {
+            tst = session.beginTransaction();
+            Query q = session.createQuery("from Hocsinh as hocsinh");
+            lHs = (List<Hocsinh>) q.list();
+            tst.commit();
+        } catch (Exception e) {
+            if (tst != null) {
+                tst.rollback();
+            }
+            e.printStackTrace();
+        }
+        return lHs;
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<Hocsinh> getAllByKeyword(String key) {
         lHs = new ArrayList<Hocsinh>();
         try {
             tst = session.beginTransaction();
