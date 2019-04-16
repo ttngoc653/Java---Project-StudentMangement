@@ -50,7 +50,7 @@ public class ScoreFrame extends javax.swing.JFrame {
         if(DSlop != null)
         {
             for( Lop _lop : DSlop)
-                modelLop.addElement(_lop);
+                modelLop.addElement(_lop.getTenLop());
             lopCBX.setModel(modelLop);
                 
         }
@@ -62,12 +62,12 @@ public class ScoreFrame extends javax.swing.JFrame {
         HockyDAL hockydal = new HockyDAL();
         List<Hocky> DSHocky = new ArrayList<Hocky>();
         DSHocky = hockydal.getAll();
-        lopCBX.removeAllItems();
+        hockyCBX.removeAllItems();
         if(DSHocky != null)
         {
             for( Hocky hk : DSHocky)
-                modelHocky.addElement(hk);
-            lopCBX.setModel(modelHocky);
+                modelHocky.addElement(hk.getTenHocKy());
+            hockyCBX.setModel(modelHocky);
                 
         }
     }
@@ -78,12 +78,12 @@ public class ScoreFrame extends javax.swing.JFrame {
         MonhocDAL monhocdal = new MonhocDAL();
         List<Monhoc> DSmon = new ArrayList<Monhoc>();
         DSmon = monhocdal.getAll();
-        lopCBX.removeAllItems();
+        monCBX.removeAllItems();
         if(DSmon != null)
         {
             for( Monhoc mh : DSmon)
-                modelmonhoc.addElement(mh);
-            lopCBX.setModel(modelmonhoc);
+                modelmonhoc.addElement(mh.getTenMh());
+            monCBX.setModel(modelmonhoc);
                 
         }
     }
@@ -94,12 +94,12 @@ public class ScoreFrame extends javax.swing.JFrame {
         NamhocDAL namhocdal = new NamhocDAL();
         List<Namhoc> DSnamhoc = new ArrayList<Namhoc>();
         DSnamhoc = namhocdal.getAll();
-        lopCBX.removeAllItems();
+        namhocCBX.removeAllItems();
         if(DSnamhoc != null)
         {
             for( Namhoc nh : DSnamhoc)
-                modelNamhoc.addElement(nh);
-            lopCBX.setModel(modelNamhoc);
+                modelNamhoc.addElement(nh.getTenNamHoc());
+            namhocCBX.setModel(modelNamhoc);
                 
         }
     }
