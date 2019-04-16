@@ -1,5 +1,5 @@
 package dto;
-// Generated Mar 24, 2019 2:56:57 AM by Hibernate Tools 4.3.1
+// Generated Apr 15, 2019 3:40:32 PM by Hibernate Tools 4.3.1
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -80,7 +80,7 @@ public class Hocky implements java.io.Serializable {
     }
 
     public boolean equals(Hocky obj) {
-        return Objects.equals(obj.idHocKy, this.idHocKy) ||obj.tenHocKy==this.tenHocKy;
+        return Objects.equals(obj.idHocKy, this.idHocKy) || obj.tenHocKy == this.tenHocKy;
     }
 
 }

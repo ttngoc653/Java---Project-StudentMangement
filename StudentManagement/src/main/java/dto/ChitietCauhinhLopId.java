@@ -1,5 +1,5 @@
 package dto;
-// Generated Mar 24, 2019 2:56:57 AM by Hibernate Tools 4.3.1
+// Generated Apr 15, 2019 3:40:32 PM by Hibernate Tools 4.3.1
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -10,9 +10,9 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class ChitietCauhinhLopId implements java.io.Serializable {
 
-    private int idLop;
-    private int idNamHoc;
-    private int idCauHinh;
+    private int idLop = -1;
+    private int idNamHoc = -1;
+    private int idCauHinh = -1;
 
     public ChitietCauhinhLopId() {
     }

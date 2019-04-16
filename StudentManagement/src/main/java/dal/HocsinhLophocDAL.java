@@ -41,6 +41,7 @@ public class HocsinhLophocDAL {
         try {
             tst = session.beginTransaction();
             result = (HocsinhLophocId) session.save(new HocsinhLophoc(p));
+            System.out.println(result.toString());
             tst.commit();
         } catch (Exception e) {
             if (tst != null) {
@@ -115,6 +116,16 @@ public class HocsinhLophocDAL {
             }
         }
         return list;
+    }
+
+    public HocsinhLophoc getById(int id) {
+        list = getAll();
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getIdHocSinhLopHoc() == id) {
+                return list.get(i);
+            }
+        }
+        return null;
     }
 
     public List<HocsinhLophoc> getByNamHocLop(Namhoc n, Lop l) {

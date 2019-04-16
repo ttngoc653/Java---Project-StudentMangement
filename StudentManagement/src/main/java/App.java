@@ -1,7 +1,8 @@
 
 
 import dal.HocsinhDAL;
-import dto.Hocsinh;
+import dal.HocsinhLophocDAL;
+import dto.*;
 import java.io.File;
 import java.util.List;
 
@@ -22,6 +23,8 @@ public class App {
         if (hsN != null) {
             System.out.println(hsN.getIdHocSinh() + " " + hsN.getHoTen() + " " + hsN.getEmail() + " " + hsN.getGioiTinh());
         }*/
+        HocsinhLophoc hsg= new HocsinhLophocDAL().getById(8);
+        System.out.println(hsg.getId().toString());
         new bll.ReportBLL().returnReport();
     }
 }
