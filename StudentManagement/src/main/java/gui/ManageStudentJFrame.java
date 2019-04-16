@@ -4,11 +4,11 @@ import static bll.HocsinhBLL.*;
 import dal.*;
 import dto.*;
 import java.awt.*;
-import java.nio.charset.StandardCharsets;
 import java.text.*;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.table.*;
+import java.util.List;
 
 /**
  *
@@ -119,16 +119,17 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         txtMSHS = new javax.swing.JTextField();
         jDateChooserNgaySinh = new com.toedter.calendar.JDateChooser();
+        jButton1 = new javax.swing.JButton();
         btnThem = new javax.swing.JButton();
         btnSua = new javax.swing.JButton();
         btnXoa = new javax.swing.JButton();
         btnQuayLai = new javax.swing.JButton();
         btnXepLop = new javax.swing.JButton();
         lblTenTaiKhoan = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
         txtTim = new javax.swing.JTextField();
         btnTim = new javax.swing.JButton();
+        btnXemDanhSach = new javax.swing.JButton();
 
         buttonGroup2.add(rbNam);
         buttonGroup2.add(rbNu);
@@ -195,6 +196,13 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
 
         jDateChooserNgaySinh.setDateFormatString("dd-MM-yyyy");
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -217,7 +225,7 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
                             .addComponent(jLabel4))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel7)
@@ -240,6 +248,8 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
                                         .addComponent(jLabel8)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(txtSdtGiamHo, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton1)
                                 .addContainerGap())))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -275,7 +285,7 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
                             .addComponent(jLabel2)
                             .addComponent(txtHoTen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jLabel3)
@@ -291,11 +301,12 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtSdtGiamHo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
-                .addGap(22, 22, 22)
+                .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel9)
-                        .addComponent(txtTinhTrang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtTinhTrang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton1))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(rbNam)
                         .addComponent(rbNu)
@@ -340,19 +351,21 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
 
         lblTenTaiKhoan.setText("Tên tài khoản");
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         jLabel12.setText("Tìm kiếm:");
+
+        txtTim.setText("hong");
 
         btnTim.setText("Tìm");
         btnTim.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTimActionPerformed(evt);
+            }
+        });
+
+        btnXemDanhSach.setText("Xem danh sách");
+        btnXemDanhSach.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXemDanhSachActionPerformed(evt);
             }
         });
 
@@ -380,7 +393,7 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(btnXepLop)
                                 .addGap(8, 8, 8)
-                                .addComponent(jButton1)
+                                .addComponent(btnXemDanhSach)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel12)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -398,13 +411,14 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnXepLop)
-                            .addComponent(jButton1)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(txtTim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel12)
-                                .addComponent(btnTim))))
+                                .addComponent(btnTim))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btnXepLop)
+                                .addComponent(btnXemDanhSach))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblTenTaiKhoan)
                         .addGap(31, 31, 31)
@@ -649,42 +663,54 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
     private void btnTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimActionPerformed
         // TODO add your handling code here:
         String key = this.txtTim.getText();
-        if (new HocsinhDAL().Search(key) == null) {
-            JOptionPane.showMessageDialog(null, "Không tìm thấy");
+
+        if (key.equals("")) {
+            JOptionPane.showMessageDialog(null, "Nhập thông tin cần tìm");
         } else {
-            JOptionPane.showMessageDialog(null, "Tìm thấy");
-            DefaultTableModel dtm2 = new DefaultTableModel();
-            dtm2.addColumn("MSHS");
-            dtm2.addColumn("Họ tên");
-            dtm2.addColumn("Ngày sinh");
-            dtm2.addColumn("Email");
-            dtm2.addColumn("Giới tính");
-            dtm2.addColumn("Địa chỉ");
-            dtm2.addColumn("SĐT cá nhân");
-            dtm2.addColumn("SĐT giám hộ");
-            dtm2.addColumn("Tình trạng");
+            List<Hocsinh> lHs = new HocsinhDAL().Search(key);
 
-            for (Hocsinh hs : new HocsinhDAL().Search(key)) {
-                dtm2.addRow(new Object[]{hs.getIdHocSinh(), hs.getHoTen(), hs.getNgaySinh(), hs.getEmail(),
-                    hs.getGioiTinh(), hs.getDiaChi(), hs.getSdtCaNhan(), hs.getSdtGiamHo(),
-                    hs.getTinhTrang()});
+            if (lHs == null) {
+                JOptionPane.showMessageDialog(null, "Không tìm thấy học sinh cần tìm");
+            } else {
+                dtm = new DefaultTableModel();
+                dtm.addColumn("MSHS");
+                dtm.addColumn("Họ tên");
+                dtm.addColumn("Ngày sinh");
+                dtm.addColumn("Email");
+                dtm.addColumn("Giới tính");
+                dtm.addColumn("Địa chỉ");
+                dtm.addColumn("SĐT cá nhân");
+                dtm.addColumn("SĐT giám hộ");
+                dtm.addColumn("Tình trạng");
+
+                for (Hocsinh hs : lHs) {
+                    dtm.addRow(new Object[]{hs.getIdHocSinh(), hs.getHoTen(), hs.getNgaySinh(), hs.getEmail(),
+                        hs.getGioiTinh(), hs.getDiaChi(), hs.getSdtCaNhan(), hs.getSdtGiamHo(),
+                        hs.getTinhTrang()});
+                }
+
+                this.jTableHocSinh.setModel(dtm);
+
+                this.jTableHocSinh.getColumnModel().getColumn(0).setPreferredWidth(10);  //MSHS
+                this.jTableHocSinh.getColumnModel().getColumn(1).setPreferredWidth(150); //Họ tên
+                this.jTableHocSinh.getColumnModel().getColumn(2).setPreferredWidth(120); //Ngày sinh
+                this.jTableHocSinh.getColumnModel().getColumn(3).setPreferredWidth(200); //Email
+                this.jTableHocSinh.getColumnModel().getColumn(4).setPreferredWidth(20);  //Giới tính
+                this.jTableHocSinh.getColumnModel().getColumn(5).setPreferredWidth(200); //Địa chỉ
+                this.jTableHocSinh.getColumnModel().getColumn(6).setPreferredWidth(100); //SĐT cá nhân
+                this.jTableHocSinh.getColumnModel().getColumn(7).setPreferredWidth(100); //SĐT giám hộ
+                this.jTableHocSinh.getColumnModel().getColumn(8).setPreferredWidth(100); //Tình trạng
+
+                this.jTableHocSinh.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
             }
-
-            this.jTableHocSinh.setModel(dtm2);
-
-            this.jTableHocSinh.getColumnModel().getColumn(0).setPreferredWidth(10);  //MSHS
-            this.jTableHocSinh.getColumnModel().getColumn(1).setPreferredWidth(150); //Họ tên
-            this.jTableHocSinh.getColumnModel().getColumn(2).setPreferredWidth(120); //Ngày sinh
-            this.jTableHocSinh.getColumnModel().getColumn(3).setPreferredWidth(200); //Email
-            this.jTableHocSinh.getColumnModel().getColumn(4).setPreferredWidth(20);  //Giới tính
-            this.jTableHocSinh.getColumnModel().getColumn(5).setPreferredWidth(200); //Địa chỉ
-            this.jTableHocSinh.getColumnModel().getColumn(6).setPreferredWidth(100); //SĐT cá nhân
-            this.jTableHocSinh.getColumnModel().getColumn(7).setPreferredWidth(100); //SĐT giám hộ
-            this.jTableHocSinh.getColumnModel().getColumn(8).setPreferredWidth(100); //Tình trạng
-
-            this.jTableHocSinh.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
         }
+
     }//GEN-LAST:event_btnTimActionPerformed
+
+    private void btnXemDanhSachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemDanhSachActionPerformed
+
+        LoadData();
+    }//GEN-LAST:event_btnXemDanhSachActionPerformed
 
     /**
      * @param args the command line arguments
@@ -744,6 +770,7 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnTim;
+    private javax.swing.JButton btnXemDanhSach;
     private javax.swing.JButton btnXepLop;
     private javax.swing.JButton btnXoa;
     private javax.swing.ButtonGroup buttonGroup1;
