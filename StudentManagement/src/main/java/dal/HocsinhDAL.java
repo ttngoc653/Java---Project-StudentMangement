@@ -144,11 +144,12 @@ public class HocsinhDAL {
     }
 
     @SuppressWarnings("unchecked")
-    public List<Hocsinh> getAllByKeyword(String key) {
+    public List<Hocsinh> Search(String key) {
         lHs = new ArrayList<Hocsinh>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Hocsinh as hocsinh");
+            Query q = session.createQuery("select * from Hocsinh as a where a.idHocSinh = " + key + 
+                                          "or a.hoTen like '" + key + "' or a.ngaySinh like '" + key + "'");
             lHs = (List<Hocsinh>) q.list();
             tst.commit();
         } catch (Exception e) {

@@ -19,6 +19,7 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
     HocsinhDAL hsDao = new HocsinhDAL();
     DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
     int TuoiToiDa = 20, TuoiToiThieu = 15;
+    DefaultTableModel dtm;
 
     /**
      * Creates new form ManageHSJFrame
@@ -47,7 +48,8 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
     }
 
     public void LoadData() {
-        DefaultTableModel dtm = new DefaultTableModel();
+        //DefaultTableModel dtm = new DefaultTableModel();
+        dtm = new DefaultTableModel();
         dtm.addColumn("MSHS");
         dtm.addColumn("Họ tên");
         dtm.addColumn("Ngày sinh");
@@ -647,6 +649,41 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
     private void btnTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimActionPerformed
         // TODO add your handling code here:
         String key = this.txtTim.getText();
+        if (new HocsinhDAL().Search(key) == null) {
+            JOptionPane.showMessageDialog(null, "Không tìm thấy");
+        } else {
+            JOptionPane.showMessageDialog(null, "Tìm thấy");
+            DefaultTableModel dtm2 = new DefaultTableModel();
+            dtm2.addColumn("MSHS");
+            dtm2.addColumn("Họ tên");
+            dtm2.addColumn("Ngày sinh");
+            dtm2.addColumn("Email");
+            dtm2.addColumn("Giới tính");
+            dtm2.addColumn("Địa chỉ");
+            dtm2.addColumn("SĐT cá nhân");
+            dtm2.addColumn("SĐT giám hộ");
+            dtm2.addColumn("Tình trạng");
+
+            for (Hocsinh hs : new HocsinhDAL().Search(key)) {
+                dtm2.addRow(new Object[]{hs.getIdHocSinh(), hs.getHoTen(), hs.getNgaySinh(), hs.getEmail(),
+                    hs.getGioiTinh(), hs.getDiaChi(), hs.getSdtCaNhan(), hs.getSdtGiamHo(),
+                    hs.getTinhTrang()});
+            }
+
+            this.jTableHocSinh.setModel(dtm2);
+
+            this.jTableHocSinh.getColumnModel().getColumn(0).setPreferredWidth(10);  //MSHS
+            this.jTableHocSinh.getColumnModel().getColumn(1).setPreferredWidth(150); //Họ tên
+            this.jTableHocSinh.getColumnModel().getColumn(2).setPreferredWidth(120); //Ngày sinh
+            this.jTableHocSinh.getColumnModel().getColumn(3).setPreferredWidth(200); //Email
+            this.jTableHocSinh.getColumnModel().getColumn(4).setPreferredWidth(20);  //Giới tính
+            this.jTableHocSinh.getColumnModel().getColumn(5).setPreferredWidth(200); //Địa chỉ
+            this.jTableHocSinh.getColumnModel().getColumn(6).setPreferredWidth(100); //SĐT cá nhân
+            this.jTableHocSinh.getColumnModel().getColumn(7).setPreferredWidth(100); //SĐT giám hộ
+            this.jTableHocSinh.getColumnModel().getColumn(8).setPreferredWidth(100); //Tình trạng
+
+            this.jTableHocSinh.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+        }
     }//GEN-LAST:event_btnTimActionPerformed
 
     /**
