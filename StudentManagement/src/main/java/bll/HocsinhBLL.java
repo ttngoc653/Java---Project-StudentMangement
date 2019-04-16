@@ -24,7 +24,7 @@ public class HocsinhBLL {
 
     public static boolean checkStudentExists(String hoTen, String diaChi, String ngaySinh) {
         HocsinhDAL hsDAL = new HocsinhDAL();
-        Hocsinh hs = hsDAL.getByName(hoTen);
+        Hocsinh hs = hsDAL.getByName2(hoTen);
         if (hs == null) {
             return true;
         } else {
@@ -108,14 +108,42 @@ public class HocsinhBLL {
         }
     }
 
-    public static boolean checkUpdateStudent(int maHS, String hoTen) {
-        HocsinhDAL hsDALmoi = new HocsinhDAL();
-        Hocsinh HocSinhMoi = hsDALmoi.getByName(hoTen);
+    public static boolean checkInfoUpdateStudent(int maHS, String hoTen, String diaChi, String ngaySinh) {
+        HocsinhDAL hsDALCu = new HocsinhDAL();
+        Hocsinh HocSinhCu = hsDALCu.getByName(hoTen);
 
-        if (HocSinhMoi == null || HocSinhMoi.getIdHocSinh() == maHS) {
-            return true;
+        if (HocSinhCu == null) {
+            return true; //Thông tin học sinh này chưa tồn tại
         } else {
-            return false;
+            if (HocSinhCu.getIdHocSinh() != maHS && HocSinhCu.getNgaySinh().equals(ngaySinh) && HocSinhCu.getDiaChi().equals(diaChi)) {
+                return false; //Thông tin học sinh này trùng với học sinh khác
+            } else {
+                return true; //Thông tin học sinh này chưa tồn tại
+            }
         }
+    }
+
+    public static int getYearDOB(String ngaySinh) {
+        int year = Integer.parseInt(ngaySinh.substring(6));
+        return year - 1900;
+    }
+
+    public static int getMonthDOB(String ngaySinh) {
+        int month = Integer.parseInt(ngaySinh.substring(3, 5));
+        return month - 1;
+    }
+
+    public static int getDateDOB(String ngaySinh) {
+        int date = Integer.parseInt(ngaySinh.substring(0, 2));
+        return date;
+    }
+
+    public static Date setDatejDateChooser(String ngaySinh) {
+        return new Date(getYearDOB(ngaySinh), getMonthDOB(ngaySinh), getDateDOB(ngaySinh));
+        /* public Date(int year, int month, int date)
+         * @param   year    the year minus 1900.
+         * @param   month   the month between 0-11.
+         * @param   date    the day of the month between 1-31.
+         */
     }
 }

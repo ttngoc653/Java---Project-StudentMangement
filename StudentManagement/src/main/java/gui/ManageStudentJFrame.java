@@ -90,6 +90,9 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         buttonGroup2 = new javax.swing.ButtonGroup();
+        jDatePickerUtil1 = new org.jdatepicker.util.JDatePickerUtil();
+        jDatePickerUtil2 = new org.jdatepicker.util.JDatePickerUtil();
+        jDateComponentFactory1 = new org.jdatepicker.JDateComponentFactory();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableHocSinh = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
@@ -108,12 +111,12 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
         txtSdtCaNhan = new javax.swing.JTextField();
         txtSdtGiamHo = new javax.swing.JTextField();
         rbNam = new javax.swing.JRadioButton();
-        jDateChooserNgaySinh = new com.toedter.calendar.JDateChooser();
         jLabel9 = new javax.swing.JLabel();
         txtTinhTrang = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         txtMSHS = new javax.swing.JTextField();
+        jDateChooserNgaySinh = new com.toedter.calendar.JDateChooser();
         btnThem = new javax.swing.JButton();
         btnSua = new javax.swing.JButton();
         btnXoa = new javax.swing.JButton();
@@ -173,23 +176,19 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
         rbNam.setSelected(true);
         rbNam.setText("Nam");
 
-        jDateChooserNgaySinh.setDateFormatString("dd-MM-yyyy");
-        long millis = System.currentTimeMillis();
-        Date NgayHienTai = new Date(millis);
-        //String Nam = dateFormat.format(NgayHienTai).substring(6);
-        jDateChooserNgaySinh.setDate(NgayHienTai);
-
         jLabel9.setText("Tình trạng:");
 
         txtTinhTrang.setEditable(false);
         txtTinhTrang.setText("1");
 
         jLabel10.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel10.setText("Định dạng dd-mm-yyyy");
+        jLabel10.setText("Định dạng dd-MM-yyyy");
 
         jLabel11.setText("MSHS:");
 
         txtMSHS.setEditable(false);
+
+        jDateChooserNgaySinh.setDateFormatString("dd-MM-yyyy");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -199,13 +198,6 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(12, 12, 12)
-                        .addComponent(rbNam)
-                        .addGap(24, 24, 24)
-                        .addComponent(rbNu)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(txtMSHS, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -213,12 +205,6 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
                                     .addComponent(jLabel2)
                                     .addGap(18, 18, 18)
                                     .addComponent(txtHoTen, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(3, 3, 3)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jDateChooserNgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel10)))
                             .addComponent(jLabel11)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(71, 71, 71)
@@ -249,7 +235,25 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
                                         .addComponent(jLabel8)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(txtSdtGiamHo, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addContainerGap())))))
+                                .addContainerGap())))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(12, 12, 12)
+                                .addComponent(rbNam)
+                                .addGap(24, 24, 24)
+                                .addComponent(rbNu))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(3, 3, 3)
+                                        .addComponent(jLabel10))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jDateChooserNgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -266,21 +270,16 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
                             .addComponent(jLabel2)
                             .addComponent(txtHoTen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jDateChooserNgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(4, 4, 4)
-                                .addComponent(jLabel3)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel10))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtSdtCaNhan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7))))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel3)
+                        .addComponent(jDateChooserNgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtSdtCaNhan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel7)))
+                .addGap(8, 8, 8)
+                .addComponent(jLabel10)
                 .addGap(14, 14, 14)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -374,7 +373,7 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblTenTaiKhoan)
                 .addGap(31, 31, 31)
@@ -484,29 +483,29 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
         //JOptionPane.showMessageDialog(null, kq);     
         //String kq2 = checkEmail(txtEmail.getText());
         //JOptionPane.showMessageDialog(null, kq2);
-        long millis = System.currentTimeMillis();
-        Date date = new java.sql.Date(millis);
-        String year1 = dateFormat.format(date).substring(6);
-        int year = Integer.parseInt(year1);
-        //JOptionPane.showMessageDialog(null, year);    
-
-        Date newDate = jDateChooserNgaySinh.getDate();
-        String NamSinh1 = dateFormat.format(newDate).substring(6);
-        //JOptionPane.showMessageDialog(null, NamSinh1);        
-        int NamSinh = 0;
-        try {
-            NamSinh = Integer.parseInt(NamSinh1);
-        } catch (NumberFormatException e) {
-            System.out.println("ERROR: NamSinh");
-        }
-
-        int tuoi = year - NamSinh;
-        int tuoiToiThieu = 15, tuoiToiDa = 20;
-        if (tuoi < tuoiToiThieu || tuoi > tuoiToiDa) {
-            JOptionPane.showMessageDialog(null, "Tuoi: " + year + "-" + NamSinh + "=" + tuoi + "khong hop le");
-        } else {
-            JOptionPane.showMessageDialog(null, "Tuoi hop le");
-        }
+//        long millis = System.currentTimeMillis();
+//        Date date = new java.sql.Date(millis);
+//        String year1 = dateFormat.format(date).substring(6);
+//        int year = Integer.parseInt(year1);
+//        //JOptionPane.showMessageDialog(null, year);    
+//
+//        Date newDate = jDateChooserNgaySinh.getDate();
+//        String NamSinh1 = dateFormat.format(newDate).substring(6);
+//        //JOptionPane.showMessageDialog(null, NamSinh1);        
+//        int NamSinh = 0;
+//        try {
+//            NamSinh = Integer.parseInt(NamSinh1);
+//        } catch (NumberFormatException e) {
+//            System.out.println("ERROR: NamSinh");
+//        }
+//        
+//        int tuoi = year - NamSinh;
+//        int tuoiToiThieu = 15, tuoiToiDa = 20;
+//        if (tuoi < tuoiToiThieu || tuoi > tuoiToiDa) {
+//            JOptionPane.showMessageDialog(null, "Tuoi: " + year + "-" + NamSinh + "=" + tuoi + "khong hop le");
+//        } else {
+//            JOptionPane.showMessageDialog(null, "Tuoi hop le");
+//        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTableHocSinhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableHocSinhMouseClicked
@@ -516,7 +515,8 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
 
         this.txtMSHS.setText(a.getIdHocSinh().toString());
         this.txtHoTen.setText(a.getHoTen());
-        this.jDateChooserNgaySinh.setDateFormatString(a.getNgaySinh());
+        Date ngaySinh = setDatejDateChooser(a.getNgaySinh());
+        this.jDateChooserNgaySinh.setDate(ngaySinh);
         this.txtEmail.setText(a.getEmail());
 
         if (a.getGioiTinh().equals("Nam")) {
@@ -589,22 +589,17 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
 
                 if (checkEmail(email)) {
                     if (checkPhoneNumber(sdtCaNhan) && checkPhoneNumber(sdtGiamHo)) {
-                        if(checkUpdateStudent(maHS, hoTen)){
-                            JOptionPane.showMessageDialog(null, "thanh cong");
+                        if (checkInfoUpdateStudent(maHS, hoTen, diaChi, ngaySinh)) {
+                            if (new HocsinhDAL().update(hs)) {
+                                JOptionPane.showMessageDialog(null, "Cập nhật thông tin học sinh thành công");
+                                LoadData();
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Cập nhật thông tin học sinh thất bại");
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Thông tin học sinh này trùng với học sinh khác");
                         }
-                        else{
-                            JOptionPane.showMessageDialog(null, "no");
-                        }
-//                        if (checkStudentExists(hoTen, diaChi, ngaySinh)) {
-//                            if (new HocsinhDAL().add(hs) != -1) {
-//                                JOptionPane.showMessageDialog(null, "Thêm học sinh thành công");
-//                                LoadData();
-//                            } else {
-//                                JOptionPane.showMessageDialog(null, "Thêm học sinh thất bại");
-//                            }
-//                        } else {
-//                            JOptionPane.showMessageDialog(null, "Học sinh đã tồn tại");
-//                        }
+
                     } else {
                         JOptionPane.showMessageDialog(null, "Số điện thoại không hợp lệ");
                     }
@@ -685,6 +680,9 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JButton jButton1;
     private com.toedter.calendar.JDateChooser jDateChooserNgaySinh;
+    private org.jdatepicker.JDateComponentFactory jDateComponentFactory1;
+    private org.jdatepicker.util.JDatePickerUtil jDatePickerUtil1;
+    private org.jdatepicker.util.JDatePickerUtil jDatePickerUtil2;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;

@@ -23,7 +23,7 @@ public class HocsinhDAL {
     private Session session = null;
     private Transaction tst = null;
     private List<Hocsinh> lHs;
-
+    
     public HocsinhDAL() {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
     }
@@ -93,6 +93,22 @@ public class HocsinhDAL {
         return result;
     }
 
+    public boolean update2(Hocsinh hs) {
+        Boolean result = false;
+        try {
+            tst = session.beginTransaction();
+            session.update(hs);
+            tst.commit();
+            result = true;
+        } catch (Exception e) {
+            if (tst != null) {
+                tst.rollback();
+            }
+            e.printStackTrace();
+        }
+        return result;
+    }
+
     public boolean delete(int idHocsinh) {
         Boolean result = false;
         try {
@@ -147,7 +163,8 @@ public class HocsinhDAL {
         Hocsinh hs = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Hocsinh as hs where hs.hoTen like '" + name + "'");
+            //Query q = session.createQuery("from Hocsinh as hs where hs.hoTen like '" + name + "'");
+            Query q = session.createQuery("from Hocsinh as hs where hs.hoTen = '" + name + "'");
             hs = (Hocsinh) q.uniqueResult();
             tst.commit();
         } catch (Exception e) {
@@ -157,5 +174,21 @@ public class HocsinhDAL {
             e.printStackTrace();
         }
         return hs;
+    }
+
+    public Hocsinh getByName2(String name) {
+        Hocsinh n = null;
+        try {
+            tst = session.beginTransaction();
+            Query q = session.createQuery("from Hocsinh as t where t.hoTen = '" + name + "'");
+            n = (Hocsinh) q.uniqueResult();
+            tst.commit();
+        } catch (Exception e) {
+            if (tst != null) {
+                tst.rollback();
+            }
+            e.printStackTrace();
+        }
+        return n;
     }
 }
