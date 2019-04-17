@@ -5,6 +5,7 @@ import dal.*;
 import dto.*;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.List;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -44,10 +45,10 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
         dtm.addColumn("Mã năm học");
         //int Size = this.hslopDao.getAll().size();
         //int i = 1;
-
-        for (HocsinhLophoc a : new HocsinhLophocDAL().getAll()) {
-            dtm.addRow(new Object[]{a.getId(), a.getHocsinh().getIdHocSinh(), a.getLop().getIdLop(), a.getNamhoc().getIdNamHoc()});
-            //dtm.addRow(new Object[]{i, a.getHocsinh().getIdHocSinh(), a.getLop().getTenLop(), a.getNamhoc().getIdNamHoc()});
+List<HocsinhLophoc> l=new HocsinhLophocDAL().getAll();
+        for (HocsinhLophoc a : l) {
+            //dtm.addRow(new Object[]{a.getId(), a.getHocsinh().getIdHocSinh(),new LopDAL().getById(a.getLop().getIdLop()).getTenLop(),new NamhocDAL().getById(a.getNamhoc().getIdNamHoc()).getTenNamHoc()});
+            dtm.addRow(new Object[]{a.getId().getIdHocSinh(), a.getHocsinh().getIdHocSinh(),new LopDAL().getById(a.getLop().getIdLop()).getTenLop(),new NamhocDAL().getById(a.getNamhoc().getIdNamHoc()).getTenNamHoc()});
             //i++;
         }
 

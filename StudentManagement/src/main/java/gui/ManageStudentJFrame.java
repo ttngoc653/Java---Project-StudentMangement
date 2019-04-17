@@ -621,6 +621,7 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
             Byte tinhTrang = Byte.parseByte("1");
 
             if (checkAge(ngaySinh, TuoiToiDa, TuoiToiThieu) == true) {
+                hs.setIdHocSinh(maHS);
                 hs.setHoTen(hoTen);
                 hs.setNgaySinh(ngaySinh);
                 hs.setEmail(email);

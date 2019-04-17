@@ -115,7 +115,7 @@ public class NamhocDAL {
         Namhoc n = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Namhoc as t where t.idNamhoc = " + id);
+            Query q = session.createQuery("from Namhoc as t where t.idNamHoc = " + id);
             n = (Namhoc) q.uniqueResult();
             tst.commit();
         } catch (Exception e) {
