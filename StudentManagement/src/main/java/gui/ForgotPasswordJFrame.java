@@ -7,9 +7,6 @@ package gui;
 
 import bll.ForgotPasswordBLL;
 import dto.Nguoidung;
-import java.io.UnsupportedEncodingException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -49,16 +46,17 @@ public class ForgotPasswordJFrame extends javax.swing.JFrame {
         jSplitPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("StuMng - QUÊN MẬT KHẨU");
         setName("StuMng"); // NOI18N
         setResizable(false);
 
         jLabel1.setFont(jLabel1.getFont().deriveFont(jLabel1.getFont().getSize()+1f));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel1.setText("Tên đăng nhập (*):");
+        jLabel1.setText("Tên đăng nhập:");
 
         jLabel2.setFont(jLabel2.getFont().deriveFont(jLabel2.getFont().getSize()+1f));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel2.setText("Số điện thoại (*):");
+        jLabel2.setText("Số điện thoại:");
 
         jLabel3.setFont(jLabel3.getFont().deriveFont(jLabel3.getFont().getSize()+1f));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -71,10 +69,20 @@ public class ForgotPasswordJFrame extends javax.swing.JFrame {
         jLabel4.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
         txtUser.setFont(txtUser.getFont().deriveFont(txtUser.getFont().getSize()+1f));
+        txtUser.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtUserKeyPressed(evt);
+            }
+        });
 
         txtPhone.setFont(txtPhone.getFont().deriveFont(txtPhone.getFont().getSize()+1f));
 
         txtEmail.setFont(txtEmail.getFont().deriveFont(txtEmail.getFont().getSize()+1f));
+        txtEmail.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtEmailKeyPressed(evt);
+            }
+        });
 
         jLabel5.setFont(jLabel5.getFont().deriveFont(jLabel5.getFont().getStyle() | java.awt.Font.BOLD, jLabel5.getFont().getSize()+3));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -139,14 +147,27 @@ public class ForgotPasswordJFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jLabel4.getAccessibleContext().setAccessibleName("(Yêu cầu: Nhập chính xác email để nhận thông tin đăng nhập mới.)");
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRecoveryPaswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecoveryPaswordActionPerformed
         // TODO add your handling code here:
-        int result = ForgotPasswordBLL.RecoveryPass(new Nguoidung(null, txtUser.getText().length()>0?txtUser.getText():null, null, Byte.valueOf(" "), Byte.valueOf(""), txtPhone.getText(),txtEmail.getText()));
+        if (txtEmail.getText().length() == 0) {
+            JOptionPane.showMessageDialog(rootPane, "Vui lòng nhập email để thực việc phục hồi mật khẩu!");
+            txtEmail.setBackground(new java.awt.Color(255, 153, 153));
+            return;
+        } else if (bll.HelperBLL.checkEmail(txtEmail.getText())) {
+            JOptionPane.showMessageDialog(rootPane, "Vui lòng nhập đúng định dạng email!");
+            txtEmail.setBackground(new java.awt.Color(255, 153, 153));
+            return;
+        } else if (txtUser.getText().length() == 0) {
+            if (JOptionPane.showConfirmDialog(rootPane, "Tên đăng nhập hiện tại đang trống. Có phải bạn quên tên đăng nhập?") != JOptionPane.YES_OPTION) {
+                JOptionPane.showMessageDialog(rootPane, "Vui lòng nhập tên đăng nhập!");
+                txtUser.setBackground(new java.awt.Color(255, 153, 153));
+                return;
+            }
+        }
+        int result = ForgotPasswordBLL.RecoveryPass(new Nguoidung(null, txtUser.getText().length() > 0 ? txtUser.getText() : null, null, Byte.valueOf(" "), Byte.valueOf(""), txtPhone.getText(), txtEmail.getText()));
         switch (result) {
             case 0:
                 JOptionPane.showMessageDialog(rootPane, "Vui lòng kiểm tra hộp thư email để thực hiện bước tiếp theo.");
@@ -155,15 +176,24 @@ public class ForgotPasswordJFrame extends javax.swing.JFrame {
             case 1:
                 JOptionPane.showMessageDialog(rootPane, "Thông tin đã nhập không chính xác.");
                 break;
-            case 2: 
+            case 2:
                 JOptionPane.showMessageDialog(rootPane, "Lỗi khi gửi phương thức khôi phục mật khẩu qua email.");
                 break;
             case 3:
                 JOptionPane.showMessageDialog(rootPane, "Lỗi khi cập nhật email mới vào dữ liệu.");
                 break;
-            default:
+            case 10:
+                JOptionPane.showMessageDialog(rootPane, "Đã cuối hàm!");
         }
     }//GEN-LAST:event_btnRecoveryPaswordActionPerformed
+
+    private void txtUserKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUserKeyPressed
+        txtUser.setBackground(new java.awt.Color(255, 255, 255));
+    }//GEN-LAST:event_txtUserKeyPressed
+
+    private void txtEmailKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmailKeyPressed
+        txtEmail.setBackground(new java.awt.Color(255, 255, 255));
+    }//GEN-LAST:event_txtEmailKeyPressed
 
     /**
      * @param args the command line arguments
@@ -194,6 +224,7 @@ public class ForgotPasswordJFrame extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new ForgotPasswordJFrame().setVisible(true);
             }

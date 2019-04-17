@@ -1,5 +1,5 @@
 package dto;
-// Generated Apr 9, 2019 7:50:29 PM by Hibernate Tools 4.3.1
+// Generated Apr 15, 2019 3:40:32 PM by Hibernate Tools 4.3.1
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -23,11 +23,11 @@ import javax.persistence.Table;
 )
 public class Cauhinh implements java.io.Serializable {
 
-    private Integer idCauHinh = null;
-    private String tenThuocTinh = "";
-    private String loaiThuocTinh = "";
-    private String giaTri = "";
-    private String tenDayDu = "";
+    private Integer idCauHinh;
+    private String tenThuocTinh;
+    private String loaiThuocTinh;
+    private String giaTri;
+    private String tenDayDu;
     private Set<ChitietCauhinhHocsinh> chitietCauhinhHocsinhs = new HashSet<ChitietCauhinhHocsinh>(0);
     private Set<ChitietCauhinhLop> chitietCauhinhLops = new HashSet<ChitietCauhinhLop>(0);
     private Set<ChitietCauhinhDiem> chitietCauhinhDiems = new HashSet<ChitietCauhinhDiem>(0);

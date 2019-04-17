@@ -12,3 +12,17 @@ StudentManagement/target/classes/dal/NguoidungDAL.class
 StudentManagement/target/classes/bll/ForgotPasswordBLL.class
 StudentManagement/target/classes/bll/EmailBLL.class
 StudentManagement/target/classes/.netbeans_automatic_build
+StudentManagement/target/classes/bll/EmailBLL.class
+StudentManagement/target/classes/bll/EmailBLL.class
+StudentManagement/target/classes/bll/ForgotPasswordBLL.class
+StudentManagement/target/classes/bll/ReportBLL.class
+StudentManagement/target/classes/gui/ReportJFrame.class
+StudentManagement/target/classes/gui/ReportJFrame$2.class
+StudentManagement/target/classes/gui/ReportJFrame$1.class
+StudentManagement/target/classes/gui/ForgotPasswordJFrame.class
+StudentManagement/target/classes/gui/ForgotPasswordJFrame$2.class
+StudentManagement/target/classes/gui/ForgotPasswordJFrame$1.class
+StudentManagement/target/classes/dal/NguoidungDAL.class
+StudentManagement/target/classes/bll/ReportBLL.class
+StudentManagement/target/classes/bll/ForgotPasswordBLL.class
+StudentManagement/target/classes/bll/EmailBLL.class

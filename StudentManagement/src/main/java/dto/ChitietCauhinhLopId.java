@@ -1,5 +1,5 @@
 package dto;
-// Generated Apr 9, 2019 7:50:29 PM by Hibernate Tools 4.3.1
+// Generated Apr 15, 2019 3:40:32 PM by Hibernate Tools 4.3.1
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -50,7 +50,7 @@ public class ChitietCauhinhLopId implements java.io.Serializable {
         this.idCauHinh = idCauHinh;
     }
 
-    public boolean equals(ChitietCauhinhLopId other) {
+    public boolean equals(Object other) {
         if ((this == other)) {
             return true;
         }
@@ -67,7 +67,6 @@ public class ChitietCauhinhLopId implements java.io.Serializable {
                 && (this.getIdCauHinh() == castOther.getIdCauHinh());
     }
 
-    @Override
     public int hashCode() {
         int result = 17;
 
@@ -75,27 +74,6 @@ public class ChitietCauhinhLopId implements java.io.Serializable {
         result = 37 * result + this.getIdNamHoc();
         result = 37 * result + this.getIdCauHinh();
         return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final ChitietCauhinhLopId other = (ChitietCauhinhLopId) obj;
-        if (this.idLop != other.idLop) {
-            return false;
-        }
-        if (this.idNamHoc != other.idNamHoc) {
-            return false;
-        }
-        if (this.idCauHinh != other.idCauHinh) {
-            return false;
-        }
-        return true;
     }
 
 }

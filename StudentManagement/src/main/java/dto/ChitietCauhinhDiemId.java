@@ -1,5 +1,5 @@
 package dto;
-// Generated Apr 9, 2019 7:50:29 PM by Hibernate Tools 4.3.1
+// Generated Apr 15, 2019 3:40:32 PM by Hibernate Tools 4.3.1
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -39,7 +39,8 @@ public class ChitietCauhinhDiemId implements java.io.Serializable {
         this.idCauHinh = idCauHinh;
     }
 
-    public boolean equals(ChitietCauhinhDiemId other) {
+    @Override
+    public boolean equals(Object other) {
         if ((this == other)) {
             return true;
         }

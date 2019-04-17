@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bll;
 
 import java.math.BigInteger;
@@ -17,11 +12,8 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import static javax.swing.UIManager.getString;
+import java.util.regex.Pattern;
 
-/**
- *
- * @author Normal_User
- */
 public class HelperBLL {   
 
     public static String randomPassword() {
@@ -78,5 +70,19 @@ public class HelperBLL {
     }
 
 
+    /*
+     source: https://www.geeksforgeeks.org/check-email-address-valid-not-java/
+     */
+    public static boolean checkEmail(String emailStr) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."
+                + "[a-zA-Z0-9_+&*-]+)*@"
+                + "(?:[a-zA-Z0-9-]+\\.)+[a-z"
+                + "A-Z]{2,7}$";
 
+        Pattern pat = Pattern.compile(emailRegex);
+        if (emailStr == null) {
+            return false;
+        }
+        return pat.matcher(emailStr).matches();
+    }
 }

@@ -1,5 +1,5 @@
 package dto;
-// Generated Apr 9, 2019 7:50:29 PM by Hibernate Tools 4.3.1
+// Generated Apr 15, 2019 3:40:32 PM by Hibernate Tools 4.3.1
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -25,9 +25,6 @@ import javax.persistence.Transient;
 @Table(name = "lop", catalog = "quanlyhocsinh"
 )
 public class Lop implements java.io.Serializable {
-
-    @Transient
-    private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
 
     private Integer idLop = null;
     private String tenLop = "";
@@ -137,14 +134,6 @@ public class Lop implements java.io.Serializable {
 
     public boolean equals(Lop obj) {
         return Objects.equals(obj.idLop, this.idLop) || obj.tenLop.equals(this.tenLop);
-    }
-
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        changeSupport.addPropertyChangeListener(listener);
-    }
-
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
-        changeSupport.removePropertyChangeListener(listener);
     }
 
 }

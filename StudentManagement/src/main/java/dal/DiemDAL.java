@@ -64,8 +64,8 @@ public class DiemDAL {
             n.setIdDiem(p.getIdDiem());
             n.setChitietCauhinhDiems(p.getChitietCauhinhDiems().size() >= 0 ? p.getChitietCauhinhDiems() : n.getChitietCauhinhDiems());
             n.setDiemCuoiKy(p.getDiemCuoiKy() != null ? p.getDiemCuoiKy() : n.getDiemCuoiKy());
-            n.setDiem15phut(p.getDiem15phut() != null ? p.getDiem15phut() : n.getDiem15phut());
-            n.setDiem1tiet(p.getDiem1tiet() != null ? p.getDiem1tiet() : n.getDiem1tiet());
+            n.setDiem15Phut(p.getDiem15Phut() != null ? p.getDiem15Phut() : n.getDiem15Phut());
+            n.setDiem1Tiet(p.getDiem1Tiet() != null ? p.getDiem1Tiet() : n.getDiem1Tiet());
             n.setHocky(p.getHocky() != null ? p.getHocky() : n.getHocky());
             n.setHocsinhLophoc(p.getHocsinhLophoc() != null ? p.getHocsinhLophoc() : n.getHocsinhLophoc());
             n.setMonhoc(p.getMonhoc() != null ? p.getMonhoc() : n.getMonhoc());
