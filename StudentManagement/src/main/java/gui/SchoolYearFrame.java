@@ -27,28 +27,23 @@ public class SchoolYearFrame extends javax.swing.JFrame {
         showtable();
         this.setLocationRelativeTo(this);
     }
-  
-    void showtable()
-    {
-        DefaultTableModel model = (DefaultTableModel)namhocTable.getModel();  
+
+    void showtable() {
+        DefaultTableModel model = (DefaultTableModel) namhocTable.getModel();
         model.setRowCount(0);
-        
+
         List<Namhoc> DSnh = new ArrayList<>();
         NamhocDAL namhocdal = new NamhocDAL();
         DSnh = namhocdal.getAll();
-        for(Namhoc _nh : DSnh)
-        {
+        for (Namhoc _nh : DSnh) {
             Vector row = new Vector();
             row.add(_nh.getIdNamHoc());
             row.add(_nh.getTenNamHoc());
             model.addRow(row);
-           
+
         }
         //namhocTable.setModel(model);
-   
-        
-        
-          
+
     }
 
     /**
@@ -71,6 +66,7 @@ public class SchoolYearFrame extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         namhocTable = new javax.swing.JTable();
         namhocTF2 = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -80,9 +76,20 @@ public class SchoolYearFrame extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Quản lý năm học"));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel2.setText("Tên năm học");
+        jLabel2.setText("Năm học");
+
+        namhocTF1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                namhocTF1FocusLost(evt);
+            }
+        });
 
         jButton2.setText("Xóa");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Thêm mới");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -108,6 +115,13 @@ public class SchoolYearFrame extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(namhocTable);
+        if (namhocTable.getColumnModel().getColumnCount() > 0) {
+            namhocTable.getColumnModel().getColumn(0).setMinWidth(0);
+            namhocTable.getColumnModel().getColumn(0).setPreferredWidth(0);
+            namhocTable.getColumnModel().getColumn(0).setMaxWidth(0);
+        }
+
+        jLabel4.setText("-");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -117,9 +131,11 @@ public class SchoolYearFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(namhocTF1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(namhocTF2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(namhocTF1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(namhocTF2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton1)
                         .addGap(18, 18, 18)
@@ -141,7 +157,8 @@ public class SchoolYearFrame extends javax.swing.JFrame {
                     .addComponent(namhocTF1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
-                    .addComponent(namhocTF2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(namhocTF2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
                 .addContainerGap())
@@ -186,37 +203,59 @@ public class SchoolYearFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 34, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    boolean ktnamhople(String nam)
-    {
+    boolean ktnamhople(String nam) {
         int temp;
-        try{
+        try {
             temp = Integer.parseInt(nam);
-        }catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             return false;
         }
-        if(temp>1900&&temp<2100)
+        if (temp > 1900 && temp < 2100) {
             return true;
+        }
         return false;
-       
+
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(ktnamhople(namhocTF1.getText())&& ktnamhople(namhocTF2.getText()))
-        {
+        //  if(new NamhocDAL())){
+        //      JOptionPane.showMessageDialog(this, "Năm học đã tồn tại");
+        //  }
+        if (ktnamhople(namhocTF1.getText()) && ktnamhople(namhocTF2.getText())) {
             Namhoc nh = new Namhoc();
-            nh.setTenNamHoc(namhocTF1.getText()+"-"+namhocTF2.getText());
+            nh.setTenNamHoc(namhocTF1.getText() + "-" + namhocTF2.getText());
             NamhocDAL nhdal = new NamhocDAL();
-            nhdal.add(nh);
-            showtable();
+            if (nhdal.add(nh) >= 0) {
+                showtable();
+            } else {
+                JOptionPane.showMessageDialog(this, "Thêm năm học thất bại.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Năm học không hợp lê, xin thử lại");
         }
-        else
-            JOptionPane.showMessageDialog(this,"Năm học không hợp lê, xin thử lại");
-            
+
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if (namhocTable.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this, "Chưa chọn năm học");
+            return;
+        }
+        if (new NamhocDAL().delete(Integer.parseInt(namhocTable.getModel().getValueAt(namhocTable.getSelectedRow(), 0).toString()))) {
+            JOptionPane.showMessageDialog(this, "Xóa năm học thành công");
+            showtable();
+        } else {
+            JOptionPane.showMessageDialog(this, "Xóa năm học thất bại do có lớp ở năm học này.");
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void namhocTF1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_namhocTF1FocusLost
+        namhocTF2.setText(String.valueOf(1+(Integer.parseInt(namhocTF1.getText()))));
+    }//GEN-LAST:event_namhocTF1FocusLost
 
     /**
      * @param args the command line arguments
@@ -259,6 +298,7 @@ public class SchoolYearFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
