@@ -5,10 +5,14 @@
  */
 package bll;
 
+import dal.HocsinhDAL;
 import dal.HocsinhLophocDAL;
+import dto.Hocsinh;
 import dto.HocsinhLophoc;
 import dto.HocsinhLophocId;
+import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -34,13 +38,29 @@ public class HocsinhLopHocBLL {
     Kiểm tra sỉ sổ lớp
      */
     public static boolean checkMaximumStudentInClass(int idLop, int SiSoToiTa) {
-        
+
         int Size = new HocsinhLophocDAL().getAllStudentByIdLopHoc(idLop).size();
-        
-        if(Size == SiSoToiTa){
+
+        if (Size == SiSoToiTa) {
             return true; // Lớp đã đủ sỉ số
-        }else{
+        } else {
             return false; // Lớp chưa đủ sỉ số
+        }
+    }
+
+    public static List<Hocsinh> getAllStudentByIdLopHocIdNamHocBLL(int idLop, int idNamHoc) {
+        List<HocsinhLophocId> dsIdHsLop = new HocsinhLophocDAL().getAllStudentByIdLopHocIdNamHoc(idLop, idNamHoc);
+        List<Hocsinh> dsHocSinh = new ArrayList<Hocsinh>();
+        HocsinhDAL hsDAL = new HocsinhDAL();
+
+        if (dsIdHsLop.size() == 0) {
+            //JOptionPane.showMessageDialog(null, "Năm học này không có lớp này");
+            return dsHocSinh;
+        } else {
+            for (HocsinhLophocId a : dsIdHsLop) {
+                dsHocSinh.add(hsDAL.getById(a.getIdHocSinh()));
+            }
+            return dsHocSinh;
         }
     }
 }

@@ -60,7 +60,6 @@ public class Lop implements java.io.Serializable {
     public void setIdLop(Integer idLop) {
         Integer oldIdLop = this.idLop;
         this.idLop = idLop;
-        changeSupport.firePropertyChange("idLop", oldIdLop, idLop);
     }
 
     @Column(name = "TenLop", nullable = false, length = 45)
@@ -71,7 +70,6 @@ public class Lop implements java.io.Serializable {
     public void setTenLop(String tenLop) {
         String oldTenLop = this.tenLop;
         this.tenLop = tenLop;
-        changeSupport.firePropertyChange("tenLop", oldTenLop, tenLop);
     }
 
     @Column(name = "Khoi", nullable = false)
@@ -82,7 +80,6 @@ public class Lop implements java.io.Serializable {
     public void setKhoi(int khoi) {
         int oldKhoi = this.khoi;
         this.khoi = khoi;
-        changeSupport.firePropertyChange("khoi", oldKhoi, khoi);
     }
 
     @Column(name = "TinhTrang")
@@ -93,7 +90,6 @@ public class Lop implements java.io.Serializable {
     public void setTinhTrang(Byte tinhTrang) {
         Byte oldTinhTrang = this.tinhTrang;
         this.tinhTrang = tinhTrang;
-        changeSupport.firePropertyChange("tinhTrang", oldTinhTrang, tinhTrang);
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "lop")

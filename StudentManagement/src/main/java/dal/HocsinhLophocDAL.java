@@ -110,12 +110,12 @@ public class HocsinhLophocDAL {
     }
 
     @SuppressWarnings("unchecked")
-    public List<HocsinhLophoc> getAllStudentByIdLopHoc2(int id) {
-        list = new ArrayList<HocsinhLophoc>();
+    public List<HocsinhLophocId> getAllStudentByIdLopHocIdNamHoc(int idLop, int idNamHoc) {
+        List<HocsinhLophocId> ds = new ArrayList<HocsinhLophocId>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from HocsinhLophoc as t where t.idLopHoc = '" + id + "'");
-            list = (List<HocsinhLophoc>) q.list();
+            Query q = session.createQuery("from HocsinhLophoc as t where t.idLopHoc = '" + idLop + "' and t.idNamHoc = '" + idNamHoc + "'");
+            ds = (List<HocsinhLophocId>) q.list();
             tst.commit();
         } catch (Exception e) {
             if (tst != null) {
@@ -123,7 +123,24 @@ public class HocsinhLophocDAL {
             }
             e.printStackTrace();
         }
-        return list;
+        return ds;
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<HocsinhLophoc> getAllStudentByIdLopHocIdNamHoc2(int idLop, int idNamHoc) {
+        List<HocsinhLophoc> ds = new ArrayList<HocsinhLophoc>();
+        try {
+            tst = session.beginTransaction();
+            Query q = session.createQuery("from HocsinhLophoc where idLopHoc = '" + idLop + "' and idNamHoc = '" + idNamHoc + "'");
+            ds = (List<HocsinhLophoc>) q.list();
+            tst.commit();
+        } catch (Exception e) {
+            if (tst != null) {
+                tst.rollback();
+            }
+            e.printStackTrace();
+        }
+        return ds;
     }
 
     public HocsinhLophoc get(HocsinhLophocId id) {

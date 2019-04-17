@@ -5,11 +5,20 @@
  */
 package gui;
 
+import bll.HocsinhLopHocBLL;
+import dal.HocsinhLophocDAL;
 import dal.LopDAL;
 import dal.NamhocDAL;
+import dto.Hocsinh;
+import dto.HocsinhLophoc;
+import dto.HocsinhLophocId;
 import dto.Lop;
 import dto.Namhoc;
 import dto.Nguoidung;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -35,7 +44,6 @@ public class ShowListClassJFrame extends javax.swing.JFrame {
     }
 
     public void LoadCbo() {
-
 
         for (Lop a : new LopDAL().getAll()) {
             cboTenLop.addItem(a.getTenLop());
@@ -103,6 +111,11 @@ public class ShowListClassJFrame extends javax.swing.JFrame {
         jLabel6.setText("Năm học:");
 
         btnXem.setText("Xem");
+        btnXem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXemActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Tên lớp:");
 
@@ -180,6 +193,27 @@ public class ShowListClassJFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnXemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemActionPerformed
+        // TODO add your handling code here:
+        String tenLop = this.cboTenLop.getSelectedItem().toString();
+        Lop a = new LopDAL().getByTen(tenLop);
+        int idLop = a.getIdLop();
+
+        String tenNamHoc = this.cboNamHoc.getSelectedItem().toString();
+        Namhoc b = new NamhocDAL().getByTen(tenNamHoc);
+        int idNamHoc = b.getIdNamHoc();
+
+        //List<Hocsinh> dsHocSinh = new HocsinhLopHocBLL().getAllStudentByIdLopHocIdNamHocBLL(idLop, idNamHoc);
+        
+        List<HocsinhLophocId> dsIdHsLop = new HocsinhLophocDAL().getAllStudentByIdLopHocIdNamHoc(idLop, idNamHoc);
+
+        if(dsIdHsLop.size() == 0){
+            JOptionPane.showMessageDialog(null, "rong");
+        }else{
+            JOptionPane.showMessageDialog(null, "ok");
+        }
+    }//GEN-LAST:event_btnXemActionPerformed
 
     /**
      * @param args the command line arguments

@@ -45,10 +45,10 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
         dtm.addColumn("Mã năm học");
         //int Size = this.hslopDao.getAll().size();
         //int i = 1;
-List<HocsinhLophoc> l=new HocsinhLophocDAL().getAll();
+        List<HocsinhLophoc> l = new HocsinhLophocDAL().getAll();
         for (HocsinhLophoc a : l) {
             //dtm.addRow(new Object[]{a.getId(), a.getHocsinh().getIdHocSinh(),new LopDAL().getById(a.getLop().getIdLop()).getTenLop(),new NamhocDAL().getById(a.getNamhoc().getIdNamHoc()).getTenNamHoc()});
-            dtm.addRow(new Object[]{a.getId().getIdHocSinh(), a.getHocsinh().getIdHocSinh(),new LopDAL().getById(a.getLop().getIdLop()).getTenLop(),new NamhocDAL().getById(a.getNamhoc().getIdNamHoc()).getTenNamHoc()});
+            dtm.addRow(new Object[]{a.getIdHocSinhLopHoc(), a.getHocsinh().getIdHocSinh(), new LopDAL().getById(a.getLop().getIdLop()).getTenLop(), new NamhocDAL().getById(a.getNamhoc().getIdNamHoc()).getTenNamHoc()});
             //i++;
         }
 
