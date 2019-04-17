@@ -220,6 +220,17 @@ public class HocsinhLophocDAL {
         return list;
     }
 
+        public List<HocsinhLophoc> getByLop(Lop l) {
+        list = getAll();
+        for (int i = 0; i < list.size(); i++) {
+            if (!list.get(i).getLop().equals(l)) {
+                list.remove(i);
+                i--;
+            }
+        }
+        return list;
+    }
+    
     public List<HocsinhLophoc> getByHocsinh(Hocsinh q) {
         list = getAll();
         for (int i = 0; i < list.size(); i++) {

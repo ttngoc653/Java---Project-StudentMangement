@@ -40,16 +40,12 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
         DefaultTableModel dtm = new DefaultTableModel();
         dtm.addColumn("ID");
         dtm.addColumn("MSHS");
-        dtm.addColumn("Mã lớp");
-        //dtm.addColumn("Tên lớp");
-        dtm.addColumn("Mã năm học");
-        //int Size = this.hslopDao.getAll().size();
-        //int i = 1;
+        dtm.addColumn("Tên lớp");
+        dtm.addColumn("Năm học");
+
         List<HocsinhLophoc> l = new HocsinhLophocDAL().getAll();
         for (HocsinhLophoc a : l) {
-            //dtm.addRow(new Object[]{a.getId(), a.getHocsinh().getIdHocSinh(),new LopDAL().getById(a.getLop().getIdLop()).getTenLop(),new NamhocDAL().getById(a.getNamhoc().getIdNamHoc()).getTenNamHoc()});
             dtm.addRow(new Object[]{a.getIdHocSinhLopHoc(), a.getHocsinh().getIdHocSinh(), new LopDAL().getById(a.getLop().getIdLop()).getTenLop(), new NamhocDAL().getById(a.getNamhoc().getIdNamHoc()).getTenNamHoc()});
-            //i++;
         }
 
         this.jTableXepLop.setModel(dtm);
@@ -62,14 +58,11 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
         }
 
         for (Lop a : new LopDAL().getAll()) {
-            cboMaLop.addItem(a.getIdLop().toString());
+            cboTenLop.addItem(a.getTenLop());
         }
-//        for (Lop a : new LopDAL().getAll()) {
-//            cboMaLop.addItem(a.getTenLop().toString());
-//        }
 
         for (Namhoc a : new NamhocDAL().getAll()) {
-            cboMaNamHoc.addItem(a.getIdNamHoc().toString());
+            cboNamHoc.addItem(a.getTenNamHoc());
         }
     }
 
@@ -84,16 +77,16 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        txtSTT = new javax.swing.JTextField();
+        txtID = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        cboMaNamHoc = new javax.swing.JComboBox<>();
+        cboNamHoc = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         btnThem = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         btnQuayLai = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        cboMaLop = new javax.swing.JComboBox<>();
+        cboTenLop = new javax.swing.JComboBox<>();
         cboMSHS = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableXepLop = new javax.swing.JTable();
@@ -102,13 +95,13 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Quản lý xếp lớp");
 
-        jLabel1.setText("STT:");
+        jLabel1.setText("ID:");
 
-        txtSTT.setEditable(false);
+        txtID.setEditable(false);
 
         jLabel2.setText("MSHS:");
 
-        jLabel3.setText("Mã năm học:");
+        jLabel3.setText("Năm học:");
 
         btnThem.setText("Thêm");
         btnThem.addActionListener(new java.awt.event.ActionListener() {
@@ -128,7 +121,7 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setText("Mã lớp:");
+        jLabel4.setText("Tên lớp:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -144,22 +137,24 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
                             .addComponent(jLabel4))
                         .addGap(14, 14, 14)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cboMaNamHoc, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cboMaLop, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cboNamHoc, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cboTenLop, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cboMSHS, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnThem)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnQuayLai)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(52, 52, 52)
-                        .addComponent(txtSTT)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnThem)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnQuayLai))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(60, 60, 60)
+                                .addComponent(txtID)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -168,7 +163,7 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtSTT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -176,10 +171,10 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(cboMaLop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cboTenLop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cboMaNamHoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboNamHoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(37, 37, 37)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -255,28 +250,27 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
     private void jTableXepLopMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableXepLopMouseClicked
 
         String stt = this.jTableXepLop.getValueAt(this.jTableXepLop.getSelectedRow(), 0).toString();
-//        int idHS = Integer.parseInt(this.jTableXepLop.getValueAt(this.jTableXepLop.getSelectedRow(), 1).toString());
-//        int idLop = Integer.parseInt(this.jTableXepLop.getValueAt(this.jTableXepLop.getSelectedRow(), 2).toString());
-//        int idNamHoc = Integer.parseInt(this.jTableXepLop.getValueAt(this.jTableXepLop.getSelectedRow(), 3).toString());
-
         String idHS = this.jTableXepLop.getValueAt(this.jTableXepLop.getSelectedRow(), 1).toString();
         String idLop = this.jTableXepLop.getValueAt(this.jTableXepLop.getSelectedRow(), 2).toString();
         String idNamHoc = this.jTableXepLop.getValueAt(this.jTableXepLop.getSelectedRow(), 3).toString();
 
-        //Lop a = this.lopDao.getByTen2(tenLop);
-        //HocsinhLophoc a = new HocsinhLophocDAL().getByIdHocsinh(idHS);
-        this.txtSTT.setText(stt);
-        //this.cboMSHS.setSelectedItem(a.getHocsinh().getIdHocSinh().toString());
+        this.txtID.setText(stt);
         this.cboMSHS.setSelectedItem(idHS);
-        this.cboMaLop.setSelectedItem(idLop);
-        this.cboMaNamHoc.setSelectedItem(idNamHoc);
+        this.cboTenLop.setSelectedItem(idLop);
+        this.cboNamHoc.setSelectedItem(idNamHoc);
     }//GEN-LAST:event_jTableXepLopMouseClicked
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
 
         int idHS = Integer.parseInt(this.cboMSHS.getSelectedItem().toString());
-        int idLop = Integer.parseInt(this.cboMaLop.getSelectedItem().toString());
-        int idNamHoc = Integer.parseInt(this.cboMaNamHoc.getSelectedItem().toString());
+
+        String tenLop = this.cboTenLop.getSelectedItem().toString();
+        Lop b = new LopDAL().getByTen(tenLop);
+        int idLop = b.getIdLop();
+
+        String tenNamHoc = this.cboNamHoc.getSelectedItem().toString();
+        Namhoc c = new NamhocDAL().getByTen(tenNamHoc);
+        int idNamHoc = c.getIdNamHoc();
 
         if (checkStudentArrangedClass(idHS, idLop, idNamHoc)) {
             if (checkMaximumStudentInClass(idLop, SiSoToiDa)) {
@@ -348,8 +342,8 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnQuayLai;
     private javax.swing.JButton btnThem;
     private javax.swing.JComboBox<String> cboMSHS;
-    private javax.swing.JComboBox<String> cboMaLop;
-    private javax.swing.JComboBox<String> cboMaNamHoc;
+    private javax.swing.JComboBox<String> cboNamHoc;
+    private javax.swing.JComboBox<String> cboTenLop;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
@@ -360,6 +354,6 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableXepLop;
     private javax.swing.JLabel lblTenTaiKhoan;
-    private javax.swing.JTextField txtSTT;
+    private javax.swing.JTextField txtID;
     // End of variables declaration//GEN-END:variables
 }

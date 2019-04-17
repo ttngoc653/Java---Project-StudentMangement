@@ -22,7 +22,7 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @Table(name = "hocsinh_lophoc", catalog = "quanlyhocsinh", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"idHocSinh", "idLopHoc", "idNamHoc"})
+    @UniqueConstraint(columnNames = {"idHocSinh", "idNamHoc"})
     ,
     @UniqueConstraint(columnNames = "idHocSinhLopHoc")}
 )
@@ -35,9 +35,6 @@ public class HocsinhLophoc implements java.io.Serializable {
     private int idHocSinhLopHoc;
     private Set<Diem> diems = new HashSet<Diem>(0);
 
-    private int idHocSinh;
-    private int idLopHoc;
-    private int idNamHoc;
 
     public HocsinhLophoc() {
     }
