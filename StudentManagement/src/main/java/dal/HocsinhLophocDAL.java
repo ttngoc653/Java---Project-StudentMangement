@@ -129,9 +129,9 @@ public class HocsinhLophocDAL {
     }
 
     public List<HocsinhLophoc> getByNamHocLop(Namhoc n, Lop l) {
-        list = getAll();
+        list = new HocsinhLophocDAL().getAll();
         for (int i = 0; i < list.size(); i++) {
-            if (!list.get(i).getLop().equals(l) || !list.get(i).getNamhoc().equals(n)) {
+            if (!(list.get(i).getId().getIdLopHoc()==l.getIdLop()) || !(list.get(i).getId().getIdNamHoc()==n.getIdNamHoc())) {
                 list.remove(i);
                 i--;
             }

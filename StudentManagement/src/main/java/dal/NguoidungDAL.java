@@ -93,14 +93,57 @@ public class NguoidungDAL {
         }
         return result;
     }
-
-    public boolean updateRole(Nguoidung p) {
+    public boolean updateSDT(Nguoidung p) {
         Boolean result = false;
         try {
             tst = session.beginTransaction();
             Nguoidung n = (Nguoidung) session.get(Nguoidung.class, p.getIdNguoiDung());
 
-            n.setLoaiNguoiDung(p.getLoaiNguoiDung());
+            n.setSdt(p.getSdt());
+
+            session.update(n);
+            tst.commit();
+            result = true;
+        } catch (Exception e) {
+            if (tst != null) {
+                tst.rollback();
+            }
+            e.printStackTrace();
+        }
+        return result;
+    }
+    
+    
+
+    public boolean updateEmail(Nguoidung p) {
+        Boolean result = false;
+        try {
+            tst = session.beginTransaction();
+            Nguoidung n = (Nguoidung) session.get(Nguoidung.class, p.getIdNguoiDung());
+
+            n.setEmail(p.getEmail());
+
+            session.update(n);
+            tst.commit();
+            result = true;
+        } catch (Exception e) {
+            if (tst != null) {
+                tst.rollback();
+            }
+            e.printStackTrace();
+        }
+        return result;
+    }
+     public boolean updateNuoidung(Nguoidung p) {
+        Boolean result = false;
+        try {
+            tst = session.beginTransaction();
+            Nguoidung n = (Nguoidung) session.get(Nguoidung.class, p.getIdNguoiDung());
+
+            n.setEmail(p.getEmail());
+            n.setHoTen(p.getHoTen());
+            n.setMatKhau(p.getMatKhau());
+            n.setSdt(p.getSdt());
 
             session.update(n);
             tst.commit();

@@ -202,7 +202,6 @@ public class EditUserFrame extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setText("Nhập lại mật khẩu mới");
 
-        passPF.setText("jPasswordField2");
         passPF.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 passPFFocusGained(evt);
@@ -212,7 +211,6 @@ public class EditUserFrame extends javax.swing.JFrame {
             }
         });
 
-        pass2PF.setText("jPasswordField3");
         pass2PF.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 pass2PFFocusGained(evt);
@@ -231,9 +229,9 @@ public class EditUserFrame extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
                     .addComponent(jLabel7))
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(pass2PF)
+                    .addComponent(pass2PF, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
                     .addComponent(passPF))
                 .addGap(22, 22, 22))
         );
@@ -278,7 +276,7 @@ public class EditUserFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(exit)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(157, 157, 157)
@@ -366,13 +364,39 @@ public class EditUserFrame extends javax.swing.JFrame {
         info.setHoTen(hotenTF.getText());
         info.setEmail(emailTF.getText());
         info.setSdt(phoneTF.getText());
-        try {
+        info.setIdNguoiDung(nd.getIdNguoiDung());
+        System.out.println(passPF.getText());
+        info.setMatKhau(nd.getMatKhau());
+        
+        if(!passPF.getText().equals(""))
+        {
+            try {
             info.setMatKhau(new NguoidungDAL().PasswordMD5(passPF.getText()));
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(EditUserFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-
+        }
+            
+  
+        NguoidungDAL DAL = new NguoidungDAL();
+        String md5_pwd = "";
+        try {
+            md5_pwd = DAL.PasswordMD5(mkcuTF.getText());
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(EditUserFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println(nd.getMatKhau() + "-" + md5_pwd );
+        if(md5_pwd.equals(nd.getMatKhau())) {
+            boolean xxx = DAL.updateNuoidung(info);
+         
+            
+            JOptionPane.showMessageDialog(null, "Cập nhật thành công");
+            nhapmkcuDialog.setVisible(false);
+            this.setVisible(false);
+            
+        }
+        else
+            JOptionPane.showMessageDialog(null, "Mật khẩu không hợp lệ");
     }//GEN-LAST:event_OKBTActionPerformed
 
     /**

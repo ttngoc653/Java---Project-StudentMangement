@@ -5,6 +5,7 @@
  */
 package gui;
 
+import bll.ShoolYearBLL;
 import dal.NamhocDAL;
 import dto.Namhoc;
 import java.util.ArrayList;
@@ -213,24 +214,13 @@ public class SchoolYearFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    boolean ktnamhople(String nam) {
-        int temp;
-        try {
-            temp = Integer.parseInt(nam);
-        } catch (NumberFormatException e) {
-            return false;
-        }
-        if (temp > 1900 && temp < 2100) {
-            return true;
-        }
-        return false;
-
-    }
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         //  if(new NamhocDAL())){
         //      JOptionPane.showMessageDialog(this, "Năm học đã tồn tại");
         //  }
-        if (ktnamhople(namhocTF1.getText()) && ktnamhople(namhocTF2.getText())) {
+        ShoolYearBLL bll = new ShoolYearBLL();
+        if (bll.ktnamhople(namhocTF1.getText()) && bll.ktnamhople(namhocTF2.getText())) {
             Namhoc nh = new Namhoc();
             nh.setTenNamHoc(namhocTF1.getText() + "-" + namhocTF2.getText());
             NamhocDAL nhdal = new NamhocDAL();

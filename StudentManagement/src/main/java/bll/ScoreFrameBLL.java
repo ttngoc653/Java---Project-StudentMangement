@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,7 +19,7 @@ import java.util.Map;
  */
 public class ScoreFrameBLL {
 
-    public List<Map<String, ?>> getData(String tenLop, String monHoc, String namHoc, String hocKy) {
+    public DefaultTableModel getData(String tenLop, String monHoc, String namHoc, String hocKy) {
         List<Map<String, ?>> data = new ArrayList<>();
         List<HocsinhLophoc> lhslh = new HocsinhLophocDAL().getByNamHocLop(new NamhocDAL().getByTen(namHoc), new LopDAL().getByTen(tenLop));
 
@@ -46,6 +47,10 @@ public class ScoreFrameBLL {
             }
         }
 
-        return data;
+        DefaultTableModel dtm=new DefaultTableModel();
+        for (int i = 0; i < data.size(); i++) {
+            dtm.addRow(new Object[]{data.get(i).get("stt"),data.get(i).get("tenhs"),data.get(i).get("diem15"),data.get(i).get("diem1"),data.get(i).get("diemck")});
+        }
+        return dtm;
     }
 }

@@ -13,8 +13,6 @@ import dto.Hocky;
 import dto.Lop;
 import dto.Monhoc;
 import dto.Namhoc;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
@@ -277,6 +275,8 @@ public class ScoreFrame extends javax.swing.JFrame {
 
     private void chonBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chonBTActionPerformed
         // TODO add your handling code here:
+        
+        this.jTable1.setModel(new bll.ScoreFrameBLL().getData(lopCBX.getSelectedItem().toString(), monCBX.getSelectedItem().toString(), namhocCBX.getSelectedItem().toString(), hockyCBX.getSelectedItem().toString()));
     }//GEN-LAST:event_chonBTActionPerformed
 
     /**
