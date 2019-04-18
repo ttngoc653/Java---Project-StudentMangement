@@ -204,14 +204,16 @@ public class NguoidungDAL {
         Nguoidung n = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Nguoidung as t where t.tenDangNhap = '" + tenDN + "'");
+            Query q = session.createQuery("from Nguoidung as t where t.tenTaiKhoan = '" + tenDN + "'");
             n = (Nguoidung) q.uniqueResult();
             tst.commit();
         } catch (Exception e) {
             if (tst != null) {
                 tst.rollback();
+                
             }
             e.printStackTrace();
+            tst.commit();
         }
         return n;
     }
