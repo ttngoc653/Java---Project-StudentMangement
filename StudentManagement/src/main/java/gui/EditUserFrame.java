@@ -7,6 +7,12 @@ package gui;
 
 import dal.NguoidungDAL;
 import dto.Nguoidung;
+import java.awt.Toolkit;
+import java.awt.event.WindowEvent;
+import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -23,20 +29,30 @@ public class EditUserFrame extends javax.swing.JFrame {
         init();
         this.setLocationRelativeTo(this);
     }
-    
-    public void init(){
-        Nguoidung info = new Nguoidung();
-        NguoidungDAL DAL = new NguoidungDAL();
-        
-        info = DAL.getById(1);
-        hotenTF.setText(info.getHoTen());
-        emailTF.setText(info.getEmail());
-        phoneTF.setText(info.getSdt());
-        userTF.setText(info.getTenTaiKhoan());
-        
-    
+    Nguoidung nd = null;
+
+    public EditUserFrame(int idUser) {
+        initComponents();
+        nd = new NguoidungDAL().getById(idUser);
+        if (nd == null) {
+            JOptionPane.showMessageDialog(OKBT, "Khong ton tai nguoi dung");
+            WindowEvent wev = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
+            Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(wev);
+            this.setVisible(false);
+            this.dispose();
+            return;
+        }
+        init();
+        this.setLocationRelativeTo(this);
     }
-    
+
+    public void init() {
+        hotenTF.setText(nd.getHoTen());
+        emailTF.setText(nd.getEmail());
+        phoneTF.setText(nd.getSdt());
+        userTF.setText(nd.getTenTaiKhoan());
+
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -315,13 +331,14 @@ public class EditUserFrame extends javax.swing.JFrame {
     private void passPFFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passPFFocusGained
         // TODO add your handling code here:
         passPF.setText("");
-        
+
     }//GEN-LAST:event_passPFFocusGained
 
     private void passPFFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passPFFocusLost
         // TODO add your handling code here:
-        if(passPF.getText().equals(""))
+        if (passPF.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Mật khẩu mới không được để trống");
+        }
     }//GEN-LAST:event_passPFFocusLost
 
     private void pass2PFFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pass2PFFocusGained
@@ -331,26 +348,31 @@ public class EditUserFrame extends javax.swing.JFrame {
 
     private void pass2PFFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pass2PFFocusLost
         // TODO add your handling code here:
-        if(pass2PF.getText().equals(passPF.getText())==false)
+        if (pass2PF.getText().equals(passPF.getText()) == false) {
             JOptionPane.showMessageDialog(this, "2 mật khẩu không giống nhau");
+        }
     }//GEN-LAST:event_pass2PFFocusLost
 
     private void saveBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBTActionPerformed
-        
+
         nhapmkcuDialog.setVisible(true);
         nhapmkcuDialog.setLocationRelativeTo(this);
-        
-        
+
+
     }//GEN-LAST:event_saveBTActionPerformed
 
     private void OKBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OKBTActionPerformed
         Nguoidung info = new Nguoidung();
-        NguoidungDAL DAL = new NguoidungDAL();
         info.setHoTen(hotenTF.getText());
         info.setEmail(emailTF.getText());
         info.setSdt(phoneTF.getText());
-        info.setMatKhau(DAL.PasswordMD5(passPF.getText()));
-        
+        try {
+            info.setMatKhau(new NguoidungDAL().PasswordMD5(passPF.getText()));
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(EditUserFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
     }//GEN-LAST:event_OKBTActionPerformed
 
     /**
