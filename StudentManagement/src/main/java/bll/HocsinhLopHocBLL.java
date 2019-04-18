@@ -7,9 +7,13 @@ package bll;
 
 import dal.HocsinhDAL;
 import dal.HocsinhLophocDAL;
+import dal.LopDAL;
+import dal.NamhocDAL;
 import dto.Hocsinh;
 import dto.HocsinhLophoc;
 import dto.HocsinhLophocId;
+import dto.Lop;
+import dto.Namhoc;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -23,11 +27,9 @@ public class HocsinhLopHocBLL {
     /*
     Kiểm tra học sinh đã được xếp lớp chưa
      */
-    public static boolean checkStudentArrangedClass(int idHS, int idLop, int idNamHoc) {
-        HocsinhLophocDAL hslopDAL = new HocsinhLophocDAL();
-        HocsinhLophocId hslopid = new HocsinhLophocId(idHS, idLop, idNamHoc);
+    public static boolean checkStudentArrangedClass(int idHS) {
 
-        if (hslopDAL.get(hslopid) == null) {
+        if (new HocsinhLophocDAL().getByIdHocSinh(idHS) == null) {
             return true; // Học sinh chưa có lớp
         } else {
             return false; // Học sinh đã có lớp
@@ -37,9 +39,12 @@ public class HocsinhLopHocBLL {
     /*
     Kiểm tra sỉ sổ lớp
      */
-    public static boolean checkMaximumStudentInClass(int idLop, int SiSoToiTa) {
+    public static boolean checkMaximumStudentInClass(int idNamHoc, int idLop, int SiSoToiTa) {
 
-        int Size = new HocsinhLophocDAL().getAllStudentByIdLopHoc(idLop).size();
+        Namhoc a = new NamhocDAL().getById(idNamHoc);
+        Lop b = new LopDAL().getById(idLop);
+        int Size = new HocsinhLophocDAL().getAllStudentByNamHocLop(a, b).size();
+        //int Size = new HocsinhLophocDAL().getByNamHocLop(a, b).size();
 
         if (Size == SiSoToiTa) {
             return true; // Lớp đã đủ sỉ số
@@ -48,19 +53,4 @@ public class HocsinhLopHocBLL {
         }
     }
 
-    public static List<Hocsinh> getAllStudentByIdLopHocIdNamHocBLL(int idLop, int idNamHoc) {
-        List<HocsinhLophocId> dsIdHsLop = new HocsinhLophocDAL().getAllStudentByIdLopHocIdNamHoc(idLop, idNamHoc);
-        List<Hocsinh> dsHocSinh = new ArrayList<Hocsinh>();
-        HocsinhDAL hsDAL = new HocsinhDAL();
-
-        if (dsIdHsLop.size() == 0) {
-            //JOptionPane.showMessageDialog(null, "Năm học này không có lớp này");
-            return dsHocSinh;
-        } else {
-            for (HocsinhLophocId a : dsIdHsLop) {
-                dsHocSinh.add(hsDAL.getById(a.getIdHocSinh()));
-            }
-            return dsHocSinh;
-        }
-    }
 }

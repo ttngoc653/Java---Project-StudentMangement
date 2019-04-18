@@ -92,88 +92,7 @@ public class HocsinhLophocDAL {
         return list;
     }
 
-    @SuppressWarnings("unchecked")
-    public List<HocsinhLophoc> getAllStudentByIdLopHoc(int id) {
-        list = new ArrayList<HocsinhLophoc>();
-        try {
-            tst = session.beginTransaction();
-            Query q = session.createQuery("from HocsinhLophoc as t where t.idLopHoc = '" + id + "'");
-            list = (List<HocsinhLophoc>) q.list();
-            tst.commit();
-        } catch (Exception e) {
-            if (tst != null) {
-                tst.rollback();
-            }
-            e.printStackTrace();
-        }
-        return list;
-    }
-
-    @SuppressWarnings("unchecked")
-    public List<HocsinhLophocId> getAllStudentByIdLopHocIdNamHoc(int idLop, int idNamHoc) {
-        List<HocsinhLophocId> ds = new ArrayList<HocsinhLophocId>();
-        try {
-            tst = session.beginTransaction();
-            Query q = session.createQuery("from HocsinhLophoc as t where t.idLopHoc = '" + idLop + "' and t.idNamHoc = '" + idNamHoc + "'");
-            ds = (List<HocsinhLophocId>) q.list();
-            tst.commit();
-        } catch (Exception e) {
-            if (tst != null) {
-                tst.rollback();
-            }
-            e.printStackTrace();
-        }
-        return ds;
-    }
-
-    @SuppressWarnings("unchecked")
-    public List<HocsinhLophoc> getAllStudentByIdLopHocIdNamHoc2(int idLop, int idNamHoc) {
-        List<HocsinhLophoc> ds = new ArrayList<HocsinhLophoc>();
-        try {
-            tst = session.beginTransaction();
-            Query q = session.createQuery("from HocsinhLophoc where idLopHoc = '" + idLop + "' and idNamHoc = '" + idNamHoc + "'");
-            ds = (List<HocsinhLophoc>) q.list();
-            tst.commit();
-        } catch (Exception e) {
-            if (tst != null) {
-                tst.rollback();
-            }
-            e.printStackTrace();
-        }
-        return ds;
-    }
-
     public HocsinhLophoc get(HocsinhLophocId id) {
-        HocsinhLophoc n = null;
-        try {
-            tst = session.beginTransaction();
-            n = (HocsinhLophoc) session.get(HocsinhLophoc.class, id);
-            tst.commit();
-        } catch (Exception e) {
-            if (tst != null) {
-                tst.rollback();
-            }
-            e.printStackTrace();
-        }
-        return n;
-    }
-
-    public HocsinhLophoc get2(int id) {
-        HocsinhLophoc n = null;
-        try {
-            tst = session.beginTransaction();
-            n = (HocsinhLophoc) session.get(HocsinhLophoc.class, id);
-            tst.commit();
-        } catch (Exception e) {
-            if (tst != null) {
-                tst.rollback();
-            }
-            e.printStackTrace();
-        }
-        return n;
-    }
-
-    public HocsinhLophoc getByIdHocsinh(int id) {
         HocsinhLophoc n = null;
         try {
             tst = session.beginTransaction();
@@ -209,6 +128,16 @@ public class HocsinhLophocDAL {
         return null;
     }
 
+    public HocsinhLophoc getByIdHocSinh(int id) {
+        list = getAll();
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getHocsinh().getIdHocSinh() == id) {
+                return list.get(i);
+            }
+        }
+        return null;
+    }
+
     public List<HocsinhLophoc> getByNamHocLop(Namhoc n, Lop l) {
         list = getAll();
         for (int i = 0; i < list.size(); i++) {
@@ -220,7 +149,18 @@ public class HocsinhLophocDAL {
         return list;
     }
 
-        public List<HocsinhLophoc> getByLop(Lop l) {
+    public List<HocsinhLophoc> getAllStudentByNamHocLop(Namhoc n, Lop l) {
+        list = getAll();
+        for (int i = 0; i < list.size(); i++) {
+            if ((list.get(i).getLop().getIdLop() != l.getIdLop()) && (list.get(i).getNamhoc().getIdNamHoc() != n.getIdNamHoc())) {
+                list.remove(i);
+                i--;
+            }
+        }
+        return list;
+    }
+
+    public List<HocsinhLophoc> getByLop(Lop l) {
         list = getAll();
         for (int i = 0; i < list.size(); i++) {
             if (!list.get(i).getLop().equals(l)) {
@@ -230,7 +170,7 @@ public class HocsinhLophocDAL {
         }
         return list;
     }
-    
+
     public List<HocsinhLophoc> getByHocsinh(Hocsinh q) {
         list = getAll();
         for (int i = 0; i < list.size(); i++) {

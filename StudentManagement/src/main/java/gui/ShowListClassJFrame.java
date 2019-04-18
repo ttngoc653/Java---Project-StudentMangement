@@ -206,13 +206,13 @@ public class ShowListClassJFrame extends javax.swing.JFrame {
 
         //List<Hocsinh> dsHocSinh = new HocsinhLopHocBLL().getAllStudentByIdLopHocIdNamHocBLL(idLop, idNamHoc);
         
-        List<HocsinhLophocId> dsIdHsLop = new HocsinhLophocDAL().getAllStudentByIdLopHocIdNamHoc(idLop, idNamHoc);
-
-        if(dsIdHsLop.size() == 0){
-            JOptionPane.showMessageDialog(null, "rong");
-        }else{
-            JOptionPane.showMessageDialog(null, "ok");
-        }
+//        List<HocsinhLophocId> dsIdHsLop = new HocsinhLophocDAL().getAllStudentByIdLopHocIdNamHoc(idLop, idNamHoc);
+//
+//        if(dsIdHsLop.size() == 0){
+//            JOptionPane.showMessageDialog(null, "rong");
+//        }else{
+//            JOptionPane.showMessageDialog(null, "ok");
+//        }
     }//GEN-LAST:event_btnXemActionPerformed
 
     /**
