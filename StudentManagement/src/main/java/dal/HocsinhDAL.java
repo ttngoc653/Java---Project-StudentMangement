@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 /**
@@ -51,6 +52,18 @@ public class HocsinhDAL {
         return result;
     }
 
+    public boolean SaveOrUpdate(Hocsinh hs) {
+        try {
+            tst = session.beginTransaction();
+            session.saveOrUpdate(hs);
+            tst.commit();
+            return true;
+        } catch (Exception e) {
+            tst.rollback();
+            return false;
+        }
+    }
+
     public boolean update(Hocsinh hs) {
         Boolean result = false;
         try {
@@ -69,6 +82,22 @@ public class HocsinhDAL {
             n.setTinhTrang(hs.getTinhTrang() != -1 ? hs.getTinhTrang() : n.getTinhTrang());
 
             session.update(n);
+            tst.commit();
+            result = true;
+        } catch (Exception e) {
+            if (tst != null) {
+                tst.rollback();
+            }
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public boolean update2(Hocsinh hs) {
+        Boolean result = false;
+        try {
+            tst = session.beginTransaction();
+            session.update(hs);
             tst.commit();
             result = true;
         } catch (Exception e) {
@@ -114,6 +143,75 @@ public class HocsinhDAL {
         return lHs;
     }
 
+//    @SuppressWarnings("unchecked")
+//    public List<Hocsinh> Search(String key) {
+//        lHs = new ArrayList<Hocsinh>();
+//        try {
+//            tst = session.beginTransaction();
+////            Query q = session.createQuery("select * from Hocsinh as a where a.idHocSinh = " + key + 
+////                                          " or a.hoTen like '%" + key + "%' or a.ngaySinh like '%" + key + "%'");
+//            //String query = "SELECT FROM hocsinh WHERE idHocSinh = " + key + " OR hoTen LIKE '%" + key + "%' or ngaySinh LIKE '%" + key + "%'";
+//            Query q = session.createQuery("SELECT FROM hocsinh WHERE idHocSinh = " + key + " OR hoTen LIKE '%" + key + "%' or ngaySinh LIKE '%" + key + "%'");
+//            lHs = (List<Hocsinh>) q.list();
+//            tst.commit();
+//        } catch (Exception e) {
+//            if (tst != null) {
+//                tst.rollback();
+//            }
+//            e.printStackTrace();
+//        }
+//        return lHs;
+//    }
+//        @SuppressWarnings("unchecked")
+//    public List<Hocsinh> Search(String key) {
+//        List<Hocsinh> l = new ArrayList<Hocsinh>();
+//        String keyId = key;
+//        try {
+//            tst = session.beginTransaction();
+//            Query q = session.createQuery("FROM Hocsinh WHERE idHocSinh = :keyId or hoTen like :key or ngaySinh like :key or gioiTinh like :key or diaChi like :key or email like :key");
+//            q.setString("keyId", keyId);
+//            q.setString("key", "%" + key + "%");
+//            l = q.list();
+//            tst.commit();
+//        } catch (Exception e) {
+//            if (tst != null) {
+//                tst.rollback();
+//            }
+//            e.printStackTrace();
+//        }
+//        return l;
+//    }
+    
+    /*
+    * Tra cứu học sinh theo nhiều tiêu chí
+    */
+    @SuppressWarnings("unchecked")
+    public List<Hocsinh> Search(String key) {
+        lHs = new ArrayList<Hocsinh>();
+        String keyId = key;
+        try {
+            tst = session.beginTransaction();
+            Query q = session.createQuery("FROM Hocsinh WHERE idHocSinh = :keyId "
+                                           + "or hoTen like :key "
+                                           + "or ngaySinh like :key "
+                                           + "or gioiTinh like :key "
+                                           + "or diaChi like :key "
+                                           + "or email like :key "
+                                           + "or sdtCaNhan like :key "
+                                           + "or sdtGiamHo like :key");
+            q.setString("keyId", keyId);
+            q.setString("key", "%" + key + "%");
+            lHs = q.list();
+            tst.commit();
+        } catch (Exception e) {
+            if (tst != null) {
+                tst.rollback();
+            }
+            e.printStackTrace();
+        }
+        return lHs;
+    }
+
     public Hocsinh getById(int idHocSinh) {
         Hocsinh hs = null;
         try {
@@ -134,7 +232,8 @@ public class HocsinhDAL {
         Hocsinh hs = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Hocsinh as hs where hs.hoTen like '" + name + "'");
+            //Query q = session.createQuery("from Hocsinh as hs where hs.hoTen like '" + name + "'");
+            Query q = session.createQuery("from Hocsinh as hs where hs.hoTen = '" + name + "'");
             hs = (Hocsinh) q.uniqueResult();
             tst.commit();
         } catch (Exception e) {
@@ -144,5 +243,21 @@ public class HocsinhDAL {
             e.printStackTrace();
         }
         return hs;
+    }
+
+    public Hocsinh getByName2(String name) {
+        Hocsinh n = null;
+        try {
+            tst = session.beginTransaction();
+            Query q = session.createQuery("from Hocsinh as t where t.hoTen = '" + name + "'");
+            n = (Hocsinh) q.uniqueResult();
+            tst.commit();
+        } catch (Exception e) {
+            if (tst != null) {
+                tst.rollback();
+            }
+            e.printStackTrace();
+        }
+        return n;
     }
 }

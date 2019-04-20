@@ -93,7 +93,8 @@ public class MonhocDAL {
         list = new ArrayList<Monhoc>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Monhoc");
+            Query q = session.createQuery("from Monhoc as m "
+                    + "join fetch m.diems");
             list = (List<Monhoc>) q.list();
             tst.commit();
         } catch (Exception e) {
@@ -109,7 +110,10 @@ public class MonhocDAL {
         Monhoc n = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Monhoc as t where t.idMonhoc = " + id);
+            Query q = session.createQuery("from Monhoc as t "
+                    + "join fetch t.diems "
+                    + "where t.idMonhoc = :id");
+            q.setParameter("id", id);
             n = (Monhoc) q.uniqueResult();
             tst.commit();
         } catch (Exception e) {
@@ -125,7 +129,10 @@ public class MonhocDAL {
         Monhoc n = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Monhoc as t where t.tenMh = '" + ten + "'");
+            Query q = session.createQuery("from Monhoc as t "
+                    + "join fetch t.diems "
+                    + "where t.tenMh = :ten");
+            q.setParameter("ten", ten);
             n = (Monhoc) q.uniqueResult();
             tst.commit();
         } catch (Exception e) {

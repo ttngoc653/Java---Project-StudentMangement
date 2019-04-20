@@ -81,8 +81,8 @@ public class ReportBLL {
                 for (Diem lDiem1 : lDiem) {
                     if (lDiem1.getHocky().getTenHocKy() == semester) {
                         summary++;
-                        diem15 = lDiem1.getDiem15Phut();
-                        diem1 = lDiem1.getDiem1Tiet();
+                        diem15 = lDiem1.getDiem15phut();
+                        diem1 = lDiem1.getDiem1tiet();
                         diemhk = lDiem1.getDiemCuoiKy();
                         dtb = ((diem15 != null ? diem15 : 0) + (diem1 != null ? diem1 : 0) * 2 + (diemhk != null ? diemhk : 0) * 3) / ((diem15 != null ? 1 : 0) + (diem1 != null ? 2 : 0) + (diemhk != null ? 3 : 0));
                         if (dtb >= 5) {
@@ -123,8 +123,8 @@ public class ReportBLL {
                 List<Diem> lDiem = new DiemDAL().getByHocSinhLopHocHocKy(lHL1, new HockyDAL().getByTen(semester));
                 summary++;
                 for (Diem lDiem1 : lDiem) {
-                    diem15 = lDiem1.getDiem15Phut();
-                    diem1 = lDiem1.getDiem1Tiet();
+                    diem15 = lDiem1.getDiem15phut();
+                    diem1 = lDiem1.getDiem1tiet();
                     diemhk = lDiem1.getDiemCuoiKy();
                     dtb = ((diem15 != null ? diem15 : 0) + (diem1 != null ? diem1 : 0) * 2 + (diemhk != null ? diemhk : 0) * 3) / ((diem15 != null ? 1 : 0) + (diem1 != null ? 2 : 0) + (diemhk != null ? 3 : 0));
                     if (dtb < 5) {

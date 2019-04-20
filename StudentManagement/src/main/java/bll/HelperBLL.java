@@ -1,21 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bll;
 
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import static javax.swing.UIManager.getString;
 import java.util.regex.Pattern;
 
-/**
- *
- * @author Normal_User
- */
-public class HelperBLL {
+public class HelperBLL {   
 
     public static String randomPassword() {
         String str = "";
@@ -28,8 +27,8 @@ public class HelperBLL {
     }
 
     /*
-     convert string to MD5
-     source: https://www.geeksforgeeks.org/md5-hash-in-java/
+    convert string to MD5
+    source: https://www.geeksforgeeks.org/md5-hash-in-java/
      */
     public static String getMd5(String input) {
         try {
@@ -55,6 +54,21 @@ public class HelperBLL {
             throw new RuntimeException(e);
         }
     }
+
+    public static String PasswordMD5(String password) throws NoSuchAlgorithmException {
+        String kq = "";
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        byte[] hashInBytes = md.digest(password.getBytes(StandardCharsets.UTF_8));
+
+        StringBuilder sb = new StringBuilder();
+        for (byte b : hashInBytes) {
+            sb.append(String.format("%02x", b));
+        }
+        //System.out.println(sb.toString());
+        kq = sb.toString();
+        return kq;
+    }
+
 
     /*
      source: https://www.geeksforgeeks.org/check-email-address-valid-not-java/

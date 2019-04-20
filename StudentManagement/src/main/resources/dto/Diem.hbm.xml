@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Apr 15, 2019 3:40:43 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated Apr 21, 2019 1:19:41 AM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="dto.Diem" table="diem" catalog="quanlyhocsinh" optimistic-lock="version">
         <id name="idDiem" type="java.lang.Integer">
@@ -19,14 +19,14 @@
         <many-to-one name="monhoc" class="dto.Monhoc" fetch="select">
             <column name="idMonHoc" not-null="true" />
         </many-to-one>
-        <property name="diem15Phut" type="java.lang.Double">
-            <column name="15Phut" precision="22" scale="0" />
+        <property name="diem15phut" type="java.lang.Double">
+            <column name="Diem15Phut" precision="22" scale="0" />
         </property>
-        <property name="diem1Tiet" type="java.lang.Double">
-            <column name="1Tiet" precision="22" scale="0" />
+        <property name="diem1tiet" type="java.lang.Double">
+            <column name="Diem1Tiet" precision="22" scale="0" />
         </property>
         <property name="diemCuoiKy" type="java.lang.Double">
-            <column name="CuoiKy" precision="22" scale="0" />
+            <column name="DiemCuoiKy" precision="22" scale="0" />
         </property>
         <set name="chitietCauhinhDiems" table="chitiet_cauhinh_diem" inverse="true" lazy="true" fetch="select">
             <key>
