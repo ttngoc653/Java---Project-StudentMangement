@@ -63,9 +63,9 @@ public class DiemDAL {
 
             n.setIdDiem(p.getIdDiem());
             n.setChitietCauhinhDiems(p.getChitietCauhinhDiems().size() >= 0 ? p.getChitietCauhinhDiems() : n.getChitietCauhinhDiems());
-            n.setDiemCuoiKy(p.getDiemCuoiKy() != null ? p.getDiemCuoiKy() : n.getDiemCuoiKy());
-            n.setDiem15Phut(p.getDiem15Phut() != null ? p.getDiem15Phut() : n.getDiem15Phut());
-            n.setDiem1Tiet(p.getDiem1Tiet() != null ? p.getDiem1Tiet() : n.getDiem1Tiet());
+            n.setDiemCuoiKy(p.getDiemCuoiKy());
+            n.setDiem15phut(p.getDiem15phut());
+            n.setDiem1tiet(p.getDiem1tiet());
             n.setHocky(p.getHocky() != null ? p.getHocky() : n.getHocky());
             n.setHocsinhLophoc(p.getHocsinhLophoc() != null ? p.getHocsinhLophoc() : n.getHocsinhLophoc());
             n.setMonhoc(p.getMonhoc() != null ? p.getMonhoc() : n.getMonhoc());
@@ -104,7 +104,14 @@ public class DiemDAL {
         list = new ArrayList<Diem>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Diem");
+            Query q = session.createQuery("from Diem d "
+                    + "inner join d.hocky "
+                    + "inner join d.hocsinhLophoc hl "
+                    + "inner join hl.hocsinh "
+                    + "inner join hl.lop "
+                    + "inner join hl.namhoc "
+                    + "inner join d.monhoc "
+                    + "inner join d.chitietCauhinhDiems");
             list = (List<Diem>) q.list();
             tst.commit();
         } catch (Exception e) {
@@ -120,7 +127,16 @@ public class DiemDAL {
         Diem n = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Diem as t where t.idDiem = " + id);
+            Query q = session.createQuery("from Diem as d "
+                    + "inner join d.hocky "
+                    + "inner join d.hocsinhLophoc hl "
+                    + "inner join hl.hocsinh "
+                    + "inner join hl.lop "
+                    + "inner join hl.namhoc "
+                    + "inner join d.monhoc "
+                    + "inner join d.chitietCauhinhDiems "
+                    + "where d.idDiem = :id");
+            q.setParameter("id", id);
             n = (Diem) q.uniqueResult();
             tst.commit();
         } catch (Exception e) {
@@ -133,58 +149,169 @@ public class DiemDAL {
     }
 
     public List<Diem> getByMonHoc(Monhoc mh) {
-        list = getAll();
-        for (int i = 0; i < list.size(); i++) {
-            if (!list.get(i).getMonhoc().equals(mh)) {
-                list.remove(i);
-                i--;
+        list = new ArrayList<>();
+        try {
+            tst = session.beginTransaction();
+            Query q = session.createQuery("from Diem as d "
+                    + "inner join d.hocky "
+                    + "inner join d.hocsinhLophoc hl "
+                    + "inner join hl.hocsinh "
+                    + "inner join hl.lop "
+                    + "inner join hl.namhoc "
+                    + "inner join d.monhoc m "
+                    + "inner join d.chitietCauhinhDiems "
+                    + "where m.idMonHoc = :monhoc");
+            q.setParameter("monhoc", mh.getIdMonHoc());
+            list = q.list();
+            tst.commit();
+        } catch (Exception e) {
+            if (tst != null) {
+                tst.rollback();
             }
+            e.printStackTrace();
         }
         return list;
     }
 
     public List<Diem> getByHocSinhLopHoc(HocsinhLophoc p) {
-        list = getAll();
-        for (int i = 0; i < list.size(); i++) {
-            if (!list.get(i).getHocsinhLophoc().equals(p)) {
-                list.remove(i);
-                i--;
+        list = new ArrayList<>();
+        try {
+            tst = session.beginTransaction();
+            Query q = session.createQuery("from Diem as d "
+                    + "inner join d.hocky "
+                    + "inner join d.hocsinhLophoc hl "
+                    + "inner join hl.hocsinh "
+                    + "inner join hl.lop "
+                    + "inner join hl.namhoc "
+                    + "inner join d.monhoc "
+                    + "inner join d.chitietCauhinhDiems "
+                    + "where hl.idHocSinhLopHoc = :hocsinhlophoc");
+            q.setParameter("hocsinhlophoc", p.getIdHocSinhLopHoc());
+            list = q.list();
+            tst.commit();
+        } catch (Exception e) {
+            if (tst != null) {
+                tst.rollback();
             }
-        }
-        return list;
-    }
-
-    public List<Diem> getByLopHocMonHoc(Lop l, Monhoc mh) {
-        list = getAll();
-        for (int i = 0; i < list.size(); i++) {
-            if (!list.get(i).getHocsinhLophoc().getLop().equals(l) || !list.get(i).getMonhoc().equals(mh)) {
-                list.remove(i);
-                i--;
-            }
+            e.printStackTrace();
         }
         return list;
     }
 
     public List<Diem> getByHocSinhLopHocMonHoc(HocsinhLophoc hl, Monhoc mh) {
-        list = getAll();
-        for (int i = 0; i < list.size(); i++) {
-            if (!list.get(i).getHocsinhLophoc().equals(hl) || !list.get(i).getMonhoc().equals(mh)) {
-                list.remove(i);
-                i--;
+        list = new ArrayList<>();
+        try {
+            tst = session.beginTransaction();
+            Query q = session.createQuery("from Diem as d "
+                    + "inner join d.hocky "
+                    + "inner join d.hocsinhLophoc hl "
+                    + "inner join hl.hocsinh "
+                    + "inner join hl.lop "
+                    + "inner join hl.namhoc "
+                    + "inner join d.monhoc m "
+                    + "inner join d.chitietCauhinhDiems "
+                    + "where hl.idHocSinhLopHoc = :hocsinhlophoc "
+                    + "and m.idMonHoc = :monhoc");
+            q.setParameter("hocsinhlophoc", hl.getIdHocSinhLopHoc());
+            q.setParameter("monhoc", mh.getIdMonHoc());
+            list = q.list();
+            tst.commit();
+        } catch (Exception e) {
+            if (tst != null) {
+                tst.rollback();
             }
+            e.printStackTrace();
         }
         return list;
     }
 
     public List<Diem> getByHocSinhLopHocHocKy(HocsinhLophoc hl, Hocky h) {
-        list = getAll();
-        for (int i = 0; i < list.size(); i++) {
-            if (!list.get(i).getHocsinhLophoc().equals(hl) || !list.get(i).getHocky().equals(h)) {
-                list.remove(i);
-                i--;
+        list = new ArrayList<>();
+        try {
+            tst = session.beginTransaction();
+            Query q = session.createQuery("from Diem as d "
+                    + "inner join d.hocky k "
+                    + "inner join d.hocsinhLophoc hl "
+                    + "inner join hl.hocsinh "
+                    + "inner join hl.lop "
+                    + "inner join hl.namhoc "
+                    + "inner join d.monhoc "
+                    + "inner join d.chitietCauhinhDiems "
+                    + "where hl.idHocSinhLopHoc = :hocsinhlophoc "
+                    + "and k.idHocKy = :hocky");
+            q.setParameter("hocsinhlophoc", hl.getIdHocSinhLopHoc());
+            q.setParameter("hocky", h.getIdHocKy());
+            list = q.list();
+            tst.commit();
+        } catch (Exception e) {
+            if (tst != null) {
+                tst.rollback();
             }
+            e.printStackTrace();
         }
         return list;
     }
 
+    public List<Diem> getByLopHocHocKy(Lop l, dto.Namhoc n , Hocky h) {
+        list = new ArrayList<>();
+        try {
+            tst = session.beginTransaction();
+            Query q = session.createQuery("from Diem as d "
+                    + "inner join d.hocky k"
+                    + "inner join d.hocsinhLophoc hl "
+                    + "inner join hl.hocsinh "
+                    + "inner join hl.lop "
+                    + "inner join hl.namhoc "
+                    + "inner join hl.id hid "
+                    + "inner join d.monhoc "
+                    + "inner join d.chitietCauhinhDiems "
+                    + "where hid.idLopHoc = :lop "
+                    + "and hid.idNamHoc = :namhoc "
+                    + "and k.idHocKy = :hocky");
+            q.setParameter("lop", l.getIdLop());
+            q.setParameter("namhoc", n.getIdNamHoc());
+            q.setParameter("hocky", h.getIdHocKy());
+            list = q.list();
+            tst.commit();
+        } catch (Exception e) {
+            if (tst != null) {
+                tst.rollback();
+            }
+            e.printStackTrace();
+        }
+        return list;
+    }
+    
+    public List<Diem> getByLopHocHocKyMonHoc(Lop l, dto.Namhoc n , Hocky h, dto.Monhoc m) {
+        list = new ArrayList<>();
+        try {
+            tst = session.beginTransaction();
+            Query q = session.createQuery("from Diem as d "
+                    + "inner join d.hocky k"
+                    + "inner join d.hocsinhLophoc hl "
+                    + "inner join hl.hocsinh "
+                    + "inner join hl.lop "
+                    + "inner join hl.namhoc "
+                    + "inner join hl.id hid "
+                    + "inner join d.monhoc m "
+                    + "inner join d.chitietCauhinhDiems "
+                    + "where hid.idLopHoc = :lop "
+                    + "and hid.idNamHoc = :namhoc "
+                    + "and k.idHocKy = :hocky "
+                    + "and m.idMonHoc = :monhoc");
+            q.setParameter("lop", l.getIdLop());
+            q.setParameter("namhoc", n.getIdNamHoc());
+            q.setParameter("hocky", h.getIdHocKy());
+            q.setParameter("monhoc", m.getIdMonHoc());
+            list = q.list();
+            tst.commit();
+        } catch (Exception e) {
+            if (tst != null) {
+                tst.rollback();
+            }
+            e.printStackTrace();
+        }
+        return list;
+    }
+    
 }
