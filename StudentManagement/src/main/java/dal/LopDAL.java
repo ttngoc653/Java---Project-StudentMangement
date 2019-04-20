@@ -95,7 +95,9 @@ public class LopDAL {
         list = new ArrayList<Lop>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Lop");
+            Query q = session.createQuery("from Lop as l "
+                    + "join fetch l.hocsinhLophocs "
+                    + "join fetch l.chitietCauhinhLops");
             list = (List<Lop>) q.list();
             tst.commit();
         } catch (Exception e) {
@@ -111,7 +113,12 @@ public class LopDAL {
         Lop n = null;
         try {
             tst = session.beginTransaction();
-            n = (Lop) session.get(Lop.class, id);
+            Query q = session.createQuery("from Lop as l "
+                    + "join fetch l.hocsinhLophocs "
+                    + "join fetch l.chitietCauhinhLops "
+                    + "where l.idLop = :id");
+            q.setParameter("id", id);
+            n=(Lop)  q.uniqueResult();
             tst.commit();
         } catch (Exception e) {
             if (tst != null) {
@@ -126,8 +133,12 @@ public class LopDAL {
         Lop n = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Lop as t where t.tenLop = '" + name + "'");
-            n = (Lop) q.uniqueResult();
+            Query q = session.createQuery("from Lop as l "
+                    + "join fetch l.hocsinhLophocs "
+                    + "join fetch l.chitietCauhinhLops "
+                    + "where l.tenLop = :ten");
+            q.setParameter("ten", name);
+            n=(Lop)  q.uniqueResult();
             tst.commit();
         } catch (Exception e) {
             if (tst != null) {
@@ -142,7 +153,11 @@ public class LopDAL {
         list = new ArrayList<>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Lop as t where t.khoi = '" + khoi + "'");
+            Query q = session.createQuery("from Lop as l "
+                    + "join fetch l.hocsinhLophocs "
+                    + "join fetch l.chitietCauhinhLops "
+                    + "where l.khoi = :khoi");
+            q.setParameter("khoi", khoi);
             list = q.list();
             tst.commit();
         } catch (Exception e) {
@@ -158,7 +173,11 @@ public class LopDAL {
         list = new ArrayList<>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Lop as t where t.tinhTrangi = '" + tinhTrang + "'");
+            Query q = session.createQuery("from Lop as l "
+                    + "join fetch l.hocsinhLophocs "
+                    + "join fetch l.chitietCauhinhLops "
+                    + "where l.tinhTrang = :status");
+            q.setParameter("status", tinhTrang);
             list = q.list();
             tst.commit();
         } catch (Exception e) {

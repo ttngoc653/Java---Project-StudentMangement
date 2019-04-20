@@ -1,5 +1,5 @@
 package dto;
-// Generated Apr 20, 2019 1:51:15 PM by Hibernate Tools 4.3.1
+// Generated Apr 21, 2019 1:19:18 AM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -103,21 +103,21 @@ public class Diem  implements java.io.Serializable {
 
     
     @Column(name="Diem15Phut", precision=22, scale=0)
-    public Double getDiem15Phut() {
+    public Double getDiem15phut() {
         return this.diem15phut;
     }
     
-    public void setDiem15Phut(Double diem15phut) {
+    public void setDiem15phut(Double diem15phut) {
         this.diem15phut = diem15phut;
     }
 
     
     @Column(name="Diem1Tiet", precision=22, scale=0)
-    public Double getDiem1Tiet() {
+    public Double getDiem1tiet() {
         return this.diem1tiet;
     }
     
-    public void setDiem1Tiet(Double diem1tiet) {
+    public void setDiem1tiet(Double diem1tiet) {
         this.diem1tiet = diem1tiet;
     }
 

@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 /**
@@ -116,7 +115,8 @@ public class CauHinhDAL {
         Cauhinh hs = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Cauhinh as cauhinh where cauhinh.idCauHinh = " + idCauHinh);
+            Query q = session.createQuery("from Cauhinh as ch join fetch ch.chitietCauhinhHocsinhs join fetch ch.chitietCauhinhLops join fetch ch.chitietCauhinhDiems  where ch.idCauHinh = :id");
+            q.setParameter("id", idCauHinh);
             hs = (Cauhinh) q.uniqueResult();
             tst.commit();
         } catch (Exception e) {
@@ -132,7 +132,8 @@ public class CauHinhDAL {
         Cauhinh hs = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Cauhinh as ch where ch.tenCauHinh like '" + name + "'");
+            Query q = session.createQuery("from Cauhinh as ch where ch.tenCauHinh like ':name'");
+            q.setParameter("name", name);
             hs = (Cauhinh) q.uniqueResult();
             tst.commit();
         } catch (Exception e) {

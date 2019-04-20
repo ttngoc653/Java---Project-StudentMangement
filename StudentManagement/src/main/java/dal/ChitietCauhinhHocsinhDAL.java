@@ -95,7 +95,7 @@ public class ChitietCauhinhHocsinhDAL {
         list = new ArrayList<ChitietCauhinhHocsinh>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from ChitietCauhinhHocsinh");
+            Query q = session.createQuery("from ChitietCauhinhHocsinh c join fetch c.hocsinh join fetch c.cauhinh");
             list = (List<ChitietCauhinhHocsinh>) q.list();
             tst.commit();
         } catch (Exception e) {
@@ -108,10 +108,13 @@ public class ChitietCauhinhHocsinhDAL {
     }
 
     public ChitietCauhinhHocsinh getById(ChitietCauhinhHocsinhId idChitietCauhinhHocsinh) {
-        ChitietCauhinhHocsinh hs = null;
+        ChitietCauhinhHocsinh hs=null;
         try {
             tst = session.beginTransaction();
-            hs = (ChitietCauhinhHocsinh) session.get(ChitietCauhinhHocsinh.class, idChitietCauhinhHocsinh);
+            Query q = session.createQuery("from ChitietCauhinhHocsinh c join fetch c.hocsinh join fetch c.cauhinh join fetch c.id key where key.idHocSinh = :hocsinh and key.idCauHinh = :cauhinh");
+            q.setParameter("hocsinh", idChitietCauhinhHocsinh.getIdHocSinh());
+            q.setParameter("cauhinh", idChitietCauhinhHocsinh.getIdCauHinh());
+            hs=(ChitietCauhinhHocsinh) q.uniqueResult();
             tst.commit();
         } catch (Exception e) {
             if (tst != null) {
@@ -123,23 +126,35 @@ public class ChitietCauhinhHocsinhDAL {
     }
 
     public List<ChitietCauhinhHocsinh> getByCauhinh(Cauhinh ch) {
-        list = getAll();
-        for (int i = 0; i < list.size(); i++) {
-            if (!list.get(i).getCauhinh().equals(ch)) {
-                list.get(i);
-                i--;
+        list = new ArrayList<ChitietCauhinhHocsinh>();
+        try {
+            tst = session.beginTransaction();
+            Query q = session.createQuery("from ChitietCauhinhHocsinh c join fetch c.hocsinh join fetch c.cauhinh ch where ch.idCauHinh = :cauhinh");
+            q.setParameter("cauhinh", ch.getIdCauHinh());
+            list = (List<ChitietCauhinhHocsinh>) q.list();
+            tst.commit();
+        } catch (Exception e) {
+            if (tst != null) {
+                tst.rollback();
             }
+            e.printStackTrace();
         }
         return list;
     }
 
     public List<ChitietCauhinhHocsinh> getByHocsinh(Hocsinh hs) {
-        list = getAll();
-        for (int i = 0; i < list.size(); i++) {
-            if (!list.get(i).getHocsinh().equals(hs)) {
-                list.remove(i);
-                i--;
+        list = new ArrayList<ChitietCauhinhHocsinh>();
+        try {
+            tst = session.beginTransaction();
+            Query q = session.createQuery("from ChitietCauhinhHocsinh c join fetch c.hocsinh hs join fetch c.cauhinh where hs.idHocSinh = :hocsinh");
+            q.setParameter("hocsinh", hs.getIdHocSinh());
+            list = (List<ChitietCauhinhHocsinh>) q.list();
+            tst.commit();
+        } catch (Exception e) {
+            if (tst != null) {
+                tst.rollback();
             }
+            e.printStackTrace();
         }
         return list;
     }

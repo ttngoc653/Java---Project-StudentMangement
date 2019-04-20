@@ -169,7 +169,8 @@ public class NguoidungDAL {
         Nguoidung n = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Nguoidung as t where t.idNguoiDung = " + id);
+            Query q = session.createQuery("from Nguoidung as t where t.idNguoiDung = :id");
+            q.setParameter("id", id);
             n = (Nguoidung) q.uniqueResult();
             tst.commit();
         } catch (Exception e) {
@@ -185,7 +186,8 @@ public class NguoidungDAL {
         Nguoidung n = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Nguoidung as t where t.hoTen = '" + ten + "'");
+            Query q = session.createQuery("from Nguoidung as t where t.hoTen = :ten");
+            q.setParameter("ten", ten);
             n = (Nguoidung) q.uniqueResult();
             tst.commit();
         } catch (Exception e) {
@@ -201,7 +203,8 @@ public class NguoidungDAL {
         Nguoidung n = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Nguoidung as t where t.tenDangNhap = '" + tenDN + "'");
+            Query q = session.createQuery("from Nguoidung as t where t.tenDangNhap = :user");
+            q.setParameter("user", tenDN);
             n = (Nguoidung) q.uniqueResult();
             tst.commit();
         } catch (Exception e) {
@@ -217,8 +220,10 @@ public class NguoidungDAL {
         Nguoidung n = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Nguoidung as t where MD5(t.tenTaiKhoan) LIKE MD5( '" + userName + "')"
-                    + "AND MD5(t.matKhau) LIKE MD5('" + passWord + "')");
+            Query q = session.createQuery("from Nguoidung as t where MD5(t.tenTaiKhoan) LIKE MD5(:user) "
+                    + "AND MD5(t.matKhau) LIKE MD5(:pass)");
+            q.setParameter("user", userName);
+            q.setParameter("pass", passWord);
             n = (Nguoidung) q.uniqueResult();
             tst.commit();
         } catch (Exception e) {
@@ -234,7 +239,8 @@ public class NguoidungDAL {
         list = new ArrayList<>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Nguoidung as t where t.loaiNguoiDung = '" + loaiNguoidung + "'");
+            Query q = session.createQuery("from Nguoidung as t where t.loaiNguoiDung = :loai");
+            q.setParameter("loai", loaiNguoidung);
             list = q.list();
             tst.commit();
         } catch (Exception e) {
@@ -250,7 +256,8 @@ public class NguoidungDAL {
         list = new ArrayList<>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Nguoidung as t where t.tinhTrang = '" + tinhTrang + "'");
+            Query q = session.createQuery("from Nguoidung as t where t.tinhTrang = :status");
+            q.setParameter("status", tinhTrang);
             list = q.list();
             tst.commit();
         } catch (Exception e) {
@@ -263,11 +270,12 @@ public class NguoidungDAL {
     }
 
     public Nguoidung getByEmail(String email) {
-        list = new ArrayList<>();
+        Nguoidung n = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Nguoidung as t where t.email = '" + email + "'");
-            list = q.list();
+            Query q = session.createQuery("from Nguoidung as t where t.email = :mail");
+            q.setParameter("mail", email);
+            n = (Nguoidung) q.uniqueResult();
             tst.commit();
         } catch (Exception e) {
             if (tst != null) {
@@ -275,9 +283,6 @@ public class NguoidungDAL {
             }
             e.printStackTrace();
         }
-        if (list.size() > 0) {
-            return list.get(0);
-        }
-        return null;
+        return n;
     }
 }

@@ -1,5 +1,5 @@
 package dto;
-// Generated Apr 20, 2019 1:51:15 PM by Hibernate Tools 4.3.1
+// Generated Apr 21, 2019 1:19:18 AM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -36,7 +36,12 @@ public class HocsinhLophoc  implements java.io.Serializable {
 
     public HocsinhLophoc() {
     }
-
+    public HocsinhLophoc(HocsinhLophocId id, Hocsinh hocsinh, Lop lop, Namhoc namhoc) {
+        this.id = id;
+        this.hocsinh = hocsinh;
+        this.lop = lop;
+        this.namhoc = namhoc;
+    }
 	
     public HocsinhLophoc(HocsinhLophocId id, Hocsinh hocsinh, Lop lop, Namhoc namhoc, int idHocSinhLopHoc) {
         this.id = id;

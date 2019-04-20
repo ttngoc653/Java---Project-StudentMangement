@@ -93,7 +93,9 @@ public class NamhocDAL {
         list = new ArrayList<Namhoc>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Namhoc");
+            Query q = session.createQuery("from Namhoc as t "
+                    + "join fetch t.hocsinhLophocs "
+                    + "join fetch t.chitietCauhinhLops");
             list = (List<Namhoc>) q.list();
             tst.commit();
         } catch (Exception e) {
@@ -109,7 +111,11 @@ public class NamhocDAL {
         Namhoc n = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Namhoc as t where t.idNamhoc = " + id);
+            Query q = session.createQuery("from Namhoc as t "
+                    + "join fetch t.hocsinhLophocs "
+                    + "join fetch t.chitietCauhinhLops "
+                    + "where t.idNamhoc = :id");
+            q.setParameter("id", id);
             n = (Namhoc) q.uniqueResult();
             tst.commit();
         } catch (Exception e) {
@@ -125,7 +131,11 @@ public class NamhocDAL {
         Namhoc n = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Namhoc as t where t.tenNamHoc = '" + ten + "'");
+            Query q = session.createQuery("from Namhoc as t "
+                    + "join fetch t.hocsinhLophocs "
+                    + "join fetch t.chitietCauhinhLops "
+                    + "where t.tenNamHoc = :name");
+            q.setParameter("name", ten);
             n = (Namhoc) q.uniqueResult();
             tst.commit();
         } catch (Exception e) {
