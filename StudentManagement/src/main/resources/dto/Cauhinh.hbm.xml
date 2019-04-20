@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 20, 2019 1:51:16 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="dto.Cauhinh" table="cauhinh" catalog="quanlyhocsinh" optimistic-lock="version">
+        <id name="idCauHinh" type="java.lang.Integer">
+            <column name="idCauHinh" />
+            <generator class="identity" />
+        </id>
+        <property name="tenThuocTinh" type="string">
+            <column name="TenThuocTinh" length="45" not-null="true" />
+        </property>
+        <property name="loaiThuocTinh" type="string">
+            <column name="LoaiThuocTinh" length="45" />
+        </property>
+        <property name="giaTri" type="string">
+            <column name="GiaTri" length="45" not-null="true" />
+        </property>
+        <property name="tenDayDu" type="string">
+            <column name="TenDayDu" length="45" />
+        </property>
+        <set name="chitietCauhinhHocsinhs" table="chitiet_cauhinh_hocsinh" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idCauHinh" not-null="true" />
+            </key>
+            <one-to-many class="dto.ChitietCauhinhHocsinh" />
+        </set>
+        <set name="chitietCauhinhLops" table="chitiet_cauhinh_lop" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idCauHinh" not-null="true" />
+            </key>
+            <one-to-many class="dto.ChitietCauhinhLop" />
+        </set>
+        <set name="chitietCauhinhDiems" table="chitiet_cauhinh_diem" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idCauHinh" not-null="true" />
+            </key>
+            <one-to-many class="dto.ChitietCauhinhDiem" />
+        </set>
+    </class>
+</hibernate-mapping>
