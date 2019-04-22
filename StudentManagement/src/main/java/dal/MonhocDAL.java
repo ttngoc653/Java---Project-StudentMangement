@@ -94,7 +94,7 @@ public class MonhocDAL {
         try {
             tst = session.beginTransaction();
             Query q = session.createQuery("from Monhoc as m "
-                    + "join fetch m.diems");
+                    + "left join fetch m.diems");
             list = (List<Monhoc>) q.list();
             tst.commit();
         } catch (Exception e) {
@@ -111,7 +111,7 @@ public class MonhocDAL {
         try {
             tst = session.beginTransaction();
             Query q = session.createQuery("from Monhoc as t "
-                    + "join fetch t.diems "
+                    + "left join fetch t.diems "
                     + "where t.idMonhoc = :id");
             q.setParameter("id", id);
             n = (Monhoc) q.uniqueResult();
@@ -130,7 +130,7 @@ public class MonhocDAL {
         try {
             tst = session.beginTransaction();
             Query q = session.createQuery("from Monhoc as t "
-                    + "join fetch t.diems "
+                    + "left join fetch t.diems "
                     + "where t.tenMh = :ten");
             q.setParameter("ten", ten);
             n = (Monhoc) q.uniqueResult();

@@ -102,7 +102,10 @@ public class HocsinhDAL {
         lHs = new ArrayList<Hocsinh>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Hocsinh as hocsinh");
+            Query q = session.createQuery("from Hocsinh as h "
+                    + "left join fetch h.hocsinhLophocs "
+                    + "left join fetch h.chitietCauhinhHocsinhs c "
+                    + "left join fetch c.cauhinh ");
             lHs = (List<Hocsinh>) q.list();
             tst.commit();
         } catch (Exception e) {
@@ -119,9 +122,9 @@ public class HocsinhDAL {
         try {
             tst = session.beginTransaction();
             Query q = session.createQuery("from Hocsinh as h "
-                    + "join fetch h.hocsinhLophocs "
-                    + "join fetch h.chitietCauhinhHocsinhs c "
-                    + "join fetch c.cauhinh "
+                    + "left join fetch h.hocsinhLophocs "
+                    + "left join fetch h.chitietCauhinhHocsinhs c "
+                    + "left join fetch c.cauhinh "
                     + "where h.idHocSinh :idHocSinh");
             q.setParameter("idHocSinh", idHocSinh);
             hs = (Hocsinh) q.uniqueResult();
@@ -140,9 +143,9 @@ public class HocsinhDAL {
         try {
             tst = session.beginTransaction();
             Query q = session.createQuery("from Hocsinh as h "
-                    + "join fetch h.hocsinhLophocs "
-                    + "join fetch h.chitietCauhinhHocsinhs c "
-                    + "join fetch c.cauhinh "
+                    + "left join fetch h.hocsinhLophocs "
+                    + "left join fetch h.chitietCauhinhHocsinhs c "
+                    + "left join fetch c.cauhinh "
                     + "where h.hoTen like :name");
             q.setParameter("name", name);
             hs = (Hocsinh) q.uniqueResult();
@@ -161,9 +164,9 @@ public class HocsinhDAL {
         try {
             tst = session.beginTransaction();
             Query q = session.createQuery("from Hocsinh as h "
-                    + "join fetch h.hocsinhLophocs "
-                    + "join fetch h.chitietCauhinhHocsinhs c "
-                    + "join fetch c.cauhinh "
+                    + "left join fetch h.hocsinhLophocs "
+                    + "left join fetch h.chitietCauhinhHocsinhs c "
+                    + "left join fetch c.cauhinh "
                     + "where h.gioiTinh like :sex");
             q.setParameter("sex", gender);
             lHs=q.list();
@@ -182,9 +185,9 @@ public class HocsinhDAL {
         try {
             tst = session.beginTransaction();
             Query q = session.createQuery("from Hocsinh as h "
-                    + "join fetch h.hocsinhLophocs "
-                    + "join fetch h.chitietCauhinhHocsinhs c "
-                    + "join fetch c.cauhinh "
+                    + "left join fetch h.hocsinhLophocs "
+                    + "left join fetch h.chitietCauhinhHocsinhs c "
+                    + "left join fetch c.cauhinh "
                     + "where h.tinhTrang = :tus");
             q.setParameter("tus", status);
             lHs=q.list();
