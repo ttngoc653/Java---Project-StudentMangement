@@ -81,10 +81,10 @@ public class HocsinhLophocDAL {
         try {
             tst = session.beginTransaction();
             Query q = session.createQuery("from HocsinhLophoc hl "
-                    + "join fetch hl.hocsinh "
-                    + "join fetch hl.lop "
-                    + "join fetch hl.namhoc "
-                    + "join fetch hl.diems");
+                    + "left join fetch hl.hocsinh "
+                    + "left join fetch hl.lop "
+                    + "left join fetch hl.namhoc "
+                    + "left join fetch hl.diems");
             list = (List<HocsinhLophoc>) q.list();
             tst.commit();
         } catch (Exception e) {
@@ -117,10 +117,10 @@ public class HocsinhLophocDAL {
         try {
             tst = session.beginTransaction();
             Query q = session.createQuery("from HocsinhLophoc hl "
-                    + "join fetch hl.hocsinh "
-                    + "join fetch hl.lop "
-                    + "join fetch hl.namhoc "
-                    + "join fetch hl.diems "
+                    + "left join fetch hl.hocsinh "
+                    + "left join fetch hl.lop "
+                    + "left join fetch hl.namhoc "
+                    + "left join fetch hl.diems "
                     + "where hl.idHocSinhLopHoc = :id");
             q.setParameter("id", id);
             hl = (HocsinhLophoc) q.uniqueResult();
@@ -139,10 +139,10 @@ public class HocsinhLophocDAL {
         try {
             tst = session.beginTransaction();
             Query q = session.createQuery("from HocsinhLophoc hl "
-                    + "join fetch hl.hocsinh "
-                    + "join fetch hl.lop "
-                    + "join fetch hl.namhoc n "
-                    + "join fetch hl.diems "
+                    + "left join fetch hl.hocsinh "
+                    + "left join fetch hl.lop "
+                    + "left join fetch hl.namhoc n "
+                    + "left join fetch hl.diems "
                     + "where n.idNamHoc = :namhoc");
             q.setParameter("namhoc", p.getIdNamHoc());
             list = (List<HocsinhLophoc>) q.list();
@@ -171,10 +171,10 @@ public class HocsinhLophocDAL {
         try {
             tst = session.beginTransaction();
             Query q = session.createQuery("from HocsinhLophoc hl "
-                    + "join fetch hl.hocsinh "
-                    + "join fetch hl.lop l"
-                    + "join fetch hl.namhoc n "
-                    + "join fetch hl.diems "
+                    + "left join fetch hl.hocsinh "
+                    + "left join fetch hl.lop l"
+                    + "left join fetch hl.namhoc n "
+                    + "left join fetch hl.diems "
                     + "where n.idNamHoc = :namhoc "
                     + "and l.idLop = :lop");
             q.setParameter("namhoc", n.getIdNamHoc());
@@ -195,10 +195,10 @@ public class HocsinhLophocDAL {
         try {
             tst = session.beginTransaction();
             Query q = session.createQuery("from HocsinhLophoc hl "
-                    + "join fetch hl.hocsinh hs "
-                    + "join fetch hl.lop l"
-                    + "join fetch hl.namhoc n "
-                    + "join fetch hl.diems "
+                    + "left join fetch hl.hocsinh hs "
+                    + "left join fetch hl.lop l"
+                    + "left join fetch hl.namhoc n "
+                    + "left join fetch hl.diems "
                     + "where hs.idHocSinh = :hocsinh");
             q.setParameter("hocsinh", hs.getIdHocSinh());
             list = (List<HocsinhLophoc>) q.list();
