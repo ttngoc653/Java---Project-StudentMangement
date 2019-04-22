@@ -111,7 +111,7 @@ public class DiemDAL {
                     + "inner join hl.lop "
                     + "inner join hl.namhoc "
                     + "inner join d.monhoc "
-                    + "inner join d.chitietCauhinhDiems");
+                    + "left join d.chitietCauhinhDiems");
             list = (List<Diem>) q.list();
             tst.commit();
         } catch (Exception e) {

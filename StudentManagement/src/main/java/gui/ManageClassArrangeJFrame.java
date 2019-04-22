@@ -279,7 +279,7 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
 
             Lop lop = new LopDAL().getById(idLop);
             Namhoc nam = new NamhocDAL().getById(idNamHoc);
-            int Size = new HocsinhLophocDAL().getAllStudentByNamHocLop(nam, lop).size();
+            int Size = new HocsinhLophocDAL().getByNamHocLop(nam, lop).size();
 
             if (Size == SiSoToiDa) {
                 JOptionPane.showMessageDialog(null, "đủ sỉ số");

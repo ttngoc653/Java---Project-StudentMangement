@@ -5,18 +5,11 @@
  */
 package bll;
 
-import dal.HocsinhDAL;
 import dal.HocsinhLophocDAL;
 import dal.LopDAL;
 import dal.NamhocDAL;
-import dto.Hocsinh;
-import dto.HocsinhLophoc;
-import dto.HocsinhLophocId;
 import dto.Lop;
 import dto.Namhoc;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -43,7 +36,7 @@ public class HocsinhLopHocBLL {
 
         Namhoc a = new NamhocDAL().getById(idNamHoc);
         Lop b = new LopDAL().getById(idLop);
-        int Size = new HocsinhLophocDAL().getAllStudentByNamHocLop(a, b).size();
+        int Size = new HocsinhLophocDAL().getByNamHocLop(a, b).size();
         //int Size = new HocsinhLophocDAL().getByNamHocLop(a, b).size();
 
         if (Size == SiSoToiTa) {

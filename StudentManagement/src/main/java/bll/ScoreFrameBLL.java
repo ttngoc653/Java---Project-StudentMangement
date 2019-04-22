@@ -21,35 +21,24 @@ public class ScoreFrameBLL {
 
     public DefaultTableModel getData(String tenLop, String monHoc, String namHoc, String hocKy) {
         List<Map<String, ?>> data = new ArrayList<>();
-        List<HocsinhLophoc> lhslh = new HocsinhLophocDAL().getByNamHocLop(new NamhocDAL().getByTen(namHoc), new LopDAL().getByTen(tenLop));
-
-        for (int i = 0; i < lhslh.size(); i++) {
-            List<Diem> lhslhmh = new DiemDAL().getByHocSinhLopHocMonHoc(lhslh.get(i), new MonhocDAL().getByTen(monHoc));
-            for (int j = 0; j < lhslhmh.size(); j++) {
-                if (lhslhmh.get(j).getHocky().getTenHocKy() == Integer.parseInt(hocKy)) {
-                    Map<String, Object> map = new HashMap<>();
-                    map.put("stt", data.size() + 1);
-                    map.put("tenhs", lhslh.get(i).getHocsinh().getHoTen());
-                    map.put("diem15", lhslhmh.get(j).getDiem15Phut() == null ? "" : lhslhmh.get(j).getDiem15Phut());
-                    map.put("diem1", lhslhmh.get(j).getDiem1Tiet() == null ? "" : lhslhmh.get(j).getDiem1Tiet());
-                    map.put("diemck", lhslhmh.get(j).getDiemCuoiKy() == null ? "" : lhslhmh.get(j).getDiemCuoiKy());
-                    data.add(map);
-                    break;
-                } else if (lhslhmh.size() == j + 1) {
-                    Map<String, Object> map = new HashMap<>();
-                    map.put("stt", data.size() + 1);
-                    map.put("tenhs", lhslh.get(i).getHocsinh().getHoTen());
-                    map.put("diem15", "");
-                    map.put("diem1", "");
-                    map.put("diemck", "");
-                    data.add(map);
-                }
-            }
+        dto.Namhoc namhoc = new NamhocDAL().getByTen(namHoc);
+        dto.Lop lop = new LopDAL().getByTen(tenLop);
+        dto.Monhoc monhoc = new MonhocDAL().getByTen(monHoc);
+        dto.Hocky hocky = new dal.HockyDAL().getByTen(Integer.parseInt(hocKy));
+        List<Diem> lhslhmh = new DiemDAL().getByLopHocHocKyMonHoc(lop, namhoc, hocky, monhoc);
+        for (int j = 0; j < lhslhmh.size(); j++) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("stt", data.size() + 1);
+            map.put("tenhs", lhslhmh.get(j).getHocsinhLophoc().getHocsinh().getHoTen());
+            map.put("diem15", lhslhmh.get(j).getDiem15phut() == null ? "" : lhslhmh.get(j).getDiem15phut());
+            map.put("diem1", lhslhmh.get(j).getDiem1tiet() == null ? "" : lhslhmh.get(j).getDiem1tiet());
+            map.put("diemck", lhslhmh.get(j).getDiemCuoiKy() == null ? "" : lhslhmh.get(j).getDiemCuoiKy());
+            data.add(map);
         }
 
-        DefaultTableModel dtm=new DefaultTableModel();
+        DefaultTableModel dtm = new DefaultTableModel();
         for (int i = 0; i < data.size(); i++) {
-            dtm.addRow(new Object[]{data.get(i).get("stt"),data.get(i).get("tenhs"),data.get(i).get("diem15"),data.get(i).get("diem1"),data.get(i).get("diemck")});
+            dtm.addRow(new Object[]{data.get(i).get("stt"), data.get(i).get("tenhs"), data.get(i).get("diem15"), data.get(i).get("diem1"), data.get(i).get("diemck")});
         }
         return dtm;
     }
