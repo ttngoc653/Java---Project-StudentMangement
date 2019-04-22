@@ -131,7 +131,10 @@ public class HocsinhDAL {
         lHs = new ArrayList<Hocsinh>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Hocsinh as hocsinh");
+            Query q = session.createQuery("from Hocsinh as h "
+                    + "left join fetch h.hocsinhLophocs "
+                    + "left join fetch h.chitietCauhinhHocsinhs c "
+                    + "left join fetch c.cauhinh ");
             lHs = (List<Hocsinh>) q.list();
             tst.commit();
         } catch (Exception e) {
@@ -216,7 +219,12 @@ public class HocsinhDAL {
         Hocsinh hs = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Hocsinh as hocsinh where hocsinh.idHocSinh = " + idHocSinh);
+            Query q = session.createQuery("from Hocsinh as h "
+                    + "left join fetch h.hocsinhLophocs "
+                    + "left join fetch h.chitietCauhinhHocsinhs c "
+                    + "left join fetch c.cauhinh "
+                    + "where h.idHocSinh :idHocSinh");
+            q.setParameter("idHocSinh", idHocSinh);
             hs = (Hocsinh) q.uniqueResult();
             tst.commit();
         } catch (Exception e) {
@@ -227,13 +235,16 @@ public class HocsinhDAL {
         }
         return hs;
     }
-
     public Hocsinh getByName(String name) {
         Hocsinh hs = null;
         try {
             tst = session.beginTransaction();
-            //Query q = session.createQuery("from Hocsinh as hs where hs.hoTen like '" + name + "'");
-            Query q = session.createQuery("from Hocsinh as hs where hs.hoTen = '" + name + "'");
+            Query q = session.createQuery("from Hocsinh as h "
+                    + "left join fetch h.hocsinhLophocs "
+                    + "left join fetch h.chitietCauhinhHocsinhs c "
+                    + "left join fetch c.cauhinh "
+                    + "where h.hoTen like :name");
+            q.setParameter("name", name);
             hs = (Hocsinh) q.uniqueResult();
             tst.commit();
         } catch (Exception e) {
@@ -260,4 +271,48 @@ public class HocsinhDAL {
         }
         return n;
     }
+        
+    public List getByGender(String gender) {
+        lHs= new ArrayList();
+        try {
+            tst = session.beginTransaction();
+            Query q = session.createQuery("from Hocsinh as h "
+                    + "left join fetch h.hocsinhLophocs "
+                    + "left join fetch h.chitietCauhinhHocsinhs c "
+                    + "left join fetch c.cauhinh "
+                    + "where h.gioiTinh like :sex");
+            q.setParameter("sex", gender);
+            lHs=q.list();
+            tst.commit();
+        } catch (Exception e) {
+            if (tst != null) {
+                tst.rollback();
+            }
+            e.printStackTrace();
+        }
+        return lHs;
+    }
+    
+    public List getByStatus(byte status) {
+        lHs= new ArrayList();
+        try {
+            tst = session.beginTransaction();
+            Query q = session.createQuery("from Hocsinh as h "
+                    + "left join fetch h.hocsinhLophocs "
+                    + "left join fetch h.chitietCauhinhHocsinhs c "
+                    + "left join fetch c.cauhinh "
+                    + "where h.tinhTrang = :tus");
+            q.setParameter("tus", status);
+            lHs=q.list();
+            tst.commit();
+        } catch (Exception e) {
+            if (tst != null) {
+                tst.rollback();
+            }
+            e.printStackTrace();
+        }
+        return lHs;
+    }
+    
+
 }
