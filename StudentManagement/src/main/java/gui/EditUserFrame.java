@@ -5,6 +5,7 @@
  */
 package gui;
 
+import bll.HelperBLL;
 import dal.NguoidungDAL;
 import dto.Nguoidung;
 import java.awt.Toolkit;
@@ -371,7 +372,7 @@ public class EditUserFrame extends javax.swing.JFrame {
         if(!passPF.getText().equals(""))
         {
             try {
-            info.setMatKhau(new NguoidungDAL().PasswordMD5(passPF.getText()));
+            info.setMatKhau(new HelperBLL().PasswordMD5(passPF.getText()));
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(EditUserFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -381,7 +382,7 @@ public class EditUserFrame extends javax.swing.JFrame {
         NguoidungDAL DAL = new NguoidungDAL();
         String md5_pwd = "";
         try {
-            md5_pwd = DAL.PasswordMD5(mkcuTF.getText());
+            md5_pwd = new HelperBLL().PasswordMD5(mkcuTF.getText());
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(EditUserFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
