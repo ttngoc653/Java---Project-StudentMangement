@@ -105,12 +105,13 @@ public class DiemDAL {
         try {
             tst = session.beginTransaction();
             Query q = session.createQuery("from Diem d "
-                    + "left join fetch d.hocky "
-                    + "left join fetch d.hocsinhLophoc hl "
+                    + "right join fetch d.hocky "
+                    + "right join fetch d.hocsinhLophoc hl "
                     + "left join fetch hl.hocsinh "
                     + "left join fetch hl.lop "
                     + "left join fetch hl.namhoc "
-                    + "left join fetch d.monhoc "
+                    + "left join fetch hl.id hid "
+                    + "right join fetch d.monhoc "
                     + "left join fetch d.chitietCauhinhDiems");
             list = (List<Diem>) q.list();
             tst.commit();
@@ -128,12 +129,13 @@ public class DiemDAL {
         try {
             tst = session.beginTransaction();
             Query q = session.createQuery("from Diem as d "
-                    + "left join fetch d.hocky "
-                    + "left join fetch d.hocsinhLophoc hl "
+                    + "right join fetch d.hocky "
+                    + "right join fetch d.hocsinhLophoc hl "
                     + "left join fetch hl.hocsinh "
                     + "left join fetch hl.lop "
                     + "left join fetch hl.namhoc "
-                    + "left join fetch d.monhoc "
+                    + "left join fetch hl.id hid "
+                    + "right join fetch d.monhoc "
                     + "left join fetch d.chitietCauhinhDiems "
                     + "where d.idDiem = :id");
             q.setParameter("id", id);
@@ -153,12 +155,13 @@ public class DiemDAL {
         try {
             tst = session.beginTransaction();
             Query q = session.createQuery("from Diem as d "
-                    + "left join fetch d.hocky "
-                    + "left join fetch d.hocsinhLophoc hl "
+                    + "right join fetch d.hocky "
+                    + "right join fetch d.hocsinhLophoc hl "
                     + "left join fetch hl.hocsinh "
                     + "left join fetch hl.lop "
                     + "left join fetch hl.namhoc "
-                    + "left join fetch d.monhoc m "
+                    + "left join fetch hl.id hid "
+                    + "right join fetch d.monhoc "
                     + "left join fetch d.chitietCauhinhDiems "
                     + "where m.idMonHoc = :monhoc");
             q.setParameter("monhoc", mh.getIdMonHoc());
@@ -178,12 +181,13 @@ public class DiemDAL {
         try {
             tst = session.beginTransaction();
             Query q = session.createQuery("from Diem as d "
-                    + "left join fetch d.hocky "
-                    + "left join fetch d.hocsinhLophoc hl "
+                    + "right join fetch d.hocky "
+                    + "right join fetch d.hocsinhLophoc hl "
                     + "left join fetch hl.hocsinh "
                     + "left join fetch hl.lop "
                     + "left join fetch hl.namhoc "
-                    + "left join fetch d.monhoc "
+                    + "left join fetch hl.id hid "
+                    + "right join fetch d.monhoc "
                     + "left join fetch d.chitietCauhinhDiems "
                     + "where hl.idHocSinhLopHoc = :hocsinhlophoc");
             q.setParameter("hocsinhlophoc", p.getIdHocSinhLopHoc());
@@ -203,12 +207,13 @@ public class DiemDAL {
         try {
             tst = session.beginTransaction();
             Query q = session.createQuery("from Diem as d "
-                    + "left join fetch d.hocky "
-                    + "left join fetch d.hocsinhLophoc hl "
+                    + "right join fetch d.hocky "
+                    + "right join fetch d.hocsinhLophoc hl "
                     + "left join fetch hl.hocsinh "
                     + "left join fetch hl.lop "
                     + "left join fetch hl.namhoc "
-                    + "left join fetch d.monhoc m "
+                    + "left join fetch hl.id hid "
+                    + "right join fetch d.monhoc "
                     + "left join fetch d.chitietCauhinhDiems "
                     + "where hl.idHocSinhLopHoc = :hocsinhlophoc "
                     + "and m.idMonHoc = :monhoc");
@@ -230,12 +235,13 @@ public class DiemDAL {
         try {
             tst = session.beginTransaction();
             Query q = session.createQuery("from Diem as d "
-                    + "left join fetch d.hocky k "
-                    + "left join fetch d.hocsinhLophoc hl "
+                    + "right join fetch d.hocky "
+                    + "right join fetch d.hocsinhLophoc hl "
                     + "left join fetch hl.hocsinh "
                     + "left join fetch hl.lop "
                     + "left join fetch hl.namhoc "
-                    + "left join fetch d.monhoc "
+                    + "left join fetch hl.id hid "
+                    + "right join fetch d.monhoc "
                     + "left join fetch d.chitietCauhinhDiems "
                     + "where hl.idHocSinhLopHoc = :hocsinhlophoc "
                     + "and k.idHocKy = :hocky");
@@ -257,13 +263,13 @@ public class DiemDAL {
         try {
             tst = session.beginTransaction();
             Query q = session.createQuery("from Diem as d "
-                    + "left join fetch d.hocky k"
-                    + "left join fetch d.hocsinhLophoc hl "
+                    + "right join fetch d.hocky "
+                    + "right join fetch d.hocsinhLophoc hl "
                     + "left join fetch hl.hocsinh "
                     + "left join fetch hl.lop "
                     + "left join fetch hl.namhoc "
                     + "left join fetch hl.id hid "
-                    + "left join fetch d.monhoc "
+                    + "right join fetch d.monhoc "
                     + "left join fetch d.chitietCauhinhDiems "
                     + "where hid.idLopHoc = :lop "
                     + "and hid.idNamHoc = :namhoc "
@@ -287,13 +293,13 @@ public class DiemDAL {
         try {
             tst = session.beginTransaction();
             Query q = session.createQuery("from Diem as d "
-                    + "left join fetch d.hocky k"
-                    + "left join fetch d.hocsinhLophoc hl "
+                    + "right join fetch d.hocky "
+                    + "right join fetch d.hocsinhLophoc hl "
                     + "left join fetch hl.hocsinh "
                     + "left join fetch hl.lop "
                     + "left join fetch hl.namhoc "
                     + "left join fetch hl.id hid "
-                    + "left join fetch d.monhoc m "
+                    + "right join fetch d.monhoc "
                     + "left join fetch d.chitietCauhinhDiems "
                     + "where hid.idLopHoc = :lop "
                     + "and hid.idNamHoc = :namhoc "
