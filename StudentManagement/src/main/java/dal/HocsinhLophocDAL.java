@@ -162,7 +162,7 @@ public class HocsinhLophocDAL {
             tst = session.beginTransaction();
             Query q = session.createQuery("from HocsinhLophoc hl "
                     + "left join fetch hl.hocsinh "
-                    + "left join fetch hl.lop l"
+                    + "left join fetch hl.lop l "
                     + "left join fetch hl.namhoc n "
                     + "left join fetch hl.diems "
                     + "where n.idNamHoc = :namhoc "
@@ -186,7 +186,7 @@ public class HocsinhLophocDAL {
             tst = session.beginTransaction();
             Query q = session.createQuery("from HocsinhLophoc hl "
                     + "left join fetch hl.hocsinh hs "
-                    + "left join fetch hl.lop l"
+                    + "left join fetch hl.lop l "
                     + "left join fetch hl.namhoc n "
                     + "left join fetch hl.diems "
                     + "where hs.idHocSinh = :hocsinh");
