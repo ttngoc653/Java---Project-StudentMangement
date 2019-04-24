@@ -126,15 +126,33 @@ public class HocsinhDAL {
         return result;
     }
 
+//    @SuppressWarnings("unchecked")
+//    public List<Hocsinh> getAll() {
+//        lHs = new ArrayList<Hocsinh>();
+//        try {
+//            tst = session.beginTransaction();
+//            Query q = session.createQuery("from Hocsinh as h "
+//                    + "left join fetch h.hocsinhLophocs "
+//                    + "left join fetch h.chitietCauhinhHocsinhs c "
+//                    + "left join fetch c.cauhinh ");
+//            lHs = (List<Hocsinh>) q.list();
+//            tst.commit();
+//        } catch (Exception e) {
+//            if (tst != null) {
+//                tst.rollback();
+//            }
+//            e.printStackTrace();
+//        }
+//        return lHs;
+//    }
+    
+    //24/04/2019
     @SuppressWarnings("unchecked")
     public List<Hocsinh> getAll() {
         lHs = new ArrayList<Hocsinh>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Hocsinh as h "
-                    + "left join fetch h.hocsinhLophocs "
-                    + "left join fetch h.chitietCauhinhHocsinhs c "
-                    + "left join fetch c.cauhinh ");
+            Query q = session.createQuery("from Hocsinh as h ");
             lHs = (List<Hocsinh>) q.list();
             tst.commit();
         } catch (Exception e) {
@@ -146,48 +164,9 @@ public class HocsinhDAL {
         return lHs;
     }
 
-//    @SuppressWarnings("unchecked")
-//    public List<Hocsinh> Search(String key) {
-//        lHs = new ArrayList<Hocsinh>();
-//        try {
-//            tst = session.beginTransaction();
-////            Query q = session.createQuery("select * from Hocsinh as a where a.idHocSinh = " + key + 
-////                                          " or a.hoTen like '%" + key + "%' or a.ngaySinh like '%" + key + "%'");
-//            //String query = "SELECT FROM hocsinh WHERE idHocSinh = " + key + " OR hoTen LIKE '%" + key + "%' or ngaySinh LIKE '%" + key + "%'";
-//            Query q = session.createQuery("SELECT FROM hocsinh WHERE idHocSinh = " + key + " OR hoTen LIKE '%" + key + "%' or ngaySinh LIKE '%" + key + "%'");
-//            lHs = (List<Hocsinh>) q.list();
-//            tst.commit();
-//        } catch (Exception e) {
-//            if (tst != null) {
-//                tst.rollback();
-//            }
-//            e.printStackTrace();
-//        }
-//        return lHs;
-//    }
-//        @SuppressWarnings("unchecked")
-//    public List<Hocsinh> Search(String key) {
-//        List<Hocsinh> l = new ArrayList<Hocsinh>();
-//        String keyId = key;
-//        try {
-//            tst = session.beginTransaction();
-//            Query q = session.createQuery("FROM Hocsinh WHERE idHocSinh = :keyId or hoTen like :key or ngaySinh like :key or gioiTinh like :key or diaChi like :key or email like :key");
-//            q.setString("keyId", keyId);
-//            q.setString("key", "%" + key + "%");
-//            l = q.list();
-//            tst.commit();
-//        } catch (Exception e) {
-//            if (tst != null) {
-//                tst.rollback();
-//            }
-//            e.printStackTrace();
-//        }
-//        return l;
-//    }
-    
     /*
     * Tra cứu học sinh theo nhiều tiêu chí
-    */
+     */
     @SuppressWarnings("unchecked")
     public List<Hocsinh> Search(String key) {
         lHs = new ArrayList<Hocsinh>();
@@ -195,13 +174,13 @@ public class HocsinhDAL {
         try {
             tst = session.beginTransaction();
             Query q = session.createQuery("FROM Hocsinh WHERE idHocSinh = :keyId "
-                                           + "or hoTen like :key "
-                                           + "or ngaySinh like :key "
-                                           + "or gioiTinh like :key "
-                                           + "or diaChi like :key "
-                                           + "or email like :key "
-                                           + "or sdtCaNhan like :key "
-                                           + "or sdtGiamHo like :key");
+                    + "or hoTen like :key "
+                    + "or ngaySinh like :key "
+                    + "or gioiTinh like :key "
+                    + "or diaChi like :key "
+                    + "or email like :key "
+                    + "or sdtCaNhan like :key "
+                    + "or sdtGiamHo like :key");
             q.setString("keyId", keyId);
             q.setString("key", "%" + key + "%");
             lHs = q.list();
@@ -235,6 +214,7 @@ public class HocsinhDAL {
         }
         return hs;
     }
+
     public Hocsinh getByName(String name) {
         Hocsinh hs = null;
         try {
@@ -271,9 +251,9 @@ public class HocsinhDAL {
         }
         return n;
     }
-        
+
     public List getByGender(String gender) {
-        lHs= new ArrayList();
+        lHs = new ArrayList();
         try {
             tst = session.beginTransaction();
             Query q = session.createQuery("from Hocsinh as h "
@@ -282,7 +262,7 @@ public class HocsinhDAL {
                     + "left join fetch c.cauhinh "
                     + "where h.gioiTinh like :sex");
             q.setParameter("sex", gender);
-            lHs=q.list();
+            lHs = q.list();
             tst.commit();
         } catch (Exception e) {
             if (tst != null) {
@@ -292,9 +272,9 @@ public class HocsinhDAL {
         }
         return lHs;
     }
-    
+
     public List getByStatus(byte status) {
-        lHs= new ArrayList();
+        lHs = new ArrayList();
         try {
             tst = session.beginTransaction();
             Query q = session.createQuery("from Hocsinh as h "
@@ -303,7 +283,7 @@ public class HocsinhDAL {
                     + "left join fetch c.cauhinh "
                     + "where h.tinhTrang = :tus");
             q.setParameter("tus", status);
-            lHs=q.list();
+            lHs = q.list();
             tst.commit();
         } catch (Exception e) {
             if (tst != null) {
@@ -313,6 +293,5 @@ public class HocsinhDAL {
         }
         return lHs;
     }
-    
 
 }
