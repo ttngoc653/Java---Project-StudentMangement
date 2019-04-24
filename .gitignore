@@ -47,5 +47,6 @@ StudentManagement/target/classes/gui/ManageMainJFrame$3.class
 StudentManagement/target/classes/gui/ManageClassJFrame.class
 StudentManagement/target/classes/gui/ManageClassJFrame$7.class
 StudentManagement/target/classes/gui/ManageClassArrangeJFrame.class
-StudentManagement/target/classes/gui/LoginJFrame.class
 StudentManagement/target/classes/gui/LoginJFrame$2.class
+StudentManagement/target/classes/gui/RegisterFrame$2.class
+StudentManagement/target/classes/gui/RegisterFrame.class

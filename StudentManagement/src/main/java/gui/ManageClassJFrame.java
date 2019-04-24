@@ -18,6 +18,7 @@ public class ManageClassJFrame extends javax.swing.JFrame {
      */
     public ManageClassJFrame() {
         initComponents();
+        LoadData();
     }
 
     dto.Nguoidung nd;
@@ -264,7 +265,7 @@ public class ManageClassJFrame extends javax.swing.JFrame {
                 a.setKhoi(Khoi);
                 a.setTinhTrang(tinhTrang);
 
-                if (lopDao.add(a)) {
+                if (new LopDAL().add(a) != -1) {
                     JOptionPane.showMessageDialog(null, "Thêm lớp thành công");
                     LoadData();
                 } else {
@@ -318,7 +319,7 @@ public class ManageClassJFrame extends javax.swing.JFrame {
 
         if (cf == JOptionPane.YES_OPTION) {
             //if (this.lopDao.delete(lopDao.find(idLop))) {
-            if (this.lopDao.delete(idLop)) {
+            if (new LopDAL().delete(idLop)) {
                 JOptionPane.showMessageDialog(null, "Xóa lớp thành công");
                 LoadData();
             } else {
@@ -336,7 +337,7 @@ public class ManageClassJFrame extends javax.swing.JFrame {
             int Khoi = 0;
 
             LopDAL lopDALmoi = new LopDAL();
-            Lop LopMoi = lopDALmoi.getByTen2(tenLop);
+            Lop LopMoi = lopDALmoi.getByTen(tenLop);
 
             if (LopMoi == null || LopMoi.getIdLop() == id) {
                 if (cboKhoi.getSelectedIndex() != -1) {
@@ -349,7 +350,7 @@ public class ManageClassJFrame extends javax.swing.JFrame {
                 a.setKhoi(Khoi);
                 a.setTinhTrang(tinhTrang);
 
-                if (this.lopDao.update(a)) {
+                if (new LopDAL().update(a)) {
                     JOptionPane.showMessageDialog(null, "Cập nhật lớp thành công");
                     LoadData();
                 } else {

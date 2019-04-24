@@ -279,16 +279,15 @@ public class NguoidungDAL {
 //        }
 //        return n;
 //    }
-
     public Nguoidung LogIn(String userName, String passWord) throws NoSuchAlgorithmException {
         String password = PasswordMD5(passWord);
         Nguoidung n = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Nguoidung as t where MD5(t.tenTaiKhoan) LIKE MD5(:user) "
-                    + "AND MD5(t.matKhau) LIKE MD5(:pass)");
+            Query q = session.createQuery("from Nguoidung as t where t.tenTaiKhoan LIKE :user "
+                    + "AND t.matKhau LIKE :pass");
             q.setParameter("user", userName);
-            q.setParameter("pass", passWord);
+            q.setParameter("pass", password);
             n = (Nguoidung) q.uniqueResult();
             tst.commit();
         } catch (Exception e) {
