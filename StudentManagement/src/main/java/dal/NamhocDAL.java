@@ -120,7 +120,7 @@ public class NamhocDAL {
             Query q = session.createQuery("from Namhoc as t "
                     + "left join fetch t.hocsinhLophocs "
                     + "left join fetch t.chitietCauhinhLops "
-                    + "where t.idNamhoc = :id");
+                    + "where t.idNamHoc = :id");
             q.setParameter("id", id);
             n = (Namhoc) q.uniqueResult();
             tst.commit();

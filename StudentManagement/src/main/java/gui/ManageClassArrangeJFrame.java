@@ -280,13 +280,13 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
 //            Lop lop = new LopDAL().getById(idLop);
 //            Namhoc namhoc = new NamhocDAL().getById(idNamHoc);
 //            int Size = new HocsinhLophocDAL().getByNamHocLop(namhoc, lop).size();
-//
-//            if (Size == SiSoToiDa) {
-//                JOptionPane.showMessageDialog(null, "đủ sỉ số");
-//            } else {
-//                JOptionPane.showMessageDialog(null, "chưa đủ sỉ số");
-//            }
+            int Size = new HocsinhLophocDAL().getByNamHocLop2(idNamHoc, idLop);
 
+            if (Size == SiSoToiDa) {
+                JOptionPane.showMessageDialog(null, "si so: " + Size + "đủ sỉ số");
+            } else {
+                JOptionPane.showMessageDialog(null, "si so: " + Size + "chưa đủ sỉ số");
+            }
 
 //            if (checkMaximumStudentInClass(idLop, idNamHoc, SiSoToiDa)) {
 //                JOptionPane.showMessageDialog(null, "Lớp này đã đủ sỉ số");

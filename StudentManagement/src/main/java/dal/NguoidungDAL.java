@@ -239,8 +239,6 @@ public class NguoidungDAL {
         Nguoidung n = null;
         try {
             tst = session.beginTransaction();
-//            Query q = session.createQuery("from Nguoidung as t where MD5(t.tenTaiKhoan) LIKE MD5(:user) "
-//                    + "AND MD5(t.matKhau) LIKE MD5(:pass)");
             Query q = session.createQuery("from Nguoidung as t where t.tenTaiKhoan LIKE :user "
                     + "AND t.matKhau LIKE :pass");
             q.setParameter("user", userName);
