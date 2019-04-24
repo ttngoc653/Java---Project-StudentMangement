@@ -145,7 +145,6 @@ public class HocsinhDAL {
 //        }
 //        return lHs;
 //    }
-    
     //24/04/2019
     @SuppressWarnings("unchecked")
     public List<Hocsinh> getAll() {
@@ -202,7 +201,7 @@ public class HocsinhDAL {
                     + "left join fetch h.hocsinhLophocs "
                     + "left join fetch h.chitietCauhinhHocsinhs c "
                     + "left join fetch c.cauhinh "
-                    + "where h.idHocSinh :idHocSinh");
+                    + "where h.idHocSinh = :idHocSinh");
             q.setParameter("idHocSinh", idHocSinh);
             hs = (Hocsinh) q.uniqueResult();
             tst.commit();
