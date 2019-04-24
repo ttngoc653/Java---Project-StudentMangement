@@ -277,15 +277,15 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
 
         if (checkStudentArrangedClass(idHS)) {
 
-            Lop lop = new LopDAL().getById(idLop);
-            Namhoc nam = new NamhocDAL().getById(idNamHoc);
-            int Size = new HocsinhLophocDAL().getAllStudentByNamHocLop(nam, lop).size();
-
-            if (Size == SiSoToiDa) {
-                JOptionPane.showMessageDialog(null, "đủ sỉ số");
-            } else {
-                JOptionPane.showMessageDialog(null, "chưa đủ sỉ số");
-            }
+//            Lop lop = new LopDAL().getById(idLop);
+//            Namhoc namhoc = new NamhocDAL().getById(idNamHoc);
+//            int Size = new HocsinhLophocDAL().getByNamHocLop(namhoc, lop).size();
+//
+//            if (Size == SiSoToiDa) {
+//                JOptionPane.showMessageDialog(null, "đủ sỉ số");
+//            } else {
+//                JOptionPane.showMessageDialog(null, "chưa đủ sỉ số");
+//            }
 
 
 //            if (checkMaximumStudentInClass(idLop, idNamHoc, SiSoToiDa)) {

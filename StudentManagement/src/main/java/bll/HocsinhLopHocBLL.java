@@ -43,8 +43,7 @@ public class HocsinhLopHocBLL {
 
         Namhoc a = new NamhocDAL().getById(idNamHoc);
         Lop b = new LopDAL().getById(idLop);
-        int Size = new HocsinhLophocDAL().getAllStudentByNamHocLop(a, b).size();
-        //int Size = new HocsinhLophocDAL().getByNamHocLop(a, b).size();
+        int Size = new HocsinhLophocDAL().getByNamHocLop(a, b).size();
 
         if (Size == SiSoToiTa) {
             return true; // Lớp đã đủ sỉ số
