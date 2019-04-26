@@ -27,17 +27,21 @@ public class ConfigurationJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        newJPanel11 = new guiConfig.ConfigAgeJPanel();
+        newJPanel12 = new guiConfig.ConfigAgeJPanel();
+        newJPanel13 = new guiConfig.ConfigAgeJPanel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+            .addGap(0, 800, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 600, Short.MAX_VALUE)
         );
 
         pack();
@@ -79,5 +83,8 @@ public class ConfigurationJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private guiConfig.ConfigAgeJPanel newJPanel11;
+    private guiConfig.ConfigAgeJPanel newJPanel12;
+    private guiConfig.ConfigAgeJPanel newJPanel13;
     // End of variables declaration//GEN-END:variables
 }
