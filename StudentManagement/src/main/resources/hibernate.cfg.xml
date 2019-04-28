@@ -13,13 +13,13 @@
     <property name="hibernate.connection.characterEncoding">utf8</property>
     <property name="hibernate.connection.useUnicode">true</property>
     <property name="hibernate.enable_lazy_load_no_trans">true</property>
-    <mapping resource="dto/ChitietCauhinhLop.hbm.xml"/>
     <mapping resource="dto/HocsinhLophoc.hbm.xml"/>
+    <mapping resource="dto/ChitietCauhinhLop.hbm.xml"/>
     <mapping resource="dto/ChitietCauhinhDiem.hbm.xml"/>
     <mapping resource="dto/Hocsinh.hbm.xml"/>
+    <mapping resource="dto/Namhoc.hbm.xml"/>
     <mapping resource="dto/Hocky.hbm.xml"/>
     <mapping resource="dto/Monhoc.hbm.xml"/>
-    <mapping resource="dto/Namhoc.hbm.xml"/>
     <mapping resource="dto/Nguoidung.hbm.xml"/>
     <mapping resource="dto/ChitietCauhinhHocsinh.hbm.xml"/>
     <mapping resource="dto/Cauhinh.hbm.xml"/>

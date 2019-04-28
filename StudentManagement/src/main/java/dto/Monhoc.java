@@ -1,5 +1,5 @@
 package dto;
-// Generated Apr 21, 2019 1:19:18 AM by Hibernate Tools 4.3.1
+// Generated Apr 28, 2019 12:28:32 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -25,17 +25,20 @@ public class Monhoc  implements java.io.Serializable {
 
      private Integer idMonHoc;
      private String tenMh;
+     private boolean dangGiangDay;
      private Set<Diem> diems = new HashSet<Diem>(0);
 
     public Monhoc() {
     }
 
 	
-    public Monhoc(String tenMh) {
+    public Monhoc(String tenMh, boolean dangGiangDay) {
         this.tenMh = tenMh;
+        this.dangGiangDay = dangGiangDay;
     }
-    public Monhoc(String tenMh, Set<Diem> diems) {
+    public Monhoc(String tenMh, boolean dangGiangDay, Set<Diem> diems) {
        this.tenMh = tenMh;
+       this.dangGiangDay = dangGiangDay;
        this.diems = diems;
     }
    
@@ -59,6 +62,16 @@ public class Monhoc  implements java.io.Serializable {
     
     public void setTenMh(String tenMh) {
         this.tenMh = tenMh;
+    }
+
+    
+    @Column(name="dangGiangDay", nullable=false)
+    public boolean isDangGiangDay() {
+        return this.dangGiangDay;
+    }
+    
+    public void setDangGiangDay(boolean dangGiangDay) {
+        this.dangGiangDay = dangGiangDay;
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="monhoc")
