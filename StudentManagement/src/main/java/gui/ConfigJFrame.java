@@ -27,52 +27,22 @@ public class ConfigJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        newJPanel31 = new guiConfig.ConfigAgeJPanel();
         jTabbedPane8 = new javax.swing.JTabbedPane();
         jTabbedPane10 = new javax.swing.JTabbedPane();
-        newJPanel32 = new guiConfig.ConfigAgeJPanel();
-        jTabbedPane4 = new javax.swing.JTabbedPane();
-        jPanel2 = new javax.swing.JPanel();
-        newJPanel12 = new guiConfig.ConfigAgeJPanel();
-        newJPanel21 = new guiConfig.ConfigClassJPanel();
-        newJPanel33 = new guiConfig.ConfigSubjectJPanel();
-        configScoreJPanel4 = new guiConfig.ConfigScoreJPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Quản lý cấu hình");
-
-        jTabbedPane4.setMinimumSize(new java.awt.Dimension(80, 600));
-        jTabbedPane4.setPreferredSize(new java.awt.Dimension(800, 600));
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(newJPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(newJPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-
-        jTabbedPane4.addTab("Quy định tuổi", jPanel2);
-        jTabbedPane4.addTab("Quy định lớp", newJPanel21);
-        jTabbedPane4.addTab("Quản lý môn học", newJPanel33);
-        jTabbedPane4.addTab("Quản lý điểm chuẩn", configScoreJPanel4);
+        setPreferredSize(new java.awt.Dimension(800, 600));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(0, 800, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 619, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(0, 630, Short.MAX_VALUE)
         );
 
         pack();
@@ -114,15 +84,7 @@ public class ConfigJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private guiConfig.ConfigScoreJPanel configScoreJPanel4;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JTabbedPane jTabbedPane10;
-    private javax.swing.JTabbedPane jTabbedPane4;
     private javax.swing.JTabbedPane jTabbedPane8;
-    private guiConfig.ConfigAgeJPanel newJPanel12;
-    private guiConfig.ConfigClassJPanel newJPanel21;
-    private guiConfig.ConfigAgeJPanel newJPanel31;
-    private guiConfig.ConfigAgeJPanel newJPanel32;
-    private guiConfig.ConfigSubjectJPanel newJPanel33;
     // End of variables declaration//GEN-END:variables
 }
