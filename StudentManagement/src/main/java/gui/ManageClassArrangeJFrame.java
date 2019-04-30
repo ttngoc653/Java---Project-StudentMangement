@@ -83,7 +83,7 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
         cboNamHoc = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         btnThem = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnXoa = new javax.swing.JButton();
         btnSua = new javax.swing.JButton();
         btnQuayLai = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
@@ -112,9 +112,19 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Xóa");
+        btnXoa.setText("Xóa");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
 
         btnSua.setText("Sửa");
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaActionPerformed(evt);
+            }
+        });
 
         btnQuayLai.setText("Quay lại");
         btnQuayLai.addActionListener(new java.awt.event.ActionListener() {
@@ -147,7 +157,7 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(btnThem)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton2)
+                                .addComponent(btnXoa)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnSua)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -183,7 +193,7 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
                     .addComponent(btnThem)
                     .addComponent(btnSua)
                     .addComponent(btnQuayLai)
-                    .addComponent(jButton2))
+                    .addComponent(btnXoa))
                 .addContainerGap())
         );
 
@@ -304,6 +314,36 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnThemActionPerformed
 
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        // TODO add your handling code here:
+        int idHS = Integer.parseInt(this.cboMSHS.getSelectedItem().toString());
+
+        String tenLop = this.cboTenLop.getSelectedItem().toString();
+        Lop lop = new LopDAL().getByTen(tenLop);
+        int idLop = lop.getIdLop();
+
+        String tenNamHoc = this.cboNamHoc.getSelectedItem().toString();
+        Namhoc namhoc = new NamhocDAL().getByTen(tenNamHoc);
+        int idNamHoc = namhoc.getIdNamHoc();
+
+        HocsinhLophocId a = new HocsinhLophocId();
+        a.setIdHocSinh(idHS);
+        a.setIdLopHoc(idLop);
+        a.setIdNamHoc(idNamHoc);
+
+        if (new HocsinhLophocDAL().delete(a)) {
+            JOptionPane.showMessageDialog(null, "Xóa thành công");
+            LoadData();
+        } else {
+            JOptionPane.showMessageDialog(null, "Xóa thất bại");
+        }
+    }//GEN-LAST:event_btnXoaActionPerformed
+
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnSuaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -357,10 +397,10 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnQuayLai;
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnThem;
+    private javax.swing.JButton btnXoa;
     private javax.swing.JComboBox<String> cboMSHS;
     private javax.swing.JComboBox<String> cboNamHoc;
     private javax.swing.JComboBox<String> cboTenLop;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -35,15 +35,15 @@ public class ManageClassJFrame extends javax.swing.JFrame {
         dtm.addColumn("Mã lớp");
         dtm.addColumn("Tên lớp");
         dtm.addColumn("Khối");
-        dtm.addColumn("Tình trạng");
+        //dtm.addColumn("Tình trạng");
 
         for (Lop a : new LopDAL().getAll()) {
-            dtm.addRow(new Object[]{a.getIdLop(), a.getTenLop(), a.getKhoi(), a.getTinhTrang()});
+            //dtm.addRow(new Object[]{a.getIdLop(), a.getTenLop(), a.getKhoi(), a.getTinhTrang()});
+            dtm.addRow(new Object[]{a.getIdLop(), a.getTenLop(), a.getKhoi()});
         }
 
         this.jTableLop.setModel(dtm);
         this.jTableLop.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
-        //SwingUtilities.updateComponentTreeUI(this);
         this.jTableLop.repaint();
         this.jTableLop.revalidate();
     }
@@ -63,8 +63,6 @@ public class ManageClassJFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtTenLop = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        txtTinhTrang = new javax.swing.JTextField();
         btnThem = new javax.swing.JButton();
         btnXoa = new javax.swing.JButton();
         btnQuayLai = new javax.swing.JButton();
@@ -100,11 +98,6 @@ public class ManageClassJFrame extends javax.swing.JFrame {
         jLabel1.setText("Tên lớp:");
 
         jLabel2.setText("Khối:");
-
-        jLabel3.setText("Tình trạng:");
-
-        txtTinhTrang.setEditable(false);
-        txtTinhTrang.setText("1");
 
         btnThem.setText("Thêm");
         btnThem.addActionListener(new java.awt.event.ActionListener() {
@@ -158,7 +151,6 @@ public class ManageClassJFrame extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btnThem)
@@ -175,10 +167,7 @@ public class ManageClassJFrame extends javax.swing.JFrame {
                                 .addComponent(btnQuayLai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(txtTenLop, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtTinhTrang, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                .addComponent(txtTenLop, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -200,11 +189,7 @@ public class ManageClassJFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cboKhoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTinhTrang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnThem)
                     .addComponent(btnQuayLai)
@@ -316,7 +301,7 @@ public class ManageClassJFrame extends javax.swing.JFrame {
         this.txtMaLop.setText(a.getIdLop().toString());
         this.txtTenLop.setText(a.getTenLop());
         this.cboKhoi.setSelectedIndex(indexCbo);
-        this.txtTinhTrang.setText(a.getTinhTrang().toString());
+        //this.txtTinhTrang.setText(a.getTinhTrang().toString());
     }//GEN-LAST:event_jTableLopMouseClicked
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
@@ -341,7 +326,7 @@ public class ManageClassJFrame extends javax.swing.JFrame {
         if (!this.txtTenLop.getText().equals("")) {
             int id = Integer.parseInt(this.txtMaLop.getText());
             String tenLop = this.txtTenLop.getText();
-            Byte tinhTrang = Byte.parseByte(this.txtTinhTrang.getText());
+            Byte tinhTrang = 1; //Byte.parseByte(this.txtTinhTrang.getText());
             int Khoi = 0;
 
             LopDAL lopDALmoi = new LopDAL();
@@ -430,7 +415,6 @@ public class ManageClassJFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cboKhoi;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
@@ -439,6 +423,5 @@ public class ManageClassJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel lblTenTaiKhoan;
     private javax.swing.JTextField txtMaLop;
     private javax.swing.JTextField txtTenLop;
-    private javax.swing.JTextField txtTinhTrang;
     // End of variables declaration//GEN-END:variables
 }
