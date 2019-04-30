@@ -128,11 +128,28 @@ public class CauHinhDAL {
         return hs;
     }
 
+//    public Cauhinh getByName(String name) {
+//        Cauhinh hs = null;
+//        try {
+//            tst = session.beginTransaction();
+//            Query q = session.createQuery("from Cauhinh as ch where ch.tenCauHinh like ':name'");
+//            q.setParameter("name", name);
+//            hs = (Cauhinh) q.uniqueResult();
+//            tst.commit();
+//        } catch (Exception e) {
+//            if (tst != null) {
+//                tst.rollback();
+//            }
+//            e.printStackTrace();
+//        }
+//        return hs;
+//    }
+
     public Cauhinh getByName(String name) {
         Cauhinh hs = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Cauhinh as ch where ch.tenCauHinh like ':name'");
+            Query q = session.createQuery("from Cauhinh as ch where ch.tenThuocTinh like :name");
             q.setParameter("name", name);
             hs = (Cauhinh) q.uniqueResult();
             tst.commit();

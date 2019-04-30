@@ -15,8 +15,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ManageClassArrangeJFrame extends javax.swing.JFrame {
 
-    int SiSoToiDa = 2;
-
+    //int SiSoToiDa = 2;
     /**
      * Creates new form ArrangeClassJFrame
      */
@@ -42,10 +41,12 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
         dtm.addColumn("MSHS");
         dtm.addColumn("Tên lớp");
         dtm.addColumn("Năm học");
+        int i = 1;
 
         List<HocsinhLophoc> l = new HocsinhLophocDAL().getAll();
         for (HocsinhLophoc a : l) {
-            dtm.addRow(new Object[]{a.getIdHocSinhLopHoc(), a.getHocsinh().getIdHocSinh(), new LopDAL().getById(a.getLop().getIdLop()).getTenLop(), new NamhocDAL().getById(a.getNamhoc().getIdNamHoc()).getTenNamHoc()});
+            dtm.addRow(new Object[]{i, a.getHocsinh().getIdHocSinh(), new LopDAL().getById(a.getLop().getIdLop()).getTenLop(), new NamhocDAL().getById(a.getNamhoc().getIdNamHoc()).getTenNamHoc()});
+            i++;
         }
 
         this.jTableXepLop.setModel(dtm);
@@ -83,7 +84,7 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         btnThem = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnSua = new javax.swing.JButton();
         btnQuayLai = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         cboTenLop = new javax.swing.JComboBox<>();
@@ -112,7 +113,7 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
 
         jButton2.setText("Xóa");
 
-        jButton3.setText("Sửa");
+        btnSua.setText("Sửa");
 
         btnQuayLai.setText("Quay lại");
         btnQuayLai.addActionListener(new java.awt.event.ActionListener() {
@@ -141,19 +142,19 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
                             .addComponent(cboTenLop, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cboMSHS, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(btnThem)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton3)
+                                .addComponent(btnSua)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnQuayLai))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
-                                .addGap(60, 60, 60)
-                                .addComponent(txtID)))
+                                .addGap(44, 44, 44)
+                                .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -179,7 +180,7 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
                 .addGap(37, 37, 37)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnThem)
-                    .addComponent(jButton3)
+                    .addComponent(btnSua)
                     .addComponent(btnQuayLai)
                     .addComponent(jButton2))
                 .addContainerGap())
@@ -260,20 +261,9 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
         this.cboNamHoc.setSelectedItem(idNamHoc);
     }//GEN-LAST:event_jTableXepLopMouseClicked
 
-    /*
-    Xếp lớp
-     */
-    public void ArrangeClassForStudent(HocsinhLophocId a) {
-        HocsinhLophocDAL hslophocDAL = new HocsinhLophocDAL();
-        if (hslophocDAL.add(a) != null) {
-            JOptionPane.showMessageDialog(null, "Xếp lớp cho học sinh thành công");
-            LoadData();
-        } else {
-            JOptionPane.showMessageDialog(null, "Xếp lớp cho học sinh thất bại");
-        }
-    }
-
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+
+        int SiSoToiDa = Integer.parseInt(new CauHinhDAL().getByName("SiSoToiDa").getGiaTri());
 
         int idHS = Integer.parseInt(this.cboMSHS.getSelectedItem().toString());
 
@@ -290,43 +280,20 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
         a.setIdLopHoc(idLop);
         a.setIdNamHoc(idNamHoc);
 
-        if (checkMaximumStudentInClass(namhoc, lop, SiSoToiDa)) {
-            JOptionPane.showMessageDialog(null, "Lớp này đã đủ sỉ số");
-        } else if (findStudentByNamHocLop(idHS, namhoc, lop)) {
-            JOptionPane.showMessageDialog(null, "Học sinh " + idHS + " đã thuộc lớp " + tenLop + " - năm học " + tenNamHoc);
+        if (findStudentByNamHocLop(idHS, namhoc, lop)) {
+            JOptionPane.showMessageDialog(null, "MSHS " + idHS + " đã thuộc lớp " + tenLop + " - năm học " + tenNamHoc);
+        } else if (checkMaximumStudentInClass(namhoc, lop, SiSoToiDa)) {
+            JOptionPane.showMessageDialog(null, "Lớp này đã đủ sỉ số: " + SiSoToiDa + " học sinh");
         } else if (findStudentByNamHoc(idHS, namhoc)) {
             JOptionPane.showMessageDialog(null, "Trong 1 năm học sinh chỉ được học 1 lớp duy nhất");
-        }else{
-            ArrangeClassForStudent(a);
+        } else {
+            if (new HocsinhLophocDAL().add(a) != null) {
+                JOptionPane.showMessageDialog(null, "Xếp lớp cho học sinh thành công");
+                LoadData();
+            } else {
+                JOptionPane.showMessageDialog(null, "Xếp lớp cho học sinh thất bại");
+            }
         }
-
-//        if (!checkMaximumStudentInClass(namhoc, lop, SiSoToiDa)) {
-//            if (!checkStudentArrangedClass(idHS)) {
-//                ArrangeClassForStudent(a);
-//            } else {
-//                if (findStudentByNamHocLop(idHS, namhoc, lop)) {
-//                    JOptionPane.showMessageDialog(null, "Học sinh " + idHS + " đã thuộc lớp " + tenLop + " - năm học " + tenNamHoc);
-//                } else {
-//                    //JOptionPane.showMessageDialog(null, "kiem tra nam hoc co lop do chua");
-//                    if (!checkExistNamHocLop(namhoc, lop)) {
-//                        //JOptionPane.showMessageDialog(null, "xep lop");
-//                        ArrangeClassForStudent(a);
-//                    } else {
-//                        //JOptionPane.showMessageDialog(null, "hoc sinh co hoc lop nao nam hoc do ko");
-//                        if (findStudentByNamHoc(idHS, namhoc)) {
-//                            JOptionPane.showMessageDialog(null, "Trong 1 năm học sinh chỉ được học 1 lớp duy nhất");
-//                        } else {
-//                            JOptionPane.showMessageDialog(null, "xep lop!!!");
-//                            //ArrangeClassForStudent(a);
-//                        }
-//                    }
-//                }
-//            }
-//
-//        } else {
-//            JOptionPane.showMessageDialog(null, "Lớp này đã đủ sỉ số");
-//        }
-
     }//GEN-LAST:event_btnThemActionPerformed
 
     /**
@@ -380,12 +347,12 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnQuayLai;
+    private javax.swing.JButton btnSua;
     private javax.swing.JButton btnThem;
     private javax.swing.JComboBox<String> cboMSHS;
     private javax.swing.JComboBox<String> cboNamHoc;
     private javax.swing.JComboBox<String> cboTenLop;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
