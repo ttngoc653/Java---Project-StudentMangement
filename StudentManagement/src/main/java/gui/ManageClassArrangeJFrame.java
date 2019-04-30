@@ -260,6 +260,19 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
         this.cboNamHoc.setSelectedItem(idNamHoc);
     }//GEN-LAST:event_jTableXepLopMouseClicked
 
+    /*
+    Xếp lớp
+     */
+    public void ArrangeClassForStudent(HocsinhLophocId a) {
+        HocsinhLophocDAL hslophocDAL = new HocsinhLophocDAL();
+        if (hslophocDAL.add(a) != null) {
+            JOptionPane.showMessageDialog(null, "Xếp lớp cho học sinh thành công");
+            LoadData();
+        } else {
+            JOptionPane.showMessageDialog(null, "Xếp lớp cho học sinh thất bại");
+        }
+    }
+
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
 
         int idHS = Integer.parseInt(this.cboMSHS.getSelectedItem().toString());
@@ -272,28 +285,48 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
         Namhoc namhoc = new NamhocDAL().getByTen(tenNamHoc);
         int idNamHoc = namhoc.getIdNamHoc();
 
-        if (checkStudentArrangedClass(idHS)) {
-            if (checkMaximumStudentInClass(namhoc, lop, SiSoToiDa)) {
-                JOptionPane.showMessageDialog(null, "Lớp này đã đủ sỉ số");
-            } else {
-                HocsinhLophocDAL hslophocDAL = new HocsinhLophocDAL();
+        HocsinhLophocId a = new HocsinhLophocId();
+        a.setIdHocSinh(idHS);
+        a.setIdLopHoc(idLop);
+        a.setIdNamHoc(idNamHoc);
 
-                HocsinhLophocId a = new HocsinhLophocId();
-                a.setIdHocSinh(idHS);
-                a.setIdLopHoc(idLop);
-                a.setIdNamHoc(idNamHoc);
-
-                if (hslophocDAL.add(a) != null) {
-                    JOptionPane.showMessageDialog(null, "Xếp lớp cho học sinh thành công");
-                    LoadData();
-                    LoadCbo();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Xếp lớp cho học sinh thất bại");
-                }
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "MSHS này đã có lớp rồi");
+        if (checkMaximumStudentInClass(namhoc, lop, SiSoToiDa)) {
+            JOptionPane.showMessageDialog(null, "Lớp này đã đủ sỉ số");
+        } else if (findStudentByNamHocLop(idHS, namhoc, lop)) {
+            JOptionPane.showMessageDialog(null, "Học sinh " + idHS + " đã thuộc lớp " + tenLop + " - năm học " + tenNamHoc);
+        } else if (findStudentByNamHoc(idHS, namhoc)) {
+            JOptionPane.showMessageDialog(null, "Trong 1 năm học sinh chỉ được học 1 lớp duy nhất");
+        }else{
+            ArrangeClassForStudent(a);
         }
+
+//        if (!checkMaximumStudentInClass(namhoc, lop, SiSoToiDa)) {
+//            if (!checkStudentArrangedClass(idHS)) {
+//                ArrangeClassForStudent(a);
+//            } else {
+//                if (findStudentByNamHocLop(idHS, namhoc, lop)) {
+//                    JOptionPane.showMessageDialog(null, "Học sinh " + idHS + " đã thuộc lớp " + tenLop + " - năm học " + tenNamHoc);
+//                } else {
+//                    //JOptionPane.showMessageDialog(null, "kiem tra nam hoc co lop do chua");
+//                    if (!checkExistNamHocLop(namhoc, lop)) {
+//                        //JOptionPane.showMessageDialog(null, "xep lop");
+//                        ArrangeClassForStudent(a);
+//                    } else {
+//                        //JOptionPane.showMessageDialog(null, "hoc sinh co hoc lop nao nam hoc do ko");
+//                        if (findStudentByNamHoc(idHS, namhoc)) {
+//                            JOptionPane.showMessageDialog(null, "Trong 1 năm học sinh chỉ được học 1 lớp duy nhất");
+//                        } else {
+//                            JOptionPane.showMessageDialog(null, "xep lop!!!");
+//                            //ArrangeClassForStudent(a);
+//                        }
+//                    }
+//                }
+//            }
+//
+//        } else {
+//            JOptionPane.showMessageDialog(null, "Lớp này đã đủ sỉ số");
+//        }
+
     }//GEN-LAST:event_btnThemActionPerformed
 
     /**

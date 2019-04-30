@@ -30,23 +30,57 @@ public class HocsinhLopHocBLL {
     public static boolean checkStudentArrangedClass(int idHS) {
 
         if (new HocsinhLophocDAL().getByIdHocSinh(idHS) == null) {
-            return true; // Học sinh chưa có lớp
+            return false; // Học sinh chưa có lớp
         } else {
-            return false; // Học sinh đã có lớp
+            return true; // Học sinh đã có lớp
         }
     }
 
     /*
     Kiểm tra sỉ sổ lớp
      */
-    public static boolean checkMaximumStudentInClass(Namhoc namhoc, Lop lop, int SiSoToiTa) {
+    public static boolean checkMaximumStudentInClass(Namhoc namhoc, Lop lop, int SiSoToiDa) {
 
         int Size = new HocsinhLophocDAL().getByNamHocLop(namhoc, lop).size();
-        if (Size == SiSoToiTa) {
+        if (Size == SiSoToiDa) {
             return true; //lớp đã đủ sỉ số
         } else {
             return false; //lớp chưa đủ sỉ số
         }
+    }
+
+    /*
+    Kiểm tra tồn tại lớp và năm học
+     */
+    public static boolean checkExistNamHocLop(Namhoc namhoc, Lop lop) {
+
+        if (new HocsinhLophocDAL().getByNamHocLop(namhoc, lop).size() == 0) {
+            return false; //chưa có lớp và năm học này
+        } else {
+            return true; //đã có lớp và năm học này
+        }
+    }
+
+    /*
+    Tìm học sinh thuộc lớp và năm học
+     */
+    public static boolean findStudentByNamHocLop(int idHS, Namhoc namhoc, Lop lop) {
+        if (new HocsinhLophocDAL().findStudentByNamHocLop(idHS, namhoc, lop).size() == 0) {
+            return false; // học sinh ko thuộc lớp và năm học này
+        } else {
+            return true; // học sinh thuộc lớp và năm học này
+        }
+    }
+
+    /*
+    Tìm học sinh thuộc năm học
+    */
+    public static boolean findStudentByNamHoc(int idHS, Namhoc namhoc) {
+        if (new HocsinhLophocDAL().findStudentByNamHoc(idHS, namhoc).size() == 0) {
+            return false;  // trong năm học này học sinh chưa có lớp học
+        } else {
+            return true; // trong năm học này học sinh đã có lớp học
+        } 
     }
 
 }

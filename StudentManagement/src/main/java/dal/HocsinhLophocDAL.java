@@ -190,6 +190,56 @@ public class HocsinhLophocDAL {
         return list;
     }
 
+    public List<HocsinhLophoc> findStudentByNamHocLop(int idHS, Namhoc n, Lop l) {
+        list = new ArrayList<HocsinhLophoc>();
+        try {
+            tst = session.beginTransaction();
+            Query q = session.createQuery("from HocsinhLophoc hl "
+                    + "left join fetch hl.hocsinh h "
+                    + "left join fetch hl.lop l "
+                    + "left join fetch hl.namhoc n "
+                    + "left join fetch hl.diems "
+                    + "where h.idHocSinh = :idHS "
+                    + "and n.idNamHoc = :namhoc "
+                    + "and l.idLop = :lop");
+            q.setParameter("idHS", idHS);
+            q.setParameter("namhoc", n.getIdNamHoc());
+            q.setParameter("lop", l.getIdLop());
+            list = (List<HocsinhLophoc>) q.list();
+            tst.commit();
+        } catch (Exception e) {
+            if (tst != null) {
+                tst.rollback();
+            }
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public List<HocsinhLophoc> findStudentByNamHoc(int idHS, Namhoc n) {
+        list = new ArrayList<HocsinhLophoc>();
+        try {
+            tst = session.beginTransaction();
+            Query q = session.createQuery("from HocsinhLophoc hl "
+                    + "left join fetch hl.hocsinh h "
+                    + "left join fetch hl.lop l "
+                    + "left join fetch hl.namhoc n "
+                    + "left join fetch hl.diems "
+                    + "where h.idHocSinh = :idHS "
+                    + "and n.idNamHoc = :namhoc ");
+            q.setParameter("idHS", idHS);
+            q.setParameter("namhoc", n.getIdNamHoc());
+            list = (List<HocsinhLophoc>) q.list();
+            tst.commit();
+        } catch (Exception e) {
+            if (tst != null) {
+                tst.rollback();
+            }
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     public List<HocsinhLophoc> getByHocsinh(Hocsinh hs) {
         list = new ArrayList<HocsinhLophoc>();
         try {
