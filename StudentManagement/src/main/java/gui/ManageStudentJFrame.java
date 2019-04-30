@@ -18,7 +18,7 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
 
     HocsinhDAL hsDao = new HocsinhDAL();
     DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-    int TuoiToiDa = 20, TuoiToiThieu = 15;
+    //int TuoiToiDa = 20, TuoiToiThieu = 15;
     DefaultTableModel dtm;
 
     /**
@@ -436,6 +436,9 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
 
+        int TuoiToiThieu = Integer.parseInt(new CauHinhDAL().getByName("TuoiToiThieu").getGiaTri());
+        int TuoiToiDa = Integer.parseInt(new CauHinhDAL().getByName("TuoiToiDa").getGiaTri());
+
         Date newDate = jDateChooserNgaySinh.getDate();
         int kqNgaySinh = 0;
         if (checkDateOfBirth(newDate)) {
@@ -582,6 +585,9 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+
+        int TuoiToiThieu = Integer.parseInt(new CauHinhDAL().getByName("TuoiToiThieu").getGiaTri());
+        int TuoiToiDa = Integer.parseInt(new CauHinhDAL().getByName("TuoiToiDa").getGiaTri());
 
         Date newDate = jDateChooserNgaySinh.getDate();
         int kqNgaySinh = 0;

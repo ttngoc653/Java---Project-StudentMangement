@@ -101,7 +101,7 @@ public class ConfigMeJFrame extends javax.swing.JFrame {
 
         txtTenDayDu.setEditable(false);
 
-        jLabel2.setText("Giá trị:");
+        jLabel2.setText("Giá trị (*):");
 
         btnCapNhat.setText("Cập nhật");
         btnCapNhat.addActionListener(new java.awt.event.ActionListener() {
@@ -241,19 +241,45 @@ public class ConfigMeJFrame extends javax.swing.JFrame {
         a.setGiaTri(giaTri);
         a.setTenDayDu(b.getTenDayDu());
 
-        if (b.getTenThuocTinh().equals("DiemChuanDatMon")) {
+        Cauhinh cauHinhToiThieu = new CauHinhDAL().getByName("TuoiToiThieu");
+        Cauhinh cauHinhToiDa = new CauHinhDAL().getByName("TuoiToiDa");
+
+        if (giaTri.equals("")) {
+            JOptionPane.showMessageDialog(null, "Giá trị không được để trống");
+        } else if (b.getTenThuocTinh().equals("DiemChuanDatMon")) {
             try {
-                Double.parseDouble(giaTri);
-                UpdateConfig(a);
+                Double giatri = Double.parseDouble(giaTri);
+                if (giatri <= 0) {
+                    JOptionPane.showMessageDialog(null, "Điểm chuẩn đạt môn là số thập phân hoặc số nguyên > 0");
+                } else {
+                    UpdateConfig(a);
+                }
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Điểm chuẩn đạt môn là số thập phân hoặc số nguyên");
+                JOptionPane.showMessageDialog(null, "Điểm chuẩn đạt môn là số thập phân hoặc số nguyên > 0");
             }
         } else {
             try {
-                Integer.parseInt(giaTri);
-                UpdateConfig(a);
+                int giatri = Integer.parseInt(giaTri);
+                if (giatri <= 0) {
+                    JOptionPane.showMessageDialog(null, "Giá trị phải là số nguyên > 0");
+                } else if (b.getTenThuocTinh().equals("TuoiToiThieu")) {
+                    if (giatri >= Integer.parseInt(cauHinhToiDa.getGiaTri())) {
+                        JOptionPane.showMessageDialog(null, "Tuổi tối thiểu phải <= tuổi tối đa");
+                    } else {
+                        UpdateConfig(a);
+                    }
+                } else if (b.getTenThuocTinh().equals("TuoiToiDa")) {
+                    if (giatri <= Integer.parseInt(cauHinhToiThieu.getGiaTri())) {
+                        JOptionPane.showMessageDialog(null, "Tuổi tối đa phải >= tuổi tối thiểu");
+                    } else {
+                        UpdateConfig(a);
+                    }
+                } else {
+                    UpdateConfig(a);
+                }
+
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Giá trị phải là số nguyên");
+                JOptionPane.showMessageDialog(null, "Giá trị phải là số nguyên > 0");
             }
         }
     }//GEN-LAST:event_btnCapNhatActionPerformed
