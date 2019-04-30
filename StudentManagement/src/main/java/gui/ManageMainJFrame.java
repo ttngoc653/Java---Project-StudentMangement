@@ -144,6 +144,11 @@ public class ManageMainJFrame extends javax.swing.JFrame {
         btnBaoCao.setText("Báo cáo");
 
         btnCauHinh.setText("Cấu hình");
+        btnCauHinh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCauHinhActionPerformed(evt);
+            }
+        });
 
         btnTaiKhoan.setText("Tài khoản");
 
@@ -240,6 +245,15 @@ public class ManageMainJFrame extends javax.swing.JFrame {
         f.setResizable(false);
         this.setVisible(false);
     }//GEN-LAST:event_btnHocSinhActionPerformed
+
+    private void btnCauHinhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCauHinhActionPerformed
+        // TODO add your handling code here:
+        ConfigMeJFrame f = new ConfigMeJFrame(nd);
+        f.setLocationRelativeTo(null);
+        f.setVisible(true);
+        f.setResizable(false);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnCauHinhActionPerformed
 
     /**
      * @param args the command line arguments

@@ -44,8 +44,8 @@ public class ManageClassJFrame extends javax.swing.JFrame {
 
         this.jTableLop.setModel(dtm);
         this.jTableLop.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
-        this.jTableLop.repaint();
-        this.jTableLop.revalidate();
+        //this.jTableLop.repaint();
+        //this.jTableLop.revalidate();
     }
 
     /**
