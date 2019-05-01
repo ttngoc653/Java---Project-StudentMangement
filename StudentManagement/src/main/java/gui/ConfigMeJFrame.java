@@ -78,6 +78,7 @@ public class ConfigMeJFrame extends javax.swing.JFrame {
         lblTenTaiKhoan = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Quản lý cấu hình");
 
         jTableCauHinh.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -171,7 +172,7 @@ public class ConfigMeJFrame extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Cấu hình");
+        jLabel3.setText("Quản lý cấu hình");
 
         lblTenTaiKhoan.setText("Tên tài khoản");
 

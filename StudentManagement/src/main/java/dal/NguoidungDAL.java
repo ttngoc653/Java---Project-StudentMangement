@@ -218,23 +218,8 @@ public class NguoidungDAL {
         return n;
     }
 
-//    public Nguoidung logIn(String userName, String passWord) {
-//        Nguoidung n = null;
-//        try {
-//            tst = session.beginTransaction();
-//            Query q = session.createQuery("from Nguoidung as t where MD5(t.tenTaiKhoan) LIKE MD5( '" + userName + "')"
-//                    + "AND MD5(t.matKhau) LIKE MD5('" + passWord + "')");
-//            n = (Nguoidung) q.uniqueResult();
-//            tst.commit();
-//        } catch (Exception e) {
-//            if (tst != null) {
-//                tst.rollback();
-//            }
-//            e.printStackTrace();
-//        }
-//        return n;
-//    }
     public Nguoidung LogIn(String userName, String passWord) throws NoSuchAlgorithmException {
+        userName = userName.trim();
         String password = PasswordMD5(passWord);
         Nguoidung n = null;
         try {
