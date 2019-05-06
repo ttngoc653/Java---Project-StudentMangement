@@ -273,10 +273,10 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
         int idNamHoc = namhoc.getIdNamHoc();
 
         if (checkStudentArrangedClass(idHS)) {
-//            Lop lop = new LopDAL().getById(idLop);
-//            Namhoc namhoc = new NamhocDAL().getById(idNamHoc);
+            Lop lop = new LopDAL().getById(idLop);
+            Namhoc namhoc = new NamhocDAL().getById(idNamHoc);
 //            int Size = new HocsinhLophocDAL().getByNamHocLop(namhoc, lop).size();
-            int Size = new HocsinhLophocDAL().getByNamHocLop2(idNamHoc, idLop);
+            int Size = new HocsinhLophocDAL().getByNamHocLop(namhoc, lop);
 
             if (Size == SiSoToiDa) {
                 JOptionPane.showMessageDialog(null, "si so: " + Size + "đủ sỉ số");

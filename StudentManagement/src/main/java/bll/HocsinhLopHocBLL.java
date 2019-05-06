@@ -34,8 +34,8 @@ public class HocsinhLopHocBLL {
      */
     public static boolean checkMaximumStudentInClass(int idNamHoc, int idLop, int SiSoToiTa) {
 
-        Namhoc a = new NamhocDAL().getById(idNamHoc);
-        Lop b = new LopDAL().getById(idLop);
+        Namhoc namhoc = new NamhocDAL().getById(idNamHoc);
+        Lop lop = new LopDAL().getById(idLop);
         //int Size = new HocsinhLophocDAL().getByNamHocLop(a, b).size();
 
         int Size = new HocsinhLophocDAL().getByNamHocLop(namhoc, lop).size();
