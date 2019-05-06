@@ -60,10 +60,15 @@ public class ConfigJFrame extends javax.swing.JFrame {
             }
         });
 
-        jTabbedPane1.addTab("tab1", configAgeJPanel2);
-        jTabbedPane1.addTab("tab2", configClassJPanel2);
-        jTabbedPane1.addTab("tab3", configScoreJPanel1);
-        jTabbedPane1.addTab("tab4", configSubjectJPanel1);
+        jTabbedPane1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jTabbedPane1StateChanged(evt);
+            }
+        });
+        jTabbedPane1.addTab("Độ tuổi", configAgeJPanel2);
+        jTabbedPane1.addTab("Sĩ số và số lớp", configClassJPanel2);
+        jTabbedPane1.addTab("Điểm chuẩn", configScoreJPanel1);
+        jTabbedPane1.addTab("Môn học", configSubjectJPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -82,6 +87,10 @@ public class ConfigJFrame extends javax.swing.JFrame {
     private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
         System.out.println("Resize: " + getSize().toString());
     }//GEN-LAST:event_formComponentResized
+
+    private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
+       
+    }//GEN-LAST:event_jTabbedPane1StateChanged
 
     /**
      * @param args the command line arguments

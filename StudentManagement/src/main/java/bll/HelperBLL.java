@@ -4,17 +4,12 @@ import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Random;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import static javax.swing.UIManager.getString;
-import java.util.regex.Pattern;
+import javax.swing.text.MaskFormatter;
 
-public class HelperBLL {   
+public class HelperBLL {
 
     public static String randomPassword() {
         String str = "";
@@ -27,8 +22,8 @@ public class HelperBLL {
     }
 
     /*
-    convert string to MD5
-    source: https://www.geeksforgeeks.org/md5-hash-in-java/
+     convert string to MD5
+     source: https://www.geeksforgeeks.org/md5-hash-in-java/
      */
     public static String getMd5(String input) {
         try {
@@ -70,8 +65,8 @@ public class HelperBLL {
     }
 
 
-    /*
-     source: https://www.geeksforgeeks.org/check-email-address-valid-not-java/
+    /**
+     * source: https://www.geeksforgeeks.org/check-email-address-valid-not-java/
      */
     public static boolean checkEmail(String emailStr) {
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."
@@ -84,5 +79,19 @@ public class HelperBLL {
             return false;
         }
         return pat.matcher(emailStr).matches();
+    }
+
+    /**
+     * source: https://stackoverflow.com/questions/33348481/restrict-input-of-jtextfield-to-double-numbers
+     */
+    public static MaskFormatter getMaskFormatter(String format) {
+        MaskFormatter mask = null;
+        try {
+            mask = new MaskFormatter(format);
+            mask.setPlaceholderCharacter('0');
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+        }
+        return mask;
     }
 }
