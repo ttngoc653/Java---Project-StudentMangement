@@ -36,13 +36,13 @@ public class HocsinhLopHocBLL {
 
         Namhoc a = new NamhocDAL().getById(idNamHoc);
         Lop b = new LopDAL().getById(idLop);
-        int Size = new HocsinhLophocDAL().getByNamHocLop(a, b).size();
         //int Size = new HocsinhLophocDAL().getByNamHocLop(a, b).size();
 
+        int Size = new HocsinhLophocDAL().getByNamHocLop(namhoc, lop).size();
         if (Size == SiSoToiTa) {
-            return true; // Lớp đã đủ sỉ số
+            return true; //lớp đã đủ sỉ số
         } else {
-            return false; // Lớp chưa đủ sỉ số
+            return false; //lớp chưa đủ sỉ số
         }
     }
 

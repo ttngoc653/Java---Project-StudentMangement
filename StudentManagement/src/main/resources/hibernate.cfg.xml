@@ -4,26 +4,26 @@
   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://localhost:3308/quanlyhocsinh?zeroDateTimeBehavior=convertToNull</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/quanlyhocsinh?zeroDateTimeBehavior=convertToNull</property>
     <property name="hibernate.connection.username">root</property>
-    <property name="hibernate.connection.password">1111</property>
+    <property name="hibernate.connection.password"/>
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.current_session_context_class">thread</property>
     <property name="hibernate.connection.CharSet">utf8</property>
     <property name="hibernate.connection.characterEncoding">utf8</property>
     <property name="hibernate.connection.useUnicode">true</property>
     <property name="hibernate.enable_lazy_load_no_trans">true</property>
-    <mapping resource="dto/Nguoidung.hbm.xml"/>
+    <mapping resource="dto/HocsinhLophoc.hbm.xml"/>
     <mapping resource="dto/ChitietCauhinhLop.hbm.xml"/>
-    <mapping resource="dto/Hocky.hbm.xml"/>
-    <mapping resource="dto/Diem.hbm.xml"/>
-    <mapping resource="dto/Monhoc.hbm.xml"/>
     <mapping resource="dto/ChitietCauhinhDiem.hbm.xml"/>
+    <mapping resource="dto/Hocsinh.hbm.xml"/>
+    <mapping resource="dto/Namhoc.hbm.xml"/>
+    <mapping resource="dto/Hocky.hbm.xml"/>
+    <mapping resource="dto/Monhoc.hbm.xml"/>
+    <mapping resource="dto/Nguoidung.hbm.xml"/>
     <mapping resource="dto/ChitietCauhinhHocsinh.hbm.xml"/>
     <mapping resource="dto/Cauhinh.hbm.xml"/>
-    <mapping resource="dto/Hocsinh.hbm.xml"/>
     <mapping resource="dto/Lop.hbm.xml"/>
-    <mapping resource="dto/Namhoc.hbm.xml"/>
-    <mapping resource="dto/HocsinhLophoc.hbm.xml"/>
+    <mapping resource="dto/Diem.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

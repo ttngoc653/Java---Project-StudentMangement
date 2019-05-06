@@ -189,26 +189,6 @@ public class HocsinhLophocDAL {
         }
         return list;
     }
-    
-        public int getByNamHocLop2(int idNamhoc, int idLop) {
-        int dem = 0;
-        try {
-            tst = session.beginTransaction();
-            Query q = session.createQuery("select count(*) from HocsinhLophoc a "
-                    + "where a.idNamHoc = :idnamhoc "
-                    + "and a.idLop = :idlop");
-            q.setParameter("idnamhoc", idNamhoc);
-            q.setParameter("idlop", idLop);
-            dem = (int)q.uniqueResult();
-            tst.commit();
-        } catch (Exception e) {
-            if (tst != null) {
-                tst.rollback();
-            }
-            e.printStackTrace();
-        }
-        return dem;
-    }
 
     public List<HocsinhLophoc> getByHocsinh(Hocsinh hs) {
         list = new ArrayList<HocsinhLophoc>();

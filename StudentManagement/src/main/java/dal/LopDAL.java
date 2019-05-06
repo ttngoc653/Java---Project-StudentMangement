@@ -46,7 +46,7 @@ public class LopDAL {
         }
         return result;
     }
-       
+
     public boolean update(Lop p) {
         Boolean result = false;
         try {
@@ -86,14 +86,32 @@ public class LopDAL {
         return result;
     }
 
+//    @SuppressWarnings("unchecked")
+//    public List<Lop> getAll() {
+//        list = new ArrayList<Lop>();
+//        try {
+//            tst = session.beginTransaction();
+//            Query q = session.createQuery("from Lop as l "
+//                    + "left join fetch l.hocsinhLophocs "
+//                    + "left join fetch l.chitietCauhinhLops");
+//            list = (List<Lop>) q.list();
+//            tst.commit();
+//        } catch (Exception e) {
+//            if (tst != null) {
+//                tst.rollback();
+//            }
+//            e.printStackTrace();
+//        }
+//        return list;
+//    }
+    
+    //24/04/2019
     @SuppressWarnings("unchecked")
     public List<Lop> getAll() {
         list = new ArrayList<Lop>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Lop as l "
-                    + "left join fetch l.hocsinhLophocs "
-                    + "left join fetch l.chitietCauhinhLops");
+            Query q = session.createQuery("from Lop as l ");
             list = (List<Lop>) q.list();
             tst.commit();
         } catch (Exception e) {

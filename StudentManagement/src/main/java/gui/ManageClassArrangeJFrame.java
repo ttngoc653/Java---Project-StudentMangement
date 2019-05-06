@@ -263,17 +263,14 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
 
         int idHS = Integer.parseInt(this.cboMSHS.getSelectedItem().toString());
-        //String idHS = this.cboMSHS.getSelectedItem().toString();
 
         String tenLop = this.cboTenLop.getSelectedItem().toString();
-        Lop b = new LopDAL().getByTen(tenLop);
-        int idLop = b.getIdLop();
-        //String idLop = b.getIdLop().toString();
+        Lop lop = new LopDAL().getByTen(tenLop);
+        int idLop = lop.getIdLop();
 
         String tenNamHoc = this.cboNamHoc.getSelectedItem().toString();
-        Namhoc c = new NamhocDAL().getByTen(tenNamHoc);
-        int idNamHoc = c.getIdNamHoc();
-        //String idNamHoc = c.getIdNamHoc().toString();
+        Namhoc namhoc = new NamhocDAL().getByTen(tenNamHoc);
+        int idNamHoc = namhoc.getIdNamHoc();
 
         if (checkStudentArrangedClass(idHS)) {
 //            Lop lop = new LopDAL().getById(idLop);
@@ -284,28 +281,21 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
             if (Size == SiSoToiDa) {
                 JOptionPane.showMessageDialog(null, "si so: " + Size + "đủ sỉ số");
             } else {
-                JOptionPane.showMessageDialog(null, "si so: " + Size + "chưa đủ sỉ số");
-            }
+                HocsinhLophocDAL hslophocDAL = new HocsinhLophocDAL();
 
-//            if (checkMaximumStudentInClass(idLop, idNamHoc, SiSoToiDa)) {
-//                JOptionPane.showMessageDialog(null, "Lớp này đã đủ sỉ số");
-//            } else {
-//                JOptionPane.showMessageDialog(null, "Xếp lớp");
-//                HocsinhLophocDAL hslophocDAL = new HocsinhLophocDAL();
-//
-//                HocsinhLophocId a = new HocsinhLophocId();
-//                a.setIdHocSinh(idHS);
-//                a.setIdLopHoc(idLop);
-//                a.setIdNamHoc(idNamHoc);
-//
-//                if (hslophocDAL.add(a) != null) {
-//                    JOptionPane.showMessageDialog(null, "Xếp lớp cho học sinh thành công");
-//                    LoadData();
-//                    LoadCbo();
-//                } else {
-//                    JOptionPane.showMessageDialog(null, "Xếp lớp cho học sinh thất bại");
-//                }
-//            }
+                HocsinhLophocId a = new HocsinhLophocId();
+                a.setIdHocSinh(idHS);
+                a.setIdLopHoc(idLop);
+                a.setIdNamHoc(idNamHoc);
+
+                if (hslophocDAL.add(a) != null) {
+                    JOptionPane.showMessageDialog(null, "Xếp lớp cho học sinh thành công");
+                    LoadData();
+                    LoadCbo();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Xếp lớp cho học sinh thất bại");
+                }
+            }
         } else {
             JOptionPane.showMessageDialog(null, "MSHS này đã có lớp rồi");
         }

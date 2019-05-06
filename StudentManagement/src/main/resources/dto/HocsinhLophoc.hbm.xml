@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Apr 22, 2019 7:02:50 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated Apr 28, 2019 12:28:37 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="dto.HocsinhLophoc" table="hocsinh_lophoc" catalog="quanlyhocsinh" optimistic-lock="version">
         <composite-id name="id" class="dto.HocsinhLophocId">
@@ -30,8 +30,8 @@
         <set name="diems" table="diem" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="idHocSinh" not-null="true" />
-                <column name="idLop" not-null="true" />
                 <column name="idNamHoc" not-null="true" />
+                <column name="idLop" not-null="true" />
             </key>
             <one-to-many class="dto.Diem" />
         </set>

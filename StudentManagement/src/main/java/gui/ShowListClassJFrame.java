@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import bll.HocsinhLopHocBLL;
+import dal.HocsinhDAL;
 import dal.HocsinhLophocDAL;
 import dal.LopDAL;
 import dal.NamhocDAL;
@@ -15,6 +11,7 @@ import dto.HocsinhLophocId;
 import dto.Lop;
 import dto.Namhoc;
 import dto.Nguoidung;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -48,9 +45,6 @@ public class ShowListClassJFrame extends javax.swing.JFrame {
         for (Lop a : new LopDAL().getAll()) {
             cboTenLop.addItem(a.getTenLop());
         }
-//        for (Lop a : new LopDAL().getAll()) {
-//            cboTenLop.addItem(a.getTenLop().toString());
-//        }
 
         for (Namhoc a : new NamhocDAL().getAll()) {
             cboNamHoc.addItem(a.getTenNamHoc());
@@ -67,9 +61,7 @@ public class ShowListClassJFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
-        txtTenLop = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txtSiSo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableDanhSachLop = new javax.swing.JTable();
         lblTenTaiKhoan = new javax.swing.JLabel();
@@ -79,27 +71,26 @@ public class ShowListClassJFrame extends javax.swing.JFrame {
         btnXem = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         cboTenLop = new javax.swing.JComboBox<>();
+        txtTenLop = new javax.swing.JTextField();
+        txtSiSo = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Danh sách lơp");
+        setPreferredSize(new java.awt.Dimension(900, 440));
 
         jLabel2.setText("Tên lớp:");
 
-        txtTenLop.setText("Tên lớp:");
-
         jLabel4.setText("Sỉ số:");
-
-        txtSiSo.setText("Sỉ số");
 
         jTableDanhSachLop.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "STT", "Họ tên", "Giới tính", "Năm sinh", "Địa chỉ"
+                "STT", "MSHS", "Họ tên", "Giới tính", "Năm sinh", "Địa chỉ"
             }
         ));
         jScrollPane1.setViewportView(jTableDanhSachLop);
@@ -149,6 +140,10 @@ public class ShowListClassJFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        txtTenLop.setEditable(false);
+
+        txtSiSo.setEditable(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -163,12 +158,12 @@ public class ShowListClassJFrame extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
                                 .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtTenLop)
-                                .addGap(50, 50, 50)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtTenLop, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(39, 39, 39)
                                 .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtSiSo))
+                                .addGap(18, 18, 18)
+                                .addComponent(txtSiSo, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 310, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -178,14 +173,14 @@ public class ShowListClassJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblTenTaiKhoan)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtTenLop)
                     .addComponent(jLabel4)
-                    .addComponent(txtSiSo))
+                    .addComponent(txtTenLop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSiSo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -195,24 +190,55 @@ public class ShowListClassJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnXemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemActionPerformed
-        // TODO add your handling code here:
+
         String tenLop = this.cboTenLop.getSelectedItem().toString();
-        Lop a = new LopDAL().getByTen(tenLop);
-        int idLop = a.getIdLop();
+        Lop lop = new LopDAL().getByTen(tenLop);
 
         String tenNamHoc = this.cboNamHoc.getSelectedItem().toString();
-        Namhoc b = new NamhocDAL().getByTen(tenNamHoc);
-        int idNamHoc = b.getIdNamHoc();
+        Namhoc namhoc = new NamhocDAL().getByTen(tenNamHoc);
 
-        //List<Hocsinh> dsHocSinh = new HocsinhLopHocBLL().getAllStudentByIdLopHocIdNamHocBLL(idLop, idNamHoc);
-        
-//        List<HocsinhLophocId> dsIdHsLop = new HocsinhLophocDAL().getAllStudentByIdLopHocIdNamHoc(idLop, idNamHoc);
-//
-//        if(dsIdHsLop.size() == 0){
-//            JOptionPane.showMessageDialog(null, "rong");
-//        }else{
-//            JOptionPane.showMessageDialog(null, "ok");
-//        }
+        List<HocsinhLophoc> dsHocsinhLopHoc = new HocsinhLophocDAL().getByNamHocLop(namhoc, lop);
+        int SiSoLop = dsHocsinhLopHoc.size();
+
+        if (SiSoLop == 0) {
+            JOptionPane.showMessageDialog(null, "Năm học " + tenNamHoc + " không có lớp " + tenLop);
+        } else {
+            txtTenLop.setText(tenLop);
+            txtSiSo.setText(Integer.toString(SiSoLop));
+            DefaultTableModel dtm = new DefaultTableModel();
+            dtm.addColumn("STT");
+            dtm.addColumn("MSHS");
+            dtm.addColumn("Họ tên");
+            dtm.addColumn("Giới tính");
+            dtm.addColumn("Năm sinh");
+            dtm.addColumn("Địa chỉ");
+            int i = 0, stt = 1;
+
+            for (HocsinhLophoc a : dsHocsinhLopHoc) {
+                if (i < SiSoLop) {
+                    int id = dsHocsinhLopHoc.get(i).getHocsinh().getIdHocSinh();
+                    Hocsinh hs = new HocsinhDAL().getById(id);
+                    int year = Integer.parseInt(hs.getNgaySinh().substring(6));
+                    
+                    dtm.addRow(new Object[]{stt, hs.getIdHocSinh(), hs.getHoTen(), hs.getGioiTinh(),
+                        year, hs.getDiaChi()});
+                    i++;
+                    stt++;
+                }
+            }
+
+            this.jTableDanhSachLop.setModel(dtm);
+
+            this.jTableDanhSachLop.getColumnModel().getColumn(0).setPreferredWidth(10);  //STT
+            this.jTableDanhSachLop.getColumnModel().getColumn(1).setPreferredWidth(10); //MSHS
+            this.jTableDanhSachLop.getColumnModel().getColumn(2).setPreferredWidth(120); //Họ tên
+            this.jTableDanhSachLop.getColumnModel().getColumn(3).setPreferredWidth(20); //Giới tính
+            this.jTableDanhSachLop.getColumnModel().getColumn(4).setPreferredWidth(20);  //Ngày sinh
+            this.jTableDanhSachLop.getColumnModel().getColumn(5).setPreferredWidth(200); //Địa chỉ
+
+            this.jTableDanhSachLop.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+        }
+
     }//GEN-LAST:event_btnXemActionPerformed
 
     /**
@@ -268,7 +294,7 @@ public class ShowListClassJFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableDanhSachLop;
     private javax.swing.JLabel lblTenTaiKhoan;
-    private javax.swing.JLabel txtSiSo;
-    private javax.swing.JLabel txtTenLop;
+    private javax.swing.JTextField txtSiSo;
+    private javax.swing.JTextField txtTenLop;
     // End of variables declaration//GEN-END:variables
 }
