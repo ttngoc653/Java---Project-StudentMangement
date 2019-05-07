@@ -172,7 +172,8 @@ public class HocsinhDAL {
         String keyId = key;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("FROM Hocsinh WHERE idHocSinh = :keyId "
+            Query q = session.createQuery("FROM Hocsinh "
+                    + "WHERE idHocSinh = :keyId "
                     + "or hoTen like :key "
                     + "or ngaySinh like :key "
                     + "or gioiTinh like :key "

@@ -104,14 +104,15 @@ public class LopDAL {
 //        }
 //        return list;
 //    }
-    
     //24/04/2019
     @SuppressWarnings("unchecked")
     public List<Lop> getAll() {
         list = new ArrayList<Lop>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Lop as l ");
+            Query q = session.createQuery("from Lop as l "
+                    + "left join fetch l.hocsinhLophocs "
+                    + "left join fetch l.chitietCauhinhLops ");
             list = (List<Lop>) q.list();
             tst.commit();
         } catch (Exception e) {
