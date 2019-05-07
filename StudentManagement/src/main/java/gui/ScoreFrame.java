@@ -109,13 +109,13 @@ public class ScoreFrame extends javax.swing.JFrame {
 
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        lopCBX = new javax.swing.JComboBox<>();
+        lopCBX = new javax.swing.JComboBox<String>();
         jLabel2 = new javax.swing.JLabel();
-        hockyCBX = new javax.swing.JComboBox<>();
+        hockyCBX = new javax.swing.JComboBox<String>();
         jLabel5 = new javax.swing.JLabel();
-        namhocCBX = new javax.swing.JComboBox<>();
+        namhocCBX = new javax.swing.JComboBox<String>();
         jLabel3 = new javax.swing.JLabel();
-        monCBX = new javax.swing.JComboBox<>();
+        monCBX = new javax.swing.JComboBox<String>();
         chonBT = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -277,6 +277,7 @@ public class ScoreFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         this.jTable1.setModel(new bll.ScoreFrameBLL().getData(lopCBX.getSelectedItem().toString(), monCBX.getSelectedItem().toString(), namhocCBX.getSelectedItem().toString(), hockyCBX.getSelectedItem().toString()));
+        //this.jTable1.
     }//GEN-LAST:event_chonBTActionPerformed
 
     /**

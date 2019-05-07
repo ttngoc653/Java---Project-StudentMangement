@@ -355,4 +355,37 @@ public class DiemDAL {
         }
         return null;
     }
+    
+     public Diem getByLopHocHocKyMonHocHocSinh(HocsinhLophoc hl, Hocky h, dto.Monhoc m) {
+        list = new ArrayList<>();
+        try {
+            tst = session.beginTransaction();
+            Query q = session.createQuery("from Diem as d "
+                    + "right join fetch d.hocky k "
+                    + "right join fetch d.hocsinhLophoc hl "
+                    + "left join fetch hl.hocsinh hs "
+                    + "left join fetch hl.lop "
+                    + "left join fetch hl.namhoc "
+                    + "left join fetch hl.id hid "
+                    + "right join fetch d.monhoc m "
+                    + "left join fetch d.chitietCauhinhDiems "
+                    + "where hl.idHocSinhLopHoc = :hocsinhlophoc "
+                    + "and k.idHocKy = :hocky "
+                    + "and m.idMonHoc = :monhoc");
+            q.setParameter("hocsinhlophoc", hl.getIdHocSinhLopHoc());
+            q.setParameter("hocky", h.getIdHocKy());
+            q.setParameter("monhoc", m.getIdMonHoc());
+            list = q.list();
+            tst.commit();
+        } catch (Exception e) {
+            if (tst != null) {
+                tst.rollback();
+            }
+            e.printStackTrace();
+        }
+        if (list.size() > 0) {
+            return list.get(0);
+        }
+        return null;
+    }
 }

@@ -25,17 +25,27 @@ public class ScoreFrameBLL {
         dto.Lop lop = new LopDAL().getByTen(tenLop);
         dto.Monhoc monhoc = new MonhocDAL().getByTen(monHoc);
         dto.Hocky hocky = new dal.HockyDAL().getByTen(Integer.parseInt(hocKy));
-        List<Diem> lhslhmh = new DiemDAL().getByLopHocHocKyMonHoc(lop, namhoc, hocky, monhoc);
-        for (int j = 0; j < lhslhmh.size(); j++) {
+        /*List<Diem> lhslhmh = new DiemDAL().getByLopHocHocKyMonHoc(lop, namhoc, hocky, monhoc);
+         for (int j = 0; j < lhslhmh.size(); j++) {
+         Map<String, Object> map = new HashMap<>();
+         map.put("stt", data.size() + 1);
+         map.put("tenhs", lhslhmh.get(j).getHocsinhLophoc().getHocsinh().getHoTen());
+         map.put("diem15", lhslhmh.get(j).getDiem15phut() == null ? "" : lhslhmh.get(j).getDiem15phut());
+         map.put("diem1", lhslhmh.get(j).getDiem1tiet() == null ? "" : lhslhmh.get(j).getDiem1tiet());
+         map.put("diemck", lhslhmh.get(j).getDiemCuoiKy() == null ? "" : lhslhmh.get(j).getDiemCuoiKy());
+         data.add(map);
+         }*/
+        List<dto.HocsinhLophoc> lhocsinhlophoc = new dal.HocsinhLophocDAL().getByNamHocLop(namhoc, lop);
+        for (int i = 0; i < lhocsinhlophoc.size(); i++) {
+            dto.Diem diem = new dal.DiemDAL().getByLopHocHocKyMonHocHocSinh(lhocsinhlophoc.get(i), hocky, monhoc);
             Map<String, Object> map = new HashMap<>();
-            map.put("stt", data.size() + 1);
-            map.put("tenhs", lhslhmh.get(j).getHocsinhLophoc().getHocsinh().getHoTen());
-            map.put("diem15", lhslhmh.get(j).getDiem15phut() == null ? "" : lhslhmh.get(j).getDiem15phut());
-            map.put("diem1", lhslhmh.get(j).getDiem1tiet() == null ? "" : lhslhmh.get(j).getDiem1tiet());
-            map.put("diemck", lhslhmh.get(j).getDiemCuoiKy() == null ? "" : lhslhmh.get(j).getDiemCuoiKy());
+            map.put("stt", i + 1);
+            map.put("tenhs", lhocsinhlophoc.get(i).getHocsinh().getHoTen());
+            map.put("diem15", diem == null ? "" : diem.getDiem15phut() == null ? "" : diem.getDiem15phut());
+            map.put("diem1", diem == null ? "" : diem.getDiem1tiet()== null ? "" : diem.getDiem1tiet());
+            map.put("diemck", diem == null ? "" : diem.getDiemCuoiKy()== null ? "" : diem.getDiemCuoiKy());
             data.add(map);
         }
-
         DefaultTableModel dtm = new DefaultTableModel();
         for (int i = 0; i < data.size(); i++) {
             dtm.addRow(new Object[]{data.get(i).get("stt"), data.get(i).get("tenhs"), data.get(i).get("diem15"), data.get(i).get("diem1"), data.get(i).get("diemck")});
