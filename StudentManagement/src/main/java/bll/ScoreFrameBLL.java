@@ -20,7 +20,6 @@ import javax.swing.table.DefaultTableModel;
 public class ScoreFrameBLL {
 
     public DefaultTableModel getData(String tenLop, String monHoc, String namHoc, String hocKy) {
-        List<Map<String, ?>> data = new ArrayList<>();
         dto.Namhoc namhoc = new NamhocDAL().getByTen(namHoc);
         dto.Lop lop = new LopDAL().getByTen(tenLop);
         dto.Monhoc monhoc = new MonhocDAL().getByTen(monHoc);
@@ -36,20 +35,18 @@ public class ScoreFrameBLL {
          data.add(map);
          }*/
         List<dto.HocsinhLophoc> lhocsinhlophoc = new dal.HocsinhLophocDAL().getByNamHocLop(namhoc, lop);
+        Object[][] data = new Object[lhocsinhlophoc.size()][5];
         for (int i = 0; i < lhocsinhlophoc.size(); i++) {
             dto.Diem diem = new dal.DiemDAL().getByLopHocHocKyMonHocHocSinh(lhocsinhlophoc.get(i), hocky, monhoc);
-            Map<String, Object> map = new HashMap<>();
-            map.put("stt", i + 1);
-            map.put("tenhs", lhocsinhlophoc.get(i).getHocsinh().getHoTen());
-            map.put("diem15", diem == null ? "" : diem.getDiem15phut() == null ? "" : diem.getDiem15phut());
-            map.put("diem1", diem == null ? "" : diem.getDiem1tiet()== null ? "" : diem.getDiem1tiet());
-            map.put("diemck", diem == null ? "" : diem.getDiemCuoiKy()== null ? "" : diem.getDiemCuoiKy());
-            data.add(map);
+            String[] map = new String[5];
+            map[0]=String.valueOf(i+1);//.put("stt", i + 1);
+            map[1]=lhocsinhlophoc.get(i).getHocsinh().getHoTen();
+            map[2]=String.valueOf(diem == null ? "" : diem.getDiem15phut() == null ? "" : diem.getDiem15phut());
+            map[3]= String.valueOf(diem == null ? "" : diem.getDiem1tiet()== null ? "" : diem.getDiem1tiet());
+            map[4]= String.valueOf(diem == null ? "" : diem.getDiemCuoiKy()== null ? "" : diem.getDiemCuoiKy());
+            
+            data[i]=map;
         }
-        DefaultTableModel dtm = new DefaultTableModel();
-        for (int i = 0; i < data.size(); i++) {
-            dtm.addRow(new Object[]{data.get(i).get("stt"), data.get(i).get("tenhs"), data.get(i).get("diem15"), data.get(i).get("diem1"), data.get(i).get("diemck")});
-        }
-        return dtm;
+        return new DefaultTableModel(data, new String[]{"STT", "Họ Tên", "Điểm 15'", "Điểm 1 tiết", "Điểm cuối kỳ"});
     }
 }

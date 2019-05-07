@@ -9,19 +9,29 @@ import dal.HockyDAL;
 import dal.LopDAL;
 import dal.MonhocDAL;
 import dal.NamhocDAL;
+import dto.Diem;
 import dto.Hocky;
+import dto.HocsinhLophoc;
 import dto.Lop;
 import dto.Monhoc;
 import dto.Namhoc;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Tan
  */
 public class ScoreFrame extends javax.swing.JFrame {
+
+    private int temp = -1;
+    private String strNamHoc;
+    private Integer intHocKy;
+    private String strMon;
+    private String strLop;
 
     /**
      * Creates new form ScoreFrame
@@ -33,68 +43,65 @@ public class ScoreFrame extends javax.swing.JFrame {
         initMonhoc();
         initNamhoc();
         this.setLocationRelativeTo(null);
-        
-        
+
     }
-    
-    
-    private void initLop(){
+
+    private void initLop() {
         //DefaultComboBoxModel modelLop = new DefaultComboBoxModel();
         LopDAL lopdal = new LopDAL();
         List<Lop> DSlop = new ArrayList<Lop>();
-        DSlop = lopdal.getAll();            
+        DSlop = lopdal.getAll();
         lopCBX.removeAllItems();
-        if(DSlop != null)
-            for( Lop _lop : DSlop)
+        if (DSlop != null) {
+            for (Lop _lop : DSlop) {
                 lopCBX.addItem(_lop.getTenLop());
-       
+            }
+        }
+
     }
-    
-    private void initHocky()
-    {
+
+    private void initHocky() {
         DefaultComboBoxModel modelHocky = new DefaultComboBoxModel();
         HockyDAL hockydal = new HockyDAL();
         List<Hocky> DSHocky = new ArrayList<Hocky>();
         DSHocky = hockydal.getAll();
         hockyCBX.removeAllItems();
-        if(DSHocky != null)
-        {
-            for( Hocky hk : DSHocky)
+        if (DSHocky != null) {
+            for (Hocky hk : DSHocky) {
                 modelHocky.addElement(hk.getTenHocKy());
+            }
             hockyCBX.setModel(modelHocky);
-                
+
         }
     }
-    
-    private void initMonhoc()
-    {
+
+    private void initMonhoc() {
         DefaultComboBoxModel modelmonhoc = new DefaultComboBoxModel();
         MonhocDAL monhocdal = new MonhocDAL();
         List<Monhoc> DSmon = new ArrayList<Monhoc>();
         DSmon = monhocdal.getAll();
         monCBX.removeAllItems();
-        if(DSmon != null)
-        {
-            for( Monhoc mh : DSmon)
+        if (DSmon != null) {
+            for (Monhoc mh : DSmon) {
                 modelmonhoc.addElement(mh.getTenMh());
+            }
             monCBX.setModel(modelmonhoc);
-                
+
         }
     }
-    
-    private void initNamhoc()
-    {
+
+    private void initNamhoc() {
         DefaultComboBoxModel modelNamhoc = new DefaultComboBoxModel();
         NamhocDAL namhocdal = new NamhocDAL();
         List<Namhoc> DSnamhoc = new ArrayList<Namhoc>();
         DSnamhoc = namhocdal.getAll();
         namhocCBX.removeAllItems();
-        if(DSnamhoc != null)
-        {
-            for( Namhoc nh : DSnamhoc)
+        if (DSnamhoc != null) {
+            for (Namhoc nh : DSnamhoc) {
                 modelNamhoc.addElement(nh.getTenNamHoc());
+            }
             namhocCBX.setModel(modelNamhoc);
-                
+
         }
     }
 
@@ -109,13 +116,13 @@ public class ScoreFrame extends javax.swing.JFrame {
 
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        lopCBX = new javax.swing.JComboBox<String>();
+        lopCBX = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
-        hockyCBX = new javax.swing.JComboBox<String>();
+        hockyCBX = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
-        namhocCBX = new javax.swing.JComboBox<String>();
+        namhocCBX = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        monCBX = new javax.swing.JComboBox<String>();
+        monCBX = new javax.swing.JComboBox<>();
         chonBT = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -221,6 +228,11 @@ public class ScoreFrame extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        jTable1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jTable1PropertyChange(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
             jTable1.getColumnModel().getColumn(0).setPreferredWidth(30);
@@ -275,10 +287,53 @@ public class ScoreFrame extends javax.swing.JFrame {
 
     private void chonBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chonBTActionPerformed
         // TODO add your handling code here:
-        
+        strLop = lopCBX.getSelectedItem().toString();
+        strMon = monCBX.getSelectedItem().toString();
+        intHocKy = Integer.valueOf(hockyCBX.getSelectedItem().toString());
+        strNamHoc = namhocCBX.getSelectedItem().toString();
         this.jTable1.setModel(new bll.ScoreFrameBLL().getData(lopCBX.getSelectedItem().toString(), monCBX.getSelectedItem().toString(), namhocCBX.getSelectedItem().toString(), hockyCBX.getSelectedItem().toString()));
         //this.jTable1.
     }//GEN-LAST:event_chonBTActionPerformed
+
+    private void jTable1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jTable1PropertyChange
+        // TODO add your handling code here:
+        if (temp == jTable1.getSelectedRow() && jTable1.getSelectedRow() != -1) {
+            Namhoc nh = new dal.NamhocDAL().getByTen(strNamHoc);
+            Hocky hk = new dal.HockyDAL().getByTen(intHocKy);
+            Monhoc mh = new dal.MonhocDAL().getByTen(strMon);
+            String strTenHocSinh = jTable1.getModel().getValueAt(temp, 1).toString();
+            dto.Hocsinh hs = new dal.HocsinhDAL().getByName(strTenHocSinh);
+            Lop l = new dal.LopDAL().getByTen(strLop);
+            Double diem15 = null, diem1 = null, diemck = null;
+            try {
+                diem15 = Double.valueOf(jTable1.getModel().getValueAt(temp, 2).toString());
+            } catch (NumberFormatException e) {
+            }
+            try {
+                diem1 = Double.valueOf(jTable1.getModel().getValueAt(temp, 3).toString());
+            } catch (NumberFormatException e) {
+            }
+            try {
+                diemck = Double.valueOf(jTable1.getModel().getValueAt(temp, 4).toString());
+            } catch (NumberFormatException e) {
+            }
+            dto.HocsinhLophocId hlId = new dto.HocsinhLophocId(hs.getIdHocSinh(), l.getIdLop(), nh.getIdNamHoc());
+            if (new dal.DiemDAL().getByLopHocHocKyMonHocHocSinh(l, nh, hk, mh, hs) == null) {
+                if (new dal.DiemDAL().add(new dto.Diem(hk, new dto.HocsinhLophoc(hlId, hs, l, nh), mh, diem15, diem1, diemck, null)) > -1) {
+                    JOptionPane.showMessageDialog(chonBT, "them thanh cong");
+                } else {
+                    JOptionPane.showMessageDialog(chonBT, "them that bai");
+                }
+            } else {
+                if (new dal.DiemDAL().update(new Diem(hk, new dto.HocsinhLophoc(hlId, hs, l, nh), mh, diem15, diem1, diemck, null))) {
+                    JOptionPane.showMessageDialog(chonBT, "cap nhat thanh cong");
+                } else {
+                    JOptionPane.showMessageDialog(chonBT, "cap nhat that bai");
+                }
+            }
+        }
+        temp = jTable1.getSelectedRow();
+    }//GEN-LAST:event_jTable1PropertyChange
 
     /**
      * @param args the command line arguments
@@ -311,11 +366,11 @@ public class ScoreFrame extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new ScoreFrame().setVisible(true);
-                
-              //  ScoreFrame f = new ScoreFrame();
-              //  Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-              //  f.setSize(750, 600);
-              //  f.setLocationRelativeTo(null);
+
+                //  ScoreFrame f = new ScoreFrame();
+                //  Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+                //  f.setSize(750, 600);
+                //  f.setLocationRelativeTo(null);
                 //f.setVisible(true);
                 //f.setResizable(false);
                 // this.setVisible(false);
