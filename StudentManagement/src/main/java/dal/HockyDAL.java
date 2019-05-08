@@ -93,7 +93,8 @@ public class HockyDAL {
         list = new ArrayList<Hocky>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Hocky h left join fetch h.diems");
+            Query q = session.createQuery("from Hocky h "
+                    + "left join fetch h.diems");
             list = (List<Hocky>) q.list();
             tst.commit();
         } catch (Exception e) {
@@ -110,7 +111,8 @@ public class HockyDAL {
         try {
             tst = session.beginTransaction();
             Query q = session.createQuery("from Hocky h "
-                    + "left join fetch h.diems  as t where h.idHocKy =  :id");
+                    + "left join fetch h.diems  as t "
+                    + "where h.idHocKy =  :id");
             q.setParameter("id", id);
             n = (Hocky) q.uniqueResult();
             tst.commit();
@@ -128,7 +130,8 @@ public class HockyDAL {
         try {
             tst = session.beginTransaction();
             Query q = session.createQuery("from Hocky as h "
-                    + "left join fetch h.diems where h.tenHocKy = :soHocKy");
+                    + "left join fetch h.diems "
+                    + "where h.tenHocKy = :soHocKy");
             q.setParameter("soHocKy", soHocKy);
             n = (Hocky) q.uniqueResult();
             tst.commit();
