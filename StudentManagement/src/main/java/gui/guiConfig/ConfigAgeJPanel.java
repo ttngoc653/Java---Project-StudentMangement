@@ -5,6 +5,8 @@
  */
 package gui.guiConfig;
 
+import bll.HelperBLL;
+import com.sun.glass.events.KeyEvent;
 import javax.swing.JFormattedTextField;
 import javax.swing.text.MaskFormatter;
 
@@ -40,8 +42,8 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         treeApply = new javax.swing.JTree();
         jButton1 = new javax.swing.JButton();
-        txtMinAge = new javax.swing.JFormattedTextField();
-        jFormattedTextField2 = new javax.swing.JFormattedTextField();
+        txtMinAge = new javax.swing.JTextField();
+        txtMaxAge = new javax.swing.JTextField();
 
         setPreferredSize(new java.awt.Dimension(380, 400));
         addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -80,12 +82,17 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
 
         jButton1.setText("Áp dụng");
 
-        try{
-            new JFormattedTextField(new MaskFormatter("##"));
-        } catch(java.text.ParseException e){
-            e.printStackTrace();
-        }
-        txtMinAge.setText("0.0");
+        txtMinAge.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtMinAgeKeyTyped(evt);
+            }
+        });
+
+        txtMaxAge.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtMaxAgeKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -108,10 +115,10 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
                             .addComponent(jLabel1)
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jFormattedTextField2)
-                            .addComponent(txtMinAge))
-                        .addGap(22, 22, 22)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtMinAge)
+                            .addComponent(txtMaxAge))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -133,7 +140,7 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtMaxAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(7, 7, 7)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -148,10 +155,22 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
         System.out.println("actived config age");
     }//GEN-LAST:event_formComponentShown
 
+    private void txtMinAgeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMinAgeKeyTyped
+        System.out.println(HelperBLL.IsInteger(txtMinAge.getText()));
+        if (!HelperBLL.IsInteger(Character.toString(evt.getKeyChar()))) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtMinAgeKeyTyped
+
+    private void txtMaxAgeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaxAgeKeyTyped
+        if (!HelperBLL.IsInteger(Character.toString(evt.getKeyChar()))) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtMaxAgeKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JFormattedTextField jFormattedTextField2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -160,6 +179,7 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTree treeApply;
-    private javax.swing.JFormattedTextField txtMinAge;
+    private javax.swing.JTextField txtMaxAge;
+    private javax.swing.JTextField txtMinAge;
     // End of variables declaration//GEN-END:variables
 }

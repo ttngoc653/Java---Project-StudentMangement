@@ -94,4 +94,22 @@ public class HelperBLL {
         }
         return mask;
     }
+    
+    public static boolean IsInteger(String string){
+        try {
+            Integer.valueOf(string);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+    
+    public static boolean IsDouble(String string){
+        try {
+            Double.valueOf(string);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
 }
