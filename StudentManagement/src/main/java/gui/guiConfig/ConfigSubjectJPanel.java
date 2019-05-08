@@ -9,6 +9,9 @@ import dal.MonhocDAL;
 import dto.Monhoc;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 /**
@@ -22,7 +25,10 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
      */
     public ConfigSubjectJPanel() {
         initComponents();
+        
         initCBXMonHoc();
+        initTeaching();
+        initCastrate();
     }
     
     void initCBXMonHoc()
@@ -36,6 +42,23 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
             cbbSubject.addItem(mh.getTenMh());
         }
         
+    }
+    void initTeaching()
+    {
+        List<Monhoc> ds = new MonhocDAL().getByTinhTrang(true);
+        DefaultListModel ten=new DefaultListModel();
+        for(Monhoc mh:ds)
+            ten.addElement(mh.getTenMh());
+        lTeaching.setModel(ten);
+    }
+    void initCastrate()
+    {
+        
+        List<Monhoc> ds = new MonhocDAL().getByTinhTrang(false);
+        DefaultListModel ten=new DefaultListModel();
+        for(Monhoc mh:ds)
+            ten.addElement(mh.getTenMh());
+        lCastrate.setModel(ten);
     }
 
     /**
@@ -228,11 +251,6 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
 
         jLabel5.setText("Đang giảng dạy:");
 
-        lTeaching.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane1.setViewportView(lTeaching);
 
         btnHide.setText("v");
@@ -241,11 +259,6 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
 
         jLabel6.setText("Đang hoãn:");
 
-        lCastrate.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane2.setViewportView(lCastrate);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -329,7 +342,7 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
             
         Monhoc mh = new Monhoc();
         mh.setTenMh(txtSubject.getText());
-        mh.setDangGiangDay(false);
+        mh.setDangGiangDay(true);
         
         
         if(new MonhocDAL().getByTen(mh.getTenMh())== null)
