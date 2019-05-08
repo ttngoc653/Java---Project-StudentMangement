@@ -5,6 +5,12 @@
  */
 package gui.guiConfig;
 
+import dal.MonhocDAL;
+import dto.Monhoc;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author tuhuy
@@ -16,6 +22,20 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
      */
     public ConfigSubjectJPanel() {
         initComponents();
+        initCBXMonHoc();
+    }
+    
+    void initCBXMonHoc()
+    {
+        MonhocDAL mhDAL = new MonhocDAL();
+        List<Monhoc> ds = new ArrayList<Monhoc>();
+        ds = mhDAL.getAll();
+        cbbSubject.removeAllItems();
+        for(Monhoc mh:ds)
+        {
+            cbbSubject.addItem(mh.getTenMh());
+        }
+        
     }
 
     /**
@@ -34,7 +54,7 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         btnDelete = new javax.swing.JButton();
-        cbbSubject = new javax.swing.JComboBox<String>();
+        cbbSubject = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
@@ -62,6 +82,11 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
         jLabel1.setText("Nhập tên môn:");
 
         btnAdd.setText("Thêm");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -95,8 +120,11 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
         jLabel3.setText("Chọn môn:");
 
         btnDelete.setText("Xóa");
-
-        cbbSubject.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -290,6 +318,49 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
 
         jPanel4.getAccessibleContext().setAccessibleName("Quản lý số lượng môn hoc");
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        // TODO add your handling code here:
+        if(txtSubject.getText().equals(""))
+        {
+            JOptionPane.showMessageDialog(this,"Chưa nhập môn học");
+            return;
+        }
+            
+        Monhoc mh = new Monhoc();
+        mh.setTenMh(txtSubject.getText());
+        mh.setDangGiangDay(false);
+        
+        
+        if(new MonhocDAL().getByTen(mh.getTenMh())== null)
+        {
+            if(new MonhocDAL().add(mh)>0)
+            {
+                JOptionPane.showMessageDialog(this,"Thêm thành công");
+                txtSubject.setText("");
+            }
+            else
+                JOptionPane.showMessageDialog(this,"Đã có lỗi. Kiểm tra lại");
+        }
+        else
+            JOptionPane.showMessageDialog(this, "Môn học đã tồn tại");
+        initCBXMonHoc();
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+        Monhoc mh = new Monhoc();
+        mh = new MonhocDAL().getByTen(cbbSubject.getSelectedItem().toString());
+        if(mh.getDiems().size() !=0)
+            JOptionPane.showMessageDialog(this, "Môn học còn lưu điểm. Không xóa được");
+        else if(new MonhocDAL().delete(mh.getIdMonHoc())==false)
+            JOptionPane.showMessageDialog(this, "Có lỗi Function khi xóa");
+        else
+            JOptionPane.showMessageDialog(this, "Xóa thành công");
+        initCBXMonHoc();
+            
+            
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
