@@ -25,7 +25,11 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
      */
     public ConfigSubjectJPanel() {
         initComponents();
+        refresh();
         
+    }
+    void refresh()
+    {
         initCBXMonHoc();
         initTeaching();
         initCastrate();
@@ -357,7 +361,9 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
         }
         else
             JOptionPane.showMessageDialog(this, "Môn học đã tồn tại");
-        initCBXMonHoc();
+        
+        
+        refresh();
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
@@ -370,7 +376,7 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Có lỗi Function khi xóa");
         else
             JOptionPane.showMessageDialog(this, "Xóa thành công");
-        initCBXMonHoc();
+        refresh();
             
             
     }//GEN-LAST:event_btnDeleteActionPerformed
