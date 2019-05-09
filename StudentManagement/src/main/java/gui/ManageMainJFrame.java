@@ -19,7 +19,7 @@ public class ManageMainJFrame extends javax.swing.JFrame {
 
     dto.Nguoidung nd;
 
-    ManageMainJFrame(Nguoidung nguoidung) {
+    public ManageMainJFrame(Nguoidung nguoidung) {
         initComponents();
         nd = nguoidung;
         lblTenTaiKhoan.setText(nd.getHoTen());

@@ -123,7 +123,8 @@ public class LoginJFrame extends javax.swing.JFrame {
 
                 if (nd != null) {
                     //JOptionPane.showMessageDialog(null, "Đăng nhập thành công");
-                    ManageMainJFrame f = new ManageMainJFrame(nd);
+                    //ManageMainJFrame f = new ManageMainJFrame(nd);
+                    MainJFrame f = new MainJFrame(nd);
                     f.setLocationRelativeTo(null);
                     f.setVisible(true);
                     this.setVisible(false);
