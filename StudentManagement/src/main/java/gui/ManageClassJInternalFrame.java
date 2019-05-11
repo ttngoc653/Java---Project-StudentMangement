@@ -16,8 +16,9 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author tuhuy
  */
-public class ManageClassJInternalFrame extends javax.swing.JInternalFrame {
+public class ManageClassJInternalFrame extends javax.swing.JInternalFrame{
 
+    public static Boolean openFrame = true;
     /**
      * Creates new form ManageClassJInternalFrame
      */
@@ -34,7 +35,7 @@ public class ManageClassJInternalFrame extends javax.swing.JInternalFrame {
         lblTenTaiKhoan.setText(nd.getHoTen());
         LoadData();
     }
-
+    
     private void LoadData() {
         DefaultTableModel dtm = new DefaultTableModel();
         dtm.addColumn("Mã lớp");
@@ -81,8 +82,23 @@ public class ManageClassJInternalFrame extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
-        setMaximizable(true);
-        setResizable(true);
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosed(evt);
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         jLabel1.setText("Tên lớp:");
 
@@ -246,7 +262,15 @@ public class ManageClassJInternalFrame extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+  
+//    ManageClassJInternalFrame.addWindowListener(new WindowAdapter() {
+//            @Override
+//            public void windowClosing(WindowEvent e) {
+//                System.out.println("WindowClosingDemo.windowClosing");
+//                System.exit(0);
+//            }
+//    });
+    
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
 
         if (!this.txtTenLop.getText().equals("")) {
@@ -373,6 +397,12 @@ public class ManageClassJInternalFrame extends javax.swing.JInternalFrame {
         this.cboKhoi.setSelectedIndex(indexCbo);
         //this.txtTinhTrang.setText(a.getTinhTrang().toString());
     }//GEN-LAST:event_jTableLopMouseClicked
+
+    private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
+        // TODO add your handling code here:
+        //JOptionPane.showMessageDialog(null, "frame đã đóng");
+        openFrame = true;
+    }//GEN-LAST:event_formInternalFrameClosed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

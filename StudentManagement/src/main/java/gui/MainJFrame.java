@@ -6,6 +6,9 @@
 package gui;
 
 import dto.Nguoidung;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -68,11 +71,6 @@ public class MainJFrame extends javax.swing.JFrame {
                 jMenuLopMouseClicked(evt);
             }
         });
-        jMenuLop.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuLopActionPerformed(evt);
-            }
-        });
         jMenuBar1.add(jMenuLop);
 
         jMenuConfig.setText("Config");
@@ -89,39 +87,38 @@ public class MainJFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jDesktopPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jDesktopPane1)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuLopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuLopActionPerformed
-        // TODO add your handling code here:
-        ManageClassJInternalFrame f = new ManageClassJInternalFrame();
-        jDesktopPane1.add(f);
-        f.show();
-    }//GEN-LAST:event_jMenuLopActionPerformed
-
     private void jMenuLopMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuLopMouseClicked
-        // TODO add your handling code here:
-        ManageClassJInternalFrame f = new ManageClassJInternalFrame(nd);
-        jDesktopPane1.add(f);
-        f.show();
+
+        if (ManageClassJInternalFrame.openFrame == true) {
+            ManageClassJInternalFrame.openFrame = false;
+            ManageClassJInternalFrame f = new ManageClassJInternalFrame(nd);
+            jDesktopPane1.add(f);
+            f.show();
+        } else {
+            JOptionPane.showMessageDialog(null, "Quản lý lớp đã mở rồi");
+        }
     }//GEN-LAST:event_jMenuLopMouseClicked
 
     private void jMenuConfigMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuConfigMouseClicked
         // TODO add your handling code here:
-        ConfigMeJInternalFrame f = new ConfigMeJInternalFrame(nd);
-        jDesktopPane1.add(f);
-        f.show();
+        if (ConfigMeJInternalFrame.openFrame == true) {
+            ConfigMeJInternalFrame.openFrame = false;
+            ConfigMeJInternalFrame f = new ConfigMeJInternalFrame(nd);
+            jDesktopPane1.add(f);
+            f.show();
+        } else {
+            JOptionPane.showMessageDialog(null, "Quản lý cấu hình đã mở rồi");
+        }
     }//GEN-LAST:event_jMenuConfigMouseClicked
 
     /**
@@ -154,7 +151,13 @@ public class MainJFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainJFrame().setVisible(true);
+                MainJFrame f = new MainJFrame();
+                Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+                //f.setSize(screenSize.width, 700);
+                f.setSize(screenSize.width, screenSize.height);
+                f.setLocationRelativeTo(null);
+                f.setVisible(true);
+                f.setResizable(false);
             }
         });
     }

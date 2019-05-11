@@ -1,6 +1,8 @@
 package gui;
 
 import dal.*;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -125,6 +127,8 @@ public class LoginJFrame extends javax.swing.JFrame {
                     //JOptionPane.showMessageDialog(null, "Đăng nhập thành công");
                     //ManageMainJFrame f = new ManageMainJFrame(nd);
                     MainJFrame f = new MainJFrame(nd);
+                    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+                    f.setSize(screenSize.width, screenSize.height);
                     f.setLocationRelativeTo(null);
                     f.setVisible(true);
                     this.setVisible(false);

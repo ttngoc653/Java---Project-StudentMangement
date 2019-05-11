@@ -8,6 +8,7 @@ package gui;
 import dal.CauHinhDAL;
 import dto.Cauhinh;
 import dto.Nguoidung;
+import static gui.ManageClassJInternalFrame.openFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -17,6 +18,8 @@ import javax.swing.table.DefaultTableModel;
  * @author tuhuy
  */
 public class ConfigMeJInternalFrame extends javax.swing.JInternalFrame {
+
+    public static Boolean openFrame = true;
 
     /**
      * Creates new form ConfigMeJInternalFrame
@@ -76,6 +79,23 @@ public class ConfigMeJInternalFrame extends javax.swing.JInternalFrame {
         btnQuayLai = new javax.swing.JButton();
 
         setClosable(true);
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosed(evt);
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -290,6 +310,12 @@ public class ConfigMeJInternalFrame extends javax.swing.JInternalFrame {
         f.setResizable(false);
         this.setVisible(false);
     }//GEN-LAST:event_btnQuayLaiActionPerformed
+
+    private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
+        // TODO add your handling code here:
+        //JOptionPane.showMessageDialog(null, "frame đã đóng");
+        openFrame = true;
+    }//GEN-LAST:event_formInternalFrameClosed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
