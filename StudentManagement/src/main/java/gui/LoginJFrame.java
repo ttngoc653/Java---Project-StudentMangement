@@ -125,10 +125,18 @@ public class LoginJFrame extends javax.swing.JFrame {
 
                 if (nd != null) {
                     //JOptionPane.showMessageDialog(null, "Đăng nhập thành công");
-                    //ManageMainJFrame f = new ManageMainJFrame(nd);
+//                    ManageMainJFrame f = new ManageMainJFrame(nd);
+//                    f.setLocationRelativeTo(null);
+//                    f.setVisible(true);
+//                    this.setVisible(false);
+
                     MainJFrame f = new MainJFrame(nd);
-                    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-                    f.setSize(screenSize.width, screenSize.height);
+//                    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+//                    //f.setSize(screenSize.width, screenSize.height);
+//                    f.setSize(screenSize.width, 730);
+                    Dimension DimMax = Toolkit.getDefaultToolkit().getScreenSize();
+                    f.setMaximumSize(DimMax);
+                    f.setExtendedState(JFrame.MAXIMIZED_BOTH);
                     f.setLocationRelativeTo(null);
                     f.setVisible(true);
                     this.setVisible(false);

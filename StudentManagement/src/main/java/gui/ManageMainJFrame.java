@@ -247,8 +247,8 @@ public class ManageMainJFrame extends javax.swing.JFrame {
     private void btnHocSinhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHocSinhActionPerformed
 
         ManageStudentJFrame f = new ManageStudentJFrame(nd);
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        f.setSize(screenSize.width, 700);
+//        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+//        f.setSize((screenSize.width - 50), 730);
         f.setLocationRelativeTo(null);
         f.setVisible(true);
         f.setResizable(false);
@@ -318,6 +318,9 @@ public class ManageMainJFrame extends javax.swing.JFrame {
             public void run() {
                 //new ManageMainJFrame().setVisible(true);
                 ManageMainJFrame f = new ManageMainJFrame();
+                Dimension DimMax = Toolkit.getDefaultToolkit().getScreenSize();
+                f.setMaximumSize(DimMax);
+                f.setExtendedState(JFrame.MAXIMIZED_BOTH);
                 f.setLocationRelativeTo(null);
                 f.setVisible(true);
                 f.setResizable(false);

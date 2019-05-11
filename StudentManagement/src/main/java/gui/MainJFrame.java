@@ -42,9 +42,16 @@ public class MainJFrame extends javax.swing.JFrame {
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        jMenuHocSinh = new javax.swing.JMenu();
+        jMenuItemQuanLyHocSinh = new javax.swing.JMenuItem();
+        jMenuItemXepLop = new javax.swing.JMenuItem();
         jMenuLop = new javax.swing.JMenu();
-        jMenuConfig = new javax.swing.JMenu();
+        jMenuItemQuanLyLop = new javax.swing.JMenuItem();
+        jMenuItemXemDanhSachLop = new javax.swing.JMenuItem();
+        jMenuDiem = new javax.swing.JMenu();
+        jMenu4 = new javax.swing.JMenu();
+        jMenuCauHinh = new javax.swing.JMenu();
+        jMenu5 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -62,24 +69,62 @@ public class MainJFrame extends javax.swing.JFrame {
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
+        jMenuHocSinh.setText("Học sinh");
+
+        jMenuItemQuanLyHocSinh.setText("Quản lý học sinh");
+        jMenuItemQuanLyHocSinh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemQuanLyHocSinhActionPerformed(evt);
+            }
+        });
+        jMenuHocSinh.add(jMenuItemQuanLyHocSinh);
+
+        jMenuItemXepLop.setText("Xếp lớp");
+        jMenuItemXepLop.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemXepLopActionPerformed(evt);
+            }
+        });
+        jMenuHocSinh.add(jMenuItemXepLop);
+
+        jMenuBar1.add(jMenuHocSinh);
 
         jMenuLop.setText("Lớp");
-        jMenuLop.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenuLopMouseClicked(evt);
+
+        jMenuItemQuanLyLop.setText("Quản lý lớp");
+        jMenuItemQuanLyLop.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemQuanLyLopActionPerformed(evt);
             }
         });
+        jMenuLop.add(jMenuItemQuanLyLop);
+
+        jMenuItemXemDanhSachLop.setText("Xem danh sách lớp");
+        jMenuItemXemDanhSachLop.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemXemDanhSachLopActionPerformed(evt);
+            }
+        });
+        jMenuLop.add(jMenuItemXemDanhSachLop);
+
         jMenuBar1.add(jMenuLop);
 
-        jMenuConfig.setText("Config");
-        jMenuConfig.addMouseListener(new java.awt.event.MouseAdapter() {
+        jMenuDiem.setText("Điểm");
+        jMenuBar1.add(jMenuDiem);
+
+        jMenu4.setText("Báo cáo");
+        jMenuBar1.add(jMenu4);
+
+        jMenuCauHinh.setText("Cấu hình");
+        jMenuCauHinh.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenuConfigMouseClicked(evt);
+                jMenuCauHinhMouseClicked(evt);
             }
         });
-        jMenuBar1.add(jMenuConfig);
+        jMenuBar1.add(jMenuCauHinh);
+
+        jMenu5.setText("Tài khoản");
+        jMenuBar1.add(jMenu5);
 
         setJMenuBar(jMenuBar1);
 
@@ -97,19 +142,7 @@ public class MainJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuLopMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuLopMouseClicked
-
-        if (ManageClassJInternalFrame.openFrame == true) {
-            ManageClassJInternalFrame.openFrame = false;
-            ManageClassJInternalFrame f = new ManageClassJInternalFrame(nd);
-            jDesktopPane1.add(f);
-            f.show();
-        } else {
-            JOptionPane.showMessageDialog(null, "Quản lý lớp đã mở rồi");
-        }
-    }//GEN-LAST:event_jMenuLopMouseClicked
-
-    private void jMenuConfigMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuConfigMouseClicked
+    private void jMenuCauHinhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuCauHinhMouseClicked
         // TODO add your handling code here:
         if (ConfigMeJInternalFrame.openFrame == true) {
             ConfigMeJInternalFrame.openFrame = false;
@@ -117,9 +150,59 @@ public class MainJFrame extends javax.swing.JFrame {
             jDesktopPane1.add(f);
             f.show();
         } else {
-            JOptionPane.showMessageDialog(null, "Quản lý cấu hình đã mở rồi");
+            JOptionPane.showMessageDialog(null, "Màn hình quản lý cấu hình đã mở rồi");
         }
-    }//GEN-LAST:event_jMenuConfigMouseClicked
+    }//GEN-LAST:event_jMenuCauHinhMouseClicked
+
+    private void jMenuItemQuanLyHocSinhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemQuanLyHocSinhActionPerformed
+        // TODO add your handling code here:
+        if (ManageStudentJInternalFrame.openFrame == true) {
+            ManageStudentJInternalFrame.openFrame = false;
+            ManageStudentJInternalFrame f = new ManageStudentJInternalFrame(nd);
+            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+            f.setSize(screenSize.width, 670);
+            jDesktopPane1.add(f);
+            f.show();
+        } else {
+            JOptionPane.showMessageDialog(null, "Màn hình quản lý học sinh đã mở rồi");
+        }
+    }//GEN-LAST:event_jMenuItemQuanLyHocSinhActionPerformed
+
+    private void jMenuItemXepLopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemXepLopActionPerformed
+        // TODO add your handling code here:
+        if (ManageClassArrangeJInternalFrame.openFrame == true) {
+            ManageClassArrangeJInternalFrame.openFrame = false;
+            ManageClassArrangeJInternalFrame f = new ManageClassArrangeJInternalFrame(nd);
+            jDesktopPane1.add(f);
+            f.show();
+        } else {
+            JOptionPane.showMessageDialog(null, "Màn hình xếp lớp đã mở rồi");
+        }
+    }//GEN-LAST:event_jMenuItemXepLopActionPerformed
+
+    private void jMenuItemQuanLyLopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemQuanLyLopActionPerformed
+        // TODO add your handling code here:
+        if (ManageClassJInternalFrame.openFrame == true) {
+            ManageClassJInternalFrame.openFrame = false;
+            ManageClassJInternalFrame f = new ManageClassJInternalFrame(nd);
+            jDesktopPane1.add(f);
+            f.show();
+        } else {
+            JOptionPane.showMessageDialog(null, "Màn hình quản lý lớp đã mở rồi");
+        }
+    }//GEN-LAST:event_jMenuItemQuanLyLopActionPerformed
+
+    private void jMenuItemXemDanhSachLopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemXemDanhSachLopActionPerformed
+        // TODO add your handling code here:
+        if (ShowListClassJInternalFrame.openFrame == true) {
+            ShowListClassJInternalFrame.openFrame = false;
+            ShowListClassJInternalFrame f = new ShowListClassJInternalFrame(nd);
+            jDesktopPane1.add(f);
+            f.show();
+        } else {
+            JOptionPane.showMessageDialog(null, "Màn hình xem danh sách lớp đã mở rồi");
+        }
+    }//GEN-LAST:event_jMenuItemXemDanhSachLopActionPerformed
 
     /**
      * @param args the command line arguments
@@ -153,8 +236,8 @@ public class MainJFrame extends javax.swing.JFrame {
             public void run() {
                 MainJFrame f = new MainJFrame();
                 Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-                //f.setSize(screenSize.width, 700);
-                f.setSize(screenSize.width, screenSize.height);
+                f.setSize(screenSize.width, 730);
+                //f.setSize(screenSize.width, screenSize.height);
                 f.setLocationRelativeTo(null);
                 f.setVisible(true);
                 f.setResizable(false);
@@ -163,11 +246,18 @@ public class MainJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane jDesktopPane1;
+    public static javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenu jMenuConfig;
+    private javax.swing.JMenu jMenuCauHinh;
+    private javax.swing.JMenu jMenuDiem;
+    private javax.swing.JMenu jMenuHocSinh;
+    private javax.swing.JMenuItem jMenuItemQuanLyHocSinh;
+    private javax.swing.JMenuItem jMenuItemQuanLyLop;
+    private javax.swing.JMenuItem jMenuItemXemDanhSachLop;
+    private javax.swing.JMenuItem jMenuItemXepLop;
     private javax.swing.JMenu jMenuLop;
     // End of variables declaration//GEN-END:variables
 }
