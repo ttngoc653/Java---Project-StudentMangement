@@ -1,4 +1,4 @@
-package gui;
+package guiJInternalFrame;
 
 import static bll.HocsinhLopHocBLL.checkMaximumStudentInClass;
 import static bll.HocsinhLopHocBLL.findStudentByNamHoc;

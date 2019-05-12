@@ -1,4 +1,4 @@
-package gui;
+package guiJInternalFrame;
 
 import dal.HocsinhDAL;
 import dal.HocsinhLophocDAL;
@@ -9,7 +9,7 @@ import dto.HocsinhLophoc;
 import dto.Lop;
 import dto.Namhoc;
 import dto.Nguoidung;
-import static gui.MainJFrame.jDesktopPane1;
+import static guiJInternalFrame.MainJFrame.jDesktopPane1;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;

@@ -1,10 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package gui;
+package guiJInternalFrame;
 
+import guiJInternalFrame.ShowListClassJInternalFrame;
+import guiJInternalFrame.ManageStudentJInternalFrame;
+import guiJInternalFrame.ManageClassJInternalFrame;
+import guiJInternalFrame.ManageClassArrangeJInternalFrame;
+import guiJInternalFrame.ConfigMeJInternalFrame;
 import dto.Nguoidung;
 import java.awt.Dimension;
 import java.awt.Toolkit;

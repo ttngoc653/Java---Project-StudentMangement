@@ -237,31 +237,46 @@ public class ManageMainJFrame extends javax.swing.JFrame {
 
     private void btnLopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLopActionPerformed
 
-        ManageClassJFrame f = new ManageClassJFrame(nd);
-        f.setLocationRelativeTo(null);
-        f.setVisible(true);
-        f.setResizable(false);
-        this.setVisible(false);
+        if (ManageClassJFrame.openFrame == true) {
+            ManageClassJFrame.openFrame = false;
+            ManageClassJFrame f = new ManageClassJFrame(nd);
+            f.setLocationRelativeTo(null);
+            f.setVisible(true);
+            f.setResizable(false);
+            //this.setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(null, "Màn hình quản lý lớp đã mở rồi");
+        }
     }//GEN-LAST:event_btnLopActionPerformed
 
     private void btnHocSinhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHocSinhActionPerformed
 
-        ManageStudentJFrame f = new ManageStudentJFrame(nd);
-//        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-//        f.setSize((screenSize.width - 50), 730);
-        f.setLocationRelativeTo(null);
-        f.setVisible(true);
-        f.setResizable(false);
-        this.setVisible(false);
+        if (ManageStudentJFrame.openFrame == true) {
+            ManageStudentJFrame.openFrame = false;
+            ManageStudentJFrame f = new ManageStudentJFrame(nd);
+            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+            f.setSize((screenSize.width), 700);
+            f.setLocationRelativeTo(null);
+            f.setVisible(true);
+            f.setResizable(false);
+            //this.setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(null, "Màn hình quản lý học sinh đã mở rồi");
+        }
     }//GEN-LAST:event_btnHocSinhActionPerformed
 
     private void btnCauHinhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCauHinhActionPerformed
-        // TODO add your handling code here:
-        ConfigMeJFrame f = new ConfigMeJFrame(nd);
-        f.setLocationRelativeTo(null);
-        f.setVisible(true);
-        f.setResizable(false);
-        this.setVisible(false);
+
+        if (ConfigMeJFrame.openFrame == true) {
+            ConfigMeJFrame.openFrame = false;
+            ConfigMeJFrame f = new ConfigMeJFrame(nd);
+            f.setLocationRelativeTo(null);
+            f.setVisible(true);
+            f.setResizable(false);
+            //this.setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(null, "Màn hình quản lý cấu hình đã mở rồi");
+        }
     }//GEN-LAST:event_btnCauHinhActionPerformed
 
     private void lblDangXuatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDangXuatMouseClicked
@@ -318,9 +333,6 @@ public class ManageMainJFrame extends javax.swing.JFrame {
             public void run() {
                 //new ManageMainJFrame().setVisible(true);
                 ManageMainJFrame f = new ManageMainJFrame();
-                Dimension DimMax = Toolkit.getDefaultToolkit().getScreenSize();
-                f.setMaximumSize(DimMax);
-                f.setExtendedState(JFrame.MAXIMIZED_BOTH);
                 f.setLocationRelativeTo(null);
                 f.setVisible(true);
                 f.setResizable(false);

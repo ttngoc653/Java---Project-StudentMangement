@@ -16,6 +16,7 @@ import java.util.List;
  */
 public class ManageStudentJFrame extends javax.swing.JFrame {
 
+    public static Boolean openFrame = true;
     HocsinhDAL hsDao = new HocsinhDAL();
     DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
     //int TuoiToiDa = 20, TuoiToiThieu = 15;
@@ -58,12 +59,11 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
         dtm.addColumn("Địa chỉ");
         dtm.addColumn("SĐT cá nhân");
         dtm.addColumn("SĐT giám hộ");
-        dtm.addColumn("Tình trạng");
+        //dtm.addColumn("Tình trạng");
 
         for (Hocsinh hs : new HocsinhDAL().getAll()) {
             dtm.addRow(new Object[]{hs.getIdHocSinh(), hs.getHoTen(), hs.getNgaySinh(), hs.getEmail(),
-                hs.getGioiTinh(), hs.getDiaChi(), hs.getSdtCaNhan(), hs.getSdtGiamHo(),
-                hs.getTinhTrang()});
+                hs.getGioiTinh(), hs.getDiaChi(), hs.getSdtCaNhan(), hs.getSdtGiamHo()});
         }
 
         this.jTableHocSinh.setModel(dtm);
@@ -76,7 +76,7 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
         this.jTableHocSinh.getColumnModel().getColumn(5).setPreferredWidth(200); //Địa chỉ
         this.jTableHocSinh.getColumnModel().getColumn(6).setPreferredWidth(100); //SĐT cá nhân
         this.jTableHocSinh.getColumnModel().getColumn(7).setPreferredWidth(100); //SĐT giám hộ
-        this.jTableHocSinh.getColumnModel().getColumn(8).setPreferredWidth(100); //Tình trạng
+        //this.jTableHocSinh.getColumnModel().getColumn(8).setPreferredWidth(100); //Tình trạng
 
         this.jTableHocSinh.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
     }
@@ -120,7 +120,6 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
         btnThem = new javax.swing.JButton();
         btnSua = new javax.swing.JButton();
         btnXoa = new javax.swing.JButton();
-        btnQuayLai = new javax.swing.JButton();
         btnXepLop = new javax.swing.JButton();
         lblTenTaiKhoan = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -131,18 +130,23 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
         buttonGroup2.add(rbNam);
         buttonGroup2.add(rbNu);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Quản lý học sinh");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jTableHocSinh.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "MSHS", "Họ tên", "Ngày sinh", "Email", "Giới tính", "Địa chỉ", "SĐT cá nhân", "SĐT giám hộ", "Tình trạng"
+                "MSHS", "Họ tên", "Ngày sinh", "Email", "Giới tính", "Địa chỉ", "SĐT cá nhân", "SĐT giám hộ"
             }
         ));
         jTableHocSinh.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
@@ -330,13 +334,6 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
             }
         });
 
-        btnQuayLai.setText("Quay lại");
-        btnQuayLai.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnQuayLaiActionPerformed(evt);
-            }
-        });
-
         btnXepLop.setText("Xếp lớp");
         btnXepLop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -385,8 +382,7 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 8, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnQuayLai)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(lblTenTaiKhoan))
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
@@ -396,9 +392,7 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTenTaiKhoan)
-                    .addComponent(btnQuayLai))
+                .addComponent(lblTenTaiKhoan)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -419,15 +413,6 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnQuayLaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuayLaiActionPerformed
-
-        ManageMainJFrame f = new ManageMainJFrame(nd);
-        f.setLocationRelativeTo(null);
-        f.setVisible(true);
-        f.setResizable(false);
-        this.setVisible(false);
-    }//GEN-LAST:event_btnQuayLaiActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
 
@@ -499,11 +484,18 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
 
     private void btnXepLopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXepLopActionPerformed
 
-        ManageClassArrangeJFrame f = new ManageClassArrangeJFrame(nd);
-        f.setLocationRelativeTo(null);
-        f.setVisible(true);
-        f.setResizable(false);
-        this.setVisible(false);
+        if (ManageClassArrangeJFrame.openFrame == true) {
+            ManageClassArrangeJFrame.openFrame = false;
+            ManageClassArrangeJFrame f = new ManageClassArrangeJFrame(nd);
+            f.setLocationRelativeTo(null);
+            f.setVisible(true);
+            f.setResizable(false);
+            this.setVisible(false);
+            this.openFrame = true;
+        } else {
+            this.setVisible(false);
+            this.openFrame = true;
+        }
     }//GEN-LAST:event_btnXepLopActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -671,12 +663,11 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
                 dtm.addColumn("Địa chỉ");
                 dtm.addColumn("SĐT cá nhân");
                 dtm.addColumn("SĐT giám hộ");
-                dtm.addColumn("Tình trạng");
+                //dtm.addColumn("Tình trạng");
 
                 for (Hocsinh hs : lHs) {
                     dtm.addRow(new Object[]{hs.getIdHocSinh(), hs.getHoTen(), hs.getNgaySinh(), hs.getEmail(),
-                        hs.getGioiTinh(), hs.getDiaChi(), hs.getSdtCaNhan(), hs.getSdtGiamHo(),
-                        hs.getTinhTrang()});
+                        hs.getGioiTinh(), hs.getDiaChi(), hs.getSdtCaNhan(), hs.getSdtGiamHo()});
                 }
 
                 this.jTableHocSinh.setModel(dtm);
@@ -689,13 +680,18 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
                 this.jTableHocSinh.getColumnModel().getColumn(5).setPreferredWidth(200); //Địa chỉ
                 this.jTableHocSinh.getColumnModel().getColumn(6).setPreferredWidth(100); //SĐT cá nhân
                 this.jTableHocSinh.getColumnModel().getColumn(7).setPreferredWidth(100); //SĐT giám hộ
-                this.jTableHocSinh.getColumnModel().getColumn(8).setPreferredWidth(100); //Tình trạng
+                //this.jTableHocSinh.getColumnModel().getColumn(8).setPreferredWidth(100); //Tình trạng
 
                 this.jTableHocSinh.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
             }
         }
 
     }//GEN-LAST:event_btnTimActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+        openFrame = true;
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments
@@ -751,7 +747,6 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnQuayLai;
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnTim;

@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gui;
+package guiJInternalFrame;
 
 import dal.LopDAL;
 import dto.Lop;
 import dto.Nguoidung;
-import static gui.MainJFrame.jDesktopPane1;
+import static guiJInternalFrame.MainJFrame.jDesktopPane1;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;

@@ -23,6 +23,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ShowListClassJFrame extends javax.swing.JFrame {
 
+    public static Boolean openFrame = true;
+
     /**
      * Creates new form ShowClassList
      */
@@ -76,9 +78,14 @@ public class ShowListClassJFrame extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         btnQuayLai = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Danh sách lớp");
         setPreferredSize(new java.awt.Dimension(900, 440));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jLabel2.setText("Tên lớp:");
 
@@ -264,13 +271,26 @@ public class ShowListClassJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnXemActionPerformed
 
     private void btnQuayLaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuayLaiActionPerformed
-        // TODO add your handling code here:
-        ManageClassJFrame f = new ManageClassJFrame(nd);
-        f.setLocationRelativeTo(null);
-        f.setVisible(true);
-        f.setResizable(false);
-        this.setVisible(false);
+        // TODO add your handling code here:  
+        if (ManageClassJFrame.openFrame == true) {
+            ManageClassJFrame.openFrame = false;
+            ManageClassJFrame f = new ManageClassJFrame(nd);
+            f.setLocationRelativeTo(null);
+            f.setVisible(true);
+            f.setResizable(false);
+            this.setVisible(false);
+            this.openFrame = true;
+        } else {
+            //JOptionPane.showMessageDialog(null, "Màn hình quản lý lớp đã mở rồi");
+            this.setVisible(false);
+            this.openFrame = true;
+        }
     }//GEN-LAST:event_btnQuayLaiActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+        openFrame = true;
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments

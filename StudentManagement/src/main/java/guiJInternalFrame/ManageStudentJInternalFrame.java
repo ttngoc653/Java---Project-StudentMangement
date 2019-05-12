@@ -1,4 +1,4 @@
-package gui;
+package guiJInternalFrame;
 
 import static bll.HelperBLL.checkEmail;
 import static bll.HocsinhBLL.checkAge;

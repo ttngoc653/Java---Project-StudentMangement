@@ -15,6 +15,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ManageClassArrangeJFrame extends javax.swing.JFrame {
 
+    public static Boolean openFrame = true;
+
     //int SiSoToiDa = 2;
     /**
      * Creates new form ArrangeClassJFrame
@@ -96,6 +98,11 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Quản lý xếp lớp");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jLabel1.setText("ID:");
 
@@ -254,17 +261,6 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnQuayLaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuayLaiActionPerformed
-
-        ManageStudentJFrame f = new ManageStudentJFrame(nd);
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        f.setSize(screenSize.width, 700);
-        f.setLocationRelativeTo(null);
-        f.setVisible(true);
-        f.setResizable(false);
-        this.setVisible(false);
-    }//GEN-LAST:event_btnQuayLaiActionPerformed
-
     private void jTableXepLopMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableXepLopMouseClicked
 
         String stt = this.jTableXepLop.getValueAt(this.jTableXepLop.getSelectedRow(), 0).toString();
@@ -340,8 +336,32 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_btnSuaActionPerformed
+
+    private void btnQuayLaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuayLaiActionPerformed
+
+        if (ManageStudentJFrame.openFrame == true) {
+            ManageStudentJFrame.openFrame = false;
+            ManageStudentJFrame f = new ManageStudentJFrame(nd);
+            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+            f.setSize(screenSize.width, 700);
+            f.setLocationRelativeTo(null);
+            f.setVisible(true);
+            f.setResizable(false);
+            this.setVisible(false);
+            this.openFrame = true;
+        } else {
+            //JOptionPane.showMessageDialog(null, "Màn hình quản lý lớp đã mở rồi");
+            this.setVisible(false);
+            this.openFrame = true;
+        }
+    }//GEN-LAST:event_btnQuayLaiActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+        openFrame = true;
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments
