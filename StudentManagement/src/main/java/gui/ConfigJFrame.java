@@ -5,6 +5,9 @@
  */
 package gui;
 
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
 /**
  *
  * @author tuhuy
@@ -15,6 +18,22 @@ public class ConfigJFrame extends javax.swing.JFrame {
      * Creates new form ConfigJFrame
      */
     public ConfigJFrame() {
+        try {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+            ex.printStackTrace();
+        }
+       /* try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("CDE/Motif".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(ConfigJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
+
         initComponents();
     }
 
@@ -27,56 +46,51 @@ public class ConfigJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        newJPanel31 = new guiConfig.ConfigAgeJPanel();
-        jTabbedPane8 = new javax.swing.JTabbedPane();
-        jTabbedPane10 = new javax.swing.JTabbedPane();
-        newJPanel32 = new guiConfig.ConfigAgeJPanel();
-        jTabbedPane4 = new javax.swing.JTabbedPane();
-        jPanel2 = new javax.swing.JPanel();
-        newJPanel12 = new guiConfig.ConfigAgeJPanel();
-        newJPanel21 = new guiConfig.ConfigClassJPanel();
-        newJPanel33 = new guiConfig.ConfigSubjectJPanel();
-        configScoreJPanel4 = new guiConfig.ConfigScoreJPanel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        configAgeJPanel2 = new gui.guiConfig.ConfigAgeJPanel();
+        configClassJPanel2 = new gui.guiConfig.ConfigClassJPanel();
+        configScoreJPanel1 = new gui.guiConfig.ConfigScoreJPanel();
+        configSubjectJPanel1 = new gui.guiConfig.ConfigSubjectJPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Quản lý cấu hình");
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                formComponentResized(evt);
+            }
+        });
 
-        jTabbedPane4.setMinimumSize(new java.awt.Dimension(80, 600));
-        jTabbedPane4.setPreferredSize(new java.awt.Dimension(800, 600));
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(newJPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(newJPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-
-        jTabbedPane4.addTab("Quy định tuổi", jPanel2);
-        jTabbedPane4.addTab("Quy định lớp", newJPanel21);
-        jTabbedPane4.addTab("Quản lý môn học", newJPanel33);
-        jTabbedPane4.addTab("Quản lý điểm chuẩn", configScoreJPanel4);
+        jTabbedPane1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jTabbedPane1StateChanged(evt);
+            }
+        });
+        jTabbedPane1.addTab("Độ tuổi", configAgeJPanel2);
+        jTabbedPane1.addTab("Sĩ số và số lớp", configClassJPanel2);
+        jTabbedPane1.addTab("Điểm chuẩn", configScoreJPanel1);
+        jTabbedPane1.addTab("Môn học", configSubjectJPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 619, javax.swing.GroupLayout.PREFERRED_SIZE)
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.LEADING)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
+        System.out.println("Resize: " + getSize().toString());
+    }//GEN-LAST:event_formComponentResized
+
+    private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
+       
+    }//GEN-LAST:event_jTabbedPane1StateChanged
 
     /**
      * @param args the command line arguments
@@ -94,15 +108,11 @@ public class ConfigJFrame extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ConfigJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ConfigJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ConfigJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(ConfigJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+
         //</editor-fold>
 
         /* Create and display the form */
@@ -114,15 +124,10 @@ public class ConfigJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private guiConfig.ConfigScoreJPanel configScoreJPanel4;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JTabbedPane jTabbedPane10;
-    private javax.swing.JTabbedPane jTabbedPane4;
-    private javax.swing.JTabbedPane jTabbedPane8;
-    private guiConfig.ConfigAgeJPanel newJPanel12;
-    private guiConfig.ConfigClassJPanel newJPanel21;
-    private guiConfig.ConfigAgeJPanel newJPanel31;
-    private guiConfig.ConfigAgeJPanel newJPanel32;
-    private guiConfig.ConfigSubjectJPanel newJPanel33;
+    private gui.guiConfig.ConfigAgeJPanel configAgeJPanel2;
+    private gui.guiConfig.ConfigClassJPanel configClassJPanel2;
+    private gui.guiConfig.ConfigScoreJPanel configScoreJPanel1;
+    private gui.guiConfig.ConfigSubjectJPanel configSubjectJPanel1;
+    private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables
 }

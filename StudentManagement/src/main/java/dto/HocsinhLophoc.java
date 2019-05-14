@@ -1,5 +1,5 @@
 package dto;
-// Generated Apr 21, 2019 1:19:18 AM by Hibernate Tools 4.3.1
+// Generated Apr 28, 2019 12:28:32 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -26,6 +26,7 @@ import javax.persistence.UniqueConstraint;
 )
 public class HocsinhLophoc  implements java.io.Serializable {
 
+
      private HocsinhLophocId id;
      private Hocsinh hocsinh;
      private Lop lop;
@@ -41,6 +42,7 @@ public class HocsinhLophoc  implements java.io.Serializable {
         this.lop = lop;
         this.namhoc = namhoc;
     }
+
 	
     public HocsinhLophoc(HocsinhLophocId id, Hocsinh hocsinh, Lop lop, Namhoc namhoc, int idHocSinhLopHoc) {
         this.id = id;
@@ -49,7 +51,6 @@ public class HocsinhLophoc  implements java.io.Serializable {
         this.namhoc = namhoc;
         this.idHocSinhLopHoc = idHocSinhLopHoc;
     }
-
     public HocsinhLophoc(HocsinhLophocId id, Hocsinh hocsinh, Lop lop, Namhoc namhoc, int idHocSinhLopHoc, Set<Diem> diems) {
        this.id = id;
        this.hocsinh = hocsinh;

@@ -1,5 +1,5 @@
 package dto;
-// Generated Apr 21, 2019 1:19:18 AM by Hibernate Tools 4.3.1
+// Generated Apr 28, 2019 12:28:32 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -81,8 +81,8 @@ public class Diem  implements java.io.Serializable {
 @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumns( { 
         @JoinColumn(name="idHocSinh", referencedColumnName="idHocSinh", nullable=false), 
-        @JoinColumn(name="idNamHoc", referencedColumnName="idLopHoc", nullable=false), 
-        @JoinColumn(name="idLop", referencedColumnName="idNamHoc", nullable=false) } )
+        @JoinColumn(name="idNamHoc", referencedColumnName="idNamHoc", nullable=false), 
+        @JoinColumn(name="idLop", referencedColumnName="idLopHoc", nullable=false) } )
     public HocsinhLophoc getHocsinhLophoc() {
         return this.hocsinhLophoc;
     }

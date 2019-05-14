@@ -126,14 +126,13 @@ public class MonhocDAL {
     }
 
     public Monhoc getByTen(String ten) {
-        Monhoc n = null;
-        try {
+       try{
             tst = session.beginTransaction();
             Query q = session.createQuery("from Monhoc as t "
                     + "left join fetch t.diems "
                     + "where t.tenMh = :ten");
             q.setParameter("ten", ten);
-            n = (Monhoc) q.uniqueResult();
+            list= q.list();
             tst.commit();
         } catch (Exception e) {
             if (tst != null) {
@@ -141,6 +140,24 @@ public class MonhocDAL {
             }
             e.printStackTrace();
         }
-        return n;
+       return list.size()>0?list.get(0):null;
+    }
+    
+    public List<Monhoc> getByTinhTrang(boolean GiangDay) {
+        try {
+            tst = session.beginTransaction();
+            Query q = session.createQuery("from Monhoc as t "
+                    + "left join fetch t.diems "
+                    + "where t.dangGiangDay = :check");
+            q.setParameter("check", GiangDay);
+            list=q.list();
+            tst.commit();
+        } catch (Exception e) {
+            if (tst != null) {
+                tst.rollback();
+            }
+            e.printStackTrace();
+        }
+        return list;
     }
 }

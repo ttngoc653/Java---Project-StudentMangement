@@ -5,18 +5,11 @@
  */
 package bll;
 
-import dal.HocsinhDAL;
 import dal.HocsinhLophocDAL;
 import dal.LopDAL;
 import dal.NamhocDAL;
-import dto.Hocsinh;
-import dto.HocsinhLophoc;
-import dto.HocsinhLophocId;
 import dto.Lop;
 import dto.Namhoc;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -39,7 +32,11 @@ public class HocsinhLopHocBLL {
     /*
     Kiểm tra sỉ sổ lớp
      */
-    public static boolean checkMaximumStudentInClass(Namhoc namhoc, Lop lop, int SiSoToiDa) {
+    public static boolean checkMaximumStudentInClass(int idNamHoc, int idLop, int SiSoToiTa) {
+
+        Namhoc namhoc = new NamhocDAL().getById(idNamHoc);
+        Lop lop = new LopDAL().getById(idLop);
+        //int Size = new HocsinhLophocDAL().getByNamHocLop(a, b).size();
 
         int Size = new HocsinhLophocDAL().getByNamHocLop(namhoc, lop).size();
         if (Size == SiSoToiDa) {

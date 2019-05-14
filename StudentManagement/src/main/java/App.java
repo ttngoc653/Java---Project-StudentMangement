@@ -23,8 +23,12 @@ public class App {
         if (hsN != null) {
             System.out.println(hsN.getIdHocSinh() + " " + hsN.getHoTen() + " " + hsN.getEmail() + " " + hsN.getGioiTinh());
         }*/
-        HocsinhLophoc hsg= new HocsinhLophocDAL().getById(8);
-        System.out.println(hsg.getId().toString());
-        new bll.ReportBLL().returnReport();
+        
+        //new gui.EditUserFrame(22).setVisible(true);
+       // List<HocsinhLophoc> lHsLh=new dal.HocsinhLophocDAL().getByNamHocLop(new dal.NamhocDAL().getByTen("2018-2019"), new dal.LopDAL().getByTen("10A1"));
+       // System.out.println("Size: "+lHsLh.size());
+       List<Diem> list=new dal.DiemDAL().getAll();
+        for (Diem list1 : list) {
+        }
     }
 }

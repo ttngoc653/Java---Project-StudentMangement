@@ -115,7 +115,11 @@ public class CauHinhDAL {
         Cauhinh hs = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Cauhinh as ch left join fetch ch.chitietCauhinhHocsinhs left join fetch ch.chitietCauhinhLops left join fetch ch.chitietCauhinhDiems  where ch.idCauHinh = :id");
+            Query q = session.createQuery("from Cauhinh as ch "
+                    + "left join fetch ch.chitietCauhinhHocsinhs "
+                    + "left join fetch ch.chitietCauhinhLops "
+                    + "left join fetch ch.chitietCauhinhDiems  "
+                    + "where ch.idCauHinh = :id");
             q.setParameter("id", idCauHinh);
             hs = (Cauhinh) q.uniqueResult();
             tst.commit();
@@ -149,7 +153,11 @@ public class CauHinhDAL {
         Cauhinh hs = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Cauhinh as ch where ch.tenThuocTinh like :name");
+            Query q = session.createQuery("from Cauhinh  as ch "
+                    + "left join fetch ch.chitietCauhinhHocsinhs "
+                    + "left join fetch ch.chitietCauhinhLops "
+                    + "left join fetch ch.chitietCauhinhDiems  "
+                    + "where ch.tenCauHinh like ':name'");
             q.setParameter("name", name);
             hs = (Cauhinh) q.uniqueResult();
             tst.commit();
