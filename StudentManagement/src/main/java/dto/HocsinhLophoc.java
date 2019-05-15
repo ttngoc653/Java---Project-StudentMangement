@@ -1,15 +1,15 @@
 package dto;
-// Generated Apr 28, 2019 12:28:32 PM by Hibernate Tools 4.3.1
+// Generated May 16, 2019 1:50:36 AM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -22,61 +22,47 @@ import javax.persistence.UniqueConstraint;
 @Entity
 @Table(name="hocsinh_lophoc"
     ,catalog="quanlyhocsinh"
-    , uniqueConstraints = {@UniqueConstraint(columnNames={"idHocSinh", "idNamHoc"}), @UniqueConstraint(columnNames="idHocSinhLopHoc")} 
+    , uniqueConstraints = @UniqueConstraint(columnNames={"idHocSinh", "idNamHoc"}) 
 )
 public class HocsinhLophoc  implements java.io.Serializable {
 
 
-     private HocsinhLophocId id;
+     private Integer idHocSinhLopHoc;
      private Hocsinh hocsinh;
      private Lop lop;
      private Namhoc namhoc;
-     private int idHocSinhLopHoc;
      private Set<Diem> diems = new HashSet<Diem>(0);
 
     public HocsinhLophoc() {
     }
-    public HocsinhLophoc(HocsinhLophocId id, Hocsinh hocsinh, Lop lop, Namhoc namhoc) {
-        this.id = id;
-        this.hocsinh = hocsinh;
-        this.lop = lop;
-        this.namhoc = namhoc;
-    }
 
 	
-    public HocsinhLophoc(HocsinhLophocId id, Hocsinh hocsinh, Lop lop, Namhoc namhoc, int idHocSinhLopHoc) {
-        this.id = id;
+    public HocsinhLophoc(Hocsinh hocsinh, Lop lop, Namhoc namhoc) {
         this.hocsinh = hocsinh;
         this.lop = lop;
         this.namhoc = namhoc;
-        this.idHocSinhLopHoc = idHocSinhLopHoc;
     }
-    public HocsinhLophoc(HocsinhLophocId id, Hocsinh hocsinh, Lop lop, Namhoc namhoc, int idHocSinhLopHoc, Set<Diem> diems) {
-       this.id = id;
+    public HocsinhLophoc(Hocsinh hocsinh, Lop lop, Namhoc namhoc, Set<Diem> diems) {
        this.hocsinh = hocsinh;
        this.lop = lop;
        this.namhoc = namhoc;
-       this.idHocSinhLopHoc = idHocSinhLopHoc;
        this.diems = diems;
     }
    
-     @EmbeddedId
+     @Id @GeneratedValue(strategy=IDENTITY)
 
     
-    @AttributeOverrides( {
-        @AttributeOverride(name="idHocSinh", column=@Column(name="idHocSinh", nullable=false) ), 
-        @AttributeOverride(name="idLopHoc", column=@Column(name="idLopHoc", nullable=false) ), 
-        @AttributeOverride(name="idNamHoc", column=@Column(name="idNamHoc", nullable=false) ) } )
-    public HocsinhLophocId getId() {
-        return this.id;
+    @Column(name="idHocSinhLopHoc", unique=true, nullable=false)
+    public Integer getIdHocSinhLopHoc() {
+        return this.idHocSinhLopHoc;
     }
     
-    public void setId(HocsinhLophocId id) {
-        this.id = id;
+    public void setIdHocSinhLopHoc(Integer idHocSinhLopHoc) {
+        this.idHocSinhLopHoc = idHocSinhLopHoc;
     }
 
 @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="idHocSinh", nullable=false, insertable=false, updatable=false)
+    @JoinColumn(name="idHocSinh", nullable=false)
     public Hocsinh getHocsinh() {
         return this.hocsinh;
     }
@@ -86,7 +72,7 @@ public class HocsinhLophoc  implements java.io.Serializable {
     }
 
 @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="idLopHoc", nullable=false, insertable=false, updatable=false)
+    @JoinColumn(name="idLopHoc", nullable=false)
     public Lop getLop() {
         return this.lop;
     }
@@ -96,23 +82,13 @@ public class HocsinhLophoc  implements java.io.Serializable {
     }
 
 @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="idNamHoc", nullable=false, insertable=false, updatable=false)
+    @JoinColumn(name="idNamHoc", nullable=false)
     public Namhoc getNamhoc() {
         return this.namhoc;
     }
     
     public void setNamhoc(Namhoc namhoc) {
         this.namhoc = namhoc;
-    }
-
-    
-    @Column(name="idHocSinhLopHoc", unique=true, nullable=false)
-    public int getIdHocSinhLopHoc() {
-        return this.idHocSinhLopHoc;
-    }
-    
-    public void setIdHocSinhLopHoc(int idHocSinhLopHoc) {
-        this.idHocSinhLopHoc = idHocSinhLopHoc;
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="hocsinhLophoc")

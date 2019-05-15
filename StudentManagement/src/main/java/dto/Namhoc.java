@@ -1,5 +1,5 @@
 package dto;
-// Generated Apr 28, 2019 12:28:32 PM by Hibernate Tools 4.3.1
+// Generated May 16, 2019 1:50:36 AM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -28,7 +28,6 @@ public class Namhoc  implements java.io.Serializable {
      private Integer idNamHoc;
      private String tenNamHoc;
      private Set<HocsinhLophoc> hocsinhLophocs = new HashSet<HocsinhLophoc>(0);
-     private Set<ChitietCauhinhLop> chitietCauhinhLops = new HashSet<ChitietCauhinhLop>(0);
 
     public Namhoc() {
     }
@@ -37,10 +36,9 @@ public class Namhoc  implements java.io.Serializable {
     public Namhoc(String tenNamHoc) {
         this.tenNamHoc = tenNamHoc;
     }
-    public Namhoc(String tenNamHoc, Set<HocsinhLophoc> hocsinhLophocs, Set<ChitietCauhinhLop> chitietCauhinhLops) {
+    public Namhoc(String tenNamHoc, Set<HocsinhLophoc> hocsinhLophocs) {
        this.tenNamHoc = tenNamHoc;
        this.hocsinhLophocs = hocsinhLophocs;
-       this.chitietCauhinhLops = chitietCauhinhLops;
     }
    
      @Id @GeneratedValue(strategy=IDENTITY)
@@ -72,15 +70,6 @@ public class Namhoc  implements java.io.Serializable {
     
     public void setHocsinhLophocs(Set<HocsinhLophoc> hocsinhLophocs) {
         this.hocsinhLophocs = hocsinhLophocs;
-    }
-
-@OneToMany(fetch=FetchType.LAZY, mappedBy="namhoc")
-    public Set<ChitietCauhinhLop> getChitietCauhinhLops() {
-        return this.chitietCauhinhLops;
-    }
-    
-    public void setChitietCauhinhLops(Set<ChitietCauhinhLop> chitietCauhinhLops) {
-        this.chitietCauhinhLops = chitietCauhinhLops;
     }
 
 

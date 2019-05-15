@@ -1,5 +1,5 @@
 package dto;
-// Generated Apr 28, 2019 12:28:32 PM by Hibernate Tools 4.3.1
+// Generated May 16, 2019 1:50:36 AM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -11,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -23,7 +22,7 @@ import javax.persistence.UniqueConstraint;
 @Entity
 @Table(name="diem"
     ,catalog="quanlyhocsinh"
-    , uniqueConstraints = @UniqueConstraint(columnNames={"idHocSinh", "idNamHoc", "idHocKy", "idMonHoc"}) 
+    , uniqueConstraints = @UniqueConstraint(columnNames={"idHocKy", "idMonHoc"}) 
 )
 public class Diem  implements java.io.Serializable {
 
@@ -79,10 +78,7 @@ public class Diem  implements java.io.Serializable {
     }
 
 @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumns( { 
-        @JoinColumn(name="idHocSinh", referencedColumnName="idHocSinh", nullable=false), 
-        @JoinColumn(name="idNamHoc", referencedColumnName="idNamHoc", nullable=false), 
-        @JoinColumn(name="idLop", referencedColumnName="idLopHoc", nullable=false) } )
+    @JoinColumn(name="idHocSinhLopHoc", nullable=false)
     public HocsinhLophoc getHocsinhLophoc() {
         return this.hocsinhLophoc;
     }
