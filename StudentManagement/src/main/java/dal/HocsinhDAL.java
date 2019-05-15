@@ -151,7 +151,10 @@ public class HocsinhDAL {
         lHs = new ArrayList<Hocsinh>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Hocsinh as h ");
+            Query q = session.createQuery("select distinct h "
+                    + "from Hocsinh as h "
+                    + "left join fetch h.hocsinhLophocs "
+                    + "left join fetch h.chitietCauhinhHocsinhs");
             lHs = (List<Hocsinh>) q.list();
             tst.commit();
         } catch (Exception e) {
@@ -172,15 +175,18 @@ public class HocsinhDAL {
         String keyId = key;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("FROM Hocsinh "
-                    + "WHERE idHocSinh = :keyId "
-                    + "or hoTen like :key "
-                    + "or ngaySinh like :key "
-                    + "or gioiTinh like :key "
-                    + "or diaChi like :key "
-                    + "or email like :key "
-                    + "or sdtCaNhan like :key "
-                    + "or sdtGiamHo like :key");
+            Query q = session.createQuery("select distinct h "
+                    + "FROM Hocsinh h "
+                    + "left join fetch h.hocsinhLophocs "
+                    + "left join fetch h.chitietCauhinhHocsinhs"
+                    + "WHERE h.idHocSinh = :keyId "
+                    + "or h.hoTen like :key "
+                    + "or h.ngaySinh like :key "
+                    + "or h.gioiTinh like :key "
+                    + "or h.diaChi like :key "
+                    + "or h.email like :key "
+                    + "or h.sdtCaNhan like :key "
+                    + "or h.sdtGiamHo like :key");
             q.setString("keyId", keyId);
             q.setString("key", "%" + key + "%");
             lHs = q.list();
@@ -198,7 +204,8 @@ public class HocsinhDAL {
         Hocsinh hs = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Hocsinh as h "
+            Query q = session.createQuery("select distinct h "
+                    + "from Hocsinh as h "
                     + "left join fetch h.hocsinhLophocs "
                     + "left join fetch h.chitietCauhinhHocsinhs c "
                     + "left join fetch c.cauhinh "
@@ -219,7 +226,8 @@ public class HocsinhDAL {
         Hocsinh hs = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Hocsinh as h "
+            Query q = session.createQuery("select distinct h "
+                    + "from Hocsinh as h "
                     + "left join fetch h.hocsinhLophocs "
                     + "left join fetch h.chitietCauhinhHocsinhs c "
                     + "left join fetch c.cauhinh "
@@ -256,7 +264,8 @@ public class HocsinhDAL {
         lHs = new ArrayList();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Hocsinh as h "
+            Query q = session.createQuery("select distinct h "
+                    + "from Hocsinh as h "
                     + "left join fetch h.hocsinhLophocs "
                     + "left join fetch h.chitietCauhinhHocsinhs c "
                     + "left join fetch c.cauhinh "
@@ -277,7 +286,8 @@ public class HocsinhDAL {
         lHs = new ArrayList();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Hocsinh as h "
+            Query q = session.createQuery("select distinct h "
+                    + "from Hocsinh as h "
                     + "left join fetch h.hocsinhLophocs "
                     + "left join fetch h.chitietCauhinhHocsinhs c "
                     + "left join fetch c.cauhinh "

@@ -119,7 +119,8 @@ public class NamhocDAL {
         list = new ArrayList<Namhoc>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Namhoc as t "
+            Query q = session.createQuery("select distinct t "
+                    + "from Namhoc as t "
                     + "left join fetch t.hocsinhLophocs "
                     + "left join fetch t.chitietCauhinhLops ");
             list = (List<Namhoc>) q.list();
@@ -137,7 +138,8 @@ public class NamhocDAL {
         Namhoc n = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Namhoc as t "
+            Query q = session.createQuery("select distinct t "
+                    + "from Namhoc as t "
                     + "left join fetch t.hocsinhLophocs "
                     + "left join fetch t.chitietCauhinhLops "
                     + "where t.idNamHoc = :id");
@@ -157,7 +159,8 @@ public class NamhocDAL {
         Namhoc n = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Namhoc as t "
+            Query q = session.createQuery("select distinct t "
+                    + "from Namhoc as t "
                     + "left join fetch t.hocsinhLophocs "
                     + "left join fetch t.chitietCauhinhLops "
                     + "where t.tenNamHoc = :name");

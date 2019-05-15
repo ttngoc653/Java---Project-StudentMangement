@@ -80,7 +80,8 @@ public class HocsinhLophocDAL {
         list = new ArrayList<HocsinhLophoc>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from HocsinhLophoc hl "
+            Query q = session.createQuery("select distinct hl "
+                    + "from HocsinhLophoc hl "
                     + "left join fetch hl.hocsinh "
                     + "left join fetch hl.lop "
                     + "left join fetch hl.namhoc "
@@ -116,7 +117,8 @@ public class HocsinhLophocDAL {
 
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from HocsinhLophoc hl "
+            Query q = session.createQuery("select distinct hl "
+                    + "from HocsinhLophoc hl "
                     + "left join fetch hl.hocsinh "
                     + "left join fetch hl.lop "
                     + "left join fetch hl.namhoc "
@@ -138,7 +140,8 @@ public class HocsinhLophocDAL {
         list = new ArrayList<HocsinhLophoc>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from HocsinhLophoc hl "
+            Query q = session.createQuery("select distinct hl "
+                    + "from HocsinhLophoc hl "
                     + "left join fetch hl.hocsinh "
                     + "left join fetch hl.lop "
                     + "left join fetch hl.namhoc n "
@@ -170,7 +173,8 @@ public class HocsinhLophocDAL {
         list = new ArrayList<HocsinhLophoc>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from HocsinhLophoc hl "
+            Query q = session.createQuery("select distinct hl "
+                    + "from HocsinhLophoc hl "
                     + "left join fetch hl.hocsinh "
                     + "left join fetch hl.lop l "
                     + "left join fetch hl.namhoc n "
@@ -244,7 +248,8 @@ public class HocsinhLophocDAL {
         list = new ArrayList<HocsinhLophoc>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from HocsinhLophoc hl "
+            Query q = session.createQuery("select distinct hl "
+                    + "from HocsinhLophoc hl "
                     + "left join fetch hl.hocsinh hs "
                     + "left join fetch hl.lop l "
                     + "left join fetch hl.namhoc n "

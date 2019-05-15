@@ -95,7 +95,8 @@ public class ChitietCauhinhHocsinhDAL {
         list = new ArrayList<ChitietCauhinhHocsinh>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from ChitietCauhinhHocsinh c "
+            Query q = session.createQuery("select distinct c "
+                    + "from ChitietCauhinhHocsinh c "
                     + "left join fetch c.hocsinh "
                     + "left join fetch c.cauhinh");
             list = (List<ChitietCauhinhHocsinh>) q.list();
@@ -113,7 +114,8 @@ public class ChitietCauhinhHocsinhDAL {
         ChitietCauhinhHocsinh hs=null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from ChitietCauhinhHocsinh c "
+            Query q = session.createQuery("select distinct c "
+                    + "from ChitietCauhinhHocsinh c "
                     + "left join fetch c.hocsinh "
                     + "left join fetch c.cauhinh "
                     + "left join fetch c.id key "
@@ -136,7 +138,8 @@ public class ChitietCauhinhHocsinhDAL {
         list = new ArrayList<ChitietCauhinhHocsinh>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from ChitietCauhinhHocsinh c "
+            Query q = session.createQuery("select distinct c "
+                    + "from ChitietCauhinhHocsinh c "
                     + "left join fetch c.hocsinh "
                     + "left join fetch c.cauhinh ch "
                     + "where ch.idCauHinh = :cauhinh");
@@ -156,7 +159,8 @@ public class ChitietCauhinhHocsinhDAL {
         list = new ArrayList<ChitietCauhinhHocsinh>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from ChitietCauhinhHocsinh c "
+            Query q = session.createQuery("select distinct c "
+                    + "from ChitietCauhinhHocsinh c "
                     + "left join fetch c.hocsinh hs "
                     + "left join fetch c.cauhinh "
                     + "where hs.idHocSinh = :hocsinh");

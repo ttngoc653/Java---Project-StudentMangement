@@ -5,6 +5,9 @@
  */
 package bll;
 
+import dto.Lop;
+import dto.Namhoc;
+import java.util.Iterator;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.ListModel;
@@ -19,8 +22,18 @@ public class ConfigBLL {
 
     public static void addAllClassToTree(DefaultTreeModel model, DefaultMutableTreeNode node) {
         List<dto.Lop> list_lop = new dal.LopDAL().getAll();
+
         for (int i = 0; i < list_lop.size(); i++) {
             node.add(new DefaultMutableTreeNode(list_lop.get(i).getTenLop()));
+            model.nodesWereInserted(node, new int[]{node.getChildCount() - 1});
+        }
+    }
+
+    public static void addAllSchoolYearToTree(DefaultTreeModel model, DefaultMutableTreeNode node) {
+        List<dto.Namhoc> list_namhoc = new dal.NamhocDAL().getAll();
+
+        for (int i = 0; i < list_namhoc.size(); i++) {
+            node.add(new DefaultMutableTreeNode(list_namhoc.get(i).getTenNamHoc()));
             model.nodesWereInserted(node, new int[]{node.getChildCount() - 1});
         }
     }
