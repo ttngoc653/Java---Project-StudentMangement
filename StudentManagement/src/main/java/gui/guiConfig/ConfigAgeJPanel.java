@@ -6,15 +6,34 @@
 package gui.guiConfig;
 
 import bll.HelperBLL;
+import dto.ChitietCauhinhHocsinh;
+import dto.ChitietCauhinhLop;
+import dto.ChitietCauhinhLopId;
 import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
 
 /**
  *
  * @author tuhuy
  */
 public class ConfigAgeJPanel extends javax.swing.JPanel {
+
+    boolean checkSelectedNode(String key_find) {
+        TreePath[] treePaths = treeApply.getSelectionModel().getSelectionPaths();
+        for (TreePath treePath : treePaths) {
+            DefaultMutableTreeNode selectedElement = (DefaultMutableTreeNode) treePath.getLastPathComponent();
+            Object userObject = selectedElement.getUserObject(); //Do what you want with selected element's user object
+            if (userObject.equals(key_find)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
      * Creates new form NewJPanel3
@@ -39,7 +58,7 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         treeApply = new javax.swing.JTree();
-        jButton1 = new javax.swing.JButton();
+        btnApply = new javax.swing.JButton();
         txtMinAge = new javax.swing.JTextField();
         txtMaxAge = new javax.swing.JTextField();
         ckbApply = new javax.swing.JCheckBox();
@@ -76,7 +95,7 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
 
         jLabel2.setText("Tuổi tối đa:");
 
-        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Áp dụng cho tất cả");
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Áp dụng cho tất cả lớp và năm học");
         treeApply.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         treeApply.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         treeApply.addTreeSelectionListener(new javax.swing.event.TreeSelectionListener() {
@@ -86,7 +105,12 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(treeApply);
 
-        jButton1.setText("Áp dụng");
+        btnApply.setText("Áp dụng");
+        btnApply.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnApplyActionPerformed(evt);
+            }
+        });
 
         txtMinAge.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -115,7 +139,7 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                 .addGap(154, 154, 154)
-                .addComponent(jButton1)
+                .addComponent(btnApply)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -166,13 +190,13 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addComponent(btnApply)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        // TODO add your handling code here:
+
         DefaultTreeModel model = (DefaultTreeModel) treeApply.getModel();
         DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
         root.removeAllChildren();
@@ -185,11 +209,15 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
             DefaultMutableTreeNode node = (DefaultMutableTreeNode) children.nextElement();
             if (node.toString().equals("Lớp")) {
                 bll.ConfigBLL.addAllClassToTree(model, node);
-            }
-            else if (node.toString().equals("Năm học")) {
+            } else if (node.toString().equals("Năm học")) {
                 bll.ConfigBLL.addAllSchoolYearToTree(model, node);
             }
         }
+
+        treeApply.expandRow(0);
+
+        treeApply.enable(ckbApply.isSelected());
+        cbxApplyAll.setSelected(true);
     }//GEN-LAST:event_formComponentShown
 
     private void txtMinAgeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMinAgeKeyTyped
@@ -206,17 +234,51 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
 
     private void treeApplyValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_treeApplyValueChanged
         System.out.println("start show all selection");
-
+        TreePath[] treePaths = treeApply.getSelectionModel().getSelectionPaths();
+        for (TreePath treePath : treePaths) {
+            DefaultMutableTreeNode selectedElement = (DefaultMutableTreeNode) treePath.getLastPathComponent();
+            Object userObject = selectedElement.getUserObject(); //Do what you want with selected element's user object
+            //System.out.println(userObject.toString());
+        }
     }//GEN-LAST:event_treeApplyValueChanged
 
     private void ckbApplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckbApplyActionPerformed
         treeApply.enable(ckbApply.isSelected());
     }//GEN-LAST:event_ckbApplyActionPerformed
 
+    private void btnApplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApplyActionPerformed
+
+        dto.Cauhinh chToiTieu = new dal.CauHinhDAL().getByName("tuoiToiTieuDauVao");
+        dto.Cauhinh chToiDa = new dal.CauHinhDAL().getByName("tuoiToiDaDauVao");
+
+        if (cbxApplyAll.isSelected()) {
+            if (chToiTieu != null && chToiDa != null) {
+                chToiDa.setGiaTri(txtMaxAge.getText());
+                new dal.CauHinhDAL().update(chToiDa);
+                chToiTieu.setGiaTri(txtMinAge.getText());
+                new dal.CauHinhDAL().update(chToiTieu);
+            } else if (new dal.CauHinhDAL().add(new dto.Cauhinh("tuoiToiTieuDauVao", "minAgeToSchool", txtMinAge.getText(), "Tuổi tối thiểu vào trường", null, null, null)) > 0
+                    && new dal.CauHinhDAL().add(new dto.Cauhinh("tuoiToiDaDauVao", "maxAgeToSchool", txtMaxAge.getText(), "Tuổi tối đa khi vào trường", null, null, null)) > 0) {
+
+            }
+        }
+        
+        if (ckbApply.isSelected()) {
+            if (checkSelectedNode("Lớp")) {
+                List<dto.Lop> list_class = new dal.LopDAL().getAll();
+                for (int i = 0; i < list_class.size(); i++) {
+                    if (list_class.get(i).getChitietCauhinhLops().size()==0) {
+                        Set<dto.ChitietCauhinhLop> hash=new HashSet<dto.ChitietCauhinhLop>();
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_btnApplyActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnApply;
     private javax.swing.JCheckBox cbxApplyAll;
     private javax.swing.JCheckBox ckbApply;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
