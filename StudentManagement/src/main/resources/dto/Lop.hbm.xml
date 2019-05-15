@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Apr 28, 2019 12:28:37 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated May 16, 2019 1:50:39 AM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="dto.Lop" table="lop" catalog="quanlyhocsinh" optimistic-lock="version">
         <id name="idLop" type="java.lang.Integer">
@@ -9,7 +9,7 @@
             <generator class="identity" />
         </id>
         <property name="tenLop" type="string">
-            <column name="TenLop" length="45" not-null="true" />
+            <column name="TenLop" length="45" not-null="true" unique="true" />
         </property>
         <property name="khoi" type="int">
             <column name="Khoi" not-null="true" />
@@ -23,11 +23,13 @@
             </key>
             <one-to-many class="dto.HocsinhLophoc" />
         </set>
-        <set name="chitietCauhinhLops" table="chitiet_cauhinh_lop" inverse="true" lazy="true" fetch="select">
+        <set name="cauhinhs" table="chitiet_cauhinh_lop" inverse="false" lazy="true" fetch="select">
             <key>
                 <column name="idLop" not-null="true" />
             </key>
-            <one-to-many class="dto.ChitietCauhinhLop" />
+            <many-to-many entity-name="dto.Cauhinh">
+                <column name="idCauHinh" not-null="true" />
+            </many-to-many>
         </set>
     </class>
 </hibernate-mapping>
