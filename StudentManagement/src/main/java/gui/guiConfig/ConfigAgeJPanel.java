@@ -43,6 +43,7 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
         txtMinAge = new javax.swing.JTextField();
         txtMaxAge = new javax.swing.JTextField();
         ckbApply = new javax.swing.JCheckBox();
+        cbxApplyAll = new javax.swing.JCheckBox();
 
         setPreferredSize(new java.awt.Dimension(380, 400));
         addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -69,7 +70,7 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
         );
 
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("(Chỉ áp dụng khi tạo mới học sinh)");
+        jLabel5.setText("(Chỉ áp dụng khi thêm mới học sinh và thêm học sinh vào lớp)");
 
         jLabel1.setText("Tuổi tối thiểu:");
 
@@ -106,6 +107,8 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
             }
         });
 
+        cbxApplyAll.setText("Áp dụng khi tạo mới học sinh");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -118,14 +121,20 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtMinAge, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
-                    .addComponent(txtMaxAge))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtMinAge, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                            .addComponent(txtMaxAge))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(cbxApplyAll)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -138,7 +147,7 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(72, 72, 72)
@@ -149,13 +158,14 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(txtMaxAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(152, 152, 152))
+                        .addGap(18, 18, 18)
+                        .addComponent(cbxApplyAll))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(ckbApply)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
                 .addContainerGap())
         );
@@ -165,17 +175,19 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         DefaultTreeModel model = (DefaultTreeModel) treeApply.getModel();
         DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
+        root.removeAllChildren();
         root.add(new DefaultMutableTreeNode("Lớp"));
         root.add(new DefaultMutableTreeNode("Năm học"));
-
         model.nodesWereInserted(root, new int[]{root.getChildCount() - 1, root.getChildCount() - 2});
-        
+
         Enumeration children = root.children();
         while (children.hasMoreElements()) {
             DefaultMutableTreeNode node = (DefaultMutableTreeNode) children.nextElement();
             if (node.toString().equals("Lớp")) {
-                bll.ConfigBLL.addAllClassToTree(model,node);
-                break;
+                bll.ConfigBLL.addAllClassToTree(model, node);
+            }
+            else if (node.toString().equals("Năm học")) {
+                bll.ConfigBLL.addAllSchoolYearToTree(model, node);
             }
         }
     }//GEN-LAST:event_formComponentShown
@@ -198,10 +210,11 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_treeApplyValueChanged
 
     private void ckbApplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckbApplyActionPerformed
-        // TODO add your handling code here:
+        treeApply.enable(ckbApply.isSelected());
     }//GEN-LAST:event_ckbApplyActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox cbxApplyAll;
     private javax.swing.JCheckBox ckbApply;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
