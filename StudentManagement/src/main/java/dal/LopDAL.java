@@ -110,7 +110,8 @@ public class LopDAL {
         list = new ArrayList<Lop>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Lop as l "
+            Query q = session.createQuery("select distinct l "
+                    + "from Lop as l "
                     + "left join fetch l.hocsinhLophocs "
                     + "left join fetch l.chitietCauhinhLops ");
             list = (List<Lop>) q.list();

@@ -117,7 +117,8 @@ public class ChitietCauhinhLopDAL {
         list = new ArrayList<ChitietCauhinhLop>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from ChitietCauhinhHocsinh c "
+            Query q = session.createQuery("select distinct c "
+                    + "from ChitietCauhinhHocsinh c "
                     + "left join fetch c.cauhinh "
                     + "left join fetch c.lop "
                     + "left join fetch c.namhoc");
@@ -136,7 +137,8 @@ public class ChitietCauhinhLopDAL {
         ChitietCauhinhLop hs = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from ChitietCauhinhHocsinh c "
+            Query q = session.createQuery("select distinct c "
+                    + "from ChitietCauhinhHocsinh c "
                     + "left join fetch c.cauhinh "
                     + "left join fetch c.lop "
                     + "left join fetch c.namhoc "
@@ -162,7 +164,8 @@ public class ChitietCauhinhLopDAL {
         list = new ArrayList<>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from ChitietCauhinhHocsinh c "
+            Query q = session.createQuery("select distinct c "
+                    + "from ChitietCauhinhHocsinh c "
                     + "left join fetch c.cauhinh "
                     + "left join fetch c.lop "
                     + "left join fetch c.namhoc "
@@ -184,7 +187,8 @@ public class ChitietCauhinhLopDAL {
         list = new ArrayList<>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from ChitietCauhinhHocsinh c "
+            Query q = session.createQuery("select distinct c "
+                    + "from ChitietCauhinhHocsinh c "
                     + "left join fetch c.cauhinh "
                     + "left join fetch c.lop "
                     + "left join fetch c.namhoc "

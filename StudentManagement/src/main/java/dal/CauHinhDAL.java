@@ -99,7 +99,11 @@ public class CauHinhDAL {
         lHs = new ArrayList<Cauhinh>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Cauhinh as cauhinh");
+            Query q = session.createQuery("select distinct cauhinh "
+                    + "from Cauhinh as cauhinh"
+                    + "left join fetch ch.chitietCauhinhHocsinhs "
+                    + "left join fetch ch.chitietCauhinhLops "
+                    + "left join fetch ch.chitietCauhinhDiems  ");
             lHs = (List<Cauhinh>) q.list();
             tst.commit();
         } catch (Exception e) {
@@ -115,7 +119,8 @@ public class CauHinhDAL {
         Cauhinh hs = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Cauhinh as ch "
+            Query q = session.createQuery("select distinct ch "
+                    + "from Cauhinh as ch "
                     + "left join fetch ch.chitietCauhinhHocsinhs "
                     + "left join fetch ch.chitietCauhinhLops "
                     + "left join fetch ch.chitietCauhinhDiems  "
@@ -136,7 +141,8 @@ public class CauHinhDAL {
         Cauhinh hs = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Cauhinh  as ch "
+            Query q = session.createQuery("select distinct ch "
+                    + "from Cauhinh  as ch "
                     + "left join fetch ch.chitietCauhinhHocsinhs "
                     + "left join fetch ch.chitietCauhinhLops "
                     + "left join fetch ch.chitietCauhinhDiems  "

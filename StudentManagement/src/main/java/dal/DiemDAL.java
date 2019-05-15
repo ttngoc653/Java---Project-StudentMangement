@@ -103,7 +103,8 @@ public class DiemDAL {
         list = new ArrayList<Diem>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Diem d "
+            Query q = session.createQuery("select distinct d "
+                    + "from Diem d "
                     + "left join fetch d.hocky "
                     + "left join fetch d.hocsinhLophoc hl "
                     + "left join fetch hl.hocsinh "
@@ -127,7 +128,8 @@ public class DiemDAL {
         Diem n = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Diem as d "
+            Query q = session.createQuery("select distinct d "
+                    + "from Diem as d "
                     + "left join fetch d.hocky "
                     + "left join fetch d.hocsinhLophoc hl "
                     + "left join fetch hl.hocsinh "
@@ -153,7 +155,8 @@ public class DiemDAL {
         list = new ArrayList<>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Diem as d "
+            Query q = session.createQuery("select distinct d "
+                    + "from Diem as d "
                     + "left join fetch d.hocky "
                     + "left join fetch d.hocsinhLophoc hl "
                     + "left join fetch hl.hocsinh "
@@ -179,7 +182,8 @@ public class DiemDAL {
         list = new ArrayList<>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Diem as d "
+            Query q = session.createQuery("select distinct d "
+                    + "from Diem as d "
                     + "left join fetch d.hocky "
                     + "left join fetch d.hocsinhLophoc hl "
                     + "left join fetch hl.hocsinh "
@@ -205,7 +209,8 @@ public class DiemDAL {
         list = new ArrayList<>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Diem as d "
+            Query q = session.createQuery("select distinct d "
+                    + "from Diem as d "
                     + "left join fetch d.hocky "
                     + "left join fetch d.hocsinhLophoc hl "
                     + "left join fetch hl.hocsinh "
@@ -291,7 +296,8 @@ public class DiemDAL {
         list = new ArrayList<>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Diem as d "
+            Query q = session.createQuery("select distinct d "
+                    + "from Diem as d "
                     + "left join fetch d.hocky "
                     + "left join fetch d.hocsinhLophoc hl "
                     + "left join fetch hl.hocsinh "
@@ -323,7 +329,8 @@ public class DiemDAL {
         list = new ArrayList<>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Diem as d "
+            Query q = session.createQuery("select distinct d "
+                    + "from Diem as d "
                     + "left join fetch d.hocky "
                     + "left join fetch d.hocsinhLophoc hl "
                     + "left join fetch hl.hocsinh "
@@ -360,7 +367,8 @@ public class DiemDAL {
         list = new ArrayList<>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Diem as d "
+            Query q = session.createQuery("select distinct d "
+                    + "from Diem as d "
                     + "left join fetch d.hocky "
                     + "left join fetch d.hocsinhLophoc hl "
                     + "left join fetch hl.hocsinh "

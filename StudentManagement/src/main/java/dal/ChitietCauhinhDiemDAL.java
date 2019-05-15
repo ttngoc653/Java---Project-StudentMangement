@@ -98,7 +98,8 @@ public class ChitietCauhinhDiemDAL {
         list = new ArrayList<ChitietCauhinhDiem>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from ChitietCauhinhDiem c "
+            Query q = session.createQuery("select distinct c "
+                    + "from ChitietCauhinhDiem c "
                     + "left join fetch c.cauhinh "
                     + "left join fetch c.diem");
             list = (List<ChitietCauhinhDiem>) q.list();
@@ -116,7 +117,8 @@ public class ChitietCauhinhDiemDAL {
         ChitietCauhinhDiem hs = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from ChitietCauhinhDiem c "
+            Query q = session.createQuery("select distinct c "
+                    + "from ChitietCauhinhDiem c "
                     + "left join fetch c.cauhinh "
                     + "left join fetch c.diem "
                     + "left join fetch c.id key "
@@ -138,7 +140,8 @@ public class ChitietCauhinhDiemDAL {
     public List getByCauHinh(Cauhinh ch) {
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from ChitietCauhinhDiem c "
+            Query q = session.createQuery("select distinct c "
+                    + "from ChitietCauhinhDiem c "
                     + "left join fetch c.cauhinh "
                     + "left join fetch c.diem "
                     + "left join fetch c.id key "
@@ -159,7 +162,8 @@ public class ChitietCauhinhDiemDAL {
     public List<ChitietCauhinhDiem> getByDiem(Diem d) {
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from ChitietCauhinhDiem c "
+            Query q = session.createQuery("select distinct c "
+                    + "from ChitietCauhinhDiem c "
                     + "left join fetch c.cauhinh "
                     + "left join fetch c.diem "
                     + "left join fetch c.id key "

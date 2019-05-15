@@ -93,7 +93,8 @@ public class MonhocDAL {
         list = new ArrayList<Monhoc>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Monhoc as m "
+            Query q = session.createQuery("select distinct m "
+                    + "from Monhoc as m "
                     + "left join fetch m.diems");
             list = (List<Monhoc>) q.list();
             tst.commit();
@@ -110,7 +111,8 @@ public class MonhocDAL {
         Monhoc n = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Monhoc as t "
+            Query q = session.createQuery("select distinct t "
+                    + "from Monhoc as t "
                     + "left join fetch t.diems "
                     + "where t.idMonhoc = :id");
             q.setParameter("id", id);
@@ -128,7 +130,8 @@ public class MonhocDAL {
     public Monhoc getByTen(String ten) {
        try{
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Monhoc as t "
+            Query q = session.createQuery("select distinct t "
+                    + "from Monhoc as t "
                     + "left join fetch t.diems "
                     + "where t.tenMh = :ten");
             q.setParameter("ten", ten);
@@ -146,7 +149,8 @@ public class MonhocDAL {
     public List<Monhoc> getByTinhTrang(boolean GiangDay) {
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Monhoc as t "
+            Query q = session.createQuery("select distinct t "
+                    + "from Monhoc as t "
                     + "left join fetch t.diems "
                     + "where t.dangGiangDay = :check");
             q.setParameter("check", GiangDay);
