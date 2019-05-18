@@ -166,15 +166,32 @@ public class CauHinhDAL {
 //        }
 //        return hs;
 //    }
+//    public Cauhinh getByName(String name) {
+//        Cauhinh hs = null;
+//        try {
+//            tst = session.beginTransaction();
+//            Query q = session.createQuery("select distinct ch "
+//                    + "from Cauhinh  as ch "
+//                    + "left join fetch ch.lops "
+//                    + "left join fetch ch.chitietCauhinhDiems  "
+//                    + "where ch.tenCauHinh like ':name'");
+//            q.setParameter("name", name);
+//            hs = (Cauhinh) q.uniqueResult();
+//            tst.commit();
+//        } catch (Exception e) {
+//            if (tst != null) {
+//                tst.rollback();
+//            }
+//            e.printStackTrace();
+//        }
+//        return hs;
+//    }
+    //19/05/2019
     public Cauhinh getByName(String name) {
         Cauhinh hs = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("select distinct ch "
-                    + "from Cauhinh  as ch "
-                    + "left join fetch ch.lops "
-                    + "left join fetch ch.chitietCauhinhDiems  "
-                    + "where ch.tenCauHinh like ':name'");
+            Query q = session.createQuery("from Cauhinh as ch where ch.tenThuocTinh like :name");
             q.setParameter("name", name);
             hs = (Cauhinh) q.uniqueResult();
             tst.commit();

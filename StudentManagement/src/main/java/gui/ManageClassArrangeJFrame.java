@@ -279,6 +279,7 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
         int SiSoToiDa = Integer.parseInt(new CauHinhDAL().getByName("SiSoToiDa").getGiaTri());
 
         int idHS = Integer.parseInt(this.cboMSHS.getSelectedItem().toString());
+        Hocsinh hocsinh = new HocsinhDAL().getById(idHS);
 
         String tenLop = this.cboTenLop.getSelectedItem().toString();
         Lop lop = new LopDAL().getByTen(tenLop);
@@ -295,7 +296,7 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
 //        a.setIdNamHoc(idNamHoc);
         //Code chạy v.10
         HocsinhLophoc a = new HocsinhLophoc();
-        a.setIdHocSinhLopHoc(idHS);
+        a.setHocsinh(hocsinh);
         a.setLop(lop);
         a.setNamhoc(namhoc);
 
