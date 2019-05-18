@@ -32,7 +32,7 @@ public class HocsinhLopHocBLL {
     /*
     Kiểm tra sỉ sổ lớp
      */
-    public static boolean checkMaximumStudentInClass(int idNamHoc, int idLop, int SiSoToiTa) {
+    public static boolean checkMaximumStudentInClass(int idNamHoc, int idLop, int SiSoToiDa) {
 
         Namhoc namhoc = new NamhocDAL().getById(idNamHoc);
         Lop lop = new LopDAL().getById(idLop);

@@ -288,14 +288,20 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
         Namhoc namhoc = new NamhocDAL().getByTen(tenNamHoc);
         int idNamHoc = namhoc.getIdNamHoc();
 
-        HocsinhLophocId a = new HocsinhLophocId();
-        a.setIdHocSinh(idHS);
-        a.setIdLopHoc(idLop);
-        a.setIdNamHoc(idNamHoc);
+//        //Code trước v.10
+//        HocsinhLophocId a = new HocsinhLophocId();
+//        a.setIdHocSinh(idHS);
+//        a.setIdLopHoc(idLop);
+//        a.setIdNamHoc(idNamHoc);
+        //Code chạy v.10
+        HocsinhLophoc a = new HocsinhLophoc();
+        a.setIdHocSinhLopHoc(idHS);
+        a.setLop(lop);
+        a.setNamhoc(namhoc);
 
         if (findStudentByNamHocLop(idHS, namhoc, lop)) {
             JOptionPane.showMessageDialog(null, "MSHS " + idHS + " đã thuộc lớp " + tenLop + " - năm học " + tenNamHoc);
-        } else if (checkMaximumStudentInClass(namhoc, lop, SiSoToiDa)) {
+        } else if (checkMaximumStudentInClass(idNamHoc, idLop, SiSoToiDa)) {
             JOptionPane.showMessageDialog(null, "Lớp này đã đủ sỉ số: " + SiSoToiDa + " học sinh");
         } else if (findStudentByNamHoc(idHS, namhoc)) {
             JOptionPane.showMessageDialog(null, "Trong 1 năm học sinh chỉ được học 1 lớp duy nhất");
@@ -321,12 +327,19 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
         Namhoc namhoc = new NamhocDAL().getByTen(tenNamHoc);
         int idNamHoc = namhoc.getIdNamHoc();
 
-        HocsinhLophocId a = new HocsinhLophocId();
-        a.setIdHocSinh(idHS);
-        a.setIdLopHoc(idLop);
-        a.setIdNamHoc(idNamHoc);
+//        //Code trước v.10
+//        HocsinhLophocId a = new HocsinhLophocId();
+//        a.setIdHocSinh(idHS);
+//        a.setIdLopHoc(idLop);
+//        a.setIdNamHoc(idNamHoc);
 
-        if (new HocsinhLophocDAL().delete(a)) {
+        //Code chạy v.10
+        HocsinhLophoc a = new HocsinhLophoc();
+        a.setIdHocSinhLopHoc(idHS);
+        a.setLop(lop);
+        a.setNamhoc(namhoc);
+
+        if (new HocsinhLophocDAL().delete(a.getIdHocSinhLopHoc())) {
             JOptionPane.showMessageDialog(null, "Xóa thành công");
             LoadData();
         } else {
