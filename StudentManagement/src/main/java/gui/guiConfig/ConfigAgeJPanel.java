@@ -6,11 +6,12 @@
 package gui.guiConfig;
 
 import bll.HelperBLL;
+import dto.Cauhinh;
 import dto.ChitietCauhinhHocsinh;
-import dto.ChitietCauhinhLop;
-import dto.ChitietCauhinhLopId;
+import dto.Lop;
 import java.util.Enumeration;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -267,10 +268,30 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
             if (checkSelectedNode("Lớp")) {
                 List<dto.Lop> list_class = new dal.LopDAL().getAll();
                 for (int i = 0; i < list_class.size(); i++) {
-                    if (list_class.get(i).getChitietCauhinhLops().size()==0) {
-                        Set<dto.ChitietCauhinhLop> hash=new HashSet<dto.ChitietCauhinhLop>();
+                    if (list_class.get(i).getCauhinhs().size()==0) { // dung ra la xet co xet co gioi han tuoi chua
+                        dto.Cauhinh chToiTieuIndex=new dto.Cauhinh("tuoiToiTieuVaoLop", "minAgeToClassl", txtMinAge.getText(), "Tuổi tối thiểu vào lớp", null, null, null);
+                        dto.Cauhinh chToiDaIndex=new dto.Cauhinh("tuoiToiDaVaoLop", "maxAgeToClass", txtMaxAge.getText(), "Tuổi tối đa vào lớp", null, null, null);
+                        Set<dto.Cauhinh> cauhinhss=new HashSet<>();
+                        cauhinhss.add(chToiDaIndex);
+                        cauhinhss.add(chToiTieuIndex);
+                        list_class.get(i).setCauhinhs(cauhinhss);
+                        new dal.LopDAL().update(list_class.get(i));
+                    }
+                    else{
+                        for (Iterator<dto.Cauhinh> iterator = list_class.get(i).getCauhinhs().iterator(); iterator.hasNext();) {
+                            dto.Cauhinh next = iterator.next();
+                            if (next.getLoaiThuocTinh().equals("minAgeToClass")) {
+                                next.setGiaTri(txtMinAge.getText());
+                            } else if (next.getLoaiThuocTinh().equals("maxAgeToClass")) {
+                                next.setGiaTri(txtMaxAge.getText());
+                            }
+                        }
+                        new dal.LopDAL().update(list_class.get(i));
                     }
                 }
+            }
+            else if (checkSelectedNode("Năm học")) {
+                
             }
         }
     }//GEN-LAST:event_btnApplyActionPerformed

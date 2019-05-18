@@ -131,7 +131,7 @@ public class LopDAL {
             tst = session.beginTransaction();
             Query q = session.createQuery("from Lop as l "
                     + "left join fetch l.hocsinhLophocs "
-                    + "left join fetch l.chitietCauhinhLops "
+                    + "left join fetch l.cauhinhs "
                     + "where l.idLop = :id");
             q.setParameter("id", id);
             n = (Lop) q.uniqueResult();
@@ -151,7 +151,7 @@ public class LopDAL {
             tst = session.beginTransaction();
             Query q = session.createQuery("from Lop as l "
                     + "left join fetch l.hocsinhLophocs "
-                    + "left join fetch l.chitietCauhinhLops "
+                    + "left join fetch l.cauhinhs "
                     + "where l.tenLop = :ten");
             q.setParameter("ten", name);
             n = (Lop) q.uniqueResult();
@@ -171,7 +171,7 @@ public class LopDAL {
             tst = session.beginTransaction();
             Query q = session.createQuery("from Lop as l "
                     + "left join fetch l.hocsinhLophocs "
-                    + "left join fetch l.chitietCauhinhLops "
+                    + "left join fetch l.cauhinhs "
                     + "where l.khoi = :khoi");
             q.setParameter("khoi", khoi);
             list = q.list();
@@ -191,7 +191,7 @@ public class LopDAL {
             tst = session.beginTransaction();
             Query q = session.createQuery("from Lop as l "
                     + "left join fetch l.hocsinhLophocs "
-                    + "left join fetch l.chitietCauhinhLops "
+                    + "left join fetch l.cauhinhs "
                     + "where l.tinhTrang = :status");
             q.setParameter("status", tinhTrang);
             list = q.list();

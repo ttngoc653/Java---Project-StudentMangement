@@ -121,8 +121,7 @@ public class NamhocDAL {
             tst = session.beginTransaction();
             Query q = session.createQuery("select distinct t "
                     + "from Namhoc as t "
-                    + "left join fetch t.hocsinhLophocs "
-                    + "left join fetch t.chitietCauhinhLops ");
+                    + "left join fetch t.hocsinhLophocs ");
             list = (List<Namhoc>) q.list();
             tst.commit();
         } catch (Exception e) {
@@ -141,7 +140,6 @@ public class NamhocDAL {
             Query q = session.createQuery("select distinct t "
                     + "from Namhoc as t "
                     + "left join fetch t.hocsinhLophocs "
-                    + "left join fetch t.chitietCauhinhLops "
                     + "where t.idNamHoc = :id");
             q.setParameter("id", id);
             n = (Namhoc) q.uniqueResult();
@@ -162,7 +160,6 @@ public class NamhocDAL {
             Query q = session.createQuery("select distinct t "
                     + "from Namhoc as t "
                     + "left join fetch t.hocsinhLophocs "
-                    + "left join fetch t.chitietCauhinhLops "
                     + "where t.tenNamHoc = :name");
             q.setParameter("name", ten);
             n = (Namhoc) q.uniqueResult();
