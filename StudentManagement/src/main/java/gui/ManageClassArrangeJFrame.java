@@ -283,12 +283,12 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
             } else {
                 HocsinhLophocDAL hslophocDAL = new HocsinhLophocDAL();
 
-                HocsinhLophocId a = new HocsinhLophocId();
-                a.setIdHocSinh(idHS);
-                a.setIdLopHoc(idLop);
-                a.setIdNamHoc(idNamHoc);
+                Hocsinh hocsinh = new Hocsinh();
+                hocsinh.setIdHocSinh(idHS);
 
-                if (hslophocDAL.add(a) != null) {
+                HocsinhLophoc hl = new HocsinhLophoc(hocsinh, lop, namhoc);
+
+                if (hslophocDAL.add(hl) != null) {
                     JOptionPane.showMessageDialog(null, "Xếp lớp cho học sinh thành công");
                     LoadData();
                     LoadCbo();

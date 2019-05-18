@@ -36,11 +36,11 @@ public class HocsinhLophocDAL {
         }
     }
 
-    public HocsinhLophocId add(HocsinhLophocId p) {
-        HocsinhLophocId result = null;
+    public Integer add(HocsinhLophoc q) {
+        Integer result = null;
         try {
             tst = session.beginTransaction();
-            result = (HocsinhLophocId) session.save(new HocsinhLophoc(p, null, null, null));
+            result = (Integer) session.save(q);
             System.out.println(result.toString());
             tst.commit();
         } catch (Exception e) {
@@ -53,11 +53,31 @@ public class HocsinhLophocDAL {
         return result;
     }
 
-    public boolean update(HocsinhLophocId idNew, HocsinhLophocId idOld) {
-        return (delete(idOld)) && (add(idNew) != null);
+    public boolean update(HocsinhLophoc q) {
+
+        Boolean result = false;
+        try {
+            tst = session.beginTransaction();
+            HocsinhLophoc n = (HocsinhLophoc) session.get(HocsinhLophoc.class, q.getIdHocSinhLopHoc());
+
+            n.setDiems(q.getDiems());
+            n.setHocsinh(q.getHocsinh());
+            n.setLop(q.getLop());
+            n.setNamhoc(q.getNamhoc());
+
+            session.update(n);
+            tst.commit();
+            result = true;
+        } catch (Exception e) {
+            if (tst != null) {
+                tst.rollback();
+            }
+            e.printStackTrace();
+        }
+        return result;
     }
 
-    public boolean delete(HocsinhLophocId id) {
+    public boolean delete(Integer id) {
         Boolean result = false;
         try {
             tst = session.beginTransaction();
@@ -97,7 +117,7 @@ public class HocsinhLophocDAL {
         return list;
     }
 
-    public HocsinhLophoc get(HocsinhLophocId id) {
+    public HocsinhLophoc get(Integer id) {
         HocsinhLophoc n = null;
         try {
             tst = session.beginTransaction();
@@ -110,30 +130,6 @@ public class HocsinhLophocDAL {
             e.printStackTrace();
         }
         return n;
-    }
-
-    public HocsinhLophoc getById(int id) {
-        HocsinhLophoc hl = null;
-
-        try {
-            tst = session.beginTransaction();
-            Query q = session.createQuery("select distinct hl "
-                    + "from HocsinhLophoc hl "
-                    + "left join fetch hl.hocsinh "
-                    + "left join fetch hl.lop "
-                    + "left join fetch hl.namhoc "
-                    + "left join fetch hl.diems "
-                    + "where hl.idHocSinhLopHoc = :id");
-            q.setParameter("id", id);
-            hl = (HocsinhLophoc) q.uniqueResult();
-            tst.commit();
-        } catch (Exception e) {
-            if (tst != null) {
-                tst.rollback();
-            }
-            e.printStackTrace();
-        }
-        return hl;
     }
 
     public List<HocsinhLophoc> getByNamHoc(Namhoc p) {
@@ -215,6 +211,33 @@ public class HocsinhLophocDAL {
             e.printStackTrace();
         }
         return list;
+    }
+
+    public HocsinhLophoc getByNamHocLopHocSinh(Namhoc n, Lop l, Hocsinh h) {
+        list = new ArrayList<HocsinhLophoc>();
+        try {
+            tst = session.beginTransaction();
+            Query q = session.createQuery("select distinct hl "
+                    + "from HocsinhLophoc hl "
+                    + "left join fetch hl.hocsinh h "
+                    + "left join fetch hl.lop l "
+                    + "left join fetch hl.namhoc n "
+                    + "left join fetch hl.diems "
+                    + "where n.idNamHoc = :namhoc "
+                    + "and l.idLop = :lop "
+                    + "and h.idHocSinh = :hocsinh");
+            q.setParameter("namhoc", n.getIdNamHoc());
+            q.setParameter("lop", l.getIdLop());
+            q.setParameter("hocsinh", h.getIdHocSinh());
+            list = (List<HocsinhLophoc>) q.list();
+            tst.commit();
+        } catch (Exception e) {
+            if (tst != null) {
+                tst.rollback();
+            }
+            e.printStackTrace();
+        }
+        return list.size() > 0 ? list.get(0) : null;
     }
 
 }

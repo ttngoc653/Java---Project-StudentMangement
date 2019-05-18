@@ -5,13 +5,6 @@
  */
 package bll;
 
-import dal.DiemDAL;
-import dal.HockyDAL;
-import dal.HocsinhLophocDAL;
-import dal.LopDAL;
-import dal.MonhocDAL;
-import dal.NamhocDAL;
-import dto.*;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,16 +27,16 @@ public class ReportBLL {
     }
 
     public List<Integer> listSemesterName() {
-        List<Hocky> l = new HockyDAL().getAll();
+        List<dto.Hocky> l = new dal.HockyDAL().getAll();
         List<Integer> lResult = new ArrayList<>();
-        for (Hocky l1 : l) {
+        for (dto.Hocky l1 : l) {
             lResult.add(l1.getTenHocKy());
         }
         return lResult;
     }
 
     public List<String> listSchoolYearName() {
-        List<Namhoc> l = new NamhocDAL().getAll();
+        List<dto.Namhoc> l = new dal.NamhocDAL().getAll();
         List<String> lResult = new ArrayList<>();
         for (int i = l.size(); i >= 0; i--) {
             lResult.add(l.get(i).getTenNamHoc());
@@ -52,9 +45,9 @@ public class ReportBLL {
     }
 
     public List<String> listSubjectName() {
-        List<Monhoc> l = new MonhocDAL().getAll();
+        List<dto.Monhoc> l = new dal.MonhocDAL().getAll();
         List<String> lResult = new ArrayList<>();
-        for (Monhoc l1 : l) {
+        for (dto.Monhoc l1 : l) {
             lResult.add(l1.getTenMh());
         }
         return lResult;
@@ -62,7 +55,8 @@ public class ReportBLL {
 
     public List<Map<String, ?>> dataReportBySubject(String subject, String schoolYear, int semester) {
         List<Map<String, ?>> lResult = new ArrayList<>();
-        List<Lop> lLop = new LopDAL().getAll();
+        List<dto.Lop> lLop = new dal.LopDAL().getAll();
+        dto.Monhoc monhoc=new dal.MonhocDAL().getByTen(subject);
         for (int i = 0; i < lLop.size() - 1; i++) {
             for (int j = i + 1; j < lLop.size(); j++) {
                 if (lLop.get(j).getTenLop().compareToIgnoreCase(lLop.get(i).getTenLop()) < 0) {
@@ -70,15 +64,17 @@ public class ReportBLL {
                 }
             }
         }
-        List<HocsinhLophoc> lHL = null;
+        List<dto.HocsinhLophoc> lHL = null;
         for (int i = 0; i < lLop.size(); i++) {
             Map<String, Object> mL = new HashMap<String, Object>();
-            lHL = new HocsinhLophocDAL().getByNamHocLop(new Namhoc(schoolYear), new Lop(lLop.get(i).getTenLop(), lLop.get(i).getKhoi()));
+            dto.Namhoc namhoc = new dal.NamhocDAL().getByTen(schoolYear);
+            dto.Lop lop = new dal.LopDAL().getByTen(lLop.get(i).getTenLop());
+            lHL = new dal.HocsinhLophocDAL().getByNamHocLop(namhoc, lop);
             int summary = 0, reacted = 0;
             Double diem15, diem1, diemhk, dtb;
-            for (HocsinhLophoc lHL1 : lHL) {
-                List<Diem> lDiem = new DiemDAL().getByHocSinhLopHocMonHoc(new HocsinhLophocDAL().get(new HocsinhLophocId(lHL1.getHocsinh().getIdHocSinh(), lLop.get(i).getIdLop(), new NamhocDAL().getByTen(schoolYear).getIdNamHoc())), new MonhocDAL().getByTen(subject));
-                for (Diem lDiem1 : lDiem) {
+            for (dto.HocsinhLophoc lHL1 : lHL) {
+                List<dto.Diem> lDiem = new dal.DiemDAL().getByHocSinhLopHocMonHoc(lHL1, monhoc);
+                for (dto.Diem lDiem1 : lDiem) {
                     if (lDiem1.getHocky().getTenHocKy() == semester) {
                         summary++;
                         diem15 = lDiem1.getDiem15phut();
@@ -104,7 +100,8 @@ public class ReportBLL {
 
     public List<Map<String, ?>> dataReportBySemester(String schoolYear, int semester) {
         List<Map<String, ?>> lResult = new ArrayList<>();
-        List<Lop> lLop = new LopDAL().getAll();
+        List<dto.Lop> lLop = new dal.LopDAL().getAll();
+        dto.Hocky hocky=new dal.HockyDAL().getByTen(semester);
         for (int i = 0; i < lLop.size() - 1; i++) {
             for (int j = i + 1; j < lLop.size(); j++) {
                 if (lLop.get(j).getTenLop().compareToIgnoreCase(lLop.get(i).getTenLop()) < 0) {
@@ -112,17 +109,19 @@ public class ReportBLL {
                 }
             }
         }
-        List<HocsinhLophoc> lHL;
+        List<dto.HocsinhLophoc> hocsinhLophocs;
         for (int i = 0; i < lLop.size(); i++) {
-            Map<String, Object> mL = new HashMap<String, Object>();
-            lHL = new HocsinhLophocDAL().getByNamHocLop(new Namhoc(schoolYear), new Lop(lLop.get(i).getTenLop(), lLop.get(i).getKhoi()));
+            Map<String, Object> map = new HashMap<String, Object>();
+            dto.Namhoc namhoc = new dal.NamhocDAL().getByTen(schoolYear);
+            dto.Lop lop = new dal.LopDAL().getByTen(lLop.get(i).getTenLop());
+            hocsinhLophocs = new dal.HocsinhLophocDAL().getByNamHocLop(namhoc, lop);
             int summary = 0, reacted = 0;
             Double diem15, diem1, diemhk, dtb;
             boolean bReacted = true;
-            for (HocsinhLophoc lHL1 : lHL) {
-                List<Diem> lDiem = new DiemDAL().getByHocSinhLopHocHocKy(lHL1, new HockyDAL().getByTen(semester));
+            for (dto.HocsinhLophoc hocsinhLophoc : hocsinhLophocs) {
+                List<dto.Diem> lDiem = new dal.DiemDAL().getByHocSinhLopHocHocKy(hocsinhLophoc, hocky);
                 summary++;
-                for (Diem lDiem1 : lDiem) {
+                for (dto.Diem lDiem1 : lDiem) {
                     diem15 = lDiem1.getDiem15phut();
                     diem1 = lDiem1.getDiem1tiet();
                     diemhk = lDiem1.getDiemCuoiKy();
@@ -136,11 +135,11 @@ public class ReportBLL {
                 }
             }
             if (summary > 0) {
-                mL.put("no", i + 1);
-                mL.put("class", lLop.get(i).getTenLop());
-                mL.put("summary", summary);
-                mL.put("reacted", reacted);
-                lResult.add(mL);
+                map.put("no", i + 1);
+                map.put("class", lLop.get(i).getTenLop());
+                map.put("summary", summary);
+                map.put("reacted", reacted);
+                lResult.add(map);
             }
         }
         return lResult;

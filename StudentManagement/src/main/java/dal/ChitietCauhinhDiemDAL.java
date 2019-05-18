@@ -60,9 +60,9 @@ public class ChitietCauhinhDiemDAL {
             tst = session.beginTransaction();
             ChitietCauhinhDiem n = (ChitietCauhinhDiem) session.get(ChitietCauhinhDiem.class, q.getId());
 
-            n.setApDung(q.getApDung() != null ? q.getApDung() : n.getApDung());
-            n.setCauhinh(q.getCauhinh() != null ? q.getCauhinh() : n.getCauhinh());
-            n.setDiem(q.getDiem() != null ? q.getDiem() : n.getDiem());
+            n.setApDung(q.getApDung());
+            n.setCauhinh(q.getCauhinh());
+            n.setDiem(q.getDiem());
 
             session.update(n);
             tst.commit();

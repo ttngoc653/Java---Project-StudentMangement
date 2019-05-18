@@ -57,13 +57,13 @@ public class CauHinhDAL {
             tst = session.beginTransaction();
             Cauhinh n = (Cauhinh) session.get(Cauhinh.class, ch.getIdCauHinh());
 
-            n.setChitietCauhinhDiems(ch.getChitietCauhinhDiems().size() > 0 ? ch.getChitietCauhinhDiems() : n.getChitietCauhinhDiems());
-            n.setChitietCauhinhHocsinhs(ch.getChitietCauhinhHocsinhs().size() > 0 ? ch.getChitietCauhinhHocsinhs() : n.getChitietCauhinhHocsinhs());
-            n.setChitietCauhinhLops(ch.getChitietCauhinhLops().size() > 0 ? ch.getChitietCauhinhLops() : n.getChitietCauhinhLops());
-            n.setGiaTri(ch.getGiaTri().length() > 0 ? ch.getGiaTri() : n.getGiaTri());
-            n.setLoaiThuocTinh(ch.getLoaiThuocTinh().length() > 0 ? ch.getLoaiThuocTinh() : n.getLoaiThuocTinh());
-            n.setTenDayDu(ch.getTenDayDu().length() > 0 ? ch.getTenDayDu() : n.getTenDayDu());
-            n.setTenThuocTinh(ch.getTenThuocTinh().length() > 0 ? ch.getTenThuocTinh() : n.getTenThuocTinh());
+            n.setChitietCauhinhDiems(ch.getChitietCauhinhDiems());
+            n.setChitietCauhinhHocsinhs(ch.getChitietCauhinhHocsinhs());
+            n.setLops(ch.getLops());
+            n.setGiaTri(ch.getGiaTri());
+            n.setLoaiThuocTinh(ch.getLoaiThuocTinh());
+            n.setTenDayDu(ch.getTenDayDu());
+            n.setTenThuocTinh(ch.getTenThuocTinh());
 
             session.update(n);
             tst.commit();
@@ -101,7 +101,7 @@ public class CauHinhDAL {
             tst = session.beginTransaction();
             Query q = session.createQuery("select distinct cauhinh "
                     + "from Cauhinh as cauhinh"
-                    + "left join fetch ch.chitietCauhinhHocsinhs "
+                    + "left join fetch ch.lops "
                     + "left join fetch ch.chitietCauhinhLops "
                     + "left join fetch ch.chitietCauhinhDiems  ");
             lHs = (List<Cauhinh>) q.list();
@@ -121,7 +121,7 @@ public class CauHinhDAL {
             tst = session.beginTransaction();
             Query q = session.createQuery("select distinct ch "
                     + "from Cauhinh as ch "
-                    + "left join fetch ch.chitietCauhinhHocsinhs "
+                    + "left join fetch ch.lops "
                     + "left join fetch ch.chitietCauhinhLops "
                     + "left join fetch ch.chitietCauhinhDiems  "
                     + "where ch.idCauHinh = :id");
@@ -143,11 +143,52 @@ public class CauHinhDAL {
             tst = session.beginTransaction();
             Query q = session.createQuery("select distinct ch "
                     + "from Cauhinh  as ch "
-                    + "left join fetch ch.chitietCauhinhHocsinhs "
-                    + "left join fetch ch.chitietCauhinhLops "
+                    + "left join fetch ch.lops "
                     + "left join fetch ch.chitietCauhinhDiems  "
                     + "where ch.tenCauHinh like ':name'");
             q.setParameter("name", name);
+            hs = (Cauhinh) q.uniqueResult();
+            tst.commit();
+        } catch (Exception e) {
+            if (tst != null) {
+                tst.rollback();
+            }
+            e.printStackTrace();
+        }
+        return hs;
+    }
+    
+    public Cauhinh getByType(String type) {
+        Cauhinh hs = null;
+        try {
+            tst = session.beginTransaction();
+            Query q = session.createQuery("select distinct ch "
+                    + "from Cauhinh  as ch "
+                    + "left join fetch ch.lops "
+                    + "left join fetch ch.chitietCauhinhDiems  "
+                    + "where ch.loaiThuocTinh like ':name'");
+            q.setParameter("name", type);
+            hs = (Cauhinh) q.uniqueResult();
+            tst.commit();
+        } catch (Exception e) {
+            if (tst != null) {
+                tst.rollback();
+            }
+            e.printStackTrace();
+        }
+        return hs;
+    }
+    
+    public Cauhinh getByNameDetail(String name_detail) {
+        Cauhinh hs = null;
+        try {
+            tst = session.beginTransaction();
+            Query q = session.createQuery("select distinct ch "
+                    + "from Cauhinh  as ch "
+                    + "left join fetch ch.lops "
+                    + "left join fetch ch.chitietCauhinhDiems  "
+                    + "where ch.tenDayDu like ':name'");
+            q.setParameter("name", name_detail);
             hs = (Cauhinh) q.uniqueResult();
             tst.commit();
         } catch (Exception e) {
