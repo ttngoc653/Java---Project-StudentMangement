@@ -317,15 +317,15 @@ public class ScoreFrame extends javax.swing.JFrame {
                 diemck = Double.valueOf(jTable1.getModel().getValueAt(temp, 4).toString());
             } catch (NumberFormatException e) {
             }
-            dto.HocsinhLophocId hlId = new dto.HocsinhLophocId(hs.getIdHocSinh(), l.getIdLop(), nh.getIdNamHoc());
+            dto.HocsinhLophoc hl=new dal.HocsinhLophocDAL().getByNamHocLopHocSinh(nh, l, hs);
             if (new dal.DiemDAL().getByLopHocHocKyMonHocHocSinh(l, nh, hk, mh, hs) == null) {
-                if (new dal.DiemDAL().add(new dto.Diem(hk, new dto.HocsinhLophoc(hlId, hs, l, nh), mh, diem15, diem1, diemck, null)) > -1) {
+                if (new dal.DiemDAL().add(new dto.Diem(hk, hl, mh, diem15, diem1, diemck, null)) > -1) {
                     JOptionPane.showMessageDialog(chonBT, "them thanh cong");
                 } else {
                     JOptionPane.showMessageDialog(chonBT, "them that bai");
                 }
             } else {
-                if (new dal.DiemDAL().update(new Diem(hk, new dto.HocsinhLophoc(hlId, hs, l, nh), mh, diem15, diem1, diemck, null))) {
+                if (new dal.DiemDAL().update(new Diem(hk, hl, mh, diem15, diem1, diemck, null))) {
                     JOptionPane.showMessageDialog(chonBT, "cap nhat thanh cong");
                 } else {
                     JOptionPane.showMessageDialog(chonBT, "cap nhat that bai");
