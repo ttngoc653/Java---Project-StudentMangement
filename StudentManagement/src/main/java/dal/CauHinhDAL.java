@@ -94,16 +94,33 @@ public class CauHinhDAL {
         return result;
     }
 
+//    @SuppressWarnings("unchecked")
+//    public List<Cauhinh> getAll() {
+//        lHs = new ArrayList<Cauhinh>();
+//        try {
+//            tst = session.beginTransaction();
+//            Query q = session.createQuery("select distinct cauhinh "
+//                    + "from Cauhinh as cauhinh"
+//                    + "left join fetch ch.lops "
+//                    + "left join fetch ch.chitietCauhinhLops "
+//                    + "left join fetch ch.chitietCauhinhDiems  ");
+//            lHs = (List<Cauhinh>) q.list();
+//            tst.commit();
+//        } catch (Exception e) {
+//            if (tst != null) {
+//                tst.rollback();
+//            }
+//            e.printStackTrace();
+//        }
+//        return lHs;
+//    }
+    //19/05/2019
     @SuppressWarnings("unchecked")
     public List<Cauhinh> getAll() {
         lHs = new ArrayList<Cauhinh>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("select distinct cauhinh "
-                    + "from Cauhinh as cauhinh"
-                    + "left join fetch ch.lops "
-                    + "left join fetch ch.chitietCauhinhLops "
-                    + "left join fetch ch.chitietCauhinhDiems  ");
+            Query q = session.createQuery("from Cauhinh as cauhinh");
             lHs = (List<Cauhinh>) q.list();
             tst.commit();
         } catch (Exception e) {
@@ -119,11 +136,7 @@ public class CauHinhDAL {
         Cauhinh hs = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("select distinct ch "
-                    + "from Cauhinh as ch "
-                    + "left join fetch ch.lops "
-                    + "left join fetch ch.chitietCauhinhLops "
-                    + "left join fetch ch.chitietCauhinhDiems  "
+            Query q = session.createQuery("from Cauhinh as ch "
                     + "where ch.idCauHinh = :id");
             q.setParameter("id", idCauHinh);
             hs = (Cauhinh) q.uniqueResult();
@@ -153,7 +166,6 @@ public class CauHinhDAL {
 //        }
 //        return hs;
 //    }
-
     public Cauhinh getByName(String name) {
         Cauhinh hs = null;
         try {
@@ -174,7 +186,7 @@ public class CauHinhDAL {
         }
         return hs;
     }
-    
+
     public Cauhinh getByType(String type) {
         Cauhinh hs = null;
         try {
@@ -195,7 +207,7 @@ public class CauHinhDAL {
         }
         return hs;
     }
-    
+
     public Cauhinh getByNameDetail(String name_detail) {
         Cauhinh hs = null;
         try {

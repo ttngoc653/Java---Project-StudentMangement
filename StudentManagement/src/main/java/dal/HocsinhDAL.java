@@ -200,12 +200,33 @@ public class HocsinhDAL {
         return lHs;
     }
 
+//    public Hocsinh getById(int idHocSinh) {
+//        Hocsinh hs = null;
+//        try {
+//            tst = session.beginTransaction();
+//            Query q = session.createQuery("select distinct h "
+//                    + "from Hocsinh as h "
+//                    + "left join fetch h.hocsinhLophocs "
+//                    + "left join fetch h.chitietCauhinhHocsinhs c "
+//                    + "left join fetch c.cauhinh "
+//                    + "where h.idHocSinh = :idHocSinh");
+//            q.setParameter("idHocSinh", idHocSinh);
+//            hs = (Hocsinh) q.uniqueResult();
+//            tst.commit();
+//        } catch (Exception e) {
+//            if (tst != null) {
+//                tst.rollback();
+//            }
+//            e.printStackTrace();
+//        }
+//        return hs;
+//    }
+    //19/05/2019
     public Hocsinh getById(int idHocSinh) {
         Hocsinh hs = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("select distinct h "
-                    + "from Hocsinh as h "
+            Query q = session.createQuery("from Hocsinh as h "
                     + "left join fetch h.hocsinhLophocs "
                     + "left join fetch h.chitietCauhinhHocsinhs c "
                     + "left join fetch c.cauhinh "

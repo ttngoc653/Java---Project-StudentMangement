@@ -67,11 +67,11 @@ public class ShowListClassJFrame extends javax.swing.JFrame {
         jTableDanhSachLop = new javax.swing.JTable();
         lblTenTaiKhoan = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        cboNamHoc = new javax.swing.JComboBox<String>();
+        cboNamHoc = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         btnXem = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        cboTenLop = new javax.swing.JComboBox<String>();
+        cboTenLop = new javax.swing.JComboBox<>();
         txtTenLop = new javax.swing.JTextField();
         txtSiSo = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -210,8 +210,8 @@ public class ShowListClassJFrame extends javax.swing.JFrame {
                     .addComponent(txtTenLop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtSiSo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
         );
 
         pack();

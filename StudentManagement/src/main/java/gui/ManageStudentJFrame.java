@@ -540,7 +540,7 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
         this.jDateChooserNgaySinh.setDate(ngaySinh);
         this.txtEmail.setText(a.getEmail());
 
-        if (a.getGioiTinh().equals("Nam")) {
+        if (a.getGioiTinh().equals("Nam")||a.getGioiTinh().equals("nam")) {
             this.rbNam.setSelected(true);
         } else {
             this.rbNu.setSelected(true);
