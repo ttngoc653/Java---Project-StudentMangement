@@ -285,6 +285,7 @@ public class ConfigScoreJPanel extends javax.swing.JPanel {
                 }
                 if (!new dal.LopDAL().update(lop)) {
                     showError("Lỗi " + (hasConfig ? "cập nhật" : "tạo") + " điểm chuẩn lớp " + grade);
+                    break;
                 }
             }
         }
@@ -297,10 +298,12 @@ public class ConfigScoreJPanel extends javax.swing.JPanel {
 
                 if (cauhinh == null && new dal.CauHinhDAL().add(new dto.Cauhinh("diemChuanTheoMon", "benchmark", txtScoreNew.getText(), "Điểm chuẩn môn ~` " + subject, null, null, null)) <= 0) {
                     showError("Lỗi khi tạo điểm chuẩn môn " + subject);
+                    break;
                 } else {
                     cauhinh.setGiaTri(txtScoreNew.getText());
                     if (!new dal.CauHinhDAL().update(cauhinh)) {
                         showError("Lỗi khi cập nhật điểm môn " + subject);
+                        break;
                     }
                 }
             }

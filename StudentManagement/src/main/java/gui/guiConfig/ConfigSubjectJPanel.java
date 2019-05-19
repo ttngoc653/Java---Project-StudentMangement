@@ -379,8 +379,6 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Xóa thành công");
         }
         refresh();
-
-
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void txtNumMaxKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumMaxKeyTyped

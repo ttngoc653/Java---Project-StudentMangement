@@ -312,13 +312,11 @@ public class ConfigClassJPanel extends javax.swing.JPanel {
                 cauhinh = new Cauhinh("siSoToiDa", "maxSizeStudents", txtMaxCount.getText(), "Sỉ số tối đa chung", null, null, null);
                 if (new dal.CauHinhDAL().add(cauhinh) <= 0) {
                     JOptionPane.showMessageDialog(this, "Áp dụng sỉ số tối đa thất bại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-                    return;
                 }
             } else {
                 cauhinh.setGiaTri(txtMaxCount.getText());
                 if (!new dal.CauHinhDAL().update(cauhinh)) {
                     JOptionPane.showMessageDialog(this, "Cập nhật sỉ số tối đa thất bại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-                    return;
                 }
             }
         }
@@ -341,13 +339,13 @@ public class ConfigClassJPanel extends javax.swing.JPanel {
                     }
 
                     if (!updatedValueConfig) {
-                        dto.Cauhinh cauhinh = new Cauhinh("siSoToiDaTheoLop", "maxSizeStudentByGrade", txtMaxCount.getText(), "Sỉ số tối đa trong lớp", null, null, null);
+                        dto.Cauhinh cauhinh = new Cauhinh("siSoToiDaTheoLop", "maxSizeStudents", txtMaxCount.getText(), "Sỉ số tối đa trong lớp", null, null, null);
                         lop.getCauhinhs().add(cauhinh);
                     }
 
                     if (!new dal.LopDAL().update(lop)) {
                         showError("Cập nhật sĩ số tối đa cho lớp " + lop.getTenLop() + " thất bại.");
-                        return;
+                        break;
                     }
                 }
             }
@@ -366,13 +364,11 @@ public class ConfigClassJPanel extends javax.swing.JPanel {
                 cauhinh = new Cauhinh("soLopToiDa", "maxSizeGrades", txtMaxCountClass.getText(), "Số lớp tối đa", null, null, null);
                 if (new dal.CauHinhDAL().add(cauhinh) <= 0) {
                     showError("Áp dụng số lớp tối đa thất bại.");
-                    return;
                 }
             } else {
                 cauhinh.setGiaTri(txtMaxCountClass.getText());
                 if (!new dal.CauHinhDAL().update(cauhinh)) {
                     showError("Cập nhật số lớp tối đa thất bại.");
-                    return;
                 }
             }
         }
@@ -382,14 +378,14 @@ public class ConfigClassJPanel extends javax.swing.JPanel {
             for (Object selectItem : selectList) {
                 String block = selectItem.toString().split(" ~` ")[0];
                 dto.Cauhinh cauhinh = bll.ConfigBLL.searchCauHinhAccoundToBlock(block);
-                if (cauhinh == null && new dal.CauHinhDAL().add(new Cauhinh("soLopToiDaTheoKhoi", "maxSizeClassByBlock", txtMaxCountClass.getText(), "Số lớp tối đa của khối ~` " + block, null, null, null)) >= 0) {
+                if (cauhinh == null && new dal.CauHinhDAL().add(new Cauhinh("soLopToiDaTheoKhoi", "maxSizeGrades", txtMaxCountClass.getText(), "Số lớp tối đa của khối ~` " + block, null, null, null)) >= 0) {
                     showError("Tạo số lớp tối đa của khối ");
-                    return;
+                    break;
                 } else if (cauhinh != null) {
                     cauhinh.setGiaTri(txtMaxCountClass.getText());
                     if (!new dal.CauHinhDAL().update(cauhinh)) {
                         showError("Lỗi khi cập nhật số lượng lớp tối đa của khối " + block);
-                        return;
+                        break;
                     }
                 }
             }
