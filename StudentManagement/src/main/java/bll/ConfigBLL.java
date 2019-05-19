@@ -39,4 +39,14 @@ public class ConfigBLL {
         return "";
     }
 
+    public static Cauhinh searchCauHinhAccoundToBlock(String split) {
+        List<dto.Cauhinh> cauhinhs = new dal.CauHinhDAL().getAll();
+        for (int i = 0; i < cauhinhs.size(); i++) {
+            if (cauhinhs.get(i).getTenDayDu().equals("Số lớp tối đa của khối ~` " + split)) {
+                return cauhinhs.get(i);
+            }
+        }
+        return null;
+    }
+
 }

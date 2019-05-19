@@ -258,6 +258,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="&#xc1;p d&#x1ee5;ng s&#x1ed1; l&#x1b0;&#x1ee3;ng l&#x1edb;p"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMaxCountClassActionPerformed"/>
+          </Events>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane3">
           <AuxValues>
