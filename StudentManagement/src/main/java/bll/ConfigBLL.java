@@ -5,12 +5,9 @@
  */
 package bll;
 
-import dto.Lop;
-import dto.Namhoc;
-import java.util.Iterator;
+import dto.Cauhinh;
 import java.util.List;
-import javax.swing.DefaultListModel;
-import javax.swing.ListModel;
+import java.util.Set;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
@@ -36,6 +33,10 @@ public class ConfigBLL {
             node.add(new DefaultMutableTreeNode(list_namhoc.get(i).getTenNamHoc()));
             model.nodesWereInserted(node, new int[]{node.getChildCount() - 1});
         }
+    }
+
+    public static String getValueMaxClassCurrent(Set<Cauhinh> cauhinhs) {
+        return "";
     }
 
 }
