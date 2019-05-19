@@ -283,6 +283,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtNumMax">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNumMaxKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel8">
           <Properties>

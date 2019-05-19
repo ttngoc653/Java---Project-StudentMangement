@@ -5,12 +5,9 @@
  */
 package bll;
 
-import dto.Lop;
-import dto.Namhoc;
-import java.util.Iterator;
+import dto.Cauhinh;
 import java.util.List;
-import javax.swing.DefaultListModel;
-import javax.swing.ListModel;
+import java.util.Set;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
@@ -36,6 +33,26 @@ public class ConfigBLL {
             node.add(new DefaultMutableTreeNode(list_namhoc.get(i).getTenNamHoc()));
             model.nodesWereInserted(node, new int[]{node.getChildCount() - 1});
         }
+    }
+
+    public static String getValueMaxClassCurrent(Set<Cauhinh> cauhinhs) {
+        dto.Cauhinh cauhinhChuanChung = new dal.CauHinhDAL().getByName("diemChuan");
+
+        return cauhinhChuanChung != null ? cauhinhChuanChung.getGiaTri() : "0";
+    }
+
+    public static Cauhinh searchCauHinhAccoundToBlock(String split) {
+        List<dto.Cauhinh> cauhinhs = new dal.CauHinhDAL().getAll();
+        for (int i = 0; i < cauhinhs.size(); i++) {
+            if (cauhinhs.get(i).getTenDayDu().equals("Số lớp tối đa của khối ~` " + split)) {
+                return cauhinhs.get(i);
+            }
+        }
+        return null;
+    }
+
+    public static String getBenchMaskGerenalCurrent() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
