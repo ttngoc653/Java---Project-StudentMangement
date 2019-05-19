@@ -146,15 +146,33 @@ public class HocsinhDAL {
 //        return lHs;
 //    }
     //24/04/2019
+//    @SuppressWarnings("unchecked")
+//    public List<Hocsinh> getAll() {
+//        lHs = new ArrayList<Hocsinh>();
+//        try {
+//            tst = session.beginTransaction();
+//            Query q = session.createQuery("select distinct h "
+//                    + "from Hocsinh as h "
+//                    + "left join fetch h.hocsinhLophocs "
+//                    + "left join fetch h.chitietCauhinhHocsinhs");
+//            lHs = (List<Hocsinh>) q.list();
+//            tst.commit();
+//        } catch (Exception e) {
+//            if (tst != null) {
+//                tst.rollback();
+//            }
+//            e.printStackTrace();
+//        }
+//        return lHs;
+//    }
+    //19/05/2019
+    //24/04/2019
     @SuppressWarnings("unchecked")
     public List<Hocsinh> getAll() {
         lHs = new ArrayList<Hocsinh>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("select distinct h "
-                    + "from Hocsinh as h "
-                    + "left join fetch h.hocsinhLophocs "
-                    + "left join fetch h.chitietCauhinhHocsinhs");
+            Query q = session.createQuery("from Hocsinh as h ");
             lHs = (List<Hocsinh>) q.list();
             tst.commit();
         } catch (Exception e) {
@@ -169,24 +187,51 @@ public class HocsinhDAL {
     /*
     * Tra cứu học sinh theo nhiều tiêu chí
      */
+//    @SuppressWarnings("unchecked")
+//    public List<Hocsinh> Search(String key) {
+//        lHs = new ArrayList<Hocsinh>();
+//        String keyId = key;
+//        try {
+//            tst = session.beginTransaction();
+//            Query q = session.createQuery("select distinct h "
+//                    + "FROM Hocsinh h "
+//                    + "left join fetch h.hocsinhLophocs "
+//                    + "left join fetch h.chitietCauhinhHocsinhs"
+//                    + "WHERE h.idHocSinh = :keyId "
+//                    + "or h.hoTen like :key "
+//                    + "or h.ngaySinh like :key "
+//                    + "or h.gioiTinh like :key "
+//                    + "or h.diaChi like :key "
+//                    + "or h.email like :key "
+//                    + "or h.sdtCaNhan like :key "
+//                    + "or h.sdtGiamHo like :key");
+//            q.setString("keyId", keyId);
+//            q.setString("key", "%" + key + "%");
+//            lHs = q.list();
+//            tst.commit();
+//        } catch (Exception e) {
+//            if (tst != null) {
+//                tst.rollback();
+//            }
+//            e.printStackTrace();
+//        }
+//        return lHs;
+//    }
+    //19/05/2019
     @SuppressWarnings("unchecked")
     public List<Hocsinh> Search(String key) {
         lHs = new ArrayList<Hocsinh>();
         String keyId = key;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("select distinct h "
-                    + "FROM Hocsinh h "
-                    + "left join fetch h.hocsinhLophocs "
-                    + "left join fetch h.chitietCauhinhHocsinhs"
-                    + "WHERE h.idHocSinh = :keyId "
-                    + "or h.hoTen like :key "
-                    + "or h.ngaySinh like :key "
-                    + "or h.gioiTinh like :key "
-                    + "or h.diaChi like :key "
-                    + "or h.email like :key "
-                    + "or h.sdtCaNhan like :key "
-                    + "or h.sdtGiamHo like :key");
+            Query q = session.createQuery("FROM Hocsinh WHERE idHocSinh = :keyId "
+                    + "or hoTen like :key "
+                    + "or ngaySinh like :key "
+                    + "or gioiTinh like :key "
+                    + "or diaChi like :key "
+                    + "or email like :key "
+                    + "or sdtCaNhan like :key "
+                    + "or sdtGiamHo like :key");
             q.setString("keyId", keyId);
             q.setString("key", "%" + key + "%");
             lHs = q.list();
@@ -199,13 +244,35 @@ public class HocsinhDAL {
         }
         return lHs;
     }
+    
 
+//    public Hocsinh getById(int idHocSinh) {
+//        Hocsinh hs = null;
+//        try {
+//            tst = session.beginTransaction();
+//            Query q = session.createQuery("select distinct h "
+//                    + "from Hocsinh as h "
+//                    + "left join fetch h.hocsinhLophocs "
+//                    + "left join fetch h.chitietCauhinhHocsinhs c "
+//                    + "left join fetch c.cauhinh "
+//                    + "where h.idHocSinh = :idHocSinh");
+//            q.setParameter("idHocSinh", idHocSinh);
+//            hs = (Hocsinh) q.uniqueResult();
+//            tst.commit();
+//        } catch (Exception e) {
+//            if (tst != null) {
+//                tst.rollback();
+//            }
+//            e.printStackTrace();
+//        }
+//        return hs;
+//    }
+    //19/05/2019
     public Hocsinh getById(int idHocSinh) {
         Hocsinh hs = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("select distinct h "
-                    + "from Hocsinh as h "
+            Query q = session.createQuery("from Hocsinh as h "
                     + "left join fetch h.hocsinhLophocs "
                     + "left join fetch h.chitietCauhinhHocsinhs c "
                     + "left join fetch c.cauhinh "

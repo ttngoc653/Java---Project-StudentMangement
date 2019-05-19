@@ -5,6 +5,12 @@
  */
 package gui.guiConfig;
 
+import dto.Lop;
+import java.util.List;
+import java.util.Set;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author tuhuy
@@ -40,13 +46,19 @@ public class ConfigScoreJPanel extends javax.swing.JPanel {
         jScrollPane3 = new javax.swing.JScrollPane();
         listClass = new javax.swing.JList();
         ckbClass = new javax.swing.JCheckBox();
+        ckbGeneral = new javax.swing.JCheckBox();
         btnApply = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(380, 400));
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Quản lý điểm chuẩn");
+        jLabel4.setText("Quy định điểm chuẩn");
         jLabel4.setToolTipText("");
         jLabel4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
@@ -63,11 +75,27 @@ public class ConfigScoreJPanel extends javax.swing.JPanel {
 
         jLabel7.setText("Điểm chuẩn mới:");
 
-        jLabel8.setText("(Áp dụng khi vào điểm)");
+        txtScoreNew.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtScoreNewFocusLost(evt);
+            }
+        });
+        txtScoreNew.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtScoreNewKeyTyped(evt);
+            }
+        });
+
+        jLabel8.setText("(Áp dụng khi báo cáo)");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Áp dụng:"));
 
-        ckbSubject.setText("Theo môn:");
+        ckbSubject.setText("Với môn:");
+        ckbSubject.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckbSubjectActionPerformed(evt);
+            }
+        });
 
         listSubjects.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -83,39 +111,57 @@ public class ConfigScoreJPanel extends javax.swing.JPanel {
         });
         jScrollPane3.setViewportView(listClass);
 
-        ckbClass.setText("Theo lớp:");
+        ckbClass.setText("Khi tổng kết lớp:");
+        ckbClass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckbClassActionPerformed(evt);
+            }
+        });
+
+        ckbGeneral.setSelected(true);
+        ckbGeneral.setText("Chung (cho lớp và môn không có điểm chuẩn riêng)");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(ckbSubject))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(ckbClass)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 59, Short.MAX_VALUE))
                     .addComponent(jScrollPane3)))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ckbSubject)
+                    .addComponent(ckbGeneral, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ckbClass)
-                    .addComponent(ckbSubject))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(ckbSubject)
+                            .addComponent(ckbClass)))
+                    .addComponent(ckbGeneral))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
                     .addComponent(jScrollPane1))
                 .addContainerGap())
         );
 
         btnApply.setText("Áp dụng");
+        btnApply.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnApplyActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -129,12 +175,10 @@ public class ConfigScoreJPanel extends javax.swing.JPanel {
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtScoreNew, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                        .addComponent(jLabel8)
-                        .addGap(40, 40, 40))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel8))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(105, 105, 105)
                 .addComponent(btnApply, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -149,7 +193,7 @@ public class ConfigScoreJPanel extends javax.swing.JPanel {
                     .addComponent(txtScoreNew, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 266, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnApply, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -175,10 +219,108 @@ public class ConfigScoreJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        txtScoreNew.setText(bll.ConfigBLL.getBenchMaskGerenalCurrent());
+
+        initListSubject();
+
+        initListGrade();
+
+        listClass.setEnabled(ckbClass.isSelected());
+        listSubjects.setEnabled(ckbSubject.isSelected());
+    }//GEN-LAST:event_formComponentShown
+
+    private void txtScoreNewFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtScoreNewFocusLost
+        if (txtScoreNew.getText().isEmpty()) {
+            txtScoreNew.setText(bll.ConfigBLL.getBenchMaskGerenalCurrent());
+        }
+    }//GEN-LAST:event_txtScoreNewFocusLost
+
+    private void ckbSubjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckbSubjectActionPerformed
+        listSubjects.setEnabled(ckbSubject.isSelected());
+    }//GEN-LAST:event_ckbSubjectActionPerformed
+
+    private void ckbClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckbClassActionPerformed
+        listClass.setEnabled(ckbClass.isSelected());
+    }//GEN-LAST:event_ckbClassActionPerformed
+
+    private void btnApplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApplyActionPerformed
+        if (txtScoreNew.getText().isEmpty()) {
+            showError("Điểm chuẩn không được bỏ trống!");
+            return;
+        }
+
+        if (ckbGeneral.isSelected()) {
+            dto.Cauhinh cauhinh = new dal.CauHinhDAL().getByName("diemChuan");
+            if (cauhinh == null && new dal.CauHinhDAL().add(new dto.Cauhinh("diemChuan", "benchmark", txtScoreNew.getText(), "Điểm chuẩn mặc định", null, null, null)) <= 0) {
+                showError("Lỗi khi tạo điểm chuẩn.");
+            } else {
+                cauhinh.setGiaTri(txtScoreNew.getText());
+                if (!new dal.CauHinhDAL().update(cauhinh)) {
+                    showError("Lối khi cập nhật điểm chuẩn chung");
+                }
+            }
+        }
+
+        if (ckbClass.isSelected()) {
+            List listGradeSelecteds = listClass.getSelectedValuesList();
+            for (Object listGradeSelected : listGradeSelecteds) {
+                String grade = listGradeSelected.toString().split(" ~` ")[0];
+                dto.Lop lop = new dal.LopDAL().getByTen(grade);
+                Boolean hasConfig = false;
+                for (dto.Cauhinh cauhinh : lop.getCauhinhs()) {
+                    if (cauhinh.getTenThuocTinh().equals("diemChuanTheoLop")) {
+                        lop.getCauhinhs().remove(cauhinh);
+                        cauhinh.setGiaTri(txtScoreNew.getText());
+                        lop.getCauhinhs().add(cauhinh);
+                        hasConfig = true;
+                        break;
+                    }
+                }
+                if (!hasConfig) {
+                    dto.Cauhinh cauhinh = new dto.Cauhinh("diemChuanLop", "benchmark", txtScoreNew.getText(), "Điểm chuẩn lớp " + grade, null, null, null);
+                    Set<dto.Cauhinh> cauhinhs = lop.getCauhinhs();
+                    cauhinhs.add(cauhinh);
+                    lop.setCauhinhs(cauhinhs);
+                }
+                if (!new dal.LopDAL().update(lop)) {
+                    showError("Lỗi " + (hasConfig ? "cập nhật" : "tạo") + " điểm chuẩn lớp " + grade);
+                    break;
+                }
+            }
+        }
+
+        if (ckbSubject.isSelected()) {
+            List subjectSelecteds = listSubjects.getSelectedValuesList();
+            for (Object subjectSelected : subjectSelecteds) {
+                String subject = subjectSelected.toString().split(" ~` ")[0];
+                dto.Cauhinh cauhinh = new dal.CauHinhDAL().getByNameDetail("Điểm chuẩn môn ~` " + subject);
+
+                if (cauhinh == null && new dal.CauHinhDAL().add(new dto.Cauhinh("diemChuanTheoMon", "benchmark", txtScoreNew.getText(), "Điểm chuẩn môn ~` " + subject, null, null, null)) <= 0) {
+                    showError("Lỗi khi tạo điểm chuẩn môn " + subject);
+                    break;
+                } else {
+                    cauhinh.setGiaTri(txtScoreNew.getText());
+                    if (!new dal.CauHinhDAL().update(cauhinh)) {
+                        showError("Lỗi khi cập nhật điểm môn " + subject);
+                        break;
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_btnApplyActionPerformed
+
+    private void txtScoreNewKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtScoreNewKeyTyped
+        if (!bll.HelperBLL.IsDouble(txtScoreNew.getText()+evt.getKeyChar())) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtScoreNewKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnApply;
     private javax.swing.JCheckBox ckbClass;
+    private javax.swing.JCheckBox ckbGeneral;
     private javax.swing.JCheckBox ckbSubject;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
@@ -192,4 +334,28 @@ public class ConfigScoreJPanel extends javax.swing.JPanel {
     private javax.swing.JList listSubjects;
     private javax.swing.JTextField txtScoreNew;
     // End of variables declaration//GEN-END:variables
+
+    private void initListSubject() {
+        List<dto.Monhoc> monhocs = new dal.MonhocDAL().getAll();
+        DefaultListModel listModel = new DefaultListModel();
+        for (dto.Monhoc monhoc : monhocs) {
+            String stringItem = monhoc.getTenMh();
+            listModel.addElement(stringItem);
+        }
+        listSubjects.setModel(listModel);
+    }
+
+    private void initListGrade() {
+        DefaultListModel listModel = new DefaultListModel();
+        List<dto.Lop> lops = new dal.LopDAL().getAll();
+        for (dto.Lop lop : lops) {
+            String stringItem = lop.getTenLop();
+            listModel.addElement(stringItem);
+        }
+        listClass.setModel(listModel);
+    }
+
+    private void showError(String contentError) {
+        JOptionPane.showMessageDialog(this, contentError, "Lỗi", JOptionPane.ERROR_MESSAGE);
+    }
 }

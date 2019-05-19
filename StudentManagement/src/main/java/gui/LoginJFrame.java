@@ -128,6 +128,7 @@ public class LoginJFrame extends javax.swing.JFrame {
                     ManageMainJFrame f = new ManageMainJFrame(nd);
                     f.setLocationRelativeTo(null);
                     f.setVisible(true);
+                    f.setResizable(false);
                     this.setVisible(false);
 
 //                    MainJFrame f = new MainJFrame(nd);

@@ -26,42 +26,42 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
     public ConfigSubjectJPanel() {
         initComponents();
         refresh();
-        
+
     }
-    void refresh()
-    {
+
+    void refresh() {
         initCBXMonHoc();
         initTeaching();
         initCastrate();
     }
-    
-    void initCBXMonHoc()
-    {
+
+    void initCBXMonHoc() {
         MonhocDAL mhDAL = new MonhocDAL();
         List<Monhoc> ds = new ArrayList<Monhoc>();
         ds = mhDAL.getAll();
         cbbSubject.removeAllItems();
-        for(Monhoc mh:ds)
-        {
+        for (Monhoc mh : ds) {
             cbbSubject.addItem(mh.getTenMh());
         }
-        
+
     }
-    void initTeaching()
-    {
+
+    void initTeaching() {
         List<Monhoc> ds = new MonhocDAL().getByTinhTrang(true);
-        DefaultListModel ten=new DefaultListModel();
-        for(Monhoc mh:ds)
+        DefaultListModel ten = new DefaultListModel();
+        for (Monhoc mh : ds) {
             ten.addElement(mh.getTenMh());
+        }
         lTeaching.setModel(ten);
     }
-    void initCastrate()
-    {
-        
+
+    void initCastrate() {
+
         List<Monhoc> ds = new MonhocDAL().getByTinhTrang(false);
-        DefaultListModel ten=new DefaultListModel();
-        for(Monhoc mh:ds)
+        DefaultListModel ten = new DefaultListModel();
+        for (Monhoc mh : ds) {
             ten.addElement(mh.getTenMh());
+        }
         lCastrate.setModel(ten);
     }
 
@@ -81,7 +81,7 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         btnDelete = new javax.swing.JButton();
-        cbbSubject = new javax.swing.JComboBox<>();
+        cbbSubject = new javax.swing.JComboBox<String>();
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
@@ -198,6 +198,12 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Quản lý số lượng môn học"));
 
         jLabel7.setText("Số lượng môn:");
+
+        txtNumMax.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNumMaxKeyTyped(evt);
+            }
+        });
 
         jLabel8.setText("Số môn hiện có:");
 
@@ -338,31 +344,26 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
-        if(txtSubject.getText().equals(""))
-        {
-            JOptionPane.showMessageDialog(this,"Chưa nhập môn học");
+        if (txtSubject.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Chưa nhập môn học");
             return;
         }
-            
+
         Monhoc mh = new Monhoc();
         mh.setTenMh(txtSubject.getText());
         mh.setDangGiangDay(true);
-        
-        
-        if(new MonhocDAL().getByTen(mh.getTenMh())== null)
-        {
-            if(new MonhocDAL().add(mh)>0)
-            {
-                JOptionPane.showMessageDialog(this,"Thêm thành công");
+
+        if (new MonhocDAL().getByTen(mh.getTenMh()) == null) {
+            if (new MonhocDAL().add(mh) > 0) {
+                JOptionPane.showMessageDialog(this, "Thêm thành công");
                 txtSubject.setText("");
+            } else {
+                JOptionPane.showMessageDialog(this, "Đã có lỗi. Kiểm tra lại");
             }
-            else
-                JOptionPane.showMessageDialog(this,"Đã có lỗi. Kiểm tra lại");
-        }
-        else
+        } else {
             JOptionPane.showMessageDialog(this, "Môn học đã tồn tại");
-        
-        
+        }
+
         refresh();
     }//GEN-LAST:event_btnAddActionPerformed
 
@@ -370,16 +371,21 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         Monhoc mh = new Monhoc();
         mh = new MonhocDAL().getByTen(cbbSubject.getSelectedItem().toString());
-        if(mh.getDiems().size() !=0)
+        if (mh.getDiems().size() != 0) {
             JOptionPane.showMessageDialog(this, "Môn học còn lưu điểm. Không xóa được");
-        else if(new MonhocDAL().delete(mh.getIdMonHoc())==false)
+        } else if (new MonhocDAL().delete(mh.getIdMonHoc()) == false) {
             JOptionPane.showMessageDialog(this, "Có lỗi Function khi xóa");
-        else
+        } else {
             JOptionPane.showMessageDialog(this, "Xóa thành công");
+        }
         refresh();
-            
-            
     }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void txtNumMaxKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumMaxKeyTyped
+        if (!bll.HelperBLL.IsInteger(txtNumMax.getText() + evt.getKeyChar())) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNumMaxKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
