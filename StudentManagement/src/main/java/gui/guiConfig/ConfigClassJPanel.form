@@ -120,6 +120,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtMaxCount">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtMaxCountKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
@@ -253,6 +256,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtMaxCountClass">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtMaxCountClassKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnMaxCountClass">
           <Properties>

@@ -36,7 +36,9 @@ public class ConfigBLL {
     }
 
     public static String getValueMaxClassCurrent(Set<Cauhinh> cauhinhs) {
-        return "";
+        dto.Cauhinh cauhinhChuanChung = new dal.CauHinhDAL().getByName("diemChuan");
+
+        return cauhinhChuanChung != null ? cauhinhChuanChung.getGiaTri() : "0";
     }
 
     public static Cauhinh searchCauHinhAccoundToBlock(String split) {
@@ -47,6 +49,10 @@ public class ConfigBLL {
             }
         }
         return null;
+    }
+
+    public static String getBenchMaskGerenalCurrent() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

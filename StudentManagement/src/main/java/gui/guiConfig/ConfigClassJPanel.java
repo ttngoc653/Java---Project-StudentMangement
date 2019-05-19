@@ -65,6 +65,12 @@ public class ConfigClassJPanel extends javax.swing.JPanel {
 
         jLabel1.setText("Sỉ số tối đa:");
 
+        txtMaxCount.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtMaxCountKeyTyped(evt);
+            }
+        });
+
         jLabel2.setText("Áp dụng:");
 
         btnMaxSudent.setText("Áp dụng sỉ số tối đa");
@@ -140,6 +146,12 @@ public class ConfigClassJPanel extends javax.swing.JPanel {
         jPanel3.setPreferredSize(new java.awt.Dimension(800, 600));
 
         jLabel3.setText("Số lượng lớp tối đa:");
+
+        txtMaxCountClass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtMaxCountClassKeyTyped(evt);
+            }
+        });
 
         btnMaxCountClass.setText("Áp dụng số lượng lớp");
         btnMaxCountClass.addActionListener(new java.awt.event.ActionListener() {
@@ -288,6 +300,12 @@ public class ConfigClassJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_formComponentShown
 
     private void btnMaxSudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaxSudentActionPerformed
+        if (txtMaxCount.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập số lượng học sinh tối đa.");
+            return;
+        }
+
+        // create or modify number of students of all class in school
         if (ckbNew.isSelected()) {
             dto.Cauhinh cauhinh = new dal.CauHinhDAL().getByName("siSoToiDa");
             if (cauhinh == null) {
@@ -304,11 +322,12 @@ public class ConfigClassJPanel extends javax.swing.JPanel {
                 }
             }
         }
-        
+
+        // create or modify maximun number of students acconding to class seleted in jlist
         if (ckbOld.isSelected()) {
             List selectList = listClass.getSelectedValuesList();
             for (int i = 0; i < selectList.size(); i++) {
-                dto.Lop lop = new dal.LopDAL().getByTen(selectList.get(i).toString());
+                dto.Lop lop = new dal.LopDAL().getByTen(selectList.get(i).toString().split(" ~` ")[0]);
                 if (lop != null) {
                     boolean updatedValueConfig = false;
                     for (Cauhinh cauhinhIndex : lop.getCauhinhs()) {
@@ -316,18 +335,18 @@ public class ConfigClassJPanel extends javax.swing.JPanel {
                             lop.getCauhinhs().remove(cauhinhIndex);
                             cauhinhIndex.setGiaTri(txtMaxCount.getText());
                             lop.getCauhinhs().add(cauhinhIndex);
-                            
+
                             updatedValueConfig = true;
                         }
                     }
-                    
+
                     if (!updatedValueConfig) {
                         dto.Cauhinh cauhinh = new Cauhinh("siSoToiDaTheoLop", "maxSizeStudentByGrade", txtMaxCount.getText(), "Sỉ số tối đa trong lớp", null, null, null);
                         lop.getCauhinhs().add(cauhinh);
                     }
-                    
+
                     if (!new dal.LopDAL().update(lop)) {
-                        JOptionPane.showMessageDialog(this, "Cập nhật sĩ số tối đa cho lớp " + lop.getTenLop() + " thất bại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                        showError("Cập nhật sĩ số tối đa cho lớp " + lop.getTenLop() + " thất bại.");
                         return;
                     }
                 }
@@ -337,64 +356,57 @@ public class ConfigClassJPanel extends javax.swing.JPanel {
 
     private void btnMaxCountClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaxCountClassActionPerformed
         if (txtMaxCountClass.getText().isEmpty() && bll.HelperBLL.IsInteger(txtMaxCountClass.getText())) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập số lượng lớp.");
+            showError("Vui lòng nhập số lượng lớp.");
             return;
         }
-        
+
         if (ckbGeneral.isSelected()) {
             dto.Cauhinh cauhinh = new dal.CauHinhDAL().getByName("soLopToiDa");
             if (cauhinh == null) {
                 cauhinh = new Cauhinh("soLopToiDa", "maxSizeGrades", txtMaxCountClass.getText(), "Số lớp tối đa", null, null, null);
                 if (new dal.CauHinhDAL().add(cauhinh) <= 0) {
-                    JOptionPane.showMessageDialog(this, "Áp dụng số lớp tối đa thất bại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    showError("Áp dụng số lớp tối đa thất bại.");
                     return;
                 }
             } else {
                 cauhinh.setGiaTri(txtMaxCountClass.getText());
                 if (!new dal.CauHinhDAL().update(cauhinh)) {
-                    JOptionPane.showMessageDialog(this, "Cập nhật số lớp tối đa thất bại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    showError("Cập nhật số lớp tối đa thất bại.");
                     return;
                 }
             }
         }
-        
+
         if (ckbType.isSelected()) {
             List selectList = listType.getSelectedValuesList();
-            for (int i = 0; i < selectList.size(); i++) {
-                String block = selectList.get(i).toString().split(" ~`")[0];
+            for (Object selectItem : selectList) {
+                String block = selectItem.toString().split(" ~` ")[0];
                 dto.Cauhinh cauhinh = bll.ConfigBLL.searchCauHinhAccoundToBlock(block);
                 if (cauhinh == null && new dal.CauHinhDAL().add(new Cauhinh("soLopToiDaTheoKhoi", "maxSizeClassByBlock", txtMaxCountClass.getText(), "Số lớp tối đa của khối ~` " + block, null, null, null)) >= 0) {
-                    JOptionPane.showMessageDialog(this, "Tạo số lớp tối đa của khối " + block + " thất bại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    showError("Tạo số lớp tối đa của khối ");
+                    return;
                 } else if (cauhinh != null) {
                     cauhinh.setGiaTri(txtMaxCountClass.getText());
+                    if (!new dal.CauHinhDAL().update(cauhinh)) {
+                        showError("Lỗi khi cập nhật số lượng lớp tối đa của khối " + block);
+                        return;
+                    }
                 }
-                /*dto.Lop lop = new dal.LopDAL().getByTen(selectList.get(i).toString());
-                 if (lop != null) {
-                 boolean updatedValueConfig = false;
-                 for (Cauhinh cauhinhIndex : lop.getCauhinhs()) {
-                 if (cauhinhIndex.getTenThuocTinh().equals("siSoToiDaTheoLop")) {
-                 lop.getCauhinhs().remove(cauhinhIndex);
-                 cauhinhIndex.setGiaTri(txtMaxCount.getText());
-                 lop.getCauhinhs().add(cauhinhIndex);
-
-                 updatedValueConfig = true;
-                 }
-                 }
-
-                 if (!updatedValueConfig) {
-                 dto.Cauhinh cauhinh = new Cauhinh("siSoToiDaTheoLop", "maxSizeStudentByGrade", txtMaxCount.getText(), "Sỉ số tối đa trong lớp", null, null, null);
-                 lop.getCauhinhs().add(cauhinh);
-                 }
-
-                 if (!new dal.LopDAL().update(lop)) {
-                 JOptionPane.showMessageDialog(this, "Cập nhật sĩ số tối đa cho lớp " + lop.getTenLop() + " thất bại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-                 return;
-                 }
-                 }
-                 */
             }
         }
     }//GEN-LAST:event_btnMaxCountClassActionPerformed
+
+    private void txtMaxCountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaxCountKeyTyped
+        if (!bll.HelperBLL.IsInteger(txtMaxCount.getText()+evt.getKeyChar())) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtMaxCountKeyTyped
+
+    private void txtMaxCountClassKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaxCountClassKeyTyped
+        if (!bll.HelperBLL.IsInteger(txtMaxCountClass.getText()+evt.getKeyChar())) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtMaxCountClassKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnMaxCountClass;
@@ -418,4 +430,8 @@ public class ConfigClassJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtMaxCount;
     private javax.swing.JTextField txtMaxCountClass;
     // End of variables declaration//GEN-END:variables
+
+    private void showError(String content_error) {
+        JOptionPane.showMessageDialog(this, content_error, "Lỗi", JOptionPane.ERROR_MESSAGE);
+    }
 }
