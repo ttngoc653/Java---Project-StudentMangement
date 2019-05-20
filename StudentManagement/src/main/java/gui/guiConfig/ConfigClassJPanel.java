@@ -6,8 +6,8 @@
 package gui.guiConfig;
 
 import dto.Cauhinh;
+import dto.Lop;
 import java.util.List;
-import static javassist.CtMethod.ConstParameter.string;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
@@ -281,8 +281,8 @@ public class ConfigClassJPanel extends javax.swing.JPanel {
         List<dto.Lop> lops = new dal.LopDAL().getByTinhTrang(Byte.parseByte("1"));
         listClass.removeAll();
         DefaultListModel model = new DefaultListModel();
-        for (int i = 0; i < lops.size(); i++) {
-            model.addElement(lops.get(i).getTenLop() + bll.ConfigBLL.getValueMaxClassCurrent(lops.get(i).getCauhinhs()));
+        for (Lop lop : lops) {
+            model.addElement(lop.getTenLop() + " ~` Áp dụng riêng: " + bll.ConfigBLL.getValueMaxClassCurrent(lop.getCauhinhs()) + " học sinh");
         }
         listClass.setModel(model);
         listClass.setEnabled(ckbOld.isEnabled());
@@ -291,9 +291,11 @@ public class ConfigClassJPanel extends javax.swing.JPanel {
         ckbGeneral.setSelected(true);
         listType.removeAll();
         model = new DefaultListModel();
-        for (int i = 0; i < lops.size(); i++) {
-            model.removeElement(lops.get(i).getKhoi());
-            model.addElement(lops.get(i).getKhoi());
+        for (Lop lop : lops) {
+            dto.Cauhinh cauhinh = new dal.CauHinhDAL().getByNameDetail("Số lớp tối đa của khối ~` " + String.valueOf(lop.getKhoi()));
+            String stringConfig = String.valueOf(lop.getKhoi()) + (cauhinh != null ? (" ~` Số tối đa riêng: " + cauhinh.getGiaTri() + " lớp") : "");
+            model.removeElement(stringConfig);
+            model.addElement(stringConfig);
         }
         listClass.setModel(model);
         listType.setEnabled(ckbType.isEnabled());
@@ -350,6 +352,7 @@ public class ConfigClassJPanel extends javax.swing.JPanel {
                 }
             }
         }
+        JOptionPane.showMessageDialog(this, "Cập nhật sĩ số lớn nhất thành công.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnMaxSudentActionPerformed
 
     private void btnMaxCountClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaxCountClassActionPerformed
@@ -393,13 +396,13 @@ public class ConfigClassJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnMaxCountClassActionPerformed
 
     private void txtMaxCountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaxCountKeyTyped
-        if (!bll.HelperBLL.IsInteger(txtMaxCount.getText()+evt.getKeyChar())) {
+        if (!bll.HelperBLL.IsInteger(txtMaxCount.getText() + evt.getKeyChar())) {
             evt.consume();
         }
     }//GEN-LAST:event_txtMaxCountKeyTyped
 
     private void txtMaxCountClassKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaxCountClassKeyTyped
-        if (!bll.HelperBLL.IsInteger(txtMaxCountClass.getText()+evt.getKeyChar())) {
+        if (!bll.HelperBLL.IsInteger(txtMaxCountClass.getText() + evt.getKeyChar())) {
             evt.consume();
         }
     }//GEN-LAST:event_txtMaxCountClassKeyTyped
