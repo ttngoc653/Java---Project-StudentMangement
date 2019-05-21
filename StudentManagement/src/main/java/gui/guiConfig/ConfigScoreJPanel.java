@@ -5,7 +5,7 @@
  */
 package gui.guiConfig;
 
-import dto.Lop;
+import dto.Cauhinh;
 import java.util.List;
 import java.util.Set;
 import javax.swing.DefaultListModel;
@@ -311,7 +311,7 @@ public class ConfigScoreJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnApplyActionPerformed
 
     private void txtScoreNewKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtScoreNewKeyTyped
-        if (!bll.HelperBLL.IsDouble(txtScoreNew.getText()+evt.getKeyChar())) {
+        if (!bll.HelperBLL.IsDouble(txtScoreNew.getText() + evt.getKeyChar())) {
             evt.consume();
         }
     }//GEN-LAST:event_txtScoreNewKeyTyped
@@ -340,6 +340,10 @@ public class ConfigScoreJPanel extends javax.swing.JPanel {
         DefaultListModel listModel = new DefaultListModel();
         for (dto.Monhoc monhoc : monhocs) {
             String stringItem = monhoc.getTenMh();
+            dto.Cauhinh cauhinh = new dal.CauHinhDAL().getByNameDetail("Điểm chuẩn môn ~` " + monhoc.getTenMh());
+            if (cauhinh != null) {
+                stringItem += String.format(" ~` Chuẩn riêng: %s điểm", cauhinh.getGiaTri());
+            }
             listModel.addElement(stringItem);
         }
         listSubjects.setModel(listModel);
@@ -350,6 +354,12 @@ public class ConfigScoreJPanel extends javax.swing.JPanel {
         List<dto.Lop> lops = new dal.LopDAL().getAll();
         for (dto.Lop lop : lops) {
             String stringItem = lop.getTenLop();
+            for (Cauhinh item : lop.getCauhinhs()) {
+                if (item.getTenThuocTinh().equals("diemChuanTheoLop")) {
+                    stringItem += String.format(" ~` Chuẩn riêng: %s điểm", item.getGiaTri());
+                    break;
+                }
+            }
             listModel.addElement(stringItem);
         }
         listClass.setModel(listModel);
