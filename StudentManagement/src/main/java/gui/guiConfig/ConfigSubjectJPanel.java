@@ -6,6 +6,7 @@
 package gui.guiConfig;
 
 import dal.MonhocDAL;
+import dto.Cauhinh;
 import dto.Monhoc;
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +79,8 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         txtSubject = new javax.swing.JTextField();
         btnAdd = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        txtCoefficient = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         btnDelete = new javax.swing.JButton();
@@ -115,6 +118,14 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel9.setText("Hệ số:");
+
+        txtCoefficient.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCoefficientKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -129,6 +140,12 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
                         .addGap(53, 53, 53)
                         .addComponent(btnAdd)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtCoefficient, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,6 +155,10 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtSubject, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCoefficient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addComponent(btnAdd))
         );
 
@@ -208,6 +229,11 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
         jLabel8.setText("Số môn hiện có:");
 
         btnChange.setText("Áp dụng");
+        btnChange.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChangeActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Số môn đang giảng dạy:");
 
@@ -219,10 +245,6 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnChange)
-                .addGap(52, 52, 52))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel7)
@@ -230,6 +252,7 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
                 .addComponent(txtNumMax))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnChange)
                     .addComponent(jLabel2)
                     .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -241,19 +264,18 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(txtNumMax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(14, 14, 14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(lblNumAll))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(lblNumStuding))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                    .addComponent(lblNumStuding)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnChange))
         );
 
@@ -275,7 +297,7 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
@@ -290,7 +312,7 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
                         .addContainerGap()
                         .addComponent(jLabel6)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jScrollPane2)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -330,9 +352,9 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -344,13 +366,16 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
-        if (txtSubject.getText().equals("")) {
+        if (txtSubject.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Chưa nhập môn học");
+            return;
+        } else if (txtCoefficient.getText().isEmpty() && JOptionPane.showConfirmDialog(this, "Chưa nhập hệ số. Hệ thống sẽ lưu với hệ số môn học là 1.", "Cảnh báo", JOptionPane.YES_NO_OPTION) != 0) {
             return;
         }
 
         Monhoc mh = new Monhoc();
         mh.setTenMh(txtSubject.getText());
+        mh.setHeSo(txtCoefficient.getText().isEmpty()?1:Integer.getInteger(txtCoefficient.getText()));
         mh.setDangGiangDay(true);
 
         if (new MonhocDAL().getByTen(mh.getTenMh()) == null) {
@@ -387,6 +412,32 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_txtNumMaxKeyTyped
 
+    private void txtCoefficientKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCoefficientKeyTyped
+        if (!bll.HelperBLL.IsInteger(txtCoefficient.getText() + evt.getKeyChar())) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCoefficientKeyTyped
+
+    private void btnChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeActionPerformed
+        if (txtNumMax.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(txtCoefficient, "Chua nhập số lượng môn");
+            return;
+        }
+        
+        dto.Cauhinh cauhinh=new dal.CauHinhDAL().getByName("soMonToiDa");
+        if (cauhinh!=null) {
+            cauhinh.setGiaTri(txtNumMax.getText());
+            if (new dal.CauHinhDAL().update(cauhinh)) {
+                JOptionPane.showMessageDialog(this, "Cập nhật số lượng môn tối đa thất bại.");
+            }
+        }else{
+            cauhinh=new Cauhinh("soMonToiDa", "maxSubjects", txtCoefficient.getText(), "Số môn giảng dạy tối đa.", null, null, null);
+            if (new dal.CauHinhDAL().add(cauhinh)<=0) {
+                JOptionPane.showMessageDialog(this, "Tạo số lượng môn tối đa thất bại.");
+            }
+        }
+    }//GEN-LAST:event_btnChangeActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActive;
@@ -403,6 +454,7 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -414,6 +466,7 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
     private javax.swing.JList lTeaching;
     private javax.swing.JLabel lblNumAll;
     private javax.swing.JLabel lblNumStuding;
+    private javax.swing.JTextField txtCoefficient;
     private javax.swing.JTextField txtNumMax;
     private javax.swing.JTextField txtSubject;
     // End of variables declaration//GEN-END:variables

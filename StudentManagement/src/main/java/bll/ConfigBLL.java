@@ -6,6 +6,8 @@
 package bll;
 
 import dto.Cauhinh;
+import dto.Lop;
+import dto.Monhoc;
 import java.util.List;
 import java.util.Set;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -21,7 +23,19 @@ public class ConfigBLL {
         List<dto.Lop> list_lop = new dal.LopDAL().getAll();
 
         for (int i = 0; i < list_lop.size(); i++) {
-            node.add(new DefaultMutableTreeNode(list_lop.get(i).getTenLop()));
+            String stringItem = list_lop.get(i).getTenLop();
+            dto.Cauhinh maxAge = null, minAge = null;
+            for (Cauhinh item : list_lop.get(i).getCauhinhs()) {
+                if (item.getLoaiThuocTinh().equals("minAge")) {
+                    minAge = item;
+                } else if (item.getLoaiThuocTinh().equals("maxAge")) {
+                    maxAge = item;
+                }
+            }
+            if (maxAge != null && minAge != null) {
+                stringItem += " ~` Hiện tại từ " + minAge.getGiaTri() + " đến " + maxAge.getGiaTri() + " tuổi";
+            }
+            node.add(new DefaultMutableTreeNode(stringItem));
             model.nodesWereInserted(node, new int[]{node.getChildCount() - 1});
         }
     }
@@ -52,6 +66,16 @@ public class ConfigBLL {
     }
 
     public static String getBenchMaskGerenalCurrent() {
+        dto.Cauhinh cauhinh = new dal.CauHinhDAL().getByName("diemChuan");
+
+        return cauhinh != null ? cauhinh.getGiaTri() : "5";
+    }
+
+    static Double getBenchMarkSubject(Monhoc monhoc) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    static Double getBenchMarkClass(Lop lop) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

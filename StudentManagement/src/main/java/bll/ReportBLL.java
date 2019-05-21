@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package bll;
 
 import java.io.File;
@@ -81,7 +77,7 @@ public class ReportBLL {
                         diem1 = lDiem1.getDiem1tiet();
                         diemhk = lDiem1.getDiemCuoiKy();
                         dtb = ((diem15 != null ? diem15 : 0) + (diem1 != null ? diem1 : 0) * 2 + (diemhk != null ? diemhk : 0) * 3) / ((diem15 != null ? 1 : 0) + (diem1 != null ? 2 : 0) + (diemhk != null ? 3 : 0));
-                        if (dtb >= 5) {
+                        if (dtb >= bll.ConfigBLL.getBenchMarkSubject(monhoc)) {
                             reacted++;
                         }
                     }
@@ -119,6 +115,7 @@ public class ReportBLL {
             Double diem15, diem1, diemhk, dtb;
             boolean bReacted = true;
             for (dto.HocsinhLophoc hocsinhLophoc : hocsinhLophocs) {
+                bReacted=false;
                 List<dto.Diem> lDiem = new dal.DiemDAL().getByHocSinhLopHocHocKy(hocsinhLophoc, hocky);
                 summary++;
                 for (dto.Diem lDiem1 : lDiem) {
@@ -126,7 +123,7 @@ public class ReportBLL {
                     diem1 = lDiem1.getDiem1tiet();
                     diemhk = lDiem1.getDiemCuoiKy();
                     dtb = ((diem15 != null ? diem15 : 0) + (diem1 != null ? diem1 : 0) * 2 + (diemhk != null ? diemhk : 0) * 3) / ((diem15 != null ? 1 : 0) + (diem1 != null ? 2 : 0) + (diemhk != null ? 3 : 0));
-                    if (dtb < 5) {
+                    if (dtb < bll.ConfigBLL.getBenchMarkSubject(lDiem1.getMonhoc())) {
                         bReacted = false;
                     }
                 }
