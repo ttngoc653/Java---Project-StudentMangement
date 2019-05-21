@@ -6,6 +6,8 @@
 package bll;
 
 import dto.Cauhinh;
+import dto.Lop;
+import dto.Monhoc;
 import java.util.List;
 import java.util.Set;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -67,6 +69,14 @@ public class ConfigBLL {
         dto.Cauhinh cauhinh = new dal.CauHinhDAL().getByName("diemChuan");
 
         return cauhinh != null ? cauhinh.getGiaTri() : "5";
+    }
+
+    static Double getBenchMarkSubject(Monhoc monhoc) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    static Double getBenchMarkClass(Lop lop) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

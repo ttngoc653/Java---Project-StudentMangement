@@ -103,7 +103,7 @@ public class CauHinhDAL {
                     + "from Cauhinh as cauhinh"
                     + "left join fetch ch.lops "
                     + "left join fetch ch.chitietCauhinhLops "
-                    + "left join fetch ch.chitietCauhinhDiems  ");
+                    + "left join fetch ch.chitietCauhinhDiems ");
             lHs = (List<Cauhinh>) q.list();
             tst.commit();
         } catch (Exception e) {
@@ -145,7 +145,7 @@ public class CauHinhDAL {
                     + "from Cauhinh  as ch "
                     + "left join fetch ch.lops "
                     + "left join fetch ch.chitietCauhinhDiems  "
-                    + "where ch.tenCauHinh like ':name'");
+                    + "where ch.tenThuocTinh like :name");
             q.setParameter("name", name);
             hs = (Cauhinh) q.uniqueResult();
             tst.commit();
@@ -166,7 +166,7 @@ public class CauHinhDAL {
                     + "from Cauhinh  as ch "
                     + "left join fetch ch.lops "
                     + "left join fetch ch.chitietCauhinhDiems  "
-                    + "where ch.loaiThuocTinh like ':name'");
+                    + "where ch.loaiThuocTinh like :name");
             q.setParameter("name", type);
             hs = (Cauhinh) q.uniqueResult();
             tst.commit();
@@ -186,8 +186,9 @@ public class CauHinhDAL {
             Query q = session.createQuery("select distinct ch "
                     + "from Cauhinh  as ch "
                     + "left join fetch ch.lops "
-                    + "left join fetch ch.chitietCauhinhDiems  "
-                    + "where ch.tenDayDu like ':name'");
+                    + "left join fetch ch.chitietCauhinhDiems "
+                    + "left join fetch ch.chitietCauhinhHocsinhs "
+                    + "where ch.tenDayDu like :name");
             q.setParameter("name", name_detail);
             hs = (Cauhinh) q.uniqueResult();
             tst.commit();

@@ -282,7 +282,8 @@ public class ConfigClassJPanel extends javax.swing.JPanel {
         listClass.removeAll();
         DefaultListModel model = new DefaultListModel();
         for (Lop lop : lops) {
-            model.addElement(lop.getTenLop() + " ~` Áp dụng riêng: " + bll.ConfigBLL.getValueMaxClassCurrent(lop.getCauhinhs()) + " học sinh");
+            String only = bll.ConfigBLL.getValueMaxClassCurrent(lop.getCauhinhs());
+            model.addElement(lop.getTenLop() + (!only.equals("0") ? (" ~`AD riêng: " + only + " học sinh") : ""));
         }
         listClass.setModel(model);
         listClass.setEnabled(ckbOld.isEnabled());
@@ -293,11 +294,11 @@ public class ConfigClassJPanel extends javax.swing.JPanel {
         model = new DefaultListModel();
         for (Lop lop : lops) {
             dto.Cauhinh cauhinh = new dal.CauHinhDAL().getByNameDetail("Số lớp tối đa của khối ~` " + String.valueOf(lop.getKhoi()));
-            String stringConfig = String.valueOf(lop.getKhoi()) + (cauhinh != null ? (" ~` Số tối đa riêng: " + cauhinh.getGiaTri() + " lớp") : "");
+            String stringConfig = String.valueOf(lop.getKhoi()) + (cauhinh != null ? (" ~` AD riêng là: " + cauhinh.getGiaTri() + " lớp") : "");
             model.removeElement(stringConfig);
             model.addElement(stringConfig);
         }
-        listClass.setModel(model);
+        listType.setModel(model);
         listType.setEnabled(ckbType.isEnabled());
     }//GEN-LAST:event_formComponentShown
 

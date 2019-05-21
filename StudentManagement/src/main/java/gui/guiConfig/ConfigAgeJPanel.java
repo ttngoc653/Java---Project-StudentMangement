@@ -9,6 +9,7 @@ import bll.HelperBLL;
 import dto.Cauhinh;
 import java.util.HashSet;
 import java.util.Set;
+import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
@@ -138,17 +139,17 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
                         .addGap(12, 12, 12)
                         .addComponent(cbxApplyAll)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtStatus, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel1)
                                     .addComponent(jLabel2))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtMinAge, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
-                                    .addComponent(txtMaxAge))))
+                                    .addComponent(txtMaxAge)))
+                            .addComponent(txtStatus))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -176,7 +177,7 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(cbxApplyAll)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtStatus))
+                        .addComponent(txtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(ckbApply)
@@ -190,7 +191,6 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         txtStatus.setText("");
-        
         DefaultTreeModel model = (DefaultTreeModel) treeApply.getModel();
         DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
         root.removeAllChildren();
@@ -206,12 +206,14 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
         if (!HelperBLL.IsInteger(Character.toString(evt.getKeyChar()))) {
             evt.consume();
         }
+        txtStatus.setText("");
     }//GEN-LAST:event_txtMinAgeKeyTyped
 
     private void txtMaxAgeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaxAgeKeyTyped
         if (!HelperBLL.IsInteger(Character.toString(evt.getKeyChar()))) {
             evt.consume();
         }
+        txtStatus.setText("");
     }//GEN-LAST:event_txtMaxAgeKeyTyped
 
     private void treeApplyValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_treeApplyValueChanged
@@ -222,6 +224,7 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
             Object userObject = selectedElement.getUserObject(); //Do what you want with selected element's user object
             //System.out.println(userObject.toString());
         }
+        txtStatus.setText("");
     }//GEN-LAST:event_treeApplyValueChanged
 
     private void ckbApplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckbApplyActionPerformed
@@ -229,6 +232,11 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_ckbApplyActionPerformed
 
     private void btnApplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApplyActionPerformed
+        if (txtMaxAge.getText().isEmpty() && txtMinAge.getText().isEmpty()) {
+            txtStatus.setText("Tuối tối tiểu hoặc tuối tối đa không hợp lệ.");
+            return;
+        }
+        
         disableAllControl();
         
         txtStatus.setText("Bắt đầu lưu...");
@@ -251,8 +259,8 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
                     txtStatus.setText("Cập nhật thành công tuối tối tiểu đầu vào của trường.");
                 }
                 
-            } else if (new dal.CauHinhDAL().add(new dto.Cauhinh("tuoiToiTieuDauVao", "minAgeToSchool", txtMinAge.getText(), "Tuổi tối tiểu vào trường", null, null, null)) > 0
-                    && new dal.CauHinhDAL().add(new dto.Cauhinh("tuoiToiDaDauVao", "maxAgeToSchool", txtMaxAge.getText(), "Tuổi tối đa khi vào trường", null, null, null)) > 0) {
+            } else if (new dal.CauHinhDAL().add(new dto.Cauhinh("tuoiToiTieuDauVao", "minAge", txtMinAge.getText(), "Tuổi tối tiểu vào trường", null, null, null)) > 0
+                    && new dal.CauHinhDAL().add(new dto.Cauhinh("tuoiToiDaDauVao", "maxAge", txtMaxAge.getText(), "Tuổi tối đa khi vào trường", null, null, null)) > 0) {
                 txtStatus.setText("Lưu thành công tuổi tối đa/tối tiếu đầu vào của trường.");
             }
         }
@@ -270,8 +278,8 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
                 }
                 
                 if (lop != null && HasConfigAge(lop.getCauhinhs())) { // dung ra la xet co xet co gioi han tuoi chua
-                    dto.Cauhinh chToiTieuIndex = new dto.Cauhinh("tuoiToiTieuVaoLop", "minAgeToClass", txtMinAge.getText(), "Tuổi tối tiểu vào lớp", null, null, null);
-                    dto.Cauhinh chToiDaIndex = new dto.Cauhinh("tuoiToiDaVaoLop", "maxAgeToClass", txtMaxAge.getText(), "Tuổi tối đa vào lớp", null, null, null);
+                    dto.Cauhinh chToiTieuIndex = new dto.Cauhinh("tuoiToiTieuVaoLop", "minAge", txtMinAge.getText(), "Tuổi tối tiểu vào lớp", null, null, null);
+                    dto.Cauhinh chToiDaIndex = new dto.Cauhinh("tuoiToiDaVaoLop", "maxAge", txtMaxAge.getText(), "Tuổi tối đa vào lớp", null, null, null);
                     Set<dto.Cauhinh> cauhinhss = new HashSet<>();
                     cauhinhss.add(chToiDaIndex);
                     cauhinhss.add(chToiTieuIndex);

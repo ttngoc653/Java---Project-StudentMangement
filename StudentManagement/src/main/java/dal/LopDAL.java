@@ -113,7 +113,7 @@ public class LopDAL {
             Query q = session.createQuery("select distinct l "
                     + "from Lop as l "
                     + "left join fetch l.hocsinhLophocs "
-                    + "left join fetch l.chitietCauhinhLops ");
+                    + "left join fetch l.cauhinhs ");
             list = (List<Lop>) q.list();
             tst.commit();
         } catch (Exception e) {
