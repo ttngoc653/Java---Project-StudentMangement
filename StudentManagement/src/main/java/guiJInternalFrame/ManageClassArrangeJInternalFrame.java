@@ -10,7 +10,6 @@ import dal.LopDAL;
 import dal.NamhocDAL;
 import dto.Hocsinh;
 import dto.HocsinhLophoc;
-import dto.HocsinhLophocId;
 import dto.Lop;
 import dto.Namhoc;
 import dto.Nguoidung;
@@ -305,14 +304,14 @@ public class ManageClassArrangeJInternalFrame extends javax.swing.JInternalFrame
         Namhoc namhoc = new NamhocDAL().getByTen(tenNamHoc);
         int idNamHoc = namhoc.getIdNamHoc();
 
-        HocsinhLophocId a = new HocsinhLophocId();
-        a.setIdHocSinh(idHS);
-        a.setIdLopHoc(idLop);
-        a.setIdNamHoc(idNamHoc);
+        dto.HocsinhLophoc a = new HocsinhLophoc();
+        a.setHocsinh(new dal.HocsinhDAL().getById(idHS));
+        a.setLop(lop);
+        a.setNamhoc(namhoc);
 
         if (findStudentByNamHocLop(idHS, namhoc, lop)) {
             JOptionPane.showMessageDialog(null, "MSHS " + idHS + " đã thuộc lớp " + tenLop + " - năm học " + tenNamHoc);
-        } else if (checkMaximumStudentInClass(namhoc, lop, SiSoToiDa)) {
+        } else if (checkMaximumStudentInClass(namhoc.getIdNamHoc(), lop.getIdLop(), SiSoToiDa)) {
             JOptionPane.showMessageDialog(null, "Lớp này đã đủ sỉ số: " + SiSoToiDa + " học sinh");
         } else if (findStudentByNamHoc(idHS, namhoc)) {
             JOptionPane.showMessageDialog(null, "Trong 1 năm học sinh chỉ được học 1 lớp duy nhất");
@@ -337,13 +336,10 @@ public class ManageClassArrangeJInternalFrame extends javax.swing.JInternalFrame
         String tenNamHoc = this.cboNamHoc.getSelectedItem().toString();
         Namhoc namhoc = new NamhocDAL().getByTen(tenNamHoc);
         int idNamHoc = namhoc.getIdNamHoc();
+        dto.Hocsinh hocsinh=new dal.HocsinhDAL().getById(idHS);
+        dto.HocsinhLophoc a = new dal.HocsinhLophocDAL().getByNamHocLopHocSinh(namhoc, lop, hocsinh);
 
-        HocsinhLophocId a = new HocsinhLophocId();
-        a.setIdHocSinh(idHS);
-        a.setIdLopHoc(idLop);
-        a.setIdNamHoc(idNamHoc);
-
-        if (new HocsinhLophocDAL().delete(a)) {
+        if (new HocsinhLophocDAL().delete(a.getIdHocSinhLopHoc())) {
             JOptionPane.showMessageDialog(null, "Xóa thành công");
             LoadData();
         } else {

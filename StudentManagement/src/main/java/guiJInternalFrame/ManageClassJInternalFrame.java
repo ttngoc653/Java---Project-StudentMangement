@@ -258,12 +258,12 @@ public class ManageClassJInternalFrame extends javax.swing.JInternalFrame {
         if (!this.txtTenLop.getText().equals("")) {
             String tenLop = this.txtTenLop.getText();
             Byte tinhTrang = Byte.parseByte("1");
-            Integer Khoi = 0;
+            String Khoi = "";
 
             LopDAL lopDAL = new LopDAL();
             if (lopDAL.getByTen(tenLop) == null) {
                 if (cboKhoi.getSelectedIndex() != -1) {
-                    Khoi = Integer.parseInt(cboKhoi.getSelectedItem().toString());
+                    Khoi = cboKhoi.getSelectedItem().toString();
                 }
 
                 Lop a = new Lop();
@@ -309,14 +309,14 @@ public class ManageClassJInternalFrame extends javax.swing.JInternalFrame {
             int id = Integer.parseInt(this.txtMaLop.getText());
             String tenLop = this.txtTenLop.getText();
             Byte tinhTrang = 1; //Byte.parseByte(this.txtTinhTrang.getText());
-            int Khoi = 0;
+            String Khoi = "";
 
             LopDAL lopDALmoi = new LopDAL();
             Lop LopMoi = lopDALmoi.getByTen(tenLop);
 
             if (LopMoi == null || LopMoi.getIdLop() == id) {
                 if (cboKhoi.getSelectedIndex() != -1) {
-                    Khoi = Integer.parseInt(cboKhoi.getSelectedItem().toString());
+                    Khoi = cboKhoi.getSelectedItem().toString();
                 }
 
                 Lop a = new Lop();
@@ -347,14 +347,16 @@ public class ManageClassJInternalFrame extends javax.swing.JInternalFrame {
         Lop a = new LopDAL().getByTen(tenLop);
 
         int indexCbo = 0;
-        if (a.getKhoi() == 10) {
-            indexCbo = 0;
-        }
-        if (a.getKhoi() == 11) {
-            indexCbo = 1;
-        }
-        if (a.getKhoi() == 12) {
-            indexCbo = 2;
+        switch (a.getKhoi()) {
+            case "10":
+                indexCbo = 0;
+                break;
+            case "11":
+                indexCbo = 1;
+                break;
+            case "12":
+                indexCbo = 2;
+                break;
         }
 
         this.txtMaLop.setText(a.getIdLop().toString());

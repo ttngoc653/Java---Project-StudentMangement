@@ -53,9 +53,9 @@ public class LopDAL {
             tst = session.beginTransaction();
             Lop n = (Lop) session.get(Lop.class, p.getIdLop());
 
-            n.setKhoi(p.getKhoi() > -1 ? p.getKhoi() : n.getKhoi());
-            n.setTenLop(p.getTenLop().length() > 0 ? p.getTenLop() : n.getTenLop());
-            n.setTinhTrang(p.getTinhTrang() != null ? p.getTinhTrang() : n.getTinhTrang());
+            n.setKhoi(p.getKhoi());
+            n.setTenLop(p.getTenLop());
+            n.setTinhTrang(p.getTinhTrang());
 
             session.update(n);
             tst.commit();

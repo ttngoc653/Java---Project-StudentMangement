@@ -11,8 +11,8 @@
         <property name="tenLop" type="string">
             <column name="TenLop" length="45" not-null="true" unique="true" />
         </property>
-        <property name="khoi" type="int">
-            <column name="Khoi" not-null="true" />
+        <property name="khoi" type="string">
+            <column name="Khoi" length="16" not-null="true" />
         </property>
         <property name="tinhTrang" type="java.lang.Byte">
             <column name="TinhTrang" />
