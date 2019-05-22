@@ -106,13 +106,12 @@ public class DiemDAL {
             Query q = session.createQuery("select distinct d "
                     + "from Diem d "
                     + "left join fetch d.hocky "
+                    + "left join fetch d.monhoc "
+                    + "left join fetch d.chitietCauhinhDiems "
                     + "left join fetch d.hocsinhLophoc hl "
                     + "left join fetch hl.hocsinh "
                     + "left join fetch hl.lop "
-                    + "left join fetch hl.namhoc "
-                    + "left join fetch hl.id hid "
-                    + "left join fetch d.monhoc "
-                    + "left join fetch d.chitietCauhinhDiems");
+                    + "left join fetch hl.namhoc ");
             list = (List<Diem>) q.list();
             tst.commit();
         } catch (Exception e) {
@@ -135,7 +134,6 @@ public class DiemDAL {
                     + "left join fetch hl.hocsinh "
                     + "left join fetch hl.lop "
                     + "left join fetch hl.namhoc "
-                    + "left join fetch hl.id hid "
                     + "left join fetch d.monhoc "
                     + "left join fetch d.chitietCauhinhDiems "
                     + "where d.idDiem = :id");
@@ -162,7 +160,6 @@ public class DiemDAL {
                     + "left join fetch hl.hocsinh "
                     + "left join fetch hl.lop "
                     + "left join fetch hl.namhoc "
-                    + "left join fetch hl.id hid "
                     + "left join fetch d.monhoc "
                     + "left join fetch d.chitietCauhinhDiems "
                     + "where m.idMonHoc = :monhoc");
@@ -189,7 +186,6 @@ public class DiemDAL {
                     + "left join fetch hl.hocsinh "
                     + "left join fetch hl.lop "
                     + "left join fetch hl.namhoc "
-                    + "left join fetch hl.id hid "
                     + "left join fetch d.monhoc "
                     + "left join fetch d.chitietCauhinhDiems "
                     + "where hl.idHocSinhLopHoc = :hocsinhlophoc");
@@ -216,7 +212,6 @@ public class DiemDAL {
                     + "left join fetch hl.hocsinh "
                     + "left join fetch hl.lop "
                     + "left join fetch hl.namhoc "
-                    + "left join fetch hl.id hid "
                     + "left join fetch d.monhoc "
                     + "left join fetch d.chitietCauhinhDiems "
                     + "where hl.idHocSinhLopHoc = :hocsinhlophoc "
