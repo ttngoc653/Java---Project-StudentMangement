@@ -88,14 +88,20 @@ public class HockyDAL {
         return result;
     }
 
+    private String getTable(String where) {
+        return "select distinct h "
+                + "from Hocky h "
+                + "left join fetch h.diems d "
+                + where
+                + " order by h.tenHocKy";
+    }
+
     @SuppressWarnings("unchecked")
     public List<Hocky> getAll() {
         list = new ArrayList<Hocky>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("select distinct h "
-                    + "from Hocky h "
-                    + "left join fetch h.diems");
+            Query q = session.createQuery(getTable(""));
             list = (List<Hocky>) q.list();
             tst.commit();
         } catch (Exception e) {
@@ -111,10 +117,7 @@ public class HockyDAL {
         Hocky n = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("select distinct h "
-                    + "from Hocky h "
-                    + "left join fetch h.diems  as t "
-                    + "where h.idHocKy =  :id");
+            Query q = session.createQuery(getTable( "where h.idHocKy =  :id"));
             q.setParameter("id", id);
             n = (Hocky) q.uniqueResult();
             tst.commit();
@@ -131,10 +134,7 @@ public class HockyDAL {
         Hocky n = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("select distinct h "
-                    + "from Hocky as h "
-                    + "left join fetch h.diems "
-                    + "where h.tenHocKy = :soHocKy");
+            Query q = session.createQuery(getTable("where h.tenHocKy = :soHocKy"));
             q.setParameter("soHocKy", soHocKy);
             n = (Hocky) q.uniqueResult();
             tst.commit();

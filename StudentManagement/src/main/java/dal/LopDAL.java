@@ -86,56 +86,23 @@ public class LopDAL {
         return result;
     }
 
-//    @SuppressWarnings("unchecked")
-//    public List<Lop> getAll() {
-//        list = new ArrayList<Lop>();
-//        try {
-//            tst = session.beginTransaction();
-//            Query q = session.createQuery("from Lop as l "
-//                    + "left join fetch l.hocsinhLophocs "
-//                    + "left join fetch l.chitietCauhinhLops");
-//            list = (List<Lop>) q.list();
-//            tst.commit();
-//        } catch (Exception e) {
-//            if (tst != null) {
-//                tst.rollback();
-//            }
-//            e.printStackTrace();
-//        }
-//        return list;
-//    }
     
-    //24/04/2019
-//    @SuppressWarnings("unchecked")
-//    public List<Lop> getAll() {
-//        list = new ArrayList<Lop>();
-//        try {
-//            tst = session.beginTransaction();
-//            Query q = session.createQuery("select distinct l "
-//                    + "from Lop as l "
-//                    + "left join fetch l.hocsinhLophocs "
-//                    + "left join fetch l.chitietCauhinhLops ");
-//            list = (List<Lop>) q.list();
-//            tst.commit();
-//        } catch (Exception e) {
-//            if (tst != null) {
-//                tst.rollback();
-//            }
-//            e.printStackTrace();
-//        }
-//        return list;
-//    }
+    private String getTable(String where){
+        return "select distinct l "
+                    + "from Lop as l "
+                    + "left join fetch l.hocsinhLophocs hl "
+                    + "left join fetch l.cauhinhs ch "
+                +where
+                +" order by l.tenLop";
+    }
+
     
-    //19/05/2019
     @SuppressWarnings("unchecked")
     public List<Lop> getAll() {
         list = new ArrayList<Lop>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("select distinct l "
-                    + "from Lop as l "
-                    + "left join fetch l.hocsinhLophocs "
-                    + "left join fetch l.cauhinhs ");
+            Query q = session.createQuery(getTable(""));
             list = (List<Lop>) q.list();
             tst.commit();
         } catch (Exception e) {
@@ -151,10 +118,7 @@ public class LopDAL {
         Lop n = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Lop as l "
-                    + "left join fetch l.hocsinhLophocs "
-                    + "left join fetch l.cauhinhs "
-                    + "where l.idLop = :id");
+            Query q = session.createQuery(getTable("where l.idLop = :id"));
             q.setParameter("id", id);
             n = (Lop) q.uniqueResult();
             tst.commit();
@@ -171,10 +135,7 @@ public class LopDAL {
         Lop n = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Lop as l "
-                    + "left join fetch l.hocsinhLophocs "
-                    + "left join fetch l.cauhinhs "
-                    + "where l.tenLop = :ten");
+            Query q = session.createQuery(getTable("where l.tenLop = :ten"));
             q.setParameter("ten", name);
             n = (Lop) q.uniqueResult();
             tst.commit();
@@ -191,10 +152,7 @@ public class LopDAL {
         list = new ArrayList<>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Lop as l "
-                    + "left join fetch l.hocsinhLophocs "
-                    + "left join fetch l.cauhinhs "
-                    + "where l.khoi = :khoi");
+            Query q = session.createQuery(getTable("where l.khoi = :khoi"));
             q.setParameter("khoi", khoi);
             list = q.list();
             tst.commit();
@@ -211,10 +169,7 @@ public class LopDAL {
         list = new ArrayList<>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Lop as l "
-                    + "left join fetch l.hocsinhLophocs "
-                    + "left join fetch l.cauhinhs "
-                    + "where l.tinhTrang = :status");
+            Query q = session.createQuery(getTable("where l.tinhTrang = :status"));
             q.setParameter("status", tinhTrang);
             list = q.list();
             tst.commit();

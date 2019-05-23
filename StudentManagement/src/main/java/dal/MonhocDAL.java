@@ -88,14 +88,20 @@ public class MonhocDAL {
         return result;
     }
 
+    private String getTable(String where) {
+        return "select distinct mh "
+                + "from Monhoc as mh "
+                + "left join fetch mh.diems d "
+                + where
+                +" order by mh.tenMh";
+    }
+
     @SuppressWarnings("unchecked")
     public List<Monhoc> getAll() {
         list = new ArrayList<Monhoc>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("select distinct m "
-                    + "from Monhoc as m "
-                    + "left join fetch m.diems");
+            Query q = session.createQuery(getTable(""));
             list = (List<Monhoc>) q.list();
             tst.commit();
         } catch (Exception e) {
@@ -111,10 +117,7 @@ public class MonhocDAL {
         Monhoc n = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("select distinct t "
-                    + "from Monhoc as t "
-                    + "left join fetch t.diems "
-                    + "where t.idMonhoc = :id");
+            Query q = session.createQuery(getTable("where mh.idMonhoc = :id"));
             q.setParameter("id", id);
             n = (Monhoc) q.uniqueResult();
             tst.commit();
@@ -128,14 +131,11 @@ public class MonhocDAL {
     }
 
     public Monhoc getByTen(String ten) {
-       try{
+        try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("select distinct t "
-                    + "from Monhoc as t "
-                    + "left join fetch t.diems "
-                    + "where t.tenMh = :ten");
+            Query q = session.createQuery(getTable("where mh.tenMh = :ten"));
             q.setParameter("ten", ten);
-            list= q.list();
+            list = q.list();
             tst.commit();
         } catch (Exception e) {
             if (tst != null) {
@@ -143,18 +143,15 @@ public class MonhocDAL {
             }
             e.printStackTrace();
         }
-       return list.size()>0?list.get(0):null;
+        return list.size() > 0 ? list.get(0) : null;
     }
-    
+
     public List<Monhoc> getByTinhTrang(boolean GiangDay) {
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("select distinct t "
-                    + "from Monhoc as t "
-                    + "left join fetch t.diems "
-                    + "where t.dangGiangDay = :check");
+            Query q = session.createQuery(getTable("where mh.dangGiangDay = :check"));
             q.setParameter("check", GiangDay);
-            list=q.list();
+            list = q.list();
             tst.commit();
         } catch (Exception e) {
             if (tst != null) {

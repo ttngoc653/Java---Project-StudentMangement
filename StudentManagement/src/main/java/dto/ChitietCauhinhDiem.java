@@ -21,7 +21,6 @@ import javax.persistence.Table;
 )
 public class ChitietCauhinhDiem  implements java.io.Serializable {
 
-
      private ChitietCauhinhDiemId id;
      private Cauhinh cauhinh;
      private Diem diem;
