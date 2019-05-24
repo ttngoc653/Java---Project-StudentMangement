@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated May 24, 2019 9:44:38 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated May 24, 2019 11:31:08 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="dto.Monhoc" table="monhoc" catalog="quanlyhocsinh" optimistic-lock="version">
         <id name="idMonHoc" type="java.lang.Integer">

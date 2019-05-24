@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 21, 2019 at 03:23 PM
+-- Generation Time: May 24, 2019 at 04:45 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.2.14
 
@@ -102,12 +102,19 @@ CREATE TABLE IF NOT EXISTS `diem` (
   `idHocKy` int(11) NOT NULL,
   `idMonHoc` int(11) NOT NULL,
   PRIMARY KEY (`idDiem`),
-  UNIQUE KEY `idHocSinh_2` (`idHocKy`,`idMonHoc`) USING BTREE,
-  KEY `fk_Diem_MonHoc1_idx` (`idMonHoc`),
-  KEY `fk_Diem_HocKy1_idx` (`idHocKy`),
-  KEY `idHocSinh` (`idMonHoc`,`idHocKy`),
-  KEY `idHocSinhLopHoc` (`idHocSinhLopHoc`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='		';
+  UNIQUE KEY `idHocSinhLopHoc_2` (`idHocSinhLopHoc`,`idHocKy`,`idMonHoc`),
+  KEY `idHocSinhLopHoc` (`idHocSinhLopHoc`),
+  KEY `idHocKy` (`idHocKy`),
+  KEY `idMonHoc` (`idMonHoc`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='		';
+
+--
+-- Dumping data for table `diem`
+--
+
+INSERT INTO `diem` (`idDiem`, `Diem15Phut`, `Diem1Tiet`, `DiemCuoiKy`, `idHocSinhLopHoc`, `idHocKy`, `idMonHoc`) VALUES
+(10, NULL, 9, 6, 1, 1, 2),
+(16, NULL, 8, NULL, 7, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -177,9 +184,9 @@ CREATE TABLE IF NOT EXISTS `hocsinh_lophoc` (
   `idLopHoc` int(11) NOT NULL,
   `idNamHoc` int(11) NOT NULL,
   PRIMARY KEY (`idHocSinhLopHoc`) USING BTREE,
-  UNIQUE KEY `idHocSinh` (`idHocSinh`,`idNamHoc`),
   UNIQUE KEY `idHocSinhLopHoc` (`idHocSinhLopHoc`),
-  KEY `idLopHoc` (`idLopHoc`,`idNamHoc`),
+  UNIQUE KEY `idHocSinh` (`idHocSinh`,`idLopHoc`,`idNamHoc`),
+  KEY `idLopHoc` (`idLopHoc`),
   KEY `idNamHoc` (`idNamHoc`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -191,9 +198,9 @@ INSERT INTO `hocsinh_lophoc` (`idHocSinhLopHoc`, `idHocSinh`, `idLopHoc`, `idNam
 (1, 1, 1, 1),
 (7, 2, 1, 1),
 (8, 3, 2, 1),
-(9, 6, 4, 2),
+(11, 3, 10, 2),
 (10, 5, 5, 1),
-(11, 3, 10, 2);
+(9, 6, 4, 2);
 
 -- --------------------------------------------------------
 
@@ -205,7 +212,7 @@ DROP TABLE IF EXISTS `lop`;
 CREATE TABLE IF NOT EXISTS `lop` (
   `idLop` int(11) NOT NULL AUTO_INCREMENT,
   `TenLop` varchar(45) CHARACTER SET utf8 NOT NULL,
-  `Khoi` int(11) NOT NULL,
+  `Khoi` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `TinhTrang` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`idLop`),
   UNIQUE KEY `TenLop` (`TenLop`)
@@ -216,21 +223,21 @@ CREATE TABLE IF NOT EXISTS `lop` (
 --
 
 INSERT INTO `lop` (`idLop`, `TenLop`, `Khoi`, `TinhTrang`) VALUES
-(1, '10A1', 10, 1),
-(2, '10A2', 10, 1),
-(3, '10A3', 10, 1),
-(4, '10A4', 10, 1),
-(5, '10A5', 10, 1),
-(6, '11A1', 11, 1),
-(7, '11A2', 11, 1),
-(8, '11A3', 11, 1),
-(9, '11A4', 11, 1),
-(10, '11A5', 11, 1),
-(11, '12A1', 12, 1),
-(12, '12A2', 12, 1),
-(13, '12A3', 12, 1),
-(14, '12A4', 12, 1),
-(15, '12A5', 12, 1);
+(1, '10A1', '10', 1),
+(2, '10A2', '10', 1),
+(3, '10A3', '10', 1),
+(4, '10A4', '10', 1),
+(5, '10A5', '10', 1),
+(6, '11A1', '11', 1),
+(7, '11A2', '11', 1),
+(8, '11A3', '11', 1),
+(9, '11A4', '11', 1),
+(10, '11A5', '11', 1),
+(11, '12A1', '12', 1),
+(12, '12A2', '12', 1),
+(13, '12A3', '12', 1),
+(14, '12A4', '12', 1),
+(15, '12A5', '12', 1);
 
 -- --------------------------------------------------------
 
@@ -274,14 +281,13 @@ CREATE TABLE IF NOT EXISTS `namhoc` (
   PRIMARY KEY (`idNamHoc`),
   UNIQUE KEY `TenNamHoc` (`TenNamHoc`),
   UNIQUE KEY `TenNamHoc_2` (`TenNamHoc`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `namhoc`
 --
 
 INSERT INTO `namhoc` (`idNamHoc`, `TenNamHoc`) VALUES
-(3, '2016-2017'),
 (2, '2017-2018'),
 (1, '2018-2019');
 
@@ -303,14 +309,17 @@ CREATE TABLE IF NOT EXISTS `nguoidung` (
   `Email` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`idNguoiDung`),
   UNIQUE KEY `TenTaiKhoan` (`TenTaiKhoan`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `nguoidung`
 --
 
 INSERT INTO `nguoidung` (`idNguoiDung`, `HoTen`, `TenTaiKhoan`, `MatKhau`, `LoaiNguoiDung`, `TinhTrang`, `Sdt`, `Email`) VALUES
-(1, 'Kim Ji Won', 'won', '123357df09673b8943afb057783321e0', 1, 1, NULL, NULL);
+(1, 'Kim Ji Won', 'won', '123357df09673b8943afb057783321e0', 1, 1, NULL, NULL),
+(2, 'asd', 'asddd', '123', 0, 0, '', ''),
+(3, 'asdddd', 'dddddd', '1234', 0, 0, '', ''),
+(4, 'assdddd', 'asdddd', '202cb962ac59075b964b07152d234b70', 0, 0, '', '');
 
 --
 -- Constraints for dumped tables
@@ -341,17 +350,17 @@ ALTER TABLE `chitiet_cauhinh_lop`
 -- Constraints for table `diem`
 --
 ALTER TABLE `diem`
-  ADD CONSTRAINT `diem_ibfk_2` FOREIGN KEY (`idHocKy`) REFERENCES `hocky` (`idHocKy`),
-  ADD CONSTRAINT `diem_ibfk_3` FOREIGN KEY (`idHocSinhLopHoc`) REFERENCES `hocsinh_lophoc` (`idHocSinhLopHoc`),
-  ADD CONSTRAINT `fk_Diem_MonHoc1` FOREIGN KEY (`idMonHoc`) REFERENCES `monhoc` (`idMonHoc`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `diem_ibfk_1` FOREIGN KEY (`idHocKy`) REFERENCES `hocky` (`idHocKy`),
+  ADD CONSTRAINT `diem_ibfk_2` FOREIGN KEY (`idHocSinhLopHoc`) REFERENCES `hocsinh_lophoc` (`idHocSinhLopHoc`),
+  ADD CONSTRAINT `diem_ibfk_3` FOREIGN KEY (`idMonHoc`) REFERENCES `monhoc` (`idMonHoc`);
 
 --
 -- Constraints for table `hocsinh_lophoc`
 --
 ALTER TABLE `hocsinh_lophoc`
-  ADD CONSTRAINT `hocsinh_lophoc_ibfk_2` FOREIGN KEY (`idHocSinh`) REFERENCES `hocsinh` (`idHocSinh`),
-  ADD CONSTRAINT `hocsinh_lophoc_ibfk_3` FOREIGN KEY (`idLopHoc`) REFERENCES `lop` (`idLop`),
-  ADD CONSTRAINT `hocsinh_lophoc_ibfk_4` FOREIGN KEY (`idNamHoc`) REFERENCES `namhoc` (`idNamHoc`);
+  ADD CONSTRAINT `hocsinh_lophoc_ibfk_1` FOREIGN KEY (`idHocSinh`) REFERENCES `hocsinh` (`idHocSinh`),
+  ADD CONSTRAINT `hocsinh_lophoc_ibfk_2` FOREIGN KEY (`idLopHoc`) REFERENCES `lop` (`idLop`),
+  ADD CONSTRAINT `hocsinh_lophoc_ibfk_3` FOREIGN KEY (`idNamHoc`) REFERENCES `namhoc` (`idNamHoc`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

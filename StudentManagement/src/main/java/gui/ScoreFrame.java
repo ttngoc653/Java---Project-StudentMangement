@@ -9,17 +9,12 @@ import dal.HockyDAL;
 import dal.LopDAL;
 import dal.MonhocDAL;
 import dal.NamhocDAL;
-import dto.Diem;
 import dto.Hocky;
-import dto.HocsinhLophoc;
 import dto.Lop;
 import dto.Monhoc;
 import dto.Namhoc;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
@@ -30,10 +25,10 @@ import javax.swing.JOptionPane;
 public class ScoreFrame extends javax.swing.JFrame {
 
     private int temp = -1;
-    private String strNamHoc;
-    private Integer intHocKy;
-    private String strMon;
-    private String strLop;
+    private dto.Namhoc namhoc;
+    private dto.Hocky hocky;
+    private dto.Monhoc monhoc;
+    private dto.Lop lop;
 
     /**
      * Creates new form ScoreFrame
@@ -289,10 +284,10 @@ public class ScoreFrame extends javax.swing.JFrame {
 
     private void chonBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chonBTActionPerformed
         // TODO add your handling code here:
-        strLop = lopCBX.getSelectedItem().toString();
-        strMon = monCBX.getSelectedItem().toString();
-        intHocKy = Integer.valueOf(hockyCBX.getSelectedItem().toString());
-        strNamHoc = namhocCBX.getSelectedItem().toString();
+        namhoc = new dal.NamhocDAL().getByTen(namhocCBX.getSelectedItem().toString());
+        monhoc = new dal.MonhocDAL().getByTen(monCBX.getSelectedItem().toString());
+        hocky = new dal.HockyDAL().getByTen(Integer.valueOf(hockyCBX.getSelectedItem().toString()));
+        lop = new dal.LopDAL().getByTen(lopCBX.getSelectedItem().toString());
         this.jTable1.setModel(new bll.ScoreFrameBLL().getData(lopCBX.getSelectedItem().toString(), monCBX.getSelectedItem().toString(), namhocCBX.getSelectedItem().toString(), hockyCBX.getSelectedItem().toString()));
         //this.jTable1.
     }//GEN-LAST:event_chonBTActionPerformed
@@ -301,12 +296,8 @@ public class ScoreFrame extends javax.swing.JFrame {
     private void jTable1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jTable1PropertyChange
         // TODO add your handling code here:
         if (temp == jTable1.getSelectedRow() && jTable1.getSelectedRow() != -1) {
-            Namhoc nh = new dal.NamhocDAL().getByTen(strNamHoc);
-            Hocky hk = new dal.HockyDAL().getByTen(intHocKy);
-            Monhoc mh = new dal.MonhocDAL().getByTen(strMon);
             String strTenHocSinh = jTable1.getModel().getValueAt(temp, 1).toString();
             dto.Hocsinh hs = new dal.HocsinhDAL().getByName(strTenHocSinh);
-            Lop l = new dal.LopDAL().getByTen(strLop);
             Double diem15 = null, diem1 = null, diemck = null;
             try {
                 diem15 = Double.valueOf(jTable1.getModel().getValueAt(temp, 2).toString());
@@ -320,14 +311,11 @@ public class ScoreFrame extends javax.swing.JFrame {
                 diemck = Double.valueOf(jTable1.getModel().getValueAt(temp, 4).toString());
             } catch (NumberFormatException e) {
             }
-            dto.HocsinhLophoc hl = new dal.HocsinhLophocDAL().getByNamHocLopHocSinh(nh, l, hs);
-            Set<Diem> diems=new HashSet<>();
-            diems.add(new Diem(hk, hl, mh, diem15, diem1, diemck, null));
-            hl.setDiems(diems);
-            dto.Diem diem = new dal.DiemDAL().getByLopHocHocKyMonHocHocSinh(l, nh, hk, mh, hs);
+            dto.HocsinhLophoc hl = new dal.HocsinhLophocDAL().getByNamHocLopHocSinh(namhoc, lop, hs);
+            dto.Diem diem = new dal.DiemDAL().getByLopHocHocKyMonHocHocSinh(lop, namhoc, hocky, monhoc, hs);
             if (diem == null) {
-                if (new dal.HocsinhLophocDAL().update(hl)) {
-                    JOptionPane.showMessageDialog(chonBT, "them thanh cong");
+                if (new dal.DiemDAL().add(new dto.Diem(hocky, hl, monhoc, diem15, diem1, diemck, null)) > -1) {
+                   // JOptionPane.showMessageDialog(chonBT, "them thanh cong");
                 } else {
                     JOptionPane.showMessageDialog(chonBT, "them that bai");
                 }
@@ -336,7 +324,7 @@ public class ScoreFrame extends javax.swing.JFrame {
                 diem.setDiem1tiet(diem1);
                 diem.setDiemCuoiKy(diemck);
                 if (new dal.DiemDAL().update(diem)) {
-                    JOptionPane.showMessageDialog(chonBT, "cap nhat thanh cong");
+                    //JOptionPane.showMessageDialog(chonBT, "cap nhat thanh cong");
                 } else {
                     JOptionPane.showMessageDialog(chonBT, "cap nhat that bai");
                 }
