@@ -98,6 +98,10 @@ public class ChitietCauhinhDiemDAL {
                 + "from ChitietCauhinhDiem c "
                 + "left join fetch c.cauhinh ch "
                 + "left join fetch c.diem d "
+                + "left join fetch d.hocky "
+                + "left join fetch d.hocsinhLophoc "
+                + "left join fetch d.monhoc "
+                + "left join fetch d "
                 + where;
     }
 

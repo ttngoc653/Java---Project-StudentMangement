@@ -17,7 +17,9 @@ import dto.Monhoc;
 import dto.Namhoc;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
@@ -319,10 +321,12 @@ public class ScoreFrame extends javax.swing.JFrame {
             } catch (NumberFormatException e) {
             }
             dto.HocsinhLophoc hl = new dal.HocsinhLophocDAL().getByNamHocLopHocSinh(nh, l, hs);
-            hl.setDiems(null);
+            Set<Diem> diems=new HashSet<>();
+            diems.add(new Diem(hk, hl, mh, diem15, diem1, diemck, null));
+            hl.setDiems(diems);
             dto.Diem diem = new dal.DiemDAL().getByLopHocHocKyMonHocHocSinh(l, nh, hk, mh, hs);
             if (diem == null) {
-                if (new dal.DiemDAL().add(new dto.Diem(hk, hl, mh, diem15, diem1, diemck, null)) > -1) {
+                if (new dal.HocsinhLophocDAL().update(hl)) {
                     JOptionPane.showMessageDialog(chonBT, "them thanh cong");
                 } else {
                     JOptionPane.showMessageDialog(chonBT, "them that bai");
