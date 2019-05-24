@@ -98,6 +98,7 @@ public class CauHinhDAL {
         return "select distinct ch "
                 + "from Cauhinh ch "
                 + "left join fetch ch.lops l "
+                + "left join fetch l.hocsinhLophocs"
                 + "left join fetch ch.chitietCauhinhHocsinhs cths "
                 + "left join fetch ch.chitietCauhinhDiems ctd "
                 + where
