@@ -243,7 +243,7 @@ public class DiemDAL {
         list = new ArrayList<>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery(getTable("where l.idLopHoc = :lop "
+            Query q = session.createQuery(getTable("where l.idLop = :lop "
                     + "and nh.idNamHoc = :namhoc "
                     + "and hk.idHocKy = :hocky "
                     + "and mh.idMonHoc = :monhoc"));
@@ -266,7 +266,7 @@ public class DiemDAL {
         list = new ArrayList<>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery(getTable("where l.idLopHoc = :lop "
+            Query q = session.createQuery(getTable("where l.idLop = :lop "
                     + "and nh.idNamHoc = :namhoc "
                     + "and hk.idHocKy = :hocky "
                     + "and mh.idMonHoc = :monhoc "

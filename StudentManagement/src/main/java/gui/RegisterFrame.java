@@ -280,7 +280,7 @@ public class RegisterFrame extends javax.swing.JFrame {
     boolean isnull()
     {
         boolean kq = false;
-        if(hoten.getText().equals("")||username.getText().equals("")||pass.getText().equals(""));
+        if(hoten.getText().equals("")||username.getText().equals("")||pass.getText().equals(""))
             kq = true;
         return kq;
     }
@@ -298,7 +298,7 @@ public class RegisterFrame extends javax.swing.JFrame {
         Nguoidung info = new Nguoidung();
         info.setHoTen(hoten.getText());
         info.setTenTaiKhoan(username.getText());
-        info.setMatKhau(pass.getText());
+        info.setMatKhau(bll.HelperBLL.getMd5(pass.getText()));
         info.setSdt(sdt.getText());
         info.setEmail(email.getText());
         NguoidungDAL DAL =  new NguoidungDAL();

@@ -78,7 +78,7 @@ public class ScoreFrame extends javax.swing.JFrame {
     private void initMonhoc() {
         DefaultComboBoxModel modelmonhoc = new DefaultComboBoxModel();
         MonhocDAL monhocdal = new MonhocDAL();
-        List<Monhoc> DSmon = new ArrayList<Monhoc>();
+        List<Monhoc> DSmon = new ArrayList<>();
         DSmon = monhocdal.getAll();
         monCBX.removeAllItems();
         if (DSmon != null) {
@@ -295,6 +295,7 @@ public class ScoreFrame extends javax.swing.JFrame {
         //this.jTable1.
     }//GEN-LAST:event_chonBTActionPerformed
 
+    @SuppressWarnings("null")
     private void jTable1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jTable1PropertyChange
         // TODO add your handling code here:
         if (temp == jTable1.getSelectedRow() && jTable1.getSelectedRow() != -1) {
@@ -317,15 +318,20 @@ public class ScoreFrame extends javax.swing.JFrame {
                 diemck = Double.valueOf(jTable1.getModel().getValueAt(temp, 4).toString());
             } catch (NumberFormatException e) {
             }
-            dto.HocsinhLophoc hl=new dal.HocsinhLophocDAL().getByNamHocLopHocSinh(nh, l, hs);
-            if (new dal.DiemDAL().getByLopHocHocKyMonHocHocSinh(l, nh, hk, mh, hs) == null) {
+            dto.HocsinhLophoc hl = new dal.HocsinhLophocDAL().getByNamHocLopHocSinh(nh, l, hs);
+            hl.setDiems(null);
+            dto.Diem diem = new dal.DiemDAL().getByLopHocHocKyMonHocHocSinh(l, nh, hk, mh, hs);
+            if (diem == null) {
                 if (new dal.DiemDAL().add(new dto.Diem(hk, hl, mh, diem15, diem1, diemck, null)) > -1) {
                     JOptionPane.showMessageDialog(chonBT, "them thanh cong");
                 } else {
                     JOptionPane.showMessageDialog(chonBT, "them that bai");
                 }
             } else {
-                if (new dal.DiemDAL().update(new Diem(hk, hl, mh, diem15, diem1, diemck, null))) {
+                diem.setDiem15phut(diem15);
+                diem.setDiem1tiet(diem1);
+                diem.setDiemCuoiKy(diemck);
+                if (new dal.DiemDAL().update(diem)) {
                     JOptionPane.showMessageDialog(chonBT, "cap nhat thanh cong");
                 } else {
                     JOptionPane.showMessageDialog(chonBT, "cap nhat that bai");

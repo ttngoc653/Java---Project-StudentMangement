@@ -99,7 +99,7 @@ public class NamhocDAL {
                 + "from Namhoc as nh "
                 + "left join fetch nh.hocsinhLophocs "
                 + where
-                +"order by nh.tenNamHoc";
+                +" order by nh.tenNamHoc";
     }
 
     @SuppressWarnings("unchecked")

@@ -84,6 +84,11 @@ public class SchoolYearFrame extends javax.swing.JFrame {
                 namhocTF1FocusLost(evt);
             }
         });
+        namhocTF1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                namhocTF1KeyTyped(evt);
+            }
+        });
 
         jButton2.setText("Xóa");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -125,6 +130,11 @@ public class SchoolYearFrame extends javax.swing.JFrame {
         namhocTF2.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 namhocTF2FocusLost(evt);
+            }
+        });
+        namhocTF2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                namhocTF2KeyTyped(evt);
             }
         });
 
@@ -249,12 +259,24 @@ public class SchoolYearFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void namhocTF1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_namhocTF1FocusLost
-        namhocTF2.setText(String.valueOf(1+(Integer.parseInt(namhocTF1.getText()))));
+        //namhocTF2.setText(String.valueOf(1+(Integer.parseInt(namhocTF1.getText()))));
     }//GEN-LAST:event_namhocTF1FocusLost
 
     private void namhocTF2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_namhocTF2FocusLost
-        namhocTF1.setText(String.valueOf((Integer.parseInt(namhocTF2.getText()))-1));
+        //namhocTF1.setText(String.valueOf((Integer.parseInt(namhocTF2.getText()))-1));
     }//GEN-LAST:event_namhocTF2FocusLost
+
+    private void namhocTF1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_namhocTF1KeyTyped
+        if (!bll.HelperBLL.IsInteger(namhocTF1.getText()+evt.getKeyChar())) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_namhocTF1KeyTyped
+
+    private void namhocTF2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_namhocTF2KeyTyped
+        if (!bll.HelperBLL.IsInteger(namhocTF2.getText()+evt.getKeyChar())) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_namhocTF2KeyTyped
 
     /**
      * @param args the command line arguments

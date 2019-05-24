@@ -248,7 +248,7 @@ public class NguoidungDAL {
         Nguoidung n = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Nguoidung as t where t.tenDangNhap = :user");
+            Query q = session.createQuery("from Nguoidung as t where t.tenTaiKhoan = :user");
             q.setParameter("user", tenDN);
             n = (Nguoidung) q.uniqueResult();
             tst.commit();

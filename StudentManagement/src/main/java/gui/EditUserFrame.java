@@ -48,10 +48,12 @@ public class EditUserFrame extends javax.swing.JFrame {
     }
 
     public void init() {
-        hotenTF.setText(nd.getHoTen());
-        emailTF.setText(nd.getEmail());
-        phoneTF.setText(nd.getSdt());
-        userTF.setText(nd.getTenTaiKhoan());
+        if (nd != null) {
+            hotenTF.setText(nd.getHoTen());
+            emailTF.setText(nd.getEmail());
+            phoneTF.setText(nd.getSdt());
+            userTF.setText(nd.getTenTaiKhoan());
+        }
 
     }
 
@@ -368,17 +370,15 @@ public class EditUserFrame extends javax.swing.JFrame {
         info.setIdNguoiDung(nd.getIdNguoiDung());
         System.out.println(passPF.getText());
         info.setMatKhau(nd.getMatKhau());
-        
-        if(!passPF.getText().equals(""))
-        {
+
+        if (!passPF.getText().equals("")) {
             try {
-            info.setMatKhau(new HelperBLL().PasswordMD5(passPF.getText()));
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(EditUserFrame.class.getName()).log(Level.SEVERE, null, ex);
+                info.setMatKhau(new HelperBLL().PasswordMD5(passPF.getText()));
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(EditUserFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        }
-            
-  
+
         NguoidungDAL DAL = new NguoidungDAL();
         String md5_pwd = "";
         try {
@@ -386,18 +386,17 @@ public class EditUserFrame extends javax.swing.JFrame {
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(EditUserFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println(nd.getMatKhau() + "-" + md5_pwd );
-        if(md5_pwd.equals(nd.getMatKhau())) {
+        System.out.println(nd.getMatKhau() + "-" + md5_pwd);
+        if (md5_pwd.equals(nd.getMatKhau())) {
             boolean xxx = DAL.updateNuoidung(info);
-         
-            
+
             JOptionPane.showMessageDialog(null, "Cập nhật thành công");
             nhapmkcuDialog.setVisible(false);
             this.setVisible(false);
-            
-        }
-        else
+
+        } else {
             JOptionPane.showMessageDialog(null, "Mật khẩu không hợp lệ");
+        }
     }//GEN-LAST:event_OKBTActionPerformed
 
     /**
