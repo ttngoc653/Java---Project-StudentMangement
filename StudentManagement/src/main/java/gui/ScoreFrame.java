@@ -293,13 +293,24 @@ public class ScoreFrame extends javax.swing.JFrame {
         hocky = new dal.HockyDAL().getByTen(Integer.valueOf(hockyCBX.getSelectedItem().toString()));
         lop = new dal.LopDAL().getByTen(lopCBX.getSelectedItem().toString());
         this.jTable1.setModel(new bll.ScoreFrameBLL().getData(lopCBX.getSelectedItem().toString(), monCBX.getSelectedItem().toString(), namhocCBX.getSelectedItem().toString(), hockyCBX.getSelectedItem().toString()));
-        //this.jTable1.
     }//GEN-LAST:event_chonBTActionPerformed
+
+    String value_old;
 
     @SuppressWarnings("null")
     private void jTable1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jTable1PropertyChange
         // TODO add your handling code here:
+        String value = "";
+        if (jTable1.getSelectedRow() != -1 || jTable1.getSelectedColumn() != -1) {
+            value = jTable1.getValueAt(jTable1.getSelectedRow(), jTable1.getSelectedColumn()).toString();
+        }
         if (temp == jTable1.getSelectedRow() && jTable1.getSelectedRow() != -1) {
+            System.out.println(jTable1.getSelectedRow() + "____" + jTable1.getSelectedColumn() + "____" + value);
+            if (!value.isEmpty() && !(Double.parseDouble(value) >= 0 && Double.parseDouble(value) <= 10D)) {
+                JOptionPane.showMessageDialog(this, "Điểm không hợp lệ. Điểm phải từ 0 đến 10.", value, WIDTH);
+                jTable1.setValueAt(value_old, jTable1.getSelectedRow(), jTable1.getSelectedColumn());
+                return;
+            }
             String strTenHocSinh = jTable1.getModel().getValueAt(temp, 1).toString();
             dto.Hocsinh hs = new dal.HocsinhDAL().getByName(strTenHocSinh);
             Double diem15 = null, diem1 = null, diemck = null;
@@ -319,7 +330,7 @@ public class ScoreFrame extends javax.swing.JFrame {
             dto.Diem diem = new dal.DiemDAL().getByLopHocHocKyMonHocHocSinh(lop, namhoc, hocky, monhoc, hs);
             if (diem == null) {
                 if (new dal.DiemDAL().add(new dto.Diem(hocky, hl, monhoc, diem15, diem1, diemck, null)) > -1) {
-                   // JOptionPane.showMessageDialog(chonBT, "them thanh cong");
+                    // JOptionPane.showMessageDialog(chonBT, "them thanh cong");
                 } else {
                     JOptionPane.showMessageDialog(chonBT, "Them that bai");
                 }
@@ -330,11 +341,14 @@ public class ScoreFrame extends javax.swing.JFrame {
                 if (new dal.DiemDAL().update(diem)) {
                     //JOptionPane.showMessageDialog(chonBT, "cap nhat thanh cong");
                 } else {
-                    JOptionPane.showMessageDialog(chonBT, "cap nhat that bai");
+                    JOptionPane.showMessageDialog(chonBT, "Cập nhật thất bại");
                 }
             }
         }
         temp = jTable1.getSelectedRow();
+
+        value_old = value;
+
     }//GEN-LAST:event_jTable1PropertyChange
 
     /**

@@ -291,7 +291,7 @@ public class RegisterFrame extends javax.swing.JFrame {
             return;
         }
         if(new NguoidungDAL().getByTenDangNhap(username.getText())!=null) {
-            JOptionPane.showMessageDialog(email, "nguoi dung da ton tai");
+            JOptionPane.showMessageDialog(email, "Người dùng đã tồn tại");
             return;
         }
         // TODO add your handling code here:
