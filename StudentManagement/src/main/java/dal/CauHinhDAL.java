@@ -98,14 +98,7 @@ public class CauHinhDAL {
         return "select distinct ch "
                 + "from Cauhinh ch "
                 + "left join fetch ch.lops l "
-                + "left join fetch l.hocsinhLophocs "
-                + "left join fetch l.hocsinhLophocs.namhoc "
-                + "left join fetch l.hocsinhLophocs.diems "
-                + "left join fetch l.hocsinhLophocs.diems.hocky "
-                + "left join fetch l.hocsinhLophocs.diems.monhoc "
                 + "left join fetch ch.chitietCauhinhHocsinhs cths "
-                + "left join fetch cths.cauhinh "
-                + "left join fetch cths.hocsinh "
                 + "left join fetch ch.chitietCauhinhDiems ctd "
                 + where
                 + " order by ch.tenThuocTinh ";
@@ -166,7 +159,7 @@ public class CauHinhDAL {
         Cauhinh hs = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery(getTable("where ch.loaiThuocTinh like ':name'"));
+            Query q = session.createQuery(getTable("where ch.loaiThuocTinh like :name"));
             q.setParameter("name", type);
             hs = (Cauhinh) q.uniqueResult();
             tst.commit();
@@ -183,7 +176,7 @@ public class CauHinhDAL {
         Cauhinh hs = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery(getTable("where ch.tenDayDu like ':name'"));
+            Query q = session.createQuery(getTable("where ch.tenDayDu like :name"));
             q.setParameter("name", name_detail);
             hs = (Cauhinh) q.uniqueResult();
             tst.commit();
