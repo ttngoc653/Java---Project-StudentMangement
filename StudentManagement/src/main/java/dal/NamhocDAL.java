@@ -94,34 +94,20 @@ public class NamhocDAL {
         return result;
     }
 
-//    @SuppressWarnings("unchecked")
-//    public List<Namhoc> getAll() {
-//        list = new ArrayList<Namhoc>();
-//        try {
-//            tst = session.beginTransaction();
-//            Query q = session.createQuery("from Namhoc as t "
-//                    + "left join fetch t.hocsinhLophocs "
-//                    + "left join fetch t.chitietCauhinhLops");
-//            list = (List<Namhoc>) q.list();
-//            tst.commit();
-//        } catch (Exception e) {
-//            if (tst != null) {
-//                tst.rollback();
-//            }
-//            e.printStackTrace();
-//        }
-//        return list;
-//    }
-    
-    //24/04/2019
+    private String getTable(String where) {
+        return "select distinct nh "
+                + "from Namhoc as nh "
+                + "left join fetch nh.hocsinhLophocs "
+                + where
+                +" order by nh.tenNamHoc";
+    }
+
     @SuppressWarnings("unchecked")
     public List<Namhoc> getAll() {
         list = new ArrayList<Namhoc>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("select distinct t "
-                    + "from Namhoc as t "
-                    + "left join fetch t.hocsinhLophocs ");
+            Query q = session.createQuery(getTable(""));
             list = (List<Namhoc>) q.list();
             tst.commit();
         } catch (Exception e) {
@@ -137,10 +123,7 @@ public class NamhocDAL {
         Namhoc n = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("select distinct t "
-                    + "from Namhoc as t "
-                    + "left join fetch t.hocsinhLophocs "
-                    + "where t.idNamHoc = :id");
+            Query q = session.createQuery(getTable("where nh.idNamHoc = :id"));
             q.setParameter("id", id);
             n = (Namhoc) q.uniqueResult();
             tst.commit();
@@ -157,10 +140,7 @@ public class NamhocDAL {
         Namhoc n = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("select distinct t "
-                    + "from Namhoc as t "
-                    + "left join fetch t.hocsinhLophocs "
-                    + "where t.tenNamHoc = :name");
+            Query q = session.createQuery(getTable("where nh.tenNamHoc = :name"));
             q.setParameter("name", ten);
             n = (Namhoc) q.uniqueResult();
             tst.commit();

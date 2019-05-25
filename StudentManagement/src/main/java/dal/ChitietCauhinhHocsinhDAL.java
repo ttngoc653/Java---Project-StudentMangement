@@ -90,15 +90,19 @@ public class ChitietCauhinhHocsinhDAL {
         return result;
     }
 
+    private String getTable(){
+        return "select distinct ct "
+                    + "from ChitietCauhinhHocsinh ct "
+                    + "left join fetch ct.hocsinh hs "
+                    + "left join fetch ct.cauhinh ch ";
+    }
+    
     @SuppressWarnings("unchecked")
     public List<ChitietCauhinhHocsinh> getAll() {
         list = new ArrayList<ChitietCauhinhHocsinh>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("select distinct c "
-                    + "from ChitietCauhinhHocsinh c "
-                    + "left join fetch c.hocsinh "
-                    + "left join fetch c.cauhinh");
+            Query q = session.createQuery(getTable());
             list = (List<ChitietCauhinhHocsinh>) q.list();
             tst.commit();
         } catch (Exception e) {
@@ -114,13 +118,9 @@ public class ChitietCauhinhHocsinhDAL {
         ChitietCauhinhHocsinh hs=null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("select distinct c "
-                    + "from ChitietCauhinhHocsinh c "
-                    + "left join fetch c.hocsinh "
-                    + "left join fetch c.cauhinh "
-                    + "left join fetch c.id key "
-                    + "where key.idHocSinh = :hocsinh "
-                    + "and key.idCauHinh = :cauhinh");
+            Query q = session.createQuery(getTable()
+                    + "where hs.idHocSinh = :hocsinh "
+                    + "and ch.idCauHinh = :cauhinh");
             q.setParameter("hocsinh", idChitietCauhinhHocsinh.getIdHocSinh());
             q.setParameter("cauhinh", idChitietCauhinhHocsinh.getIdCauHinh());
             hs=(ChitietCauhinhHocsinh) q.uniqueResult();
@@ -138,10 +138,7 @@ public class ChitietCauhinhHocsinhDAL {
         list = new ArrayList<ChitietCauhinhHocsinh>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("select distinct c "
-                    + "from ChitietCauhinhHocsinh c "
-                    + "left join fetch c.hocsinh "
-                    + "left join fetch c.cauhinh ch "
+            Query q = session.createQuery(getTable()
                     + "where ch.idCauHinh = :cauhinh");
             q.setParameter("cauhinh", ch.getIdCauHinh());
             list = (List<ChitietCauhinhHocsinh>) q.list();
@@ -159,10 +156,7 @@ public class ChitietCauhinhHocsinhDAL {
         list = new ArrayList<ChitietCauhinhHocsinh>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("select distinct c "
-                    + "from ChitietCauhinhHocsinh c "
-                    + "left join fetch c.hocsinh hs "
-                    + "left join fetch c.cauhinh "
+            Query q = session.createQuery(getTable()
                     + "where hs.idHocSinh = :hocsinh");
             q.setParameter("hocsinh", hs.getIdHocSinh());
             list = (List<ChitietCauhinhHocsinh>) q.list();

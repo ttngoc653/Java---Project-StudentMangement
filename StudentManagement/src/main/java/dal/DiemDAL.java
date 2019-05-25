@@ -98,21 +98,26 @@ public class DiemDAL {
         return result;
     }
 
+    private String getTable(String where) {
+        return "select distinct d "
+                + "from Diem d "
+                + "left join fetch d.hocky hk "
+                + "left join fetch d.monhoc mh "
+                + "left join fetch d.chitietCauhinhDiems ct "
+                + "left join fetch d.hocsinhLophoc hl "
+                + "left join fetch hl.hocsinh hs "
+                + "left join fetch hl.lop l "
+                + "left join fetch hl.namhoc nh "
+                + where
+                + " order by nh.tenNamHoc, l.tenLop, hs.hoTen ";
+    }
+
     @SuppressWarnings("unchecked")
     public List<Diem> getAll() {
         list = new ArrayList<Diem>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("select distinct d "
-                    + "from Diem d "
-                    + "left join fetch d.hocky "
-                    + "left join fetch d.hocsinhLophoc hl "
-                    + "left join fetch hl.hocsinh "
-                    + "left join fetch hl.lop "
-                    + "left join fetch hl.namhoc "
-                    + "left join fetch hl.id hid "
-                    + "left join fetch d.monhoc "
-                    + "left join fetch d.chitietCauhinhDiems");
+            Query q = session.createQuery(getTable(""));
             list = (List<Diem>) q.list();
             tst.commit();
         } catch (Exception e) {
@@ -128,17 +133,7 @@ public class DiemDAL {
         Diem n = null;
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("select distinct d "
-                    + "from Diem as d "
-                    + "left join fetch d.hocky "
-                    + "left join fetch d.hocsinhLophoc hl "
-                    + "left join fetch hl.hocsinh "
-                    + "left join fetch hl.lop "
-                    + "left join fetch hl.namhoc "
-                    + "left join fetch hl.id hid "
-                    + "left join fetch d.monhoc "
-                    + "left join fetch d.chitietCauhinhDiems "
-                    + "where d.idDiem = :id");
+            Query q = session.createQuery(getTable("where d.idDiem = :id"));
             q.setParameter("id", id);
             n = (Diem) q.uniqueResult();
             tst.commit();
@@ -155,17 +150,7 @@ public class DiemDAL {
         list = new ArrayList<>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("select distinct d "
-                    + "from Diem as d "
-                    + "left join fetch d.hocky "
-                    + "left join fetch d.hocsinhLophoc hl "
-                    + "left join fetch hl.hocsinh "
-                    + "left join fetch hl.lop "
-                    + "left join fetch hl.namhoc "
-                    + "left join fetch hl.id hid "
-                    + "left join fetch d.monhoc "
-                    + "left join fetch d.chitietCauhinhDiems "
-                    + "where m.idMonHoc = :monhoc");
+            Query q = session.createQuery(getTable("where mh.idMonHoc = :monhoc"));
             q.setParameter("monhoc", mh.getIdMonHoc());
             list = q.list();
             tst.commit();
@@ -182,17 +167,7 @@ public class DiemDAL {
         list = new ArrayList<>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("select distinct d "
-                    + "from Diem as d "
-                    + "left join fetch d.hocky "
-                    + "left join fetch d.hocsinhLophoc hl "
-                    + "left join fetch hl.hocsinh "
-                    + "left join fetch hl.lop "
-                    + "left join fetch hl.namhoc "
-                    + "left join fetch hl.id hid "
-                    + "left join fetch d.monhoc "
-                    + "left join fetch d.chitietCauhinhDiems "
-                    + "where hl.idHocSinhLopHoc = :hocsinhlophoc");
+            Query q = session.createQuery(getTable("where hl.idHocSinhLopHoc = :hocsinhlophoc"));
             q.setParameter("hocsinhlophoc", p.getIdHocSinhLopHoc());
             list = q.list();
             tst.commit();
@@ -209,18 +184,8 @@ public class DiemDAL {
         list = new ArrayList<>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("select distinct d "
-                    + "from Diem as d "
-                    + "left join fetch d.hocky "
-                    + "left join fetch d.hocsinhLophoc hl "
-                    + "left join fetch hl.hocsinh "
-                    + "left join fetch hl.lop "
-                    + "left join fetch hl.namhoc "
-                    + "left join fetch hl.id hid "
-                    + "left join fetch d.monhoc "
-                    + "left join fetch d.chitietCauhinhDiems "
-                    + "where hl.idHocSinhLopHoc = :hocsinhlophoc "
-                    + "and m.idMonHoc = :monhoc");
+            Query q = session.createQuery(getTable("where hl.idHocSinhLopHoc = :hocsinhlophoc "
+                    + "and mh.idMonHoc = :monhoc"));
             q.setParameter("hocsinhlophoc", hl.getIdHocSinhLopHoc());
             q.setParameter("monhoc", mh.getIdMonHoc());
             list = q.list();
@@ -238,16 +203,8 @@ public class DiemDAL {
         list = new ArrayList<>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Diem as d "
-                    + "left join fetch d.hocky k "
-                    + "left join fetch d.hocsinhLophoc hl "
-                    + "left join fetch hl.hocsinh "
-                    + "left join fetch hl.lop "
-                    + "left join fetch hl.namhoc "
-                    + "left join fetch d.monhoc "
-                    + "left join fetch d.chitietCauhinhDiems "
-                    + "where hl.idHocSinhLopHoc = :hocsinhlophoc "
-                    + "and k.idHocKy = :hocky");
+            Query q = session.createQuery(getTable("where hl.idHocSinhLopHoc = :hocsinhlophoc "
+                    + "and hk.idHocKy = :hocky"));
             q.setParameter("hocsinhlophoc", hl.getIdHocSinhLopHoc());
             q.setParameter("hocky", h.getIdHocKy());
             list = q.list();
@@ -265,17 +222,9 @@ public class DiemDAL {
         list = new ArrayList<>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("from Diem as d "
-                    + "left join fetch d.hocky k "
-                    + "left join fetch d.hocsinhLophoc hl "
-                    + "left join fetch hl.hocsinh "
-                    + "left join fetch hl.lop l "
-                    + "left join fetch hl.namhoc nh"
-                    + "left join fetch d.monhoc "
-                    + "left join fetch d.chitietCauhinhDiems "
-                    + "where l.idLop = :lop "
+            Query q = session.createQuery(getTable("where l.idLop = :lop "
                     + "and nh.idNamHoc = :namhoc "
-                    + "and k.idHocKy = :hocky");
+                    + "and hk.idHocKy = :hocky"));
             q.setParameter("lop", l.getIdLop());
             q.setParameter("namhoc", n.getIdNamHoc());
             q.setParameter("hocky", h.getIdHocKy());
@@ -294,19 +243,10 @@ public class DiemDAL {
         list = new ArrayList<>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("select distinct d "
-                    + "from Diem as d "
-                    + "left join fetch d.hocky k "
-                    + "left join fetch d.hocsinhLophoc hl "
-                    + "left join fetch hl.hocsinh "
-                    + "left join fetch hl.lop "
-                    + "left join fetch hl.namhoc nh "
-                    + "left join fetch d.monhoc m "
-                    + "left join fetch d.chitietCauhinhDiems "
-                    + "where hid.idLopHoc = :lop "
+            Query q = session.createQuery(getTable("where l.idLop = :lop "
                     + "and nh.idNamHoc = :namhoc "
-                    + "and k.idHocKy = :hocky "
-                    + "and m.idMonHoc = :monhoc");
+                    + "and hk.idHocKy = :hocky "
+                    + "and mh.idMonHoc = :monhoc"));
             q.setParameter("lop", l.getIdLop());
             q.setParameter("namhoc", n.getIdNamHoc());
             q.setParameter("hocky", h.getIdHocKy());
@@ -326,20 +266,11 @@ public class DiemDAL {
         list = new ArrayList<>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("select distinct d "
-                    + "from Diem as d "
-                    + "left join fetch d.hocky k "
-                    + "left join fetch d.hocsinhLophoc hl "
-                    + "left join fetch hl.hocsinh hs "
-                    + "left join fetch hl.lop "
-                    + "left join fetch hl.namhoc nh "
-                    + "left join fetch d.monhoc m "
-                    + "left join fetch d.chitietCauhinhDiems "
-                    + "where hid.idLopHoc = :lop "
+            Query q = session.createQuery(getTable("where l.idLop = :lop "
                     + "and nh.idNamHoc = :namhoc "
-                    + "and k.idHocKy = :hocky "
-                    + "and m.idMonHoc = :monhoc "
-                    + "and hs.hoTen like :hocsinh");
+                    + "and hk.idHocKy = :hocky "
+                    + "and mh.idMonHoc = :monhoc "
+                    + "and hs.hoTen like :hocsinh"));
             q.setParameter("lop", l.getIdLop());
             q.setParameter("namhoc", n.getIdNamHoc());
             q.setParameter("hocky", h.getIdHocKy());
@@ -358,23 +289,14 @@ public class DiemDAL {
         }
         return null;
     }
-    
-     public Diem getByLopHocHocKyMonHocHocSinh(HocsinhLophoc hl, Hocky h, dto.Monhoc m) {
+
+    public Diem getByLopHocHocKyMonHocHocSinh(HocsinhLophoc hl, Hocky h, dto.Monhoc m) {
         list = new ArrayList<>();
         try {
             tst = session.beginTransaction();
-            Query q = session.createQuery("select distinct d "
-                    + "from Diem as d "
-                    + "left join fetch d.hocky k "
-                    + "left join fetch d.hocsinhLophoc hl "
-                    + "left join fetch hl.hocsinh "
-                    + "left join fetch hl.lop "
-                    + "left join fetch hl.namhoc "
-                    + "left join fetch d.monhoc m "
-                    + "left join fetch d.chitietCauhinhDiems "
-                    + "where hl.idHocSinhLopHoc = :hocsinhlophoc "
-                    + "and k.idHocKy = :hocky "
-                    + "and m.idMonHoc = :monhoc");
+            Query q = session.createQuery(getTable("where hl.idHocSinhLopHoc = :hocsinhlophoc "
+                    + "and hk.idHocKy = :hocky "
+                    + "and mh.idMonHoc = :monhoc"));
             q.setParameter("hocsinhlophoc", hl.getIdHocSinhLopHoc());
             q.setParameter("hocky", h.getIdHocKy());
             q.setParameter("monhoc", m.getIdMonHoc());

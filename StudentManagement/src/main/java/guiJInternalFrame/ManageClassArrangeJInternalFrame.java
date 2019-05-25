@@ -10,7 +10,10 @@ import dal.LopDAL;
 import dal.NamhocDAL;
 import dto.Hocsinh;
 import dto.HocsinhLophoc;
+<<<<<<< HEAD
 //import dto.HocsinhLophocId;
+=======
+>>>>>>> 8e84e6a33801e9d715fb2df08703ca4844f77a20
 import dto.Lop;
 import dto.Namhoc;
 import dto.Nguoidung;
@@ -293,6 +296,7 @@ public class ManageClassArrangeJInternalFrame extends javax.swing.JInternalFrame
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
 
+<<<<<<< HEAD
 //        int SiSoToiDa = Integer.parseInt(new CauHinhDAL().getByName("SiSoToiDa").getGiaTri());
 //
 //        int idHS = Integer.parseInt(this.cboMSHS.getSelectedItem().toString());
@@ -324,6 +328,39 @@ public class ManageClassArrangeJInternalFrame extends javax.swing.JInternalFrame
 //                JOptionPane.showMessageDialog(null, "Xếp lớp cho học sinh thất bại");
 //            }
 //        }
+=======
+        int SiSoToiDa = Integer.parseInt(new CauHinhDAL().getByName("SiSoToiDa").getGiaTri());
+
+        int idHS = Integer.parseInt(this.cboMSHS.getSelectedItem().toString());
+
+        String tenLop = this.cboTenLop.getSelectedItem().toString();
+        Lop lop = new LopDAL().getByTen(tenLop);
+        int idLop = lop.getIdLop();
+
+        String tenNamHoc = this.cboNamHoc.getSelectedItem().toString();
+        Namhoc namhoc = new NamhocDAL().getByTen(tenNamHoc);
+        int idNamHoc = namhoc.getIdNamHoc();
+
+        dto.HocsinhLophoc a = new HocsinhLophoc();
+        a.setHocsinh(new dal.HocsinhDAL().getById(idHS));
+        a.setLop(lop);
+        a.setNamhoc(namhoc);
+
+        if (findStudentByNamHocLop(idHS, namhoc, lop)) {
+            JOptionPane.showMessageDialog(null, "MSHS " + idHS + " đã thuộc lớp " + tenLop + " - năm học " + tenNamHoc);
+        } else if (checkMaximumStudentInClass(namhoc.getIdNamHoc(), lop.getIdLop(), SiSoToiDa)) {
+            JOptionPane.showMessageDialog(null, "Lớp này đã đủ sỉ số: " + SiSoToiDa + " học sinh");
+        } else if (findStudentByNamHoc(idHS, namhoc)) {
+            JOptionPane.showMessageDialog(null, "Trong 1 năm học sinh chỉ được học 1 lớp duy nhất");
+        } else {
+            if (new HocsinhLophocDAL().add(a) != null) {
+                JOptionPane.showMessageDialog(null, "Xếp lớp cho học sinh thành công");
+                LoadData();
+            } else {
+                JOptionPane.showMessageDialog(null, "Xếp lớp cho học sinh thất bại");
+            }
+        }
+>>>>>>> 8e84e6a33801e9d715fb2df08703ca4844f77a20
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
@@ -337,13 +374,10 @@ public class ManageClassArrangeJInternalFrame extends javax.swing.JInternalFrame
         String tenNamHoc = this.cboNamHoc.getSelectedItem().toString();
         Namhoc namhoc = new NamhocDAL().getByTen(tenNamHoc);
         int idNamHoc = namhoc.getIdNamHoc();
+        dto.Hocsinh hocsinh=new dal.HocsinhDAL().getById(idHS);
+        dto.HocsinhLophoc a = new dal.HocsinhLophocDAL().getByNamHocLopHocSinh(namhoc, lop, hocsinh);
 
-        HocsinhLophocId a = new HocsinhLophocId();
-        a.setIdHocSinh(idHS);
-        a.setIdLopHoc(idLop);
-        a.setIdNamHoc(idNamHoc);
-
-        if (new HocsinhLophocDAL().delete(a)) {
+        if (new HocsinhLophocDAL().delete(a.getIdHocSinhLopHoc())) {
             JOptionPane.showMessageDialog(null, "Xóa thành công");
             LoadData();
         } else {

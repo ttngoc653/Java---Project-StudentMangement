@@ -1,5 +1,5 @@
 package dto;
-// Generated May 21, 2019 10:29:55 PM by Hibernate Tools 4.3.1
+// Generated May 24, 2019 11:31:06 PM by Hibernate Tools 4.3.1
 
 
 import javax.persistence.AttributeOverride;

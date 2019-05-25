@@ -1,5 +1,5 @@
 package dto;
-// Generated May 21, 2019 10:29:55 PM by Hibernate Tools 4.3.1
+// Generated May 24, 2019 11:31:06 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -30,7 +30,7 @@ public class Lop  implements java.io.Serializable {
 
      private Integer idLop;
      private String tenLop;
-     private int khoi;
+     private String khoi;
      private Byte tinhTrang;
      private Set<HocsinhLophoc> hocsinhLophocs = new HashSet<HocsinhLophoc>(0);
      private Set<Cauhinh> cauhinhs = new HashSet<Cauhinh>(0);
@@ -39,11 +39,11 @@ public class Lop  implements java.io.Serializable {
     }
 
 	
-    public Lop(String tenLop, int khoi) {
+    public Lop(String tenLop, String khoi) {
         this.tenLop = tenLop;
         this.khoi = khoi;
     }
-    public Lop(String tenLop, int khoi, Byte tinhTrang, Set<HocsinhLophoc> hocsinhLophocs, Set<Cauhinh> cauhinhs) {
+    public Lop(String tenLop, String khoi, Byte tinhTrang, Set<HocsinhLophoc> hocsinhLophocs, Set<Cauhinh> cauhinhs) {
        this.tenLop = tenLop;
        this.khoi = khoi;
        this.tinhTrang = tinhTrang;
@@ -74,12 +74,12 @@ public class Lop  implements java.io.Serializable {
     }
 
     
-    @Column(name="Khoi", nullable=false)
-    public int getKhoi() {
+    @Column(name="Khoi", nullable=false, length=32)
+    public String getKhoi() {
         return this.khoi;
     }
     
-    public void setKhoi(int khoi) {
+    public void setKhoi(String khoi) {
         this.khoi = khoi;
     }
 
