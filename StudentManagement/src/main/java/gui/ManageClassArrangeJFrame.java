@@ -38,7 +38,12 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
     }
 
     private void LoadData() {
-        DefaultTableModel dtm = new DefaultTableModel();
+        DefaultTableModel dtm = new DefaultTableModel() {
+            //Chặn edit các ô trong JTable
+            public boolean isCellEditable(int rowIndex, int mColIndex) {
+                return false;
+            }
+        };
         dtm.addColumn("ID");
         dtm.addColumn("MSHS");
         dtm.addColumn("Họ tên");
@@ -197,7 +202,6 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         )
-        {public boolean isCellEditable(int rowIndex, int columnIndex){return false;}}
     );
     jTableXepLop.addMouseListener(new java.awt.event.MouseAdapter() {
         public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -311,12 +315,16 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
 
-        int idHocSinhLopHoc = Integer.parseInt(txtID.getText());
-        if (new HocsinhLophocDAL().delete(idHocSinhLopHoc)) {
-            JOptionPane.showMessageDialog(null, "Xóa thành công");
-            LoadData();
+        if (txtID.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Chọn dòng thông tin bạn muốn xóa");
         } else {
-            JOptionPane.showMessageDialog(null, "Xóa thất bại");
+            int idHocSinhLopHoc = Integer.parseInt(txtID.getText());
+            if (new HocsinhLophocDAL().delete(idHocSinhLopHoc)) {
+                JOptionPane.showMessageDialog(null, "Xóa thành công");
+                LoadData();
+            } else {
+                JOptionPane.showMessageDialog(null, "Xóa thất bại");
+            }
         }
     }//GEN-LAST:event_btnXoaActionPerformed
 

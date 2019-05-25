@@ -233,7 +233,13 @@ public class ShowListClassJFrame extends javax.swing.JFrame {
         } else {
             txtTenLop.setText(tenLop);
             txtSiSo.setText(Integer.toString(SiSoLop));
-            DefaultTableModel dtm = new DefaultTableModel();
+            DefaultTableModel dtm = new DefaultTableModel() {
+                //Chặn edit các ô trong JTable
+                public boolean isCellEditable(int rowIndex, int mColIndex) {
+                    return false;
+                }
+            };
+            
             dtm.addColumn("STT");
             dtm.addColumn("MSHS");
             dtm.addColumn("Họ tên");

@@ -50,7 +50,13 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
 
     public void LoadData() {
         //DefaultTableModel dtm = new DefaultTableModel();
-        dtm = new DefaultTableModel();
+        dtm = new DefaultTableModel() {
+            //Chặn edit các ô trong JTable
+            public boolean isCellEditable(int rowIndex, int mColIndex) {
+                return false;
+            }
+        };
+
         dtm.addColumn("MSHS");
         dtm.addColumn("Họ tên");
         dtm.addColumn("Ngày sinh");
@@ -236,25 +242,24 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtSdtCaNhan, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(99, 99, 99))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtSdtCaNhan, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
-                                .addGap(24, 24, 24)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap())))
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtSdtGiamHo, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtSdtGiamHo, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)
-                        .addContainerGap())))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -358,10 +363,10 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnXoa)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnSua)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnXepLop)
@@ -374,7 +379,7 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnTim))
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 8, Short.MAX_VALUE))
+                        .addGap(0, 9, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(lblTenTaiKhoan))
@@ -535,7 +540,7 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
         this.jDateChooserNgaySinh.setDate(ngaySinh);
         this.txtEmail.setText(a.getEmail());
 
-        if (a.getGioiTinh().equals("Nam")||a.getGioiTinh().equals("nam")) {
+        if (a.getGioiTinh().equals("Nam") || a.getGioiTinh().equals("nam")) {
             this.rbNam.setSelected(true);
         } else {
             this.rbNu.setSelected(true);
@@ -551,16 +556,20 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
 
-        String tenLop = this.jTableHocSinh.getValueAt(this.jTableHocSinh.getSelectedRow(), 1).toString();
-        int idHS = Integer.parseInt(this.jTableHocSinh.getValueAt(this.jTableHocSinh.getSelectedRow(), 0).toString());
-        int cf = JOptionPane.showConfirmDialog(null, "Bạn có chắc xóa học sinh " + tenLop + " không?", "Xác nhận", JOptionPane.YES_OPTION);
+        if (txtMSHS.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Chọn học sinh bạn muốn xóa");
+        } else {
+            String tenLop = this.jTableHocSinh.getValueAt(this.jTableHocSinh.getSelectedRow(), 1).toString();
+            int idHS = Integer.parseInt(this.jTableHocSinh.getValueAt(this.jTableHocSinh.getSelectedRow(), 0).toString());
+            int cf = JOptionPane.showConfirmDialog(null, "Bạn có chắc xóa học sinh " + tenLop + " không?", "Xác nhận", JOptionPane.YES_OPTION);
 
-        if (cf == JOptionPane.YES_OPTION) {
-            if (new HocsinhDAL().delete(idHS)) {
-                JOptionPane.showMessageDialog(null, "Xóa học sinh thành công");
-                LoadData();
-            } else {
-                JOptionPane.showMessageDialog(null, "Xóa học sinh thất bại");
+            if (cf == JOptionPane.YES_OPTION) {
+                if (new HocsinhDAL().delete(idHS)) {
+                    JOptionPane.showMessageDialog(null, "Xóa học sinh thành công");
+                    LoadData();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Xóa học sinh thất bại");
+                }
             }
         }
     }//GEN-LAST:event_btnXoaActionPerformed
@@ -570,69 +579,73 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
         int TuoiToiThieu = Integer.parseInt(new CauHinhDAL().getByName("TuoiToiThieu").getGiaTri());
         int TuoiToiDa = Integer.parseInt(new CauHinhDAL().getByName("TuoiToiDa").getGiaTri());
 
-        Date newDate = jDateChooserNgaySinh.getDate();
-        int kqNgaySinh = 0;
-        if (checkDateOfBirth(newDate)) {
-            kqNgaySinh = 1;
+        if (txtMSHS.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Chọn học sinh bạn muốn sửa");
         } else {
-            kqNgaySinh = 0;
-        }
-
-        if (!this.txtHoTen.getText().equals("") && !this.txtDiaChi.getText().equals("") && kqNgaySinh == 1) {
-            Hocsinh hs = new Hocsinh();
-            int maHS = Integer.parseInt(this.txtMSHS.getText());
-            String hoTen = this.txtHoTen.getText();
-            String ngaySinh = dateFormat.format(newDate);
-            String email = this.txtEmail.getText();
-            String gioiTinh = "";
-            if (rbNam.isSelected()) {
-                gioiTinh = "Nam";
+            Date newDate = jDateChooserNgaySinh.getDate();
+            int kqNgaySinh = 0;
+            if (checkDateOfBirth(newDate)) {
+                kqNgaySinh = 1;
             } else {
-                gioiTinh = "Nữ";
+                kqNgaySinh = 0;
             }
-            String diaChi = this.txtDiaChi.getText();
-            String sdtCaNhan = this.txtSdtCaNhan.getText();
-            String sdtGiamHo = this.txtSdtGiamHo.getText();
-            Byte tinhTrang = Byte.parseByte("1");
 
-            if (checkAge(ngaySinh, TuoiToiDa, TuoiToiThieu) == true) {
-                hs.setIdHocSinh(maHS);
-                hs.setHoTen(hoTen);
-                hs.setNgaySinh(ngaySinh);
-                hs.setEmail(email);
-                hs.setGioiTinh(gioiTinh);
-                hs.setDiaChi(diaChi);
-                hs.setSdtCaNhan(sdtCaNhan);
-                hs.setSdtGiamHo(sdtGiamHo);
-                hs.setTinhTrang(tinhTrang);
+            if (!this.txtHoTen.getText().equals("") && !this.txtDiaChi.getText().equals("") && kqNgaySinh == 1) {
+                Hocsinh hs = new Hocsinh();
+                int maHS = Integer.parseInt(this.txtMSHS.getText());
+                String hoTen = this.txtHoTen.getText();
+                String ngaySinh = dateFormat.format(newDate);
+                String email = this.txtEmail.getText();
+                String gioiTinh = "";
+                if (rbNam.isSelected()) {
+                    gioiTinh = "Nam";
+                } else {
+                    gioiTinh = "Nữ";
+                }
+                String diaChi = this.txtDiaChi.getText();
+                String sdtCaNhan = this.txtSdtCaNhan.getText();
+                String sdtGiamHo = this.txtSdtGiamHo.getText();
+                Byte tinhTrang = Byte.parseByte("1");
 
-                if (checkEmail(email)) {
-                    if (checkPhoneNumber(sdtCaNhan) && checkPhoneNumber(sdtGiamHo)) {
-                        if (checkInfoUpdateStudent(maHS, hoTen, diaChi, ngaySinh)) {
-                            if (new HocsinhDAL().update(hs)) {
-                                JOptionPane.showMessageDialog(null, "Cập nhật thông tin học sinh thành công");
-                                LoadData();
+                if (checkAge(ngaySinh, TuoiToiDa, TuoiToiThieu) == true) {
+                    hs.setIdHocSinh(maHS);
+                    hs.setHoTen(hoTen);
+                    hs.setNgaySinh(ngaySinh);
+                    hs.setEmail(email);
+                    hs.setGioiTinh(gioiTinh);
+                    hs.setDiaChi(diaChi);
+                    hs.setSdtCaNhan(sdtCaNhan);
+                    hs.setSdtGiamHo(sdtGiamHo);
+                    hs.setTinhTrang(tinhTrang);
+
+                    if (checkEmail(email)) {
+                        if (checkPhoneNumber(sdtCaNhan) && checkPhoneNumber(sdtGiamHo)) {
+                            if (checkInfoUpdateStudent(maHS, hoTen, diaChi, ngaySinh)) {
+                                if (new HocsinhDAL().update(hs)) {
+                                    JOptionPane.showMessageDialog(null, "Cập nhật thông tin học sinh thành công");
+                                    LoadData();
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "Cập nhật thông tin học sinh thất bại");
+                                }
                             } else {
-                                JOptionPane.showMessageDialog(null, "Cập nhật thông tin học sinh thất bại");
+                                JOptionPane.showMessageDialog(null, "Thông tin học sinh này trùng với học sinh khác");
                             }
+
                         } else {
-                            JOptionPane.showMessageDialog(null, "Thông tin học sinh này trùng với học sinh khác");
+                            JOptionPane.showMessageDialog(null, "Số điện thoại không hợp lệ");
                         }
 
                     } else {
-                        JOptionPane.showMessageDialog(null, "Số điện thoại không hợp lệ");
+                        JOptionPane.showMessageDialog(null, "Email không hợp lệ");
                     }
 
                 } else {
-                    JOptionPane.showMessageDialog(null, "Email không hợp lệ");
+                    JOptionPane.showMessageDialog(null, "Tuổi từ " + TuoiToiThieu + " đến " + TuoiToiDa);
                 }
 
             } else {
-                JOptionPane.showMessageDialog(null, "Tuổi từ " + TuoiToiThieu + " đến " + TuoiToiDa);
+                JOptionPane.showMessageDialog(null, "Điền thông tin cho các ô có (*) và ngày sinh phải hợp lệ");
             }
-
-        } else {
-            JOptionPane.showMessageDialog(null, "Điền thông tin cho các ô có (*) và ngày sinh phải hợp lệ");
         }
     }//GEN-LAST:event_btnSuaActionPerformed
 
@@ -648,7 +661,13 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
             if (lHs == null) {
                 JOptionPane.showMessageDialog(null, "Không tìm thấy học sinh cần tìm");
             } else {
-                dtm = new DefaultTableModel();
+                dtm = new DefaultTableModel() {
+                    //Chặn edit các ô trong JTable
+                    public boolean isCellEditable(int rowIndex, int mColIndex) {
+                        return false;
+                    }
+                };
+
                 dtm.addColumn("MSHS");
                 dtm.addColumn("Họ tên");
                 dtm.addColumn("Ngày sinh");

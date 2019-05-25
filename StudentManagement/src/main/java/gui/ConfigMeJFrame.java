@@ -16,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
 public class ConfigMeJFrame extends javax.swing.JFrame {
 
     public static Boolean openFrame = true;
+
     /**
      * Creates new form ConfigMeJFrame
      */
@@ -34,7 +35,12 @@ public class ConfigMeJFrame extends javax.swing.JFrame {
     }
 
     private void LoadData() {
-        DefaultTableModel dtm = new DefaultTableModel();
+        DefaultTableModel dtm = new DefaultTableModel() {
+            //Chặn edit các ô trong JTable
+            public boolean isCellEditable(int rowIndex, int mColIndex) {
+                return false;
+            }
+        };
         dtm.addColumn("ID cấu hình");
         dtm.addColumn("Tên đầy đủ");
         dtm.addColumn("Giá trị");
@@ -219,56 +225,60 @@ public class ConfigMeJFrame extends javax.swing.JFrame {
 
     private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
         // TODO add your handling code here: 
-        int idCauHinh = Integer.parseInt(txtIdCauHinh.getText());
-        String giaTri = txtGiaTri.getText();
-        Cauhinh b = new CauHinhDAL().getById(idCauHinh);
-
-        Cauhinh a = new Cauhinh();
-        a.setIdCauHinh(idCauHinh);
-        a.setTenThuocTinh(b.getTenThuocTinh());
-        a.setLoaiThuocTinh(b.getLoaiThuocTinh());
-        a.setGiaTri(giaTri);
-        a.setTenDayDu(b.getTenDayDu());
-
-        Cauhinh cauHinhToiThieu = new CauHinhDAL().getByName("TuoiToiThieu");
-        Cauhinh cauHinhToiDa = new CauHinhDAL().getByName("TuoiToiDa");
-
-        if (giaTri.equals("")) {
-            JOptionPane.showMessageDialog(null, "Giá trị không được để trống");
-        } else if (b.getTenThuocTinh().equals("DiemChuanDatMon")) {
-            try {
-                Double giatri = Double.parseDouble(giaTri);
-                if (giatri <= 0) {
-                    JOptionPane.showMessageDialog(null, "Điểm chuẩn đạt môn là số thập phân hoặc số nguyên > 0");
-                } else {
-                    UpdateConfig(a);
-                }
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Điểm chuẩn đạt môn là số thập phân hoặc số nguyên > 0");
-            }
+        if (txtIdCauHinh.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Chọn cấu hình bạn muốn chỉnh sửa");
         } else {
-            try {
-                int giatri = Integer.parseInt(giaTri);
-                if (giatri <= 0) {
-                    JOptionPane.showMessageDialog(null, "Giá trị phải là số nguyên > 0");
-                } else if (b.getTenThuocTinh().equals("TuoiToiThieu")) {
-                    if (giatri >= Integer.parseInt(cauHinhToiDa.getGiaTri())) {
-                        JOptionPane.showMessageDialog(null, "Tuổi tối thiểu phải <= tuổi tối đa");
-                    } else {
-                        UpdateConfig(a);
-                    }
-                } else if (b.getTenThuocTinh().equals("TuoiToiDa")) {
-                    if (giatri <= Integer.parseInt(cauHinhToiThieu.getGiaTri())) {
-                        JOptionPane.showMessageDialog(null, "Tuổi tối đa phải >= tuổi tối thiểu");
-                    } else {
-                        UpdateConfig(a);
-                    }
-                } else {
-                    UpdateConfig(a);
-                }
+            int idCauHinh = Integer.parseInt(txtIdCauHinh.getText());
+            String giaTri = txtGiaTri.getText();
+            Cauhinh b = new CauHinhDAL().getById(idCauHinh);
 
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Giá trị phải là số nguyên > 0");
+            Cauhinh a = new Cauhinh();
+            a.setIdCauHinh(idCauHinh);
+            a.setTenThuocTinh(b.getTenThuocTinh());
+            a.setLoaiThuocTinh(b.getLoaiThuocTinh());
+            a.setGiaTri(giaTri);
+            a.setTenDayDu(b.getTenDayDu());
+
+            Cauhinh cauHinhToiThieu = new CauHinhDAL().getByName("TuoiToiThieu");
+            Cauhinh cauHinhToiDa = new CauHinhDAL().getByName("TuoiToiDa");
+
+            if (giaTri.equals("")) {
+                JOptionPane.showMessageDialog(null, "Giá trị không được để trống");
+            } else if (b.getTenThuocTinh().equals("DiemChuanDatMon")) {
+                try {
+                    Double giatri = Double.parseDouble(giaTri);
+                    if (giatri <= 0) {
+                        JOptionPane.showMessageDialog(null, "Điểm chuẩn đạt môn là số thập phân hoặc số nguyên > 0");
+                    } else {
+                        UpdateConfig(a);
+                    }
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Điểm chuẩn đạt môn là số thập phân hoặc số nguyên > 0");
+                }
+            } else {
+                try {
+                    int giatri = Integer.parseInt(giaTri);
+                    if (giatri <= 0) {
+                        JOptionPane.showMessageDialog(null, "Giá trị phải là số nguyên > 0");
+                    } else if (b.getTenThuocTinh().equals("TuoiToiThieu")) {
+                        if (giatri >= Integer.parseInt(cauHinhToiDa.getGiaTri())) {
+                            JOptionPane.showMessageDialog(null, "Tuổi tối thiểu phải <= tuổi tối đa");
+                        } else {
+                            UpdateConfig(a);
+                        }
+                    } else if (b.getTenThuocTinh().equals("TuoiToiDa")) {
+                        if (giatri <= Integer.parseInt(cauHinhToiThieu.getGiaTri())) {
+                            JOptionPane.showMessageDialog(null, "Tuổi tối đa phải >= tuổi tối thiểu");
+                        } else {
+                            UpdateConfig(a);
+                        }
+                    } else {
+                        UpdateConfig(a);
+                    }
+
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Giá trị phải là số nguyên > 0");
+                }
             }
         }
     }//GEN-LAST:event_btnCapNhatActionPerformed

@@ -32,7 +32,13 @@ public class ManageClassJFrame extends javax.swing.JFrame {
     }
 
     private void LoadData() {
-        DefaultTableModel dtm = new DefaultTableModel();
+        DefaultTableModel dtm = new DefaultTableModel() {
+            //Chặn edit các ô trong JTable
+            public boolean isCellEditable(int rowIndex, int mColIndex) {
+                return false;
+            }
+        };
+
         dtm.addColumn("Mã lớp");
         dtm.addColumn("Tên lớp");
         dtm.addColumn("Khối");
@@ -154,7 +160,7 @@ public class ManageClassJFrame extends javax.swing.JFrame {
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
-                                .addGap(0, 22, Short.MAX_VALUE)))
+                                .addGap(0, 9, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnXem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -210,13 +216,13 @@ public class ManageClassJFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(lblTenTaiKhoan)))
+                        .addComponent(lblTenTaiKhoan))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -311,55 +317,64 @@ public class ManageClassJFrame extends javax.swing.JFrame {
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
 
-        String tenLop = this.jTableLop.getValueAt(this.jTableLop.getSelectedRow(), 1).toString();
-        int idLop = Integer.parseInt(this.jTableLop.getValueAt(this.jTableLop.getSelectedRow(), 0).toString());
-        int cf = JOptionPane.showConfirmDialog(null, "Bạn có chắc xóa lớp " + tenLop + " không?", "Xác nhận", JOptionPane.YES_OPTION);
+        if (txtMaLop.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Chọn lớp muốn xóa");
+        } else {
+            String tenLop = this.jTableLop.getValueAt(this.jTableLop.getSelectedRow(), 1).toString();
+            int idLop = Integer.parseInt(this.jTableLop.getValueAt(this.jTableLop.getSelectedRow(), 0).toString());
+            int cf = JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa lớp " + tenLop + " không?", "Xác nhận", JOptionPane.YES_OPTION);
 
-        if (cf == JOptionPane.YES_OPTION) {
-            //if (this.lopDao.delete(lopDao.find(idLop))) {
-            if (new LopDAL().delete(idLop)) {
-                JOptionPane.showMessageDialog(null, "Xóa lớp thành công");
-                LoadData();
-            } else {
-                JOptionPane.showMessageDialog(null, "Xóa lớp thất bại");
+            if (cf == JOptionPane.YES_OPTION) {
+                //if (this.lopDao.delete(lopDao.find(idLop))) {
+                if (new LopDAL().delete(idLop)) {
+                    JOptionPane.showMessageDialog(null, "Xóa lớp thành công");
+                    LoadData();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Xóa lớp thất bại");
+                }
             }
         }
+
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
 
-        if (!this.txtTenLop.getText().equals("")) {
-            int id = Integer.parseInt(this.txtMaLop.getText());
-            String tenLop = this.txtTenLop.getText();
-            Byte tinhTrang = 1; //Byte.parseByte(this.txtTinhTrang.getText());
-            String Khoi = "";
-
-            LopDAL lopDALmoi = new LopDAL();
-            Lop LopMoi = lopDALmoi.getByTen(tenLop);
-
-            if (LopMoi == null || LopMoi.getIdLop() == id) {
-                if (cboKhoi.getSelectedIndex() != -1) {
-                    Khoi = cboKhoi.getSelectedItem().toString();
-                }
-
-                Lop a = new Lop();
-                a.setIdLop(id);
-                a.setTenLop(tenLop);
-                a.setKhoi(Khoi);
-                a.setTinhTrang(tinhTrang);
-
-                if (new LopDAL().update(a)) {
-                    JOptionPane.showMessageDialog(null, "Cập nhật lớp thành công");
-                    LoadData();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Cập nhật lớp thất bại");
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Tên lớp đã tồn tại");
-            }
-
+        if (txtMaLop.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Chọn lớp muốn sửa");
         } else {
-            JOptionPane.showMessageDialog(null, "Nhập tên lớp");
+            if (!this.txtTenLop.getText().equals("")) {
+                int id = Integer.parseInt(this.txtMaLop.getText());
+                String tenLop = this.txtTenLop.getText();
+                Byte tinhTrang = 1; //Byte.parseByte(this.txtTinhTrang.getText());
+                String Khoi = "";
+
+                LopDAL lopDALmoi = new LopDAL();
+                Lop LopMoi = lopDALmoi.getByTen(tenLop);
+
+                if (LopMoi == null || LopMoi.getIdLop() == id) {
+                    if (cboKhoi.getSelectedIndex() != -1) {
+                        Khoi = cboKhoi.getSelectedItem().toString();
+                    }
+
+                    Lop a = new Lop();
+                    a.setIdLop(id);
+                    a.setTenLop(tenLop);
+                    a.setKhoi(Khoi);
+                    a.setTinhTrang(tinhTrang);
+
+                    if (new LopDAL().update(a)) {
+                        JOptionPane.showMessageDialog(null, "Cập nhật lớp thành công");
+                        LoadData();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Cập nhật lớp thất bại");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Tên lớp đã tồn tại");
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Nhập tên lớp");
+            }
         }
     }//GEN-LAST:event_btnSuaActionPerformed
 
