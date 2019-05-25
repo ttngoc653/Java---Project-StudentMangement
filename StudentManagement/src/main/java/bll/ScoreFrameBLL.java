@@ -8,6 +8,7 @@ package bll;
 import dal.*;
 import dto.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ScoreFrameBLL {
 
-    public DefaultTableModel getData(String tenLop, String monHoc, String namHoc, String hocKy) {
+    public EditableTableModel getData(String tenLop, String monHoc, String namHoc, String hocKy) {
         dto.Namhoc namhoc = new NamhocDAL().getByTen(namHoc);
         dto.Lop lop = new LopDAL().getByTen(tenLop);
         dto.Monhoc monhoc = new MonhocDAL().getByTen(monHoc);
@@ -39,14 +40,48 @@ public class ScoreFrameBLL {
         for (int i = 0; i < lhocsinhlophoc.size(); i++) {
             dto.Diem diem = new dal.DiemDAL().getByLopHocHocKyMonHocHocSinh(lhocsinhlophoc.get(i), hocky, monhoc);
             String[] map = new String[5];
-            map[0]=String.valueOf(i+1);//.put("stt", i + 1);
-            map[1]=lhocsinhlophoc.get(i).getHocsinh().getHoTen();
-            map[2]=String.valueOf(diem == null ? "" : diem.getDiem15phut() == null ? "" : diem.getDiem15phut());
-            map[3]= String.valueOf(diem == null ? "" : diem.getDiem1tiet()== null ? "" : diem.getDiem1tiet());
-            map[4]= String.valueOf(diem == null ? "" : diem.getDiemCuoiKy()== null ? "" : diem.getDiemCuoiKy());
-            
-            data[i]=map;
+            map[0] = String.valueOf(i + 1);//.put("stt", i + 1);
+            map[1] = lhocsinhlophoc.get(i).getHocsinh().getHoTen();
+            map[2] = String.valueOf(diem == null ? "" : diem.getDiem15phut() == null ? "" : diem.getDiem15phut());
+            map[3] = String.valueOf(diem == null ? "" : diem.getDiem1tiet() == null ? "" : diem.getDiem1tiet());
+            map[4] = String.valueOf(diem == null ? "" : diem.getDiemCuoiKy() == null ? "" : diem.getDiemCuoiKy());
+
+            data[i] = map;
         }
-        return new DefaultTableModel(data, new String[]{"STT", "Họ Tên", "Điểm 15'", "Điểm 1 tiết", "Điểm cuối kỳ"});
+        return new EditableTableModel(data, new String[]{"STT", "Họ Tên", "Điểm 15'", "Điểm 1 tiết", "Điểm cuối kỳ"});
+    }
+
+    private static class EditableTableModel extends DefaultTableModel {
+
+        boolean[] columnEditable;
+
+        public EditableTableModel() {
+        }
+
+        private EditableTableModel(Object[][] data, String[] string) {
+            super(data, string);
+            columnEditable = new boolean[string.length];
+            Arrays.fill(columnEditable, true);
+            
+            setColumnEditable(0, false);
+            setColumnEditable(1, false);
+        }
+
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            if (!columnEditable[column]) {
+                return false;
+            } else {
+                return super.isCellEditable(row, column);
+            }
+        }
+
+        public void setColumnEditable(int column, boolean editable) {
+            columnEditable[column] = editable;
+        }
+
+        public boolean getColumnEditable(int column) {
+            return columnEditable[column];
+        }
     }
 }

@@ -262,6 +262,11 @@ public class EditUserFrame extends javax.swing.JFrame {
 
         exit.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         exit.setText("Cancel");
+        exit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitActionPerformed(evt);
+            }
+        });
 
         userTF.setEditable(false);
 
@@ -398,6 +403,11 @@ public class EditUserFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Mật khẩu không hợp lệ");
         }
     }//GEN-LAST:event_OKBTActionPerformed
+
+    private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+    }//GEN-LAST:event_exitActionPerformed
 
     /**
      * @param args the command line arguments
