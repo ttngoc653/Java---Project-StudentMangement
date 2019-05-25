@@ -280,7 +280,7 @@ public class RegisterFrame extends javax.swing.JFrame {
     boolean isnull()
     {
         boolean kq = false;
-        if(hoten.getText().equals("")||username.getText().equals("")||pass.getText().equals(""))
+        if(hoten.getText().isEmpty()||username.getText().isEmpty()||pass.getText().isEmpty()||pass2.getText().isEmpty())
             kq = true;
         return kq;
     }

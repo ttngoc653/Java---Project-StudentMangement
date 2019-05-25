@@ -208,10 +208,7 @@ public class ScoreFrame extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "STT", "Họ Tên", "Điểm 15'", "Điểm 1 tiết", "Điểm cuối kỳ"
@@ -220,9 +217,16 @@ public class ScoreFrame extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, true, true, true
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jTable1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
@@ -317,7 +321,7 @@ public class ScoreFrame extends javax.swing.JFrame {
                 if (new dal.DiemDAL().add(new dto.Diem(hocky, hl, monhoc, diem15, diem1, diemck, null)) > -1) {
                    // JOptionPane.showMessageDialog(chonBT, "them thanh cong");
                 } else {
-                    JOptionPane.showMessageDialog(chonBT, "them that bai");
+                    JOptionPane.showMessageDialog(chonBT, "Them that bai");
                 }
             } else {
                 diem.setDiem15phut(diem15);
