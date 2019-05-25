@@ -126,13 +126,13 @@ public class HocsinhDAL {
         return result;
     }
 
-    private String getTable(String where){
+    private String getTable(String where) {
         return "select distinct hs "
-                    + "from Hocsinh as hs "
-                    + "left join fetch hs.hocsinhLophocs hl "
-                    + "left join fetch hs.chitietCauhinhHocsinhs ct "
-                +where
-                +" order by hs.hoTen";
+                + "from Hocsinh as hs "
+                + "left join fetch hs.hocsinhLophocs hl "
+                + "left join fetch hs.chitietCauhinhHocsinhs ct "
+                + where
+                + " order by hs.hoTen";
     }
 
     @SuppressWarnings("unchecked")
@@ -178,7 +178,7 @@ public class HocsinhDAL {
         }
         return lHs;
     }
-    
+
     public Hocsinh getById(int idHocSinh) {
         Hocsinh hs = null;
         try {

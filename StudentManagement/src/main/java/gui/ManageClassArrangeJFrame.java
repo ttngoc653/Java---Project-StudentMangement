@@ -43,12 +43,10 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
         dtm.addColumn("MSHS");
         dtm.addColumn("Tên lớp");
         dtm.addColumn("Năm học");
-        int i = 1;
 
         List<HocsinhLophoc> l = new HocsinhLophocDAL().getAll();
         for (HocsinhLophoc a : l) {
-            dtm.addRow(new Object[]{i, a.getHocsinh().getIdHocSinh(), new LopDAL().getById(a.getLop().getIdLop()).getTenLop(), new NamhocDAL().getById(a.getNamhoc().getIdNamHoc()).getTenNamHoc()});
-            i++;
+            dtm.addRow(new Object[]{a.getIdHocSinhLopHoc(), a.getHocsinh().getIdHocSinh(), new LopDAL().getById(a.getLop().getIdLop()).getTenLop(), new NamhocDAL().getById(a.getNamhoc().getIdNamHoc()).getTenNamHoc()});
         }
 
         this.jTableXepLop.setModel(dtm);
@@ -86,7 +84,6 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         btnThem = new javax.swing.JButton();
         btnXoa = new javax.swing.JButton();
-        btnSua = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         cboTenLop = new javax.swing.JComboBox<>();
         cboMSHS = new javax.swing.JComboBox<>();
@@ -96,7 +93,7 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         btnQuayLai = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Quản lý xếp lớp");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -126,13 +123,6 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
             }
         });
 
-        btnSua.setText("Sửa");
-        btnSua.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSuaActionPerformed(evt);
-            }
-        });
-
         jLabel4.setText("Tên lớp:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -158,8 +148,6 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
                                 .addComponent(btnThem)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnXoa)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnSua)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(cboNamHoc, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cboTenLop, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -188,9 +176,8 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnThem)
-                    .addComponent(btnSua)
                     .addComponent(btnXoa))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(106, Short.MAX_VALUE))
         );
 
         jTableXepLop.setModel(new javax.swing.table.DefaultTableModel(
@@ -289,12 +276,6 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
         Namhoc namhoc = new NamhocDAL().getByTen(tenNamHoc);
         int idNamHoc = namhoc.getIdNamHoc();
 
-//        //Code trước v.10
-//        HocsinhLophocId a = new HocsinhLophocId();
-//        a.setIdHocSinh(idHS);
-//        a.setIdLopHoc(idLop);
-//        a.setIdNamHoc(idNamHoc);
-        //Code chạy v.10
         HocsinhLophoc a = new HocsinhLophoc();
         a.setHocsinh(hocsinh);
         a.setLop(lop);
@@ -317,41 +298,15 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        // TODO add your handling code here:
-        int idHS = Integer.parseInt(this.cboMSHS.getSelectedItem().toString());
 
-        String tenLop = this.cboTenLop.getSelectedItem().toString();
-        Lop lop = new LopDAL().getByTen(tenLop);
-        int idLop = lop.getIdLop();
-
-        String tenNamHoc = this.cboNamHoc.getSelectedItem().toString();
-        Namhoc namhoc = new NamhocDAL().getByTen(tenNamHoc);
-        int idNamHoc = namhoc.getIdNamHoc();
-
-//        //Code trước v.10
-//        HocsinhLophocId a = new HocsinhLophocId();
-//        a.setIdHocSinh(idHS);
-//        a.setIdLopHoc(idLop);
-//        a.setIdNamHoc(idNamHoc);
-
-        //Code chạy v.10
-        HocsinhLophoc a = new HocsinhLophoc();
-        a.setIdHocSinhLopHoc(idHS);
-        a.setLop(lop);
-        a.setNamhoc(namhoc);
-
-        if (new HocsinhLophocDAL().delete(a.getIdHocSinhLopHoc())) {
+        int idHocSinhLopHoc = Integer.parseInt(txtID.getText());
+        if (new HocsinhLophocDAL().delete(idHocSinhLopHoc)) {
             JOptionPane.showMessageDialog(null, "Xóa thành công");
             LoadData();
         } else {
             JOptionPane.showMessageDialog(null, "Xóa thất bại");
         }
     }//GEN-LAST:event_btnXoaActionPerformed
-
-    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnQuayLaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuayLaiActionPerformed
 
@@ -428,7 +383,6 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnQuayLai;
-    private javax.swing.JButton btnSua;
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnXoa;
     private javax.swing.JComboBox<String> cboMSHS;
