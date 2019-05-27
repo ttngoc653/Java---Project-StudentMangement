@@ -207,7 +207,7 @@ public class ReportJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_cbbSubjectPopupMenuWillBecomeVisible
 
     private void btnSummarySubjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSummarySubjectActionPerformed
-        if (cbbSchoolYear.getSelectedItem().equals("") || cbbSemester.getSelectedItem().equals("") || cbbSubject.getSelectedItem().equals("")) {
+        if (cbbSchoolYear.getSelectedItem().toString().isEmpty() || cbbSemester.getSelectedItem().toString().isEmpty() || cbbSubject.getSelectedItem().toString().isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn đủ thông tin!");
             return;
         }
@@ -235,7 +235,7 @@ public class ReportJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSummarySubjectActionPerformed
 
     private void btnSummarySemesterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSummarySemesterActionPerformed
-        if (cbbSchoolYear.getSelectedItem().equals("") || cbbSemester.getSelectedItem().equals("")) {
+        if (cbbSchoolYear.getSelectedItem().toString().isEmpty() || cbbSemester.getSelectedItem().toString().isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn đủ thông tin!");
             return;
         }
