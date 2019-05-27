@@ -7,7 +7,6 @@ package gui.guiConfig;
 
 import dto.Cauhinh;
 import java.util.List;
-import java.util.Set;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
@@ -220,11 +219,11 @@ public class ConfigScoreJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        txtScoreNew.setText(bll.ConfigBLL.getBenchMaskGerenalCurrent());
+        txtScoreNew.setText("Hiện tại " + bll.ConfigBLL.getBenchMaskGerenalCurrent() + "điểm");
+        txtScoreNew.setToolTipText("Hiện tại " + bll.ConfigBLL.getBenchMaskGerenalCurrent() + "điểm");
 
-        initListSubject();
-
-        initListGrade();
+        listSubjects.setModel(bll.ConfigBLL.getListSubjectBenchmark());
+        listClass.setModel(bll.ConfigBLL.getListGradeBenchmark());
 
         listClass.setEnabled(ckbClass.isSelected());
         listSubjects.setEnabled(ckbSubject.isSelected());
@@ -244,70 +243,37 @@ public class ConfigScoreJPanel extends javax.swing.JPanel {
         listClass.setEnabled(ckbClass.isSelected());
     }//GEN-LAST:event_ckbClassActionPerformed
 
+    @SuppressWarnings("null")
     private void btnApplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApplyActionPerformed
-        if (txtScoreNew.getText().isEmpty()) {
+        this.setEnabled(false);
+        String score = txtScoreNew.getText();
+        if (score.isEmpty()) {
             showError("Điểm chuẩn không được bỏ trống!");
             return;
         }
 
         if (ckbGeneral.isSelected()) {
-            dto.Cauhinh cauhinh = new dal.CauHinhDAL().getByName("diemChuan");
-            if (cauhinh == null && new dal.CauHinhDAL().add(new dto.Cauhinh("diemChuan", "benchmark", txtScoreNew.getText(), "Điểm chuẩn mặc định", null, null, null)) <= 0) {
-                showError("Lỗi khi tạo điểm chuẩn.");
-            } else {
-                cauhinh.setGiaTri(txtScoreNew.getText());
-                if (!new dal.CauHinhDAL().update(cauhinh)) {
-                    showError("Lối khi cập nhật điểm chuẩn chung");
-                }
+            if (!bll.ConfigBLL.saveBenchMarkGerenal(score)) {
+                showError("Lối khi lưu điểm chuẩn chung.");
             }
         }
 
         if (ckbClass.isSelected()) {
-            List listGradeSelecteds = listClass.getSelectedValuesList();
-            for (Object listGradeSelected : listGradeSelecteds) {
-                String grade = listGradeSelected.toString().split(" ~` ")[0];
-                dto.Lop lop = new dal.LopDAL().getByTen(grade);
-                Boolean hasConfig = false;
-                for (dto.Cauhinh cauhinh : lop.getCauhinhs()) {
-                    if (cauhinh.getTenThuocTinh().equals("diemChuanTheoLop")) {
-                        lop.getCauhinhs().remove(cauhinh);
-                        cauhinh.setGiaTri(txtScoreNew.getText());
-                        lop.getCauhinhs().add(cauhinh);
-                        hasConfig = true;
-                        break;
-                    }
-                }
-                if (!hasConfig) {
-                    dto.Cauhinh cauhinh = new dto.Cauhinh("diemChuanLop", "benchmark", txtScoreNew.getText(), "Điểm chuẩn lớp " + grade, null, null, null);
-                    Set<dto.Cauhinh> cauhinhs = lop.getCauhinhs();
-                    cauhinhs.add(cauhinh);
-                    lop.setCauhinhs(cauhinhs);
-                }
-                if (!new dal.LopDAL().update(lop)) {
-                    showError("Lỗi " + (hasConfig ? "cập nhật" : "tạo") + " điểm chuẩn lớp " + grade);
-                    break;
-                }
+            List list_grade_selecteds = listClass.getSelectedValuesList();
+            if (!bll.ConfigBLL.saveBenchMarkAccordingToClass(list_grade_selecteds, score)) {
+                showError("Lỗi khi cập nhật điểm chuẩn theo lớp.");
             }
         }
 
         if (ckbSubject.isSelected()) {
             List subjectSelecteds = listSubjects.getSelectedValuesList();
-            for (Object subjectSelected : subjectSelecteds) {
-                String subject = subjectSelected.toString().split(" ~` ")[0];
-                dto.Cauhinh cauhinh = new dal.CauHinhDAL().getByNameDetail("Điểm chuẩn môn ~` " + subject);
-
-                if (cauhinh == null && new dal.CauHinhDAL().add(new dto.Cauhinh("diemChuanTheoMon", "benchmark", txtScoreNew.getText(), "Điểm chuẩn môn ~` " + subject, null, null, null)) <= 0) {
-                    showError("Lỗi khi tạo điểm chuẩn môn " + subject);
-                    break;
-                } else {
-                    cauhinh.setGiaTri(txtScoreNew.getText());
-                    if (!new dal.CauHinhDAL().update(cauhinh)) {
-                        showError("Lỗi khi cập nhật điểm môn " + subject);
-                        break;
-                    }
-                }
+            if (!bll.ConfigBLL.saveBenchMarkAccordingToSubject(subjectSelecteds, score)) {
+                showError("Lỗi khi cập nhật điểm chuẩn theo môn.");
             }
         }
+
+        formComponentShown(null);
+        this.setEnabled(false);
     }//GEN-LAST:event_btnApplyActionPerformed
 
     private void txtScoreNewKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtScoreNewKeyTyped
@@ -334,36 +300,6 @@ public class ConfigScoreJPanel extends javax.swing.JPanel {
     private javax.swing.JList listSubjects;
     private javax.swing.JTextField txtScoreNew;
     // End of variables declaration//GEN-END:variables
-
-    private void initListSubject() {
-        List<dto.Monhoc> monhocs = new dal.MonhocDAL().getAll();
-        DefaultListModel listModel = new DefaultListModel();
-        for (dto.Monhoc monhoc : monhocs) {
-            String stringItem = monhoc.getTenMh();
-            dto.Cauhinh cauhinh = new dal.CauHinhDAL().getByNameDetail("Điểm chuẩn môn ~` " + monhoc.getTenMh());
-            if (cauhinh != null) {
-                stringItem += String.format(" ~` Chuẩn riêng: %s điểm", cauhinh.getGiaTri());
-            }
-            listModel.addElement(stringItem);
-        }
-        listSubjects.setModel(listModel);
-    }
-
-    private void initListGrade() {
-        DefaultListModel listModel = new DefaultListModel();
-        List<dto.Lop> lops = new dal.LopDAL().getAll();
-        for (dto.Lop lop : lops) {
-            String stringItem = lop.getTenLop();
-            for (Cauhinh item : lop.getCauhinhs()) {
-                if (item.getTenThuocTinh().equals("diemChuanTheoLop")) {
-                    stringItem += String.format(" ~` Chuẩn riêng: %s điểm", item.getGiaTri());
-                    break;
-                }
-            }
-            listModel.addElement(stringItem);
-        }
-        listClass.setModel(listModel);
-    }
 
     private void showError(String contentError) {
         JOptionPane.showMessageDialog(this, contentError, "Lỗi", JOptionPane.ERROR_MESSAGE);

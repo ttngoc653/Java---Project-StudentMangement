@@ -8,8 +8,10 @@ package gui.guiConfig;
 import bll.HelperBLL;
 import dto.Cauhinh;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
@@ -41,14 +43,14 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        treeApply = new javax.swing.JTree();
         btnApply = new javax.swing.JButton();
         txtMinAge = new javax.swing.JTextField();
         txtMaxAge = new javax.swing.JTextField();
         ckbApply = new javax.swing.JCheckBox();
         cbxApplyAll = new javax.swing.JCheckBox();
         txtStatus = new javax.swing.JLabel();
+        jScrollPane = new javax.swing.JScrollPane();
+        listGrade = new javax.swing.JList();
 
         setPreferredSize(new java.awt.Dimension(380, 400));
         addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -81,16 +83,6 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
 
         jLabel2.setText("Tuổi tối đa:");
 
-        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Khi thêm vào các lớp sau");
-        treeApply.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-        treeApply.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        treeApply.addTreeSelectionListener(new javax.swing.event.TreeSelectionListener() {
-            public void valueChanged(javax.swing.event.TreeSelectionEvent evt) {
-                treeApplyValueChanged(evt);
-            }
-        });
-        jScrollPane1.setViewportView(treeApply);
-
         btnApply.setText("Áp dụng");
         btnApply.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -122,6 +114,13 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
         txtStatus.setForeground(new java.awt.Color(255, 0, 0));
         txtStatus.setText("Status");
 
+        listGrade.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane.setViewportView(listGrade);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -151,12 +150,14 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
                                     .addComponent(txtMaxAge)))
                             .addComponent(txtStatus))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
                         .addComponent(ckbApply)
-                        .addGap(41, 41, 41)))
-                .addContainerGap())
+                        .addGap(51, 51, 51))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,9 +165,11 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ckbApply)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(72, 72, 72)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
                             .addComponent(txtMinAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -176,13 +179,9 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
                             .addComponent(txtMaxAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(cbxApplyAll)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(58, 58, 58)
                         .addComponent(txtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ckbApply)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnApply)
                 .addContainerGap())
@@ -191,14 +190,10 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         txtStatus.setText("");
-        DefaultTreeModel model = (DefaultTreeModel) treeApply.getModel();
-        DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
-        root.removeAllChildren();
-        bll.ConfigBLL.addAllClassToTree(model, root);
         
-        treeApply.expandRow(0);
+        listGrade.setModel(bll.ConfigBLL.addAllClassToTree());
         
-        treeApply.setEnabled(ckbApply.isSelected());
+        listGrade.setEnabled(ckbApply.isSelected());
         cbxApplyAll.setSelected(true);
     }//GEN-LAST:event_formComponentShown
 
@@ -216,19 +211,8 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
         txtStatus.setText("");
     }//GEN-LAST:event_txtMaxAgeKeyTyped
 
-    private void treeApplyValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_treeApplyValueChanged
-        System.out.println("start show all selection");
-        TreePath[] treePaths = treeApply.getSelectionModel().getSelectionPaths();
-        for (TreePath treePath : treePaths) {
-            DefaultMutableTreeNode selectedElement = (DefaultMutableTreeNode) treePath.getLastPathComponent();
-            Object userObject = selectedElement.getUserObject(); //Do what you want with selected element's user object
-            //System.out.println(userObject.toString());
-        }
-        txtStatus.setText("");
-    }//GEN-LAST:event_treeApplyValueChanged
-
     private void ckbApplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckbApplyActionPerformed
-        treeApply.enable(ckbApply.isSelected());
+        listGrade.setEnabled(ckbApply.isSelected());
     }//GEN-LAST:event_ckbApplyActionPerformed
 
     private void btnApplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApplyActionPerformed
@@ -268,10 +252,11 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
         if (ckbApply.isSelected()) {
             txtStatus.setText("Bắt đầu lưu giới hạn tuổi theo lớp...");
             
-            TreePath[] treePaths = treeApply.getSelectionModel().getSelectionPaths();
-            for (TreePath treePath : treePaths) {
-                Object selected_string = ((DefaultMutableTreeNode) treePath.getLastPathComponent()).getUserObject();
-                dto.Lop lop = new dal.LopDAL().getByTen(selected_string.toString());
+            List list_selected= listGrade.getSelectedValuesList();
+            
+            for (Object o : list_selected) {
+                String select_string=o.toString().split(" ~` ")[0];
+                dto.Lop lop = new dal.LopDAL().getByTen(select_string);
                 
                 if (lop != null) {
                     txtStatus.setText("Bắt đầu lưu giới hạn tuối của lớp " + lop.getTenLop());
@@ -325,8 +310,8 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTree treeApply;
+    private javax.swing.JScrollPane jScrollPane;
+    private javax.swing.JList listGrade;
     private javax.swing.JTextField txtMaxAge;
     private javax.swing.JTextField txtMinAge;
     private javax.swing.JLabel txtStatus;
@@ -353,7 +338,7 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
         btnApply.setEnabled(false);
         cbxApplyAll.setEnabled(false);
         ckbApply.setEnabled(false);
-        treeApply.setEnabled(false);
+        jScrollPane.setEnabled(false);
     }
     
     private void enableAllControl() {
@@ -362,8 +347,6 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
         btnApply.setEnabled(true);
         cbxApplyAll.setEnabled(true);
         ckbApply.setEnabled(true);
-        if (ckbApply.isSelected()) {
-            treeApply.setEnabled(true);
-        }
+        jScrollPane.setEnabled(ckbApply.isSelected());
     }
 }
