@@ -68,6 +68,8 @@ public class ManageMainJFrame extends javax.swing.JFrame {
         btnBaoCao = new javax.swing.JButton();
         btnCauHinh = new javax.swing.JButton();
         btnTaiKhoan = new javax.swing.JButton();
+        btnMonHoc = new javax.swing.JButton();
+        btnNamHoc = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         lblDangXuat = new javax.swing.JLabel();
 
@@ -146,8 +148,18 @@ public class ManageMainJFrame extends javax.swing.JFrame {
         });
 
         btnDiem.setText("Điểm");
+        btnDiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDiemActionPerformed(evt);
+            }
+        });
 
         btnBaoCao.setText("Báo cáo");
+        btnBaoCao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBaoCaoActionPerformed(evt);
+            }
+        });
 
         btnCauHinh.setText("Cấu hình");
         btnCauHinh.addActionListener(new java.awt.event.ActionListener() {
@@ -163,6 +175,15 @@ public class ManageMainJFrame extends javax.swing.JFrame {
             }
         });
 
+        btnMonHoc.setText("Môn học");
+
+        btnNamHoc.setText("Năm học");
+        btnNamHoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNamHocActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -170,18 +191,24 @@ public class ManageMainJFrame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnBaoCao, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnNamHoc, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnMonHoc, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnHocSinh, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnLop, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnDiem, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnBaoCao, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnCauHinh, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnTaiKhoan, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnHocSinh, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnLop, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnDiem, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnTaiKhoan, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -192,9 +219,13 @@ public class ManageMainJFrame extends javax.swing.JFrame {
                     .addComponent(btnLop, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnHocSinh, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDiem, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnBaoCao, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnNamHoc, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnMonHoc, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBaoCao, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCauHinh, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnTaiKhoan, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -237,9 +268,9 @@ public class ManageMainJFrame extends javax.swing.JFrame {
                     .addComponent(lblDangXuat))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -277,9 +308,9 @@ public class ManageMainJFrame extends javax.swing.JFrame {
 
     private void btnCauHinhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCauHinhActionPerformed
 
-        if (ConfigMeJFrame.openFrame == true) {
-            ConfigMeJFrame.openFrame = false;
-            ConfigMeJFrame f = new ConfigMeJFrame(nd);
+        if (ConfigJFrame.openFrame == true) {
+            ConfigJFrame.openFrame = false;
+            ConfigJFrame f = new ConfigJFrame();
             f.setLocationRelativeTo(null);
             f.setVisible(true);
             f.setResizable(false);
@@ -314,7 +345,7 @@ public class ManageMainJFrame extends javax.swing.JFrame {
             f.setResizable(false);
             //this.setVisible(false);
         } else {
-            JOptionPane.showMessageDialog(null, "Màn hình cập nhật thông tin người dùng đã mở rồi");
+            JOptionPane.showMessageDialog(null, "Màn hình cập nhật thông tin đã mở rồi");
         }
     }//GEN-LAST:event_lblTenTaiKhoanMouseClicked
 
@@ -331,6 +362,48 @@ public class ManageMainJFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Màn hình tạo người dùng mới đã mở rồi");
         }
     }//GEN-LAST:event_btnTaiKhoanActionPerformed
+
+    private void btnNamHocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNamHocActionPerformed
+        // TODO add your handling code here:
+        if (SchoolYearFrame.openFrame == true) {
+            SchoolYearFrame.openFrame = false;
+            SchoolYearFrame f = new SchoolYearFrame();
+            f.setLocationRelativeTo(null);
+            f.setVisible(true);
+            f.setResizable(false);
+            //this.setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(null, "Màn hình quản lý năm học đã mở rồi");
+        }
+    }//GEN-LAST:event_btnNamHocActionPerformed
+
+    private void btnBaoCaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBaoCaoActionPerformed
+        // TODO add your handling code here:
+        if (ReportJFrame.openFrame == true) {
+            ReportJFrame.openFrame = false;
+            ReportJFrame f = new ReportJFrame();
+            f.setLocationRelativeTo(null);
+            f.setVisible(true);
+            f.setResizable(false);
+            //this.setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(null, "Màn hình báo cáo đã mở rồi");
+        }
+    }//GEN-LAST:event_btnBaoCaoActionPerformed
+
+    private void btnDiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiemActionPerformed
+        // TODO add your handling code here:
+        if (ScoreFrame.openFrame == true) {
+            ScoreFrame.openFrame = false;
+            ScoreFrame f = new ScoreFrame();
+            f.setLocationRelativeTo(null);
+            f.setVisible(true);
+            f.setResizable(false);
+            //this.setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(null, "Màn hình quản lý điểm đã mở rồi");
+        }
+    }//GEN-LAST:event_btnDiemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -384,6 +457,8 @@ public class ManageMainJFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnDiem;
     private javax.swing.JButton btnHocSinh;
     private javax.swing.JButton btnLop;
+    private javax.swing.JButton btnMonHoc;
+    private javax.swing.JButton btnNamHoc;
     private javax.swing.JButton btnTaiKhoan;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JInternalFrame jInternalFrame1;

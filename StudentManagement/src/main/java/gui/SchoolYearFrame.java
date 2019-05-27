@@ -20,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class SchoolYearFrame extends javax.swing.JFrame {
 
+    public static Boolean openFrame = true;
     /**
      * Creates new form SchoolYearFrame
      */
@@ -69,7 +70,12 @@ public class SchoolYearFrame extends javax.swing.JFrame {
         namhocTF2 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel3.setText("Năm Học");
@@ -277,6 +283,11 @@ public class SchoolYearFrame extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_namhocTF2KeyTyped
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+        openFrame = true;
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments

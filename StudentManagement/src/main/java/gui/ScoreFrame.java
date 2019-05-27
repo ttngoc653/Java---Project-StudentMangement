@@ -24,6 +24,7 @@ import javax.swing.JOptionPane;
  */
 public class ScoreFrame extends javax.swing.JFrame {
 
+    public static Boolean openFrame = true;
     private int temp = -1;
     private dto.Namhoc namhoc;
     private dto.Hocky hocky;
@@ -126,7 +127,12 @@ public class ScoreFrame extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin"));
 
@@ -350,6 +356,11 @@ public class ScoreFrame extends javax.swing.JFrame {
         value_old = value;
 
     }//GEN-LAST:event_jTable1PropertyChange
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+        openFrame = true;
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments

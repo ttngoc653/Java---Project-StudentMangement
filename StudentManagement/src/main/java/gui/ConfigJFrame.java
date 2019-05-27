@@ -14,6 +14,7 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class ConfigJFrame extends javax.swing.JFrame {
 
+    public static Boolean openFrame = true;
     /**
      * Creates new form ConfigJFrame
      */
@@ -50,14 +51,18 @@ public class ConfigJFrame extends javax.swing.JFrame {
         configAgeJPanel2 = new gui.guiConfig.ConfigAgeJPanel();
         configClassJPanel2 = new gui.guiConfig.ConfigClassJPanel();
         configScoreJPanel1 = new gui.guiConfig.ConfigScoreJPanel();
-        configSubjectJPanel1 = new gui.guiConfig.ConfigSubjectJPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Quản lý cấu hình");
         setResizable(false);
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 formComponentResized(evt);
+            }
+        });
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
             }
         });
 
@@ -69,7 +74,6 @@ public class ConfigJFrame extends javax.swing.JFrame {
         jTabbedPane1.addTab("Độ tuổi", configAgeJPanel2);
         jTabbedPane1.addTab("Sĩ số và số lớp", configClassJPanel2);
         jTabbedPane1.addTab("Điểm chuẩn", configScoreJPanel1);
-        jTabbedPane1.addTab("Môn học", configSubjectJPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -79,7 +83,7 @@ public class ConfigJFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jTabbedPane1)
         );
 
         pack();
@@ -92,6 +96,11 @@ public class ConfigJFrame extends javax.swing.JFrame {
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
        
     }//GEN-LAST:event_jTabbedPane1StateChanged
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+        openFrame = true;
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments
@@ -128,7 +137,6 @@ public class ConfigJFrame extends javax.swing.JFrame {
     private gui.guiConfig.ConfigAgeJPanel configAgeJPanel2;
     private gui.guiConfig.ConfigClassJPanel configClassJPanel2;
     private gui.guiConfig.ConfigScoreJPanel configScoreJPanel1;
-    private gui.guiConfig.ConfigSubjectJPanel configSubjectJPanel1;
     private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables
 }
