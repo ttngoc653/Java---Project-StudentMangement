@@ -7,6 +7,7 @@ package gui;
 
 import dal.NguoidungDAL;
 import dto.Nguoidung;
+import static gui.ManageClassJFrame.openFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,6 +16,7 @@ import javax.swing.JOptionPane;
  */
 public class RegisterFrame extends javax.swing.JFrame {
 
+    public static Boolean openFrame = true;
     /**
      * Creates new form Register
      */
@@ -54,9 +56,14 @@ public class RegisterFrame extends javax.swing.JFrame {
         dangky = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("REGISTER");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel6.setText("ĐĂNG KÝ");
@@ -261,7 +268,7 @@ public class RegisterFrame extends javax.swing.JFrame {
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -272,25 +279,24 @@ public class RegisterFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    boolean isnull()
-    {
+    boolean isnull() {
         boolean kq = false;
-        if(hoten.getText().isEmpty()||username.getText().isEmpty()||pass.getText().isEmpty()||pass2.getText().isEmpty())
+        if (hoten.getText().isEmpty() || username.getText().isEmpty() || pass.getText().isEmpty() || pass2.getText().isEmpty()) {
             kq = true;
+        }
         return kq;
     }
     private void dangkyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dangkyActionPerformed
-        if(isnull())
-        {
-            JOptionPane.showMessageDialog(this,"Không bỏ trống thông tin có dấu *");
+        if (isnull()) {
+            JOptionPane.showMessageDialog(this, "Không bỏ trống thông tin có dấu *");
             return;
         }
-        if(new NguoidungDAL().getByTenDangNhap(username.getText())!=null) {
+        if (new NguoidungDAL().getByTenDangNhap(username.getText()) != null) {
             JOptionPane.showMessageDialog(email, "Người dùng đã tồn tại");
             return;
         }
@@ -301,20 +307,20 @@ public class RegisterFrame extends javax.swing.JFrame {
         info.setMatKhau(bll.HelperBLL.getMd5(pass.getText()));
         info.setSdt(sdt.getText());
         info.setEmail(email.getText());
-        NguoidungDAL DAL =  new NguoidungDAL();
-                
+        NguoidungDAL DAL = new NguoidungDAL();
+
         int id = DAL.add(info);
-            if(id!=-1){
-                JOptionPane.showMessageDialog(this, "Đã tạo người dùng có id là " +id);
-                setVisible(false);
-            } else {
-                JOptionPane.showMessageDialog(this, "Có lỗi khi tạo người dùng mới.");
-            }
+        if (id != -1) {
+            JOptionPane.showMessageDialog(this, "Đã tạo người dùng có id là " + id);
+            setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(this, "Có lỗi khi tạo người dùng mới.");
+        }
     }//GEN-LAST:event_dangkyActionPerformed
 
     private void hotenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hotenActionPerformed
         // TODO add your handling code here:
-       
+
     }//GEN-LAST:event_hotenActionPerformed
 
     private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed
@@ -323,12 +329,14 @@ public class RegisterFrame extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        System.exit(0);
+        //System.exit(0);
+        this.setVisible(false);
+        openFrame = true;
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_passActionPerformed
 
     private void passMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passMouseClicked
@@ -352,15 +360,22 @@ public class RegisterFrame extends javax.swing.JFrame {
 
     private void pass2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pass2FocusLost
         // TODO add your handling code here:
-        if(pass2.getText().equals(pass.getText())==false)
+        if (pass2.getText().equals(pass.getText()) == false) {
             JOptionPane.showMessageDialog(this, "2 mật khẩu không giống nhau");
+        }
     }//GEN-LAST:event_pass2FocusLost
 
     private void passFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passFocusLost
         // TODO add your handling code here:
-        if(pass.getText().equals(""))
+        if (pass.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Mật khẩu không được bỏ trống");
+        }
     }//GEN-LAST:event_passFocusLost
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+        openFrame = true;
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments
@@ -397,7 +412,7 @@ public class RegisterFrame extends javax.swing.JFrame {
             }
         });
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton dangky;

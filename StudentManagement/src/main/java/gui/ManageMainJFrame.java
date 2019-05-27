@@ -125,6 +125,11 @@ public class ManageMainJFrame extends javax.swing.JFrame {
         setTitle("Quản lý chung");
 
         lblTenTaiKhoan.setText("Tên tài khoản");
+        lblTenTaiKhoan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblTenTaiKhoanMouseClicked(evt);
+            }
+        });
 
         btnHocSinh.setText("Học sinh");
         btnHocSinh.addActionListener(new java.awt.event.ActionListener() {
@@ -152,6 +157,11 @@ public class ManageMainJFrame extends javax.swing.JFrame {
         });
 
         btnTaiKhoan.setText("Tài khoản");
+        btnTaiKhoan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTaiKhoanActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -293,6 +303,34 @@ public class ManageMainJFrame extends javax.swing.JFrame {
             this.setVisible(false);
         }
     }//GEN-LAST:event_lblDangXuatMouseClicked
+
+    private void lblTenTaiKhoanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTenTaiKhoanMouseClicked
+        // TODO add your handling code here:
+        if (EditUserFrame.openFrame == true) {
+            EditUserFrame.openFrame = false;
+            EditUserFrame f = new EditUserFrame(nd.getIdNguoiDung());
+            f.setLocationRelativeTo(null);
+            f.setVisible(true);
+            f.setResizable(false);
+            //this.setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(null, "Màn hình cập nhật thông tin người dùng đã mở rồi");
+        }
+    }//GEN-LAST:event_lblTenTaiKhoanMouseClicked
+
+    private void btnTaiKhoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaiKhoanActionPerformed
+        // TODO add your handling code here:
+        if (RegisterFrame.openFrame == true) {
+            RegisterFrame.openFrame = false;
+            RegisterFrame f = new RegisterFrame();
+            f.setLocationRelativeTo(null);
+            f.setVisible(true);
+            f.setResizable(false);
+            //this.setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(null, "Màn hình tạo người dùng mới đã mở rồi");
+        }
+    }//GEN-LAST:event_btnTaiKhoanActionPerformed
 
     /**
      * @param args the command line arguments
