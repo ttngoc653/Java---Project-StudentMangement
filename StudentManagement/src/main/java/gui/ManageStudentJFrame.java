@@ -342,7 +342,7 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Quản lý học sinh");
 
@@ -658,7 +658,8 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
         } else {
             List<Hocsinh> lHs = new HocsinhDAL().Search(key);
 
-            if (lHs == null) {
+//            if (lHs == null) {
+            if (lHs.size() == 0) {
                 JOptionPane.showMessageDialog(null, "Không tìm thấy học sinh cần tìm");
             } else {
                 dtm = new DefaultTableModel() {

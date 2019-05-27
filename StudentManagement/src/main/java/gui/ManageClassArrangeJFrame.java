@@ -212,7 +212,7 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
 
     lblTenTaiKhoan.setText("Tên tài khoản");
 
-    jLabel5.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+    jLabel5.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
     jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     jLabel5.setText("Quản lý xếp lớp");
 

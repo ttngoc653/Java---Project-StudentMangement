@@ -152,7 +152,7 @@ public class ShowListClassJFrame extends javax.swing.JFrame {
 
         txtSiSo.setEditable(false);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Danh sách lớp");
 
