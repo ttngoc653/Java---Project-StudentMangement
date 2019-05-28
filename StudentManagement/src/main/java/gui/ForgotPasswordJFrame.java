@@ -156,7 +156,7 @@ public class ForgotPasswordJFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Vui lòng nhập email để thực việc phục hồi mật khẩu!");
             txtEmail.setBackground(new java.awt.Color(255, 153, 153));
             return;
-        } else if (bll.HelperBLL.checkEmail(txtEmail.getText())) {
+        } else if (!bll.HelperBLL.checkEmail(txtEmail.getText())) {
             JOptionPane.showMessageDialog(rootPane, "Vui lòng nhập đúng định dạng email!");
             txtEmail.setBackground(new java.awt.Color(255, 153, 153));
             return;
@@ -183,7 +183,7 @@ public class ForgotPasswordJFrame extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(rootPane, "Lỗi khi cập nhật email mới vào dữ liệu.");
                 break;
             case 10:
-                JOptionPane.showMessageDialog(rootPane, "Đã cuối hàm!");
+                //JOptionPane.showMessageDialog(rootPane, "Đã cuối hàm!");
         }
     }//GEN-LAST:event_btnRecoveryPaswordActionPerformed
 
