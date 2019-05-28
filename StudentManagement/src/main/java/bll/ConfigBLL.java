@@ -184,4 +184,15 @@ public class ConfigBLL {
         return model;
     }
 
+    public static void saveSubjectTeaching(List l, boolean b) {
+        for (int i = 0; i < l.size(); i++) {
+            dto.Monhoc monhoc=new dal.MonhocDAL().getByTen(l.get(i).toString());
+            if (monhoc!=null) {
+                monhoc.setDangGiangDay(b);
+                
+                new dal.MonhocDAL().update(monhoc);
+            }
+        }
+    }
+
 }

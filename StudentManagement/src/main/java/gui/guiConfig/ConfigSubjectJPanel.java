@@ -10,9 +10,7 @@ import dto.Cauhinh;
 import dto.Monhoc;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 /**
@@ -286,8 +284,18 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
         jScrollPane1.setViewportView(lTeaching);
 
         btnHide.setText("v");
+        btnHide.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHideActionPerformed(evt);
+            }
+        });
 
         btnActive.setText("^");
+        btnActive.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActiveActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Đang hoãn:");
 
@@ -298,35 +306,36 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel5))
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addComponent(btnHide)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnActive))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel6)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnHide)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnActive)
+                .addGap(38, 38, 38))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(13, 13, 13)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnHide)
-                    .addComponent(btnActive))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(btnActive)
+                    .addComponent(btnHide, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
         );
 
@@ -375,7 +384,11 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
 
         Monhoc mh = new Monhoc();
         mh.setTenMh(txtSubject.getText());
-        mh.setHeSo(txtCoefficient.getText().isEmpty()?1:Integer.getInteger(txtCoefficient.getText()));
+        try {
+            mh.setHeSo(txtCoefficient.getText().isEmpty() ? 1 : Integer.getInteger(txtCoefficient.getText()));
+        } catch (Exception e) {
+            mh.setHeSo(1);
+        }
         mh.setDangGiangDay(true);
 
         if (new MonhocDAL().getByTen(mh.getTenMh()) == null) {
@@ -416,6 +429,9 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
         if (!bll.HelperBLL.IsInteger(txtCoefficient.getText() + evt.getKeyChar())) {
             evt.consume();
         }
+        else if (Integer.parseInt(txtCoefficient.getText() + evt.getKeyChar())<1) {
+            evt.consume();
+        }
     }//GEN-LAST:event_txtCoefficientKeyTyped
 
     private void btnChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeActionPerformed
@@ -423,20 +439,30 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(txtCoefficient, "Chua nhập số lượng môn");
             return;
         }
-        
-        dto.Cauhinh cauhinh=new dal.CauHinhDAL().getByName("soMonToiDa");
-        if (cauhinh!=null) {
+
+        dto.Cauhinh cauhinh = new dal.CauHinhDAL().getByName("soMonToiDa");
+        if (cauhinh != null) {
             cauhinh.setGiaTri(txtNumMax.getText());
             if (new dal.CauHinhDAL().update(cauhinh)) {
                 JOptionPane.showMessageDialog(this, "Cập nhật số lượng môn tối đa thất bại.");
             }
-        }else{
-            cauhinh=new Cauhinh("soMonToiDa", "maxSubjects", txtCoefficient.getText(), "Số môn giảng dạy tối đa.", null, null, null);
-            if (new dal.CauHinhDAL().add(cauhinh)<=0) {
+        } else {
+            cauhinh = new Cauhinh("soMonToiDa", "maxSubjects", txtCoefficient.getText(), "Số môn giảng dạy tối đa.", null, null, null);
+            if (new dal.CauHinhDAL().add(cauhinh) <= 0) {
                 JOptionPane.showMessageDialog(this, "Tạo số lượng môn tối đa thất bại.");
             }
         }
     }//GEN-LAST:event_btnChangeActionPerformed
+
+    private void btnHideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHideActionPerformed
+        bll.ConfigBLL.saveSubjectTeaching(lTeaching.getSelectedValuesList(),false);
+        refresh();
+    }//GEN-LAST:event_btnHideActionPerformed
+
+    private void btnActiveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActiveActionPerformed
+        bll.ConfigBLL.saveSubjectTeaching(lCastrate.getSelectedValuesList(), true);
+        refresh();
+    }//GEN-LAST:event_btnActiveActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

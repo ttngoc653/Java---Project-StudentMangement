@@ -77,7 +77,7 @@ public class ScoreFrame extends javax.swing.JFrame {
         DefaultComboBoxModel modelmonhoc = new DefaultComboBoxModel();
         MonhocDAL monhocdal = new MonhocDAL();
         List<Monhoc> DSmon = new ArrayList<>();
-        DSmon = monhocdal.getAll();
+        DSmon = monhocdal.getByTinhTrang(true);
         monCBX.removeAllItems();
         if (DSmon != null) {
             for (Monhoc mh : DSmon) {
