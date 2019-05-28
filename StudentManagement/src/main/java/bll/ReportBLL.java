@@ -1,4 +1,3 @@
-
 package bll;
 
 import java.io.File;
@@ -52,20 +51,13 @@ public class ReportBLL {
     public List<Map<String, ?>> dataReportBySubject(String subject, String schoolYear, int semester) {
         List<Map<String, ?>> lResult = new ArrayList<>();
         List<dto.Lop> lLop = new dal.LopDAL().getAll();
-        dto.Monhoc monhoc=new dal.MonhocDAL().getByTen(subject);
-        for (int i = 0; i < lLop.size() - 1; i++) {
-            for (int j = i + 1; j < lLop.size(); j++) {
-                if (lLop.get(j).getTenLop().compareToIgnoreCase(lLop.get(i).getTenLop()) < 0) {
-                    Collections.swap(lLop, i, j);
-                }
-            }
-        }
+        dto.Monhoc monhoc = new dal.MonhocDAL().getByTen(subject);
+        dto.Namhoc namhoc = new dal.NamhocDAL().getByTen(schoolYear);
+
         List<dto.HocsinhLophoc> lHL = null;
         for (int i = 0; i < lLop.size(); i++) {
-            Map<String, Object> mL = new HashMap<String, Object>();
-            dto.Namhoc namhoc = new dal.NamhocDAL().getByTen(schoolYear);
-            dto.Lop lop = new dal.LopDAL().getByTen(lLop.get(i).getTenLop());
-            lHL = new dal.HocsinhLophocDAL().getByNamHocLop(namhoc, lop);
+            Map<String, String> mL = new HashMap<String, String>();
+            lHL = new dal.HocsinhLophocDAL().getByNamHocLop(namhoc, lLop.get(i));
             int summary = 0, reacted = 0;
             Double diem15, diem1, diemhk, dtb;
             for (dto.HocsinhLophoc lHL1 : lHL) {
@@ -84,10 +76,11 @@ public class ReportBLL {
                 }
             }
             if (summary > 0) {
-                mL.put("no", i + 1);
-                mL.put("class", lLop.get(i).getTenLop());
-                mL.put("summary", summary);
-                mL.put("reacted", reacted);
+                mL.put("no", String.valueOf(i + 1));
+                mL.put("className", lLop.get(i).getTenLop());
+                mL.put("summary", String.valueOf(summary));
+                mL.put("reached", String.valueOf(reacted));
+                mL.put("radio", String.valueOf(Math.round(reacted / summary * 10000) / 100) + "%");
                 lResult.add(mL);
             }
         }
@@ -97,45 +90,54 @@ public class ReportBLL {
     public List<Map<String, ?>> dataReportBySemester(String schoolYear, int semester) {
         List<Map<String, ?>> lResult = new ArrayList<>();
         List<dto.Lop> lLop = new dal.LopDAL().getAll();
-        dto.Hocky hocky=new dal.HockyDAL().getByTen(semester);
-        for (int i = 0; i < lLop.size() - 1; i++) {
-            for (int j = i + 1; j < lLop.size(); j++) {
-                if (lLop.get(j).getTenLop().compareToIgnoreCase(lLop.get(i).getTenLop()) < 0) {
-                    Collections.swap(lLop, i, j);
-                }
-            }
-        }
+        dto.Hocky hocky = new dal.HockyDAL().getByTen(semester);
         List<dto.HocsinhLophoc> hocsinhLophocs;
+        dto.Namhoc namhoc = new dal.NamhocDAL().getByTen(schoolYear);
         for (int i = 0; i < lLop.size(); i++) {
             Map<String, Object> map = new HashMap<String, Object>();
-            dto.Namhoc namhoc = new dal.NamhocDAL().getByTen(schoolYear);
-            dto.Lop lop = new dal.LopDAL().getByTen(lLop.get(i).getTenLop());
-            hocsinhLophocs = new dal.HocsinhLophocDAL().getByNamHocLop(namhoc, lop);
-            int summary = 0, reacted = 0;
-            Double diem15, diem1, diemhk, dtb;
+            hocsinhLophocs = new dal.HocsinhLophocDAL().getByNamHocLop(namhoc, lLop.get(i));
+            int summary = 0, reacted = 0, sum_heso = 0;
+            Double diem15, diem1, diemhk, dtb, tongdiemHK;
             boolean bReacted = true;
             for (dto.HocsinhLophoc hocsinhLophoc : hocsinhLophocs) {
-                bReacted=false;
+                bReacted = true;
+                tongdiemHK = 0D;
+                sum_heso = 0;
+
                 List<dto.Diem> lDiem = new dal.DiemDAL().getByHocSinhLopHocHocKy(hocsinhLophoc, hocky);
-                summary++;
-                for (dto.Diem lDiem1 : lDiem) {
-                    diem15 = lDiem1.getDiem15phut();
-                    diem1 = lDiem1.getDiem1tiet();
-                    diemhk = lDiem1.getDiemCuoiKy();
-                    dtb = ((diem15 != null ? diem15 : 0) + (diem1 != null ? diem1 : 0) * 2 + (diemhk != null ? diemhk : 0) * 3) / ((diem15 != null ? 1 : 0) + (diem1 != null ? 2 : 0) + (diemhk != null ? 3 : 0));
-                    if (dtb < bll.ConfigBLL.getBenchMarkSubject(lDiem1.getMonhoc())) {
-                        bReacted = false;
+                for (int j = 0; j < lDiem.size(); j++) {
+                    if (lDiem.get(j).getDiem15phut() == null && lDiem.get(j).getDiem1tiet() == null && lDiem.get(j).getDiemCuoiKy() == null) {
+                        lDiem.remove(j);
+                        j--;
                     }
                 }
-                if (!bReacted) {
-                    reacted++;
+                if (lDiem.size() > 0) {
+                    for (dto.Diem lDiem1 : lDiem) {
+                        diem15 = lDiem1.getDiem15phut();
+                        diem1 = lDiem1.getDiem1tiet();
+                        diemhk = lDiem1.getDiemCuoiKy();
+                        dtb = ((diem15 != null ? diem15 : 0) + (diem1 != null ? diem1 : 0) * 2 + (diemhk != null ? diemhk : 0) * 3) / ((diem15 != null ? 1 : 0) + (diem1 != null ? 2 : 0) + (diemhk != null ? 3 : 0));
+
+                        tongdiemHK += dtb * lDiem1.getMonhoc().getHeSo();
+                        sum_heso += lDiem1.getMonhoc().getHeSo();
+
+                        if (dtb < bll.ConfigBLL.getBenchMarkSubject(lDiem1.getMonhoc())) {
+                            bReacted = false;
+                        }
+                    }
+
+                    summary++;
+                    if (bReacted && (tongdiemHK / sum_heso) >= bll.ConfigBLL.getBenchMarkClass(lLop.get(i))) {
+                        reacted++;
+                    }
                 }
             }
             if (summary > 0) {
-                map.put("no", i + 1);
+                map.put("no", String.valueOf(i + 1));
                 map.put("class", lLop.get(i).getTenLop());
-                map.put("summary", summary);
-                map.put("reacted", reacted);
+                map.put("summary", String.valueOf(summary));
+                map.put("reached", String.valueOf(reacted));
+                map.put("radio", String.valueOf(Math.round(reacted / summary * 10000) / 100) + "%");
                 lResult.add(map);
             }
         }

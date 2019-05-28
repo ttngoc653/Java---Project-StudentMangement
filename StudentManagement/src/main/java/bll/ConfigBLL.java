@@ -58,7 +58,7 @@ public class ConfigBLL {
             return Double.valueOf(cauhinh.getGiaTri());
         } catch (Exception e) {
         }
-        return -1D;
+        return Double.parseDouble(getBenchMaskGerenalCurrent());
     }
 
     static Double getBenchMarkClass(Lop lop) {
@@ -70,7 +70,7 @@ public class ConfigBLL {
                 }
             }
         }
-        return -1D;
+        return Double.parseDouble(getBenchMaskGerenalCurrent());
     }
 
     public static boolean saveBenchMarkAccordingToSubject(List subject_selecteds, String benchmark_new) {

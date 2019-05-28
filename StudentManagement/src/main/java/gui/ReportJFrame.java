@@ -25,6 +25,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -211,9 +212,6 @@ public class ReportJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_cbbSubjectPopupMenuWillBecomeVisible
 
     private void btnSummarySubjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSummarySubjectActionPerformed
-       String soolyear=cbbSchoolYear.getSelectedItem().toString();
-       String semester= cbbSemester.getSelectedItem().toString();
-       String subjet= cbbSubject.getSelectedItem().toString();
         if (cbbSchoolYear.getSelectedItem().toString().trim().isEmpty() || cbbSemester.getSelectedItem().toString().trim().isEmpty() || cbbSubject.getSelectedItem().toString().trim().isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn đủ thông tin!");
             return;
@@ -230,22 +228,18 @@ public class ReportJFrame extends javax.swing.JFrame {
         param.put("semester", cbbSemester.getSelectedItem().toString());
         param.put("schoolYear", cbbSchoolYear.getSelectedItem().toString());
 
-        String dirReport = System.getProperty("user.dir") + "\\src\\main\\java\\gui\\ReportFinalSubjectReport.jrxml";
         try {
-            InputStream input = new FileInputStream(new File(dirReport));
-            JasperReport jR = JasperCompileManager.compileReport(input);
+            JasperReport jR = JasperCompileManager.compileReport("src/main/java/gui/ReportFinalSubjectReport.jrxml");
             JasperPrint jP = JasperFillManager.fillReport(jR, param, jrSource);
             JasperExportManager.exportReportToPdf(jP);
-        } catch (FileNotFoundException | JRException ex) {
+            JasperViewer.viewReport(jP,false);
+        } catch (JRException ex) {
             ex.printStackTrace();
         }
     }//GEN-LAST:event_btnSummarySubjectActionPerformed
 
     private void btnSummarySemesterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSummarySemesterActionPerformed
         
-       String soolyear=cbbSchoolYear.getSelectedItem().toString();
-       String semester= cbbSemester.getSelectedItem().toString();
-       String subjet= cbbSubject.getSelectedItem().toString();
         if (cbbSchoolYear.getSelectedItem().toString().trim().isEmpty() || cbbSemester.getSelectedItem().toString().trim().isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn đủ thông tin!");
             return;
@@ -261,13 +255,12 @@ public class ReportJFrame extends javax.swing.JFrame {
         param.put("semester", cbbSemester.getSelectedItem().toString());
         param.put("schoolYear", cbbSchoolYear.getSelectedItem().toString());
 
-        String dirReport = System.getProperty("user.dir") + "\\src\\main\\java\\gui\\ReportFinalSemesterReport.jrxml";
         try {
-            InputStream input = new FileInputStream(new File(dirReport));
-            JasperReport jR = JasperCompileManager.compileReport(input);
+            JasperReport jR = JasperCompileManager.compileReport("src/main/java/gui/ReportFinalSemesterReport.jrxml");
             JasperPrint jP = JasperFillManager.fillReport(jR, param, jrSource);
             JasperExportManager.exportReportToPdf(jP);
-        } catch (FileNotFoundException | JRException ex) {
+            JasperViewer.viewReport(jP,false);
+        } catch (JRException ex) {
             ex.printStackTrace();
         }
     }//GEN-LAST:event_btnSummarySemesterActionPerformed

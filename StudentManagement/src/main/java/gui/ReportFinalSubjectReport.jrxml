@@ -1,43 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5c37b73e-740a-407c-892c-d5d356c8a4cd">
-	<property name="ireport.zoom" value="1.3310000000000006"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="03437bc6-252e-4b7d-bf4a-e135a73f671c">
+	<property name="ireport.zoom" value="1.3310000000000004"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="111"/>
-	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
-	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
-	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
-	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
-	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
-		<conditionalStyle>
-			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
-			<style mode="Opaque" backcolor="#F0EFEF"/>
-		</conditionalStyle>
-	</style>
+	<property name="ireport.y" value="115"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="subjectName" class="java.lang.String"/>
 	<parameter name="semester" class="java.lang.String"/>
 	<parameter name="schoolYear" class="java.lang.String"/>
 	<field name="no" class="java.lang.String"/>
-	<field name="class" class="java.lang.String"/>
+	<field name="className" class="java.lang.String"/>
 	<field name="summary" class="java.lang.String"/>
-	<field name="reacted" class="java.lang.String"/>
+	<field name="reached" class="java.lang.String"/>
 	<field name="radio" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="105" splitType="Stretch">
+		<band height="110" splitType="Stretch">
 			<staticText>
-				<reportElement style="Title" mode="Transparent" x="2" y="0" width="551" height="66" forecolor="#000000" backcolor="#FFFFFF" uuid="aa37ebb4-1a2c-42da-9ec2-937fcbcf7f84"/>
-				<textElement textAlignment="Center" verticalAlignment="Bottom">
-					<font fontName="Tahoma" size="28" isBold="true"/>
-				</textElement>
-				<text><![CDATA[BÁO CÁO TỔNG KẾT HỌC KỲ]]></text>
+				<reportElement style="Title" x="0" y="5" width="553" height="33" forecolor="#000000" backcolor="#FFFFFF" uuid="77580c0c-dbc9-4c53-a675-e7fc9d6431bf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[BÁO CÁO TỔNG KẾT MÔN]]></text>
 			</staticText>
 			<textField>
-				<reportElement style="Column header" x="0" y="66" width="555" height="37" forecolor="#000000" uuid="2445a20d-abba-4578-9133-bd29d05072d0"/>
+				<reportElement style="Column header" x="37" y="50" width="453" height="16" forecolor="#000000" uuid="a0e63423-f8ef-4540-aebb-1e5bf2d17e98"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Tahoma" size="16" isBold="false"/>
+					<font size="10" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Học kỳ "+$P{semester}+" - Năm học: "+$P{schoolYear}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Môn học: "+$P{subjectName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Column header" x="37" y="66" width="453" height="15" forecolor="#000000" uuid="f8dab962-1a21-4d2c-8b3f-7a815e205e9f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Học kỳ: "+$P{semester}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Column header" x="37" y="81" width="453" height="15" forecolor="#000000" uuid="f40625fa-5562-44e2-8702-aeb66028d92b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Năm học: "+$P{schoolYear}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -45,196 +52,192 @@
 		<band splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="24" splitType="Stretch">
+		<band height="18" splitType="Stretch">
 			<staticText>
-				<reportElement mode="Transparent" x="419" y="4" width="75" height="20" backcolor="#FFFFFF" uuid="4b89d150-4775-406c-9e4d-020d275f2553"/>
+				<reportElement x="429" y="2" width="100" height="16" uuid="554a432a-366e-4f51-93a5-896664116ca3"/>
 				<box>
-					<pen lineWidth="1.0"/>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="10" isBold="true"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[TỶ LỆ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="282" y="4" width="137" height="20" backcolor="#FFFFFF" uuid="2c3e9bca-052a-4127-ab33-bcae1ca68334"/>
+				<reportElement x="329" y="2" width="100" height="16" uuid="bfcfe3a5-997f-4696-92fd-0a4afe250da4"/>
 				<box>
-					<pen lineWidth="1.0"/>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="10" isBold="true"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[SỐ LƯỢNG ĐẠT]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="212" y="4" width="70" height="20" backcolor="#FFFFFF" uuid="eb2ced67-79bb-462b-87ff-49ae0267a551"/>
+				<reportElement x="229" y="2" width="100" height="16" uuid="e8186c30-e882-4ac5-b4e7-784a499a41cd"/>
 				<box>
-					<pen lineWidth="1.0"/>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="10" isBold="true"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[SĨ SỐ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="140" y="4" width="72" height="20" backcolor="#FFFFFF" uuid="c44cad33-6ce2-49f2-8479-f255308177f4"/>
+				<reportElement x="129" y="2" width="100" height="16" uuid="38f8e793-6ce3-4445-b009-4c0e1ee22890"/>
 				<box>
-					<pen lineWidth="1.0"/>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="10" isBold="true"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[LỚP]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Transparent" x="91" y="4" width="49" height="20" backcolor="#FFFFFF" uuid="38481453-356f-4c0e-b81e-d832014d0fcf"/>
+				<reportElement x="29" y="2" width="100" height="16" uuid="f2d0a8ca-3cfa-40a0-9dd2-4a2f001a4d93"/>
 				<box>
-					<pen lineWidth="1.0"/>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="10" isBold="true"/>
+					<font size="8"/>
 				</textElement>
 				<text><![CDATA[STT]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="26" splitType="Stretch">
-			<textField isBlankWhenNull="true">
-				<reportElement mode="Transparent" x="419" y="0" width="75" height="20" isRemoveLineWhenBlank="true" backcolor="#FFFFFF" uuid="f99fac7d-d7b3-4ba7-9d20-360cce4b2388"/>
+		<band height="33" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="26" width="555" height="1" uuid="6d1aee7a-8fa2-405f-8c28-9800dcb19639"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="429" y="0" width="100" height="16" uuid="981f2c85-92ef-4c3c-aed2-3e384ebeeb19"/>
 				<box>
-					<pen lineWidth="1.0" lineStyle="Solid"/>
-					<topPen lineWidth="1.0" lineStyle="Solid"/>
-					<leftPen lineWidth="1.0" lineStyle="Dashed"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="10"/>
+					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[($F{reacted}/$F{summary})+"%"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{radio}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement mode="Transparent" x="282" y="0" width="137" height="20" isRemoveLineWhenBlank="true" backcolor="#FFFFFF" uuid="1d3d6a63-267c-4576-bbc5-29ca7cfacd16"/>
+			<textField>
+				<reportElement x="329" y="0" width="100" height="16" uuid="46b85d84-0dd8-46f0-99f4-4b52bf5fd1f2"/>
 				<box>
-					<pen lineWidth="1.0" lineStyle="Solid"/>
-					<topPen lineWidth="1.0" lineStyle="Solid"/>
-					<leftPen lineWidth="1.0" lineStyle="Dashed"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
-					<rightPen lineWidth="1.0" lineStyle="Dashed"/>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="10"/>
+					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{reacted}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{reached}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement mode="Transparent" x="212" y="0" width="70" height="20" isRemoveLineWhenBlank="true" backcolor="#FFFFFF" uuid="f7a74ac3-ad69-477a-b855-7d829bcbf632"/>
+			<textField>
+				<reportElement x="229" y="0" width="100" height="16" uuid="fcf23aa4-836a-498c-9556-e969bce98b26"/>
 				<box>
-					<pen lineWidth="1.0" lineStyle="Solid"/>
-					<topPen lineWidth="1.0" lineStyle="Solid"/>
-					<leftPen lineWidth="1.0" lineStyle="Dashed"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
-					<rightPen lineWidth="1.0" lineStyle="Dashed"/>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="10"/>
+					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{summary}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement mode="Transparent" x="140" y="0" width="72" height="20" isRemoveLineWhenBlank="true" backcolor="#FFFFFF" uuid="a168654a-ede0-483a-aa2c-7ba33baa5052"/>
+			<textField>
+				<reportElement x="129" y="0" width="100" height="16" uuid="b24ee2ee-45cf-45e9-87e3-35d8321b0472"/>
 				<box>
-					<pen lineWidth="1.0" lineStyle="Solid"/>
-					<topPen lineWidth="1.0" lineStyle="Solid"/>
-					<leftPen lineWidth="1.0" lineStyle="Dashed"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
-					<rightPen lineWidth="1.0" lineStyle="Dashed"/>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="10"/>
+					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{class}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{className}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement mode="Transparent" x="91" y="0" width="49" height="20" isRemoveLineWhenBlank="true" backcolor="#FFFFFF" uuid="b86acb61-9c8a-4402-a202-fa350cda7e11"/>
+			<textField>
+				<reportElement x="29" y="0" width="100" height="16" uuid="d63ef50e-6449-4a08-ae1e-851c96c2c573"/>
 				<box>
-					<pen lineWidth="1.0" lineStyle="Solid"/>
-					<topPen lineWidth="1.0" lineStyle="Solid"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
-					<rightPen lineWidth="1.0" lineStyle="Dashed"/>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="10"/>
+					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{no}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="291" splitType="Stretch">
+		<band height="149" splitType="Stretch">
 			<line>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="d8b67828-b96f-4ece-b3c7-b603f8847361"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="6ce41e4e-0eec-47e5-8129-9f13a1108fc8"/>
 				<graphicElement>
 					<pen lineWidth="0.5" lineColor="#999999"/>
 				</graphicElement>
 			</line>
-			<stackedBarChart>
+			<pieChart>
 				<chart>
-					<reportElement x="2" y="4" width="551" height="155" uuid="dd926f6c-64ad-489a-9cfd-da23e6d402e6"/>
-					<chartTitle/>
+					<reportElement x="0" y="4" width="266" height="145" uuid="bb9b9620-342e-4527-bccd-4f32d65edf0a"/>
+                                                                                             <chartTitle/>
 					<chartSubtitle/>
 					<chartLegend/>
 				</chart>
-				<categoryDataset>
-					<categorySeries>
-						<seriesExpression><![CDATA[$F{class}]]></seriesExpression>
-						<categoryExpression><![CDATA[$F{class}]]></categoryExpression>
-						<valueExpression><![CDATA[$F{reacted}]]></valueExpression>
-						<labelExpression><![CDATA["Biểu đồ thống kê số lượng học sinh đạt học kỳ "+$P{semester}+" của Năm học "+$P{schoolYear}]]></labelExpression>
-					</categorySeries>
-				</categoryDataset>
-				<barPlot>
+				<pieDataset>
+					<keyExpression><![CDATA[$F{className}]]></keyExpression>
+					<valueExpression><![CDATA[Integer.parseInt( $F{reached} )/Integer.parseInt( $F{summary} )*100]]></valueExpression>
+				</pieDataset>
+				<piePlot>
 					<plot/>
 					<itemLabel/>
-					<categoryAxisFormat>
-						<axisFormat/>
-					</categoryAxisFormat>
-					<valueAxisFormat>
-						<axisFormat/>
-					</valueAxisFormat>
-				</barPlot>
-			</stackedBarChart>
+				</piePlot>
+			</pieChart>
 			<staticText>
-				<reportElement x="363" y="184" width="178" height="21" uuid="6055680f-c5cf-4c32-a8f5-696e93681d7f"/>
+				<reportElement x="384" y="24" width="169" height="21" uuid="cc7dda6c-7c86-4474-a998-21b0b31dba29"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font fontName="Tahoma" size="10"/>
 				</textElement>
 				<text><![CDATA[Chữ ký của Hiệu trưởng]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="245" y="169" width="296" height="15" uuid="6163dfc6-d5c5-4231-8118-0cbd3ae37412"/>
+				<reportElement x="293" y="9" width="260" height="15" uuid="a1aefe76-8a4c-4c72-aeaf-25cb77d6625d"/>
 				<textElement textAlignment="Right" verticalAlignment="Bottom">
 					<font fontName="Tahoma" size="10"/>
 				</textElement>
@@ -243,31 +246,28 @@
 		</band>
 	</columnFooter>
 	<pageFooter>
-		<band height="25" splitType="Stretch">
-			<frame>
-				<reportElement mode="Opaque" x="0" y="1" width="555" height="24" forecolor="#D0B48E" backcolor="#000000" uuid="f5b399db-bec3-47f9-abdd-1dc89def662f"/>
-				<textField evaluationTime="Report">
-					<reportElement style="Column header" x="513" y="0" width="40" height="20" forecolor="#FFFFFF" uuid="5e31acc0-8a75-4c35-9341-a7ff86150ee5"/>
-					<textElement verticalAlignment="Middle">
-						<font size="10" isBold="false"/>
-					</textElement>
-					<textFieldExpression><![CDATA["" + $V{PAGE_NUMBER}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement style="Column header" x="433" y="0" width="80" height="20" forecolor="#FFFFFF" uuid="532197c6-cc1f-44d9-819a-4e269a7c634b"/>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font size="10" isBold="false"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{PAGE_NUMBER}+"/"]]></textFieldExpression>
-				</textField>
-				<textField pattern="dd/MM/yyyy HH:mm:ss">
-					<reportElement style="Column header" x="2" y="1" width="197" height="20" forecolor="#FFFFFF" uuid="f1348d32-76cc-4770-8221-c23c038f91c6"/>
-					<textElement verticalAlignment="Middle">
-						<font size="10" isBold="false"/>
-					</textElement>
-					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
-				</textField>
-			</frame>
+		<band height="20" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="70aacbe8-fe94-4b7d-9689-690fe03ee0fa"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="3ab5c671-aaf6-4f2a-8565-2e7f935db4b9"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="0e26b5df-50e4-4468-a0fa-5e06c51cb8db"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}+"/"]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageFooter>
 	<summary>
