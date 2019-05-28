@@ -167,11 +167,13 @@ public class ForgotPasswordJFrame extends javax.swing.JFrame {
                 return;
             }
         }
-        int result = ForgotPasswordBLL.RecoveryPass(new Nguoidung(null, txtUser.getText().length() > 0 ? txtUser.getText() : null, null, Byte.valueOf(" "), Byte.valueOf(""), txtPhone.getText(), txtEmail.getText()));
+        int result = ForgotPasswordBLL.RecoveryPass(new Nguoidung(null, txtUser.getText().length() > 0 ? txtUser.getText() : null, null, Byte.valueOf("1"), Byte.valueOf("1"), txtPhone.getText(), txtEmail.getText()));
         switch (result) {
             case 0:
                 JOptionPane.showMessageDialog(rootPane, "Vui lòng kiểm tra hộp thư email để thực hiện bước tiếp theo.");
                 this.setVisible(false);
+                new LoginJFrame().setVisible(true);
+                dispose();
                 break;
             case 1:
                 JOptionPane.showMessageDialog(rootPane, "Thông tin đã nhập không chính xác.");
