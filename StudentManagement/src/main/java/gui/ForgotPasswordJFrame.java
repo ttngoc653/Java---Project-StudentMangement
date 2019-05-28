@@ -172,7 +172,11 @@ public class ForgotPasswordJFrame extends javax.swing.JFrame {
             case 0:
                 JOptionPane.showMessageDialog(rootPane, "Vui lòng kiểm tra hộp thư email để thực hiện bước tiếp theo.");
                 this.setVisible(false);
-                new LoginJFrame().setVisible(true);
+                //new LoginJFrame().setVisible(true);
+                LoginJFrame f = new LoginJFrame();
+                f.setLocationRelativeTo(null);
+                f.setVisible(true);
+                f.setResizable(false);
                 dispose();
                 break;
             case 1:
@@ -185,7 +189,7 @@ public class ForgotPasswordJFrame extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(rootPane, "Lỗi khi cập nhật email mới vào dữ liệu.");
                 break;
             case 10:
-                //JOptionPane.showMessageDialog(rootPane, "Đã cuối hàm!");
+            //JOptionPane.showMessageDialog(rootPane, "Đã cuối hàm!");
         }
     }//GEN-LAST:event_btnRecoveryPaswordActionPerformed
 
