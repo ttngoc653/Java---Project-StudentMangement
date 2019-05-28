@@ -36,7 +36,7 @@ public class ForgotPasswordBLL {
      * 3. Error when update password to db
      */
     public static int RecoveryPass(Nguoidung nd) {
-        //nd.setTinhTrang(Byte.valueOf((nd.getTenTaiKhoan() == null) ? "quentaikhoan" : "quenmatkhau"));
+        nd.setTinhTrang(Byte.valueOf((nd.getTenTaiKhoan() == null) ? "1" : "0"));
         nd = getInfo(nd.getTenTaiKhoan(), nd.getSdt(), nd.getEmail());
         if (nd == null) {
             return 1;

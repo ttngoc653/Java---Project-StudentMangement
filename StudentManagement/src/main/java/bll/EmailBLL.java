@@ -69,7 +69,7 @@ public class EmailBLL {
 
     public static boolean sendPasswordNew(Nguoidung nd) {
         String subject = "[StuMng] Email hướng dẫn phục hồi tài khoản";
-        String content = (nd.getTinhTrang() == Byte.valueOf("quentaikhoan") ? "<p>Tài khoản <b>"+ nd.getTenTaiKhoan()+"</b> đã quên tài khoản và đã yêu cầu phục hồi lại mật khẩu.</p>" : "")
+        String content = (nd.getTinhTrang() == Byte.valueOf("0") ? "<p>Tài khoản <b>"+ nd.getTenTaiKhoan()+"</b> đã quên tài khoản và đã yêu cầu phục hồi lại mật khẩu.</p>" : "")
                 + "<p style='color: red'>Mật khẩu mới hiện tại là: '" + nd.getMatKhau() + "'</p>"
                 + "<p>(chỉ trong dấu nháy đơn)</p>";
         return sendHTML(nd.getEmail(), subject, content);
