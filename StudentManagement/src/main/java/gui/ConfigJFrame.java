@@ -104,7 +104,7 @@ public class ConfigJFrame extends javax.swing.JFrame {
         openFrame = true;
         
         try {
-            UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
             ex.printStackTrace();
         }
@@ -113,7 +113,7 @@ public class ConfigJFrame extends javax.swing.JFrame {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         
         try {
-            UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
             ex.printStackTrace();
         }

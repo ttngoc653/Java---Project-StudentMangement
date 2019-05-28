@@ -38,6 +38,7 @@ public class ReportJFrame extends javax.swing.JFrame {
      */
     public ReportJFrame() {
         initComponents();
+        
     }
 
     /**
@@ -79,6 +80,7 @@ public class ReportJFrame extends javax.swing.JFrame {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel3.setText("Môn học: ");
 
+        cbbSchoolYear.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " " }));
         cbbSchoolYear.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
             }
@@ -89,6 +91,7 @@ public class ReportJFrame extends javax.swing.JFrame {
             }
         });
 
+        cbbSemester.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " " }));
         cbbSemester.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
             }
@@ -99,6 +102,7 @@ public class ReportJFrame extends javax.swing.JFrame {
             }
         });
 
+        cbbSubject.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " " }));
         cbbSubject.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
             }
@@ -207,11 +211,14 @@ public class ReportJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_cbbSubjectPopupMenuWillBecomeVisible
 
     private void btnSummarySubjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSummarySubjectActionPerformed
-        if (cbbSchoolYear.getSelectedItem().toString().isEmpty() || cbbSemester.getSelectedItem().toString().isEmpty() || cbbSubject.getSelectedItem().toString().isEmpty()) {
+       String soolyear=cbbSchoolYear.getSelectedItem().toString();
+       String semester= cbbSemester.getSelectedItem().toString();
+       String subjet= cbbSubject.getSelectedItem().toString();
+        if (cbbSchoolYear.getSelectedItem().toString().trim().isEmpty() || cbbSemester.getSelectedItem().toString().trim().isEmpty() || cbbSubject.getSelectedItem().toString().trim().isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn đủ thông tin!");
             return;
         }
-        List<Map<String, ?>> dataSource = new bll.ReportBLL().dataReportBySubject(cbbSubject.getSelectedItem().toString(), cbbSchoolYear.getSelectedItem().toString(), Integer.parseInt((String) cbbSemester.getSelectedItem()));
+        List<Map<String, ?>> dataSource = new bll.ReportBLL().dataReportBySubject(cbbSubject.getSelectedItem().toString(), cbbSchoolYear.getSelectedItem().toString(), Integer.parseInt((String) cbbSemester.getSelectedItem().toString()));
         if (dataSource.isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Môn " + cbbSubject.getSelectedItem().toString() + " ở học kỳ " + cbbSemester.getSelectedItem().toString() + " thuộc năm học " + cbbSchoolYear.getSelectedItem().toString() + " hiện tại chưa có lớp nào có điểm.");
             return;
@@ -235,11 +242,15 @@ public class ReportJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSummarySubjectActionPerformed
 
     private void btnSummarySemesterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSummarySemesterActionPerformed
-        if (cbbSchoolYear.getSelectedItem().toString().isEmpty() || cbbSemester.getSelectedItem().toString().isEmpty()) {
+        
+       String soolyear=cbbSchoolYear.getSelectedItem().toString();
+       String semester= cbbSemester.getSelectedItem().toString();
+       String subjet= cbbSubject.getSelectedItem().toString();
+        if (cbbSchoolYear.getSelectedItem().toString().trim().isEmpty() || cbbSemester.getSelectedItem().toString().trim().isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn đủ thông tin!");
             return;
         }
-        List<Map<String, ?>> dataSource = new bll.ReportBLL().dataReportBySemester(cbbSchoolYear.getSelectedItem().toString(), Integer.parseInt((String) cbbSemester.getSelectedItem()));
+        List<Map<String, ?>> dataSource = new bll.ReportBLL().dataReportBySemester(cbbSchoolYear.getSelectedItem().toString(), Integer.parseInt((String) cbbSemester.getSelectedItem().toString()));
         if (dataSource.isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Học kỳ " + cbbSemester.getSelectedItem().toString() + " thuộc năm học " + cbbSchoolYear.getSelectedItem().toString() + " này hiện tại chưa có lớp nào điểm.");
             return;
