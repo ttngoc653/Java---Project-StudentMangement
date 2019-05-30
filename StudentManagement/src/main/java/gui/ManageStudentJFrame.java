@@ -1,5 +1,6 @@
 package gui;
 
+import static bll.ConfigBLL.*;
 import static bll.HocsinhBLL.*;
 import dal.*;
 import dto.*;
@@ -416,9 +417,11 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
 
-        int TuoiToiThieu = Integer.parseInt(new CauHinhDAL().getByName("TuoiToiThieu").getGiaTri());
-        int TuoiToiDa = Integer.parseInt(new CauHinhDAL().getByName("TuoiToiDa").getGiaTri());
-
+//        int TuoiToiThieu = Integer.parseInt(new CauHinhDAL().getByName("TuoiToiThieu").getGiaTri());
+//        int TuoiToiDa = Integer.parseInt(new CauHinhDAL().getByName("TuoiToiDa").getGiaTri());
+        int TuoiToiThieu = getMinAgeStudent();
+        int TuoiToiDa = getMaxAgeStudent();
+        
         Date newDate = jDateChooserNgaySinh.getDate();
         int kqNgaySinh = 0;
         if (checkDateOfBirth(newDate)) {

@@ -47,7 +47,7 @@ public class ConfigBLL {
 
     public static Integer getMinAgeStudent() {
         cauhinh = new dal.CauHinhDAL().getByName("tuoiToiTieuDauVao");
-        return cauhinh != null ? Integer.valueOf(cauhinh.getGiaTri()) : 20;
+        return cauhinh != null ? Integer.valueOf(cauhinh.getGiaTri()) : 15;
     }
 
     public static Integer getMinAgeStudent(dto.Lop lop) {
@@ -116,7 +116,7 @@ public class ConfigBLL {
         cauhinh = new dal.CauHinhDAL().getByName("diemChuanLop" + lop.getIdLop());
         return cauhinh != null ? Double.valueOf(cauhinh.getGiaTri()) : null;
     }
-    
+
     public static Integer getMaxSubject() {
         cauhinh = new dal.CauHinhDAL().getByName("soMonToiDa");
         return Integer.valueOf(cauhinh != null ? cauhinh.getGiaTri() : "9");
