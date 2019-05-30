@@ -279,9 +279,9 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
 
 //        int SiSoToiDa = Integer.parseInt(new CauHinhDAL().getByName("SiSoToiDa").getGiaTri());
-        int SiSoToiDa = getMaxStudent();     
+        int SiSoToiDa = getMaxStudent();
         //JOptionPane.showMessageDialog(null, SiSoToiDa);
-        
+
         String ThongTinHocSinh = this.cboMSHS.getSelectedItem().toString();                   // MSHS - Họ tên học sinh 
         String[] thongTinHs = ThongTinHocSinh.split(" - "); //Cắt tách chuỗi theo kí tự " - " // => [0] - [1]
         int idHS = Integer.parseInt(thongTinHs[0]);
@@ -299,8 +299,10 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
         a.setHocsinh(hocsinh);
         a.setLop(lop);
         a.setNamhoc(namhoc);
-
-        if (findStudentByNamHocLop(idHS, namhoc, lop)) {
+        Integer namsinh = Integer.parseInt(hocsinh.getNgaySinh().substring(6)), maxAge = bll.ConfigBLL.getMaxAgeStudent(lop), minAge = bll.ConfigBLL.getMinAgeStudent(lop);
+        if (minAge >= namsinh || namsinh >= maxAge) {
+            JOptionPane.showMessageDialog(null, "Đã quá giới hạn tuối cho phép để vào lớp.\nTuổi hiện tại là "+namsinh+"\nGiới hạn tuối của lớp từ "+minAge+" đến "+maxAge+" tuối.");
+        } else if (findStudentByNamHocLop(idHS, namhoc, lop)) {
             JOptionPane.showMessageDialog(null, "MSHS " + idHS + " đã thuộc lớp " + tenLop + " - năm học " + tenNamHoc);
         } else if (checkMaximumStudentInClass(idNamHoc, idLop, SiSoToiDa)) {
             JOptionPane.showMessageDialog(null, "Lớp này đã đủ sỉ số: " + SiSoToiDa + " học sinh");

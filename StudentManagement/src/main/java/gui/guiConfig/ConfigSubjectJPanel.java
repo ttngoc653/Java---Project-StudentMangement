@@ -28,7 +28,7 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
 
     }
 
-    void refresh() {
+    private void refresh() {
         initCBXMonHoc();
         initTeaching();
         initCastrate();
@@ -389,7 +389,9 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
         }
         mh.setDangGiangDay(true);
 
-        if (new MonhocDAL().getByTen(mh.getTenMh()) == null) {
+        if (bll.ConfigBLL.getMaxSubject() == lCastrate.getModel().getSize() + lTeaching.getModel().getSize()) {
+            JOptionPane.showMessageDialog(this, "Đã đủ giới hạn lớp cho phép.");
+        } else if (new MonhocDAL().getByTen(mh.getTenMh()) == null) {
             if (new MonhocDAL().add(mh) > 0) {
                 JOptionPane.showMessageDialog(this, "Thêm thành công");
                 txtSubject.setText("");
@@ -407,7 +409,7 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         Monhoc mh = new Monhoc();
         mh = new MonhocDAL().getByTen(cbbSubject.getSelectedItem().toString());
-        if (mh.getDiems().size() != 0) {
+        if (!mh.getDiems().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Môn học còn lưu điểm. Không xóa được");
         } else if (new MonhocDAL().delete(mh.getIdMonHoc()) == false) {
             JOptionPane.showMessageDialog(this, "Có lỗi Function khi xóa");
@@ -426,8 +428,7 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
     private void txtCoefficientKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCoefficientKeyTyped
         if (!bll.HelperBLL.IsInteger(txtCoefficient.getText() + evt.getKeyChar())) {
             evt.consume();
-        }
-        else if (Integer.parseInt(txtCoefficient.getText() + evt.getKeyChar())<1) {
+        } else if (Integer.parseInt(txtCoefficient.getText() + evt.getKeyChar()) < 1) {
             evt.consume();
         }
     }//GEN-LAST:event_txtCoefficientKeyTyped
@@ -453,7 +454,7 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnChangeActionPerformed
 
     private void btnHideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHideActionPerformed
-        bll.ConfigBLL.saveSubjectTeaching(lTeaching.getSelectedValuesList(),false);
+        bll.ConfigBLL.saveSubjectTeaching(lTeaching.getSelectedValuesList(), false);
         refresh();
     }//GEN-LAST:event_btnHideActionPerformed
 

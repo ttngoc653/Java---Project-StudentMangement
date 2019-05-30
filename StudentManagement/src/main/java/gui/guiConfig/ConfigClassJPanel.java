@@ -296,51 +296,15 @@ public class ConfigClassJPanel extends javax.swing.JPanel {
         }
 
         // create or modify number of students of all class in school
-        if (ckbNew.isSelected()) {
-            dto.Cauhinh cauhinh = new dal.CauHinhDAL().getByName("siSoToiDa");
-            if (cauhinh == null) {
-                cauhinh = new Cauhinh("siSoToiDa", "maxSizeStudents", txtMaxCount.getText(), "Sỉ số tối đa chung", null, null, null);
-                if (new dal.CauHinhDAL().add(cauhinh) <= 0) {
-                    JOptionPane.showMessageDialog(this, "Áp dụng sỉ số tối đa thất bại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-                }
-            } else {
-                cauhinh.setGiaTri(txtMaxCount.getText());
-                if (!new dal.CauHinhDAL().update(cauhinh)) {
-                    JOptionPane.showMessageDialog(this, "Cập nhật sỉ số tối đa thất bại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-                }
-            }
+        if (ckbNew.isSelected() && !bll.ConfigBLL.saveMaxSizeStudents(txtMaxCount.getText())) {
+            JOptionPane.showMessageDialog(this, "Áp dụng sỉ số tối đa thất bại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
 
         // create or modify maximun number of students acconding to class seleted in jlist
-        if (ckbOld.isSelected()) {
-            List selectList = listClass.getSelectedValuesList();
-            for (int i = 0; i < selectList.size(); i++) {
-                dto.Lop lop = new dal.LopDAL().getByTen(selectList.get(i).toString().split(" ~` ")[0]);
-                if (lop != null) {
-                    boolean updatedValueConfig = false;
-                    for (Cauhinh cauhinhIndex : lop.getCauhinhs()) {
-                        if (cauhinhIndex.getTenThuocTinh().equals("siSoToiDaTheoLop")) {
-                            lop.getCauhinhs().remove(cauhinhIndex);
-                            cauhinhIndex.setGiaTri(txtMaxCount.getText());
-                            lop.getCauhinhs().add(cauhinhIndex);
-
-                            updatedValueConfig = true;
-                        }
-                    }
-
-                    if (!updatedValueConfig) {
-                        dto.Cauhinh cauhinh = new Cauhinh("siSoToiDaTheoLop", "maxSizeStudents", txtMaxCount.getText(), "Sỉ số tối đa trong lớp", null, null, null);
-                        lop.getCauhinhs().add(cauhinh);
-                    }
-
-                    if (!new dal.LopDAL().update(lop)) {
-                        showError("Cập nhật sĩ số tối đa cho lớp " + lop.getTenLop() + " thất bại.");
-                        break;
-                    }
-                }
-            }
+        if (ckbOld.isSelected() && !bll.ConfigBLL.saveMaxSizeStudentsAccordingToGrade(listClass.getSelectedValuesList(), txtMaxCount.getText())) {
+            showError("Lưu sĩ số tối đa theo lớp thất bại.");
         }
-        JOptionPane.showMessageDialog(this, "Cập nhật sĩ số lớn nhất thành công.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Cập nhật sĩ số tối đa thành công.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnMaxSudentActionPerformed
 
     private void btnMaxCountClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaxCountClassActionPerformed
@@ -349,36 +313,15 @@ public class ConfigClassJPanel extends javax.swing.JPanel {
             return;
         }
 
-        if (ckbGeneral.isSelected()) {
-            dto.Cauhinh cauhinh = new dal.CauHinhDAL().getByName("soLopToiDa");
-            if (cauhinh == null) {
-                cauhinh = new Cauhinh("soLopToiDa", "maxSizeGrades", txtMaxCountClass.getText(), "Số lớp tối đa", null, null, null);
-                if (new dal.CauHinhDAL().add(cauhinh) <= 0) {
-                    showError("Áp dụng số lớp tối đa thất bại.");
-                }
-            } else {
-                cauhinh.setGiaTri(txtMaxCountClass.getText());
-                if (!new dal.CauHinhDAL().update(cauhinh)) {
-                    showError("Cập nhật số lớp tối đa thất bại.");
-                }
-            }
+        if (ckbGeneral.isSelected() && !bll.ConfigBLL.saveMaxSizeGrades(txtMaxCount.getText())) {
+            showError("Lưu số lớp tối đa thất bại.");
         }
 
         if (ckbType.isSelected()) {
             List selectList = listType.getSelectedValuesList();
-            for (Object selectItem : selectList) {
-                String block = selectItem.toString().split(" ~` ")[0];
-                dto.Cauhinh cauhinh = bll.ConfigBLL.searchCauHinhAccoundToBlock(block);
-                if (cauhinh == null && new dal.CauHinhDAL().add(new Cauhinh("soLopToiDaTheoKhoi", "maxSizeGrades", txtMaxCountClass.getText(), "Số lớp tối đa của khối ~` " + block, null, null, null)) >= 0) {
-                    showError("Tạo số lớp tối đa của khối ");
-                    break;
-                } else if (cauhinh != null) {
-                    cauhinh.setGiaTri(txtMaxCountClass.getText());
-                    if (!new dal.CauHinhDAL().update(cauhinh)) {
-                        showError("Lỗi khi cập nhật số lượng lớp tối đa của khối " + block);
-                        break;
-                    }
-                }
+
+            if (!bll.ConfigBLL.saveMaxSizeGradesAccordingToBlock(selectList, txtMaxCountClass.getText())) {
+                showError("Lưu số lớp tối đa theo khối thất bại");
             }
         }
     }//GEN-LAST:event_btnMaxCountClassActionPerformed

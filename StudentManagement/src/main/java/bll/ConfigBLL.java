@@ -63,7 +63,7 @@ public class ConfigBLL {
     public static Integer getMinAgeStudent() {
         cauhinh = new dal.CauHinhDAL().getByName("tuoiToiTieuDauVao");
         try {
-            if (cauhinh!=null) {
+            if (cauhinh != null) {
                 return Integer.valueOf(cauhinh.getGiaTri());
             }
         } catch (Exception e) {
@@ -74,7 +74,7 @@ public class ConfigBLL {
     public static Integer getMinAgeStudent(dto.Lop lop) {
         cauhinh = new dal.CauHinhDAL().getByName("tuoiToiTieuLop" + lop.getIdLop());
         try {
-            if (cauhinh!=null) {
+            if (cauhinh != null) {
                 return Integer.valueOf(cauhinh.getGiaTri());
             }
         } catch (Exception e) {
@@ -85,7 +85,7 @@ public class ConfigBLL {
     public static Integer getMinAgeStudentNull(dto.Lop lop) {
         cauhinh = new dal.CauHinhDAL().getByName("tuoiToiTieuLop" + lop.getIdLop());
         try {
-            if (cauhinh!=null) {
+            if (cauhinh != null) {
                 return Integer.valueOf(cauhinh.getGiaTri());
             }
         } catch (Exception e) {
@@ -96,7 +96,7 @@ public class ConfigBLL {
     public static Integer getMaxStudent() {
         cauhinh = new dal.CauHinhDAL().getByName("siSoToiDa");
         try {
-            if (cauhinh!=null) {
+            if (cauhinh != null) {
                 return Integer.valueOf(cauhinh.getGiaTri());
             }
         } catch (Exception e) {
@@ -107,7 +107,7 @@ public class ConfigBLL {
     public static Integer getMaxStudent(dto.Lop lop) {
         cauhinh = new dal.CauHinhDAL().getByName("siSoToiDaLop" + lop.getIdLop());
         try {
-            if (cauhinh!=null) {
+            if (cauhinh != null) {
                 return Integer.valueOf(cauhinh.getGiaTri());
             }
         } catch (Exception e) {
@@ -118,7 +118,7 @@ public class ConfigBLL {
     public static Integer getMaxStudentNull(dto.Lop lop) {
         cauhinh = new dal.CauHinhDAL().getByName("siSoToiDaLop" + lop.getIdLop());
         try {
-            if (cauhinh!=null) {
+            if (cauhinh != null) {
                 return Integer.valueOf(cauhinh.getGiaTri());
             }
         } catch (Exception e) {
@@ -126,10 +126,10 @@ public class ConfigBLL {
         return null;
     }
 
-    public static Integer getMaxClass() {
+    public static Integer getMaxGrade() {
         dto.Cauhinh cauhinh = new dal.CauHinhDAL().getByName("soLopToiDa");
         try {
-            if (cauhinh!=null) {
+            if (cauhinh != null) {
                 return Integer.valueOf(cauhinh.getGiaTri());
             }
         } catch (Exception e) {
@@ -138,9 +138,9 @@ public class ConfigBLL {
     }
 
     public static Integer getMaxGradeNull(String block) {
-        cauhinh = new dal.CauHinhDAL().getByName("soLopToiDaKhoi" + block);
+        cauhinh = new dal.CauHinhDAL().getByName("Số lớp tối đa của khối ~` " + block);
         try {
-            if (cauhinh!=null) {
+            if (cauhinh != null) {
                 return Integer.valueOf(cauhinh.getGiaTri());
             }
         } catch (Exception e) {
@@ -149,20 +149,20 @@ public class ConfigBLL {
     }
 
     public static Integer getMaxGrade(String block) {
-        cauhinh = new dal.CauHinhDAL().getByName("soLopToiDaKhoi" + block);
+        cauhinh = new dal.CauHinhDAL().getByName("Số lớp tối đa của khối ~` " + block);
         try {
-            if (cauhinh!=null) {
+            if (cauhinh != null) {
                 return Integer.valueOf(cauhinh.getGiaTri());
             }
         } catch (Exception e) {
         }
-        return getMaxClass();
+        return getMaxGrade();
     }
 
     public static Double getBenchMask() {
         cauhinh = new dal.CauHinhDAL().getByName("diemChuan");
         try {
-            if (cauhinh!=null) {
+            if (cauhinh != null) {
                 return Double.valueOf(cauhinh.getGiaTri());
             }
         } catch (Exception e) {
@@ -173,7 +173,7 @@ public class ConfigBLL {
     static Double getBenchMark(Monhoc monhoc) {
         cauhinh = new dal.CauHinhDAL().getByName("diemChuanMon" + monhoc.getIdMonHoc());
         try {
-            if (cauhinh!=null) {
+            if (cauhinh != null) {
                 return Double.valueOf(cauhinh.getGiaTri());
             }
         } catch (Exception e) {
@@ -184,7 +184,7 @@ public class ConfigBLL {
     static Double getBenchMark(Lop lop) {
         cauhinh = new dal.CauHinhDAL().getByName("diemChuanLop" + lop.getIdLop());
         try {
-            if (cauhinh!=null) {
+            if (cauhinh != null) {
                 return Double.valueOf(cauhinh.getGiaTri());
             }
         } catch (Exception e) {
@@ -195,7 +195,7 @@ public class ConfigBLL {
     static Double getBenchMarkNull(dto.Monhoc monhoc) {
         cauhinh = new dal.CauHinhDAL().getByName("diemChuanMon" + monhoc.getIdMonHoc());
         try {
-            if (cauhinh!=null) {
+            if (cauhinh != null) {
                 return Double.valueOf(cauhinh.getGiaTri());
             }
         } catch (Exception e) {
@@ -206,7 +206,7 @@ public class ConfigBLL {
     static Double getBenchMarkNull(dto.Lop lop) {
         cauhinh = new dal.CauHinhDAL().getByName("diemChuanLop" + lop.getIdLop());
         try {
-            if (cauhinh!=null) {
+            if (cauhinh != null) {
                 return Double.valueOf(cauhinh.getGiaTri());
             }
         } catch (Exception e) {
@@ -217,7 +217,7 @@ public class ConfigBLL {
     public static Integer getMaxSubject() {
         cauhinh = new dal.CauHinhDAL().getByName("soMonToiDa");
         try {
-            if (cauhinh!=null) {
+            if (cauhinh != null) {
                 return Integer.valueOf(cauhinh.getGiaTri());
             }
         } catch (Exception e) {
@@ -439,7 +439,7 @@ public class ConfigBLL {
             String select_string = o.toString().split(" ~` ")[0];
             dto.Lop lop = new dal.LopDAL().getByTen(select_string);
 
-            if (lop != null && getMaxAgeStudentNull(lop) == null && getMinAgeStudentNull(lop) == null) { // dung ra la xet co xet co gioi han tuoi chua
+            if (lop != null && getMaxAgeStudentNull(lop) == null && getMinAgeStudentNull(lop) == null) {
                 cauhinh = new dto.Cauhinh("tuoiToiTieuVaoLop", "minAge", minAge, "Tuổi tối tiểu vào lớp", null, null, null);
                 if (new dal.CauHinhDAL().add(cauhinh) <= 0) {
                     return false;
@@ -450,11 +450,90 @@ public class ConfigBLL {
                     return false;
                 }
             } else if (lop != null) {
+                cauhinh = new dal.CauHinhDAL().getByName("tuoiToiTieuLop" + lop.getIdLop());
+                cauhinh.setGiaTri(minAge);
+                if (!new dal.CauHinhDAL().update(cauhinh)) {
+                    return false;
+                }
 
+                cauhinh = new dal.CauHinhDAL().getByName("tuoiToiDaLop" + lop.getIdLop());
+                cauhinh.setGiaTri(maxAge);
+                if (!new dal.CauHinhDAL().update(cauhinh)) {
+                    return false;
+                }
             }
 
         }
         return true;
 
     }
+
+    public static boolean saveMaxSizeGrades(String maxSizeGrades) {
+        dto.Cauhinh cauhinh = new dal.CauHinhDAL().getByName("soLopToiDa");
+        if (cauhinh == null) {
+            cauhinh = new Cauhinh("soLopToiDa", "maxSizeGrades", maxSizeGrades, "Số lớp tối đa của trường", null, null, null);
+            if (new dal.CauHinhDAL().add(cauhinh) <= 0) {
+                return false;
+            }
+        } else {
+            cauhinh.setGiaTri(maxSizeGrades);
+            if (!new dal.CauHinhDAL().update(cauhinh)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean saveMaxSizeGradesAccordingToBlock(List selectList, String maxCountClass) {
+        for (Object selectItem : selectList) {
+            String block = selectItem.toString().split(" ~` ")[0];
+            Integer loptoida = bll.ConfigBLL.getMaxGradeNull(block);
+            if (loptoida == null && new dal.CauHinhDAL().add(new Cauhinh("soLopToiDaKhoi", "maxSizeGrades", maxCountClass, "Số lớp tối đa của khối ~` " + block, null, null, null)) >= 0) {
+                return false;
+            } else {
+                dto.Cauhinh cauhinh = new dal.CauHinhDAL().getByNameDetail("Số lớp tối đa của khối ~` " + block);
+                cauhinh.setGiaTri(maxCountClass);
+                if (!new dal.CauHinhDAL().update(cauhinh)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public static boolean saveMaxSizeStudents(String maxSizeStudents) {
+        dto.Cauhinh cauhinh = new dal.CauHinhDAL().getByName("siSoToiDa");
+        if (cauhinh == null) {
+            cauhinh = new Cauhinh("siSoToiDa", "maxSizeStudents", maxSizeStudents, "Sỉ số tối đa chung", null, null, null);
+            if (new dal.CauHinhDAL().add(cauhinh) <= 0) {
+                return false;
+            }
+        } else {
+            cauhinh.setGiaTri(maxSizeStudents);
+            if (!new dal.CauHinhDAL().update(cauhinh)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @SuppressWarnings("null")
+    public static boolean saveMaxSizeStudentsAccordingToGrade(List selectedValuesList, String maxSizeStudents) {
+        for (Object selectList1 : selectedValuesList) {
+            dto.Lop lop = new dal.LopDAL().getByTen(selectList1.toString().split(" ~` ")[0]);
+            if (lop != null) {
+                dto.Cauhinh cauhinh = new dal.CauHinhDAL().getByName("siSoToiDaLop" + lop.getIdLop());
+                if (cauhinh == null && new dal.CauHinhDAL().add(new Cauhinh("siSoToiDaLop" + lop.getIdLop(), "maxSizeStudents", maxSizeStudents, "Sỉ số tối đa lớp ~` " + lop.getTenLop(), null, null, null)) <= 0) {
+                    return false;
+                } else {
+                    cauhinh.setGiaTri(maxSizeStudents);
+                    if (!new dal.CauHinhDAL().update(cauhinh)) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
 }

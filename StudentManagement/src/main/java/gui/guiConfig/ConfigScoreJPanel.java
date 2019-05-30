@@ -220,8 +220,8 @@ public class ConfigScoreJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        txtScoreNew.setText("Hiện tại " + bll.ConfigBLL.getBenchMaskGerenalCurrent() + "điểm");
-        txtScoreNew.setToolTipText("Hiện tại " + bll.ConfigBLL.getBenchMaskGerenalCurrent() + "điểm");
+        txtScoreNew.setText("Hiện tại " + bll.ConfigBLL.getBenchMask() + "điểm");
+        txtScoreNew.setToolTipText("Hiện tại " + bll.ConfigBLL.getBenchMask() + "điểm");
 
         listSubjects.setModel(bll.ConfigBLL.getListSubjectBenchmark());
         listClass.setModel(bll.ConfigBLL.getListGradeBenchmark());
@@ -232,7 +232,7 @@ public class ConfigScoreJPanel extends javax.swing.JPanel {
 
     private void txtScoreNewFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtScoreNewFocusLost
         if (txtScoreNew.getText().isEmpty()) {
-            txtScoreNew.setText(bll.ConfigBLL.getBenchMaskGerenalCurrent());
+            txtScoreNew.setText(bll.ConfigBLL.getBenchMask().toString());
         }
     }//GEN-LAST:event_txtScoreNewFocusLost
 
@@ -250,6 +250,11 @@ public class ConfigScoreJPanel extends javax.swing.JPanel {
         String score = txtScoreNew.getText();
         if (score.isEmpty()) {
             showError("Điểm chuẩn không được bỏ trống!");
+            txtScoreNew.setFocusable(true);
+            return;
+        }else if (!bll.HelperBLL.IsDouble(score)) {
+            showError("Điểm chuẩn phải là số thập phân!");
+            txtScoreNew.setFocusable(true);
             return;
         }
 

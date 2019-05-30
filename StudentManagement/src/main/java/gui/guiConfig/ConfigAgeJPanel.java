@@ -6,11 +6,7 @@
 package gui.guiConfig;
 
 import bll.HelperBLL;
-import dto.Cauhinh;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 /**
@@ -215,7 +211,6 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
 
     private void txtMinAgeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMinAgeKeyTyped
         if (!HelperBLL.IsInteger(Character.toString(evt.getKeyChar()))) {
-            JOptionPane.showMessageDialog(this, "Tuối phải là số nguyên", "Lỗi", JOptionPane.WARNING_MESSAGE);
             evt.consume();
         }
         txtStatus.setText("");
@@ -223,7 +218,6 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
 
     private void txtMaxAgeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaxAgeKeyTyped
         if (!HelperBLL.IsInteger(Character.toString(evt.getKeyChar()))) {
-            JOptionPane.showMessageDialog(this, "Tuối phải là số nguyên", "Lỗi", JOptionPane.WARNING_MESSAGE);
             evt.consume();
         }
         txtStatus.setText("");
@@ -250,6 +244,7 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
                 txtStatus.setText("Lưu thành công tuổi tối đa/tối tiếu đầu vào của trường.");
             } else {
                 txtStatus.setText("Lỗi khi lưu giới hạn tuối của hoc sinh.");
+                return;
             }
         }
 
@@ -258,8 +253,9 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
 
             List list_selected = listGrade.getSelectedValuesList();
 
-            if (bll.ConfigBLL.saveLimitAgeAcoordingToGrade(list_selected, txtMinAge.getText(), txtMaxAge.getText())) {
-
+            if (!bll.ConfigBLL.saveLimitAgeAcoordingToGrade(list_selected, txtMinAge.getText(), txtMaxAge.getText())) {
+                txtStatus.setText("Lỗi khi lưu giới hạn tuổi theo lớp.");
+                return;
             }
         }
 
@@ -293,22 +289,6 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtMinAge;
     private javax.swing.JLabel txtStatus;
     // End of variables declaration//GEN-END:variables
-    private javax.swing.JPopupMenu menuDelete;
-
-    private boolean HasConfigAge(Set<Cauhinh> cauhinhs) {
-        int check = 0;
-        for (dto.Cauhinh next : cauhinhs) {
-            switch (next.getLoaiThuocTinh()) {
-                case "minAgeToClass":
-                    check++;
-                    break;
-                case "maxAgeToClass":
-                    check++;
-                    break;
-            }
-        }
-        return check == 2;
-    }
 
     private void disableAllControl() {
         txtMaxAge.setEnabled(false);
