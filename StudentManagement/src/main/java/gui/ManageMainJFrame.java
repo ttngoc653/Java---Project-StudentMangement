@@ -176,6 +176,11 @@ public class ManageMainJFrame extends javax.swing.JFrame {
         });
 
         btnMonHoc.setText("Môn học");
+        btnMonHoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMonHocActionPerformed(evt);
+            }
+        });
 
         btnNamHoc.setText("Năm học");
         btnNamHoc.addActionListener(new java.awt.event.ActionListener() {
@@ -404,6 +409,20 @@ public class ManageMainJFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Màn hình quản lý điểm đã mở rồi");
         }
     }//GEN-LAST:event_btnDiemActionPerformed
+
+    private void btnMonHocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMonHocActionPerformed
+        // TODO add your handling code here:
+        if (ManageSubjectJFrame.openFrame == true) {
+            ManageSubjectJFrame.openFrame = false;
+            ManageSubjectJFrame f = new ManageSubjectJFrame();
+            f.setLocationRelativeTo(null);
+            f.setVisible(true);
+            f.setResizable(false);
+            //this.setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(null, "Màn hình quản lý môn học đã mở rồi");
+        }
+    }//GEN-LAST:event_btnMonHocActionPerformed
 
     /**
      * @param args the command line arguments
