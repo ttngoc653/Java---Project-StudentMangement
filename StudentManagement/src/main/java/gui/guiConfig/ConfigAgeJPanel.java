@@ -10,6 +10,7 @@ import dto.Cauhinh;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 /**
@@ -199,7 +200,7 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void refresh() {
-        txtLimitCurrent.setText("Giới hạn hiện tại: " + bll.ConfigBLL.getMinAgeGerenal() + " - " + bll.ConfigBLL.getMaxAgeGerenal() + " tuối");
+        txtLimitCurrent.setText("Giới hạn chung hiện tại: " + bll.ConfigBLL.getMinAgeStudent() + " - " + bll.ConfigBLL.getMaxAgeStudent() + " tuối");
         listGrade.setModel(bll.ConfigBLL.addAllClassToTree());
     }
 
@@ -214,6 +215,7 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
 
     private void txtMinAgeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMinAgeKeyTyped
         if (!HelperBLL.IsInteger(Character.toString(evt.getKeyChar()))) {
+            JOptionPane.showMessageDialog(this, "Tuối phải là số nguyên", "Lỗi", JOptionPane.WARNING_MESSAGE);
             evt.consume();
         }
         txtStatus.setText("");
@@ -221,6 +223,7 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
 
     private void txtMaxAgeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaxAgeKeyTyped
         if (!HelperBLL.IsInteger(Character.toString(evt.getKeyChar()))) {
+            JOptionPane.showMessageDialog(this, "Tuối phải là số nguyên", "Lỗi", JOptionPane.WARNING_MESSAGE);
             evt.consume();
         }
         txtStatus.setText("");
@@ -240,27 +243,13 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
 
         txtStatus.setText("Bắt đầu lưu...");
 
-        dto.Cauhinh chToiTieu = new dal.CauHinhDAL().getByName("tuoiToiTieuDauVao");
-        dto.Cauhinh chToiDa = new dal.CauHinhDAL().getByName("tuoiToiDaDauVao");
-
         txtStatus.setText("Đã nhận giá trị cũ...");
 
         if (cbxApplyAll.isSelected()) {
-            if (chToiTieu != null && chToiDa != null) {
-                chToiDa.setGiaTri(txtMaxAge.getText());
-
-                if (new dal.CauHinhDAL().update(chToiDa)) {
-                    txtStatus.setText("Cập nhật thành công tuổi tối đa đầu vào của trường.");
-                }
-
-                chToiTieu.setGiaTri(txtMinAge.getText());
-                if (new dal.CauHinhDAL().update(chToiTieu)) {
-                    txtStatus.setText("Cập nhật thành công tuối tối tiểu đầu vào của trường.");
-                }
-
-            } else if (new dal.CauHinhDAL().add(new dto.Cauhinh("tuoiToiTieuDauVao", "minAge", txtMinAge.getText(), "Tuổi tối tiểu vào trường", null, null, null)) > 0
-                    && new dal.CauHinhDAL().add(new dto.Cauhinh("tuoiToiDaDauVao", "maxAge", txtMaxAge.getText(), "Tuổi tối đa vào trường", null, null, null)) > 0) {
+            if (bll.ConfigBLL.saveLimitAgeGerenal(txtMinAge.getText(), txtMaxAge.getText())) {
                 txtStatus.setText("Lưu thành công tuổi tối đa/tối tiếu đầu vào của trường.");
+            } else {
+                txtStatus.setText("Lỗi khi lưu giới hạn tuối của hoc sinh.");
             }
         }
 
@@ -269,46 +258,8 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
 
             List list_selected = listGrade.getSelectedValuesList();
 
-            for (Object o : list_selected) {
-                String select_string = o.toString().split(" ~` ")[0];
-                dto.Lop lop = new dal.LopDAL().getByTen(select_string);
+            if (bll.ConfigBLL.saveLimitAgeAcoordingToGrade(list_selected, txtMinAge.getText(), txtMaxAge.getText())) {
 
-                if (lop != null) {
-                    txtStatus.setText("Bắt đầu lưu giới hạn tuối của lớp " + lop.getTenLop());
-                }
-
-                if (lop != null && !HasConfigAge(lop.getCauhinhs())) { // dung ra la xet co xet co gioi han tuoi chua
-                    Set<dto.Lop> set= new HashSet();
-                    set.add(lop);
-                    dto.Cauhinh chToiTieuIndex = new dto.Cauhinh("tuoiToiTieuVaoLop", "minAge", txtMinAge.getText(), "Tuổi tối tiểu vào lớp", null, set, null);
-                    dto.Cauhinh chToiDaIndex = new dto.Cauhinh("tuoiToiDaVaoLop", "maxAge", txtMaxAge.getText(), "Tuổi tối đa vào lớp", null, set, null);
-                    
-                    if (new dal.CauHinhDAL().add(chToiDaIndex)>0) {
-                        txtStatus.setText("Đã lưu giới hạn tuối ở lớp " + lop.getTenLop());
-                    }
-                    if (new dal.CauHinhDAL().add(chToiTieuIndex)>0) {
-                        txtStatus.setText("Đã lưu giới hạn tuối ở lớp " + lop.getTenLop());
-                    }
-                } else if (lop != null) {
-                    for (dto.Cauhinh next : lop.getCauhinhs()) {
-                        switch (next.getLoaiThuocTinh()) {
-                            case "minAgeToClass":
-                                lop.getCauhinhs().remove(next);
-                                next.setGiaTri(txtMinAge.getText());
-                                lop.getCauhinhs().add(next);
-                                break;
-                            case "maxAgeToClass":
-                                lop.getCauhinhs().remove(next);
-                                next.setGiaTri(txtMaxAge.getText());
-                                lop.getCauhinhs().add(next);
-                                break;
-                        }
-                    }
-
-                    if (new dal.LopDAL().update(lop)) {
-                        txtStatus.setText("Cập nhật thành công giới hạn tuối của lớp " + lop.getTenLop());
-                    }
-                }
             }
         }
 
