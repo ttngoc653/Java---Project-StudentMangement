@@ -279,40 +279,41 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
 
 //        int SiSoToiDa = Integer.parseInt(new CauHinhDAL().getByName("SiSoToiDa").getGiaTri());
-        int SiSoToiDa = getMaxStudent();
-        JOptionPane.showMessageDialog(null, SiSoToiDa);
-//        String ThongTinHocSinh = this.cboMSHS.getSelectedItem().toString();                   // MSHS - Họ tên học sinh 
-//        String[] thongTinHs = ThongTinHocSinh.split(" - "); //Cắt tách chuỗi theo kí tự " - " // => [0] - [1]
-//        int idHS = Integer.parseInt(thongTinHs[0]);
-//        Hocsinh hocsinh = new HocsinhDAL().getById(idHS);
-//
-//        String tenLop = this.cboTenLop.getSelectedItem().toString();
-//        Lop lop = new LopDAL().getByTen(tenLop);
-//        int idLop = lop.getIdLop();
-//
-//        String tenNamHoc = this.cboNamHoc.getSelectedItem().toString();
-//        Namhoc namhoc = new NamhocDAL().getByTen(tenNamHoc);
-//        int idNamHoc = namhoc.getIdNamHoc();
-//
-//        HocsinhLophoc a = new HocsinhLophoc();
-//        a.setHocsinh(hocsinh);
-//        a.setLop(lop);
-//        a.setNamhoc(namhoc);
-//
-//        if (findStudentByNamHocLop(idHS, namhoc, lop)) {
-//            JOptionPane.showMessageDialog(null, "MSHS " + idHS + " đã thuộc lớp " + tenLop + " - năm học " + tenNamHoc);
-//        } else if (checkMaximumStudentInClass(idNamHoc, idLop, SiSoToiDa)) {
-//            JOptionPane.showMessageDialog(null, "Lớp này đã đủ sỉ số: " + SiSoToiDa + " học sinh");
-//        } else if (findStudentByNamHoc(idHS, namhoc)) {
-//            JOptionPane.showMessageDialog(null, "Trong 1 năm học sinh chỉ được học 1 lớp duy nhất");
-//        } else {
-//            if (new HocsinhLophocDAL().add(a) != null) {
-//                JOptionPane.showMessageDialog(null, "Xếp lớp cho học sinh thành công");
-//                LoadData();
-//            } else {
-//                JOptionPane.showMessageDialog(null, "Xếp lớp cho học sinh thất bại");
-//            }
-//        }
+        int SiSoToiDa = getMaxStudent();     
+        //JOptionPane.showMessageDialog(null, SiSoToiDa);
+        
+        String ThongTinHocSinh = this.cboMSHS.getSelectedItem().toString();                   // MSHS - Họ tên học sinh 
+        String[] thongTinHs = ThongTinHocSinh.split(" - "); //Cắt tách chuỗi theo kí tự " - " // => [0] - [1]
+        int idHS = Integer.parseInt(thongTinHs[0]);
+        Hocsinh hocsinh = new HocsinhDAL().getById(idHS);
+
+        String tenLop = this.cboTenLop.getSelectedItem().toString();
+        Lop lop = new LopDAL().getByTen(tenLop);
+        int idLop = lop.getIdLop();
+
+        String tenNamHoc = this.cboNamHoc.getSelectedItem().toString();
+        Namhoc namhoc = new NamhocDAL().getByTen(tenNamHoc);
+        int idNamHoc = namhoc.getIdNamHoc();
+
+        HocsinhLophoc a = new HocsinhLophoc();
+        a.setHocsinh(hocsinh);
+        a.setLop(lop);
+        a.setNamhoc(namhoc);
+
+        if (findStudentByNamHocLop(idHS, namhoc, lop)) {
+            JOptionPane.showMessageDialog(null, "MSHS " + idHS + " đã thuộc lớp " + tenLop + " - năm học " + tenNamHoc);
+        } else if (checkMaximumStudentInClass(idNamHoc, idLop, SiSoToiDa)) {
+            JOptionPane.showMessageDialog(null, "Lớp này đã đủ sỉ số: " + SiSoToiDa + " học sinh");
+        } else if (findStudentByNamHoc(idHS, namhoc)) {
+            JOptionPane.showMessageDialog(null, "Trong 1 năm học sinh chỉ được học 1 lớp duy nhất");
+        } else {
+            if (new HocsinhLophocDAL().add(a) != null) {
+                JOptionPane.showMessageDialog(null, "Xếp lớp cho học sinh thành công");
+                LoadData();
+            } else {
+                JOptionPane.showMessageDialog(null, "Xếp lớp cho học sinh thất bại");
+            }
+        }
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed

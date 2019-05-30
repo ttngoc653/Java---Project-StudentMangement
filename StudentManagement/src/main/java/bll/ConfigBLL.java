@@ -62,9 +62,6 @@ public class ConfigBLL {
 
     public static Integer getMinAgeStudent() {
         cauhinh = new dal.CauHinhDAL().getByName("tuoiToiTieuDauVao");
-<<<<<<< HEAD
-        return cauhinh != null ? Integer.valueOf(cauhinh.getGiaTri()) : 15;
-=======
         try {
             if (cauhinh!=null) {
                 return Integer.valueOf(cauhinh.getGiaTri());
@@ -72,7 +69,6 @@ public class ConfigBLL {
         } catch (Exception e) {
         }
         return 15;
->>>>>>> 77294cf01c852cead3f2f9afd892e1baf5c5e9b2
     }
 
     public static Integer getMinAgeStudent(dto.Lop lop) {
