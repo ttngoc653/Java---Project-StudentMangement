@@ -10,11 +10,7 @@ import dto.Cauhinh;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreePath;
 
 /**
  *
@@ -51,6 +47,7 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
         txtStatus = new javax.swing.JLabel();
         jScrollPane = new javax.swing.JScrollPane();
         listGrade = new javax.swing.JList();
+        txtLimitCurrent = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(380, 400));
         addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -90,12 +87,14 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
             }
         });
 
+        txtMinAge.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtMinAge.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtMinAgeKeyTyped(evt);
             }
         });
 
+        txtMaxAge.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtMaxAge.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtMaxAgeKeyTyped(evt);
@@ -119,7 +118,14 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
+        listGrade.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listGradeMouseClicked(evt);
+            }
+        });
         jScrollPane.setViewportView(listGrade);
+
+        txtLimitCurrent.setText("Status");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -135,21 +141,22 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(cbxApplyAll)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtMinAge, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                            .addComponent(txtMaxAge)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtMinAge, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
-                                    .addComponent(txtMaxAge)))
-                            .addComponent(txtStatus))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                            .addComponent(txtStatus)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(cbxApplyAll))
+                            .addComponent(txtLimitCurrent))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(24, 24, 24)
@@ -170,6 +177,7 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
                             .addComponent(txtMinAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -177,9 +185,11 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(txtMaxAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtLimitCurrent, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
                         .addComponent(cbxApplyAll)
-                        .addGap(58, 58, 58)
+                        .addGap(32, 32, 32)
                         .addComponent(txtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -188,11 +198,16 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void refresh() {
+        txtLimitCurrent.setText("Giới hạn hiện tại: " + bll.ConfigBLL.getMinAgeGerenal() + " - " + bll.ConfigBLL.getMaxAgeGerenal() + " tuối");
+        listGrade.setModel(bll.ConfigBLL.addAllClassToTree());
+    }
+
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         txtStatus.setText("");
-        
-        listGrade.setModel(bll.ConfigBLL.addAllClassToTree());
-        
+
+        refresh();
+
         listGrade.setEnabled(ckbApply.isSelected());
         cbxApplyAll.setSelected(true);
     }//GEN-LAST:event_formComponentShown
@@ -220,57 +235,58 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
             txtStatus.setText("Tuối tối tiểu hoặc tuối tối đa không hợp lệ.");
             return;
         }
-        
+
         disableAllControl();
-        
+
         txtStatus.setText("Bắt đầu lưu...");
-        
+
         dto.Cauhinh chToiTieu = new dal.CauHinhDAL().getByName("tuoiToiTieuDauVao");
         dto.Cauhinh chToiDa = new dal.CauHinhDAL().getByName("tuoiToiDaDauVao");
-        
+
         txtStatus.setText("Đã nhận giá trị cũ...");
-        
+
         if (cbxApplyAll.isSelected()) {
             if (chToiTieu != null && chToiDa != null) {
                 chToiDa.setGiaTri(txtMaxAge.getText());
-                
+
                 if (new dal.CauHinhDAL().update(chToiDa)) {
                     txtStatus.setText("Cập nhật thành công tuổi tối đa đầu vào của trường.");
                 }
-                
+
                 chToiTieu.setGiaTri(txtMinAge.getText());
                 if (new dal.CauHinhDAL().update(chToiTieu)) {
                     txtStatus.setText("Cập nhật thành công tuối tối tiểu đầu vào của trường.");
                 }
-                
+
             } else if (new dal.CauHinhDAL().add(new dto.Cauhinh("tuoiToiTieuDauVao", "minAge", txtMinAge.getText(), "Tuổi tối tiểu vào trường", null, null, null)) > 0
-                    && new dal.CauHinhDAL().add(new dto.Cauhinh("tuoiToiDaDauVao", "maxAge", txtMaxAge.getText(), "Tuổi tối đa khi vào trường", null, null, null)) > 0) {
+                    && new dal.CauHinhDAL().add(new dto.Cauhinh("tuoiToiDaDauVao", "maxAge", txtMaxAge.getText(), "Tuổi tối đa vào trường", null, null, null)) > 0) {
                 txtStatus.setText("Lưu thành công tuổi tối đa/tối tiếu đầu vào của trường.");
             }
         }
-        
+
         if (ckbApply.isSelected()) {
             txtStatus.setText("Bắt đầu lưu giới hạn tuổi theo lớp...");
-            
-            List list_selected= listGrade.getSelectedValuesList();
-            
+
+            List list_selected = listGrade.getSelectedValuesList();
+
             for (Object o : list_selected) {
-                String select_string=o.toString().split(" ~` ")[0];
+                String select_string = o.toString().split(" ~` ")[0];
                 dto.Lop lop = new dal.LopDAL().getByTen(select_string);
-                
+
                 if (lop != null) {
                     txtStatus.setText("Bắt đầu lưu giới hạn tuối của lớp " + lop.getTenLop());
                 }
-                
-                if (lop != null && HasConfigAge(lop.getCauhinhs())) { // dung ra la xet co xet co gioi han tuoi chua
-                    dto.Cauhinh chToiTieuIndex = new dto.Cauhinh("tuoiToiTieuVaoLop", "minAge", txtMinAge.getText(), "Tuổi tối tiểu vào lớp", null, null, null);
-                    dto.Cauhinh chToiDaIndex = new dto.Cauhinh("tuoiToiDaVaoLop", "maxAge", txtMaxAge.getText(), "Tuổi tối đa vào lớp", null, null, null);
-                    Set<dto.Cauhinh> cauhinhss = new HashSet<>();
-                    cauhinhss.add(chToiDaIndex);
-                    cauhinhss.add(chToiTieuIndex);
-                    lop.setCauhinhs(cauhinhss);
+
+                if (lop != null && !HasConfigAge(lop.getCauhinhs())) { // dung ra la xet co xet co gioi han tuoi chua
+                    Set<dto.Lop> set= new HashSet();
+                    set.add(lop);
+                    dto.Cauhinh chToiTieuIndex = new dto.Cauhinh("tuoiToiTieuVaoLop", "minAge", txtMinAge.getText(), "Tuổi tối tiểu vào lớp", null, set, null);
+                    dto.Cauhinh chToiDaIndex = new dto.Cauhinh("tuoiToiDaVaoLop", "maxAge", txtMaxAge.getText(), "Tuổi tối đa vào lớp", null, set, null);
                     
-                    if (new dal.LopDAL().update(lop)) {
+                    if (new dal.CauHinhDAL().add(chToiDaIndex)>0) {
+                        txtStatus.setText("Đã lưu giới hạn tuối ở lớp " + lop.getTenLop());
+                    }
+                    if (new dal.CauHinhDAL().add(chToiTieuIndex)>0) {
                         txtStatus.setText("Đã lưu giới hạn tuối ở lớp " + lop.getTenLop());
                     }
                 } else if (lop != null) {
@@ -288,18 +304,27 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
                                 break;
                         }
                     }
-                    
+
                     if (new dal.LopDAL().update(lop)) {
                         txtStatus.setText("Cập nhật thành công giới hạn tuối của lớp " + lop.getTenLop());
                     }
                 }
             }
         }
-        
+
         txtStatus.setText("Hoàn tất áp dụng.");
-        
+
+        refresh();
+
         enableAllControl();
+
     }//GEN-LAST:event_btnApplyActionPerformed
+
+    private void listGradeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listGradeMouseClicked
+        if (SwingUtilities.isRightMouseButton(evt)) {
+            bll.ConfigBLL.deleteOwnConfig(evt.getPoint(), "tuoiVaoLop", listGrade);
+        }
+    }//GEN-LAST:event_listGradeMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnApply;
@@ -312,10 +337,12 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JList listGrade;
+    private javax.swing.JLabel txtLimitCurrent;
     private javax.swing.JTextField txtMaxAge;
     private javax.swing.JTextField txtMinAge;
     private javax.swing.JLabel txtStatus;
     // End of variables declaration//GEN-END:variables
+    private javax.swing.JPopupMenu menuDelete;
 
     private boolean HasConfigAge(Set<Cauhinh> cauhinhs) {
         int check = 0;
@@ -331,7 +358,7 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
         }
         return check == 2;
     }
-    
+
     private void disableAllControl() {
         txtMaxAge.setEnabled(false);
         txtMinAge.setEnabled(false);
@@ -340,7 +367,7 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
         ckbApply.setEnabled(false);
         jScrollPane.setEnabled(false);
     }
-    
+
     private void enableAllControl() {
         txtMaxAge.setEnabled(true);
         txtMinAge.setEnabled(true);

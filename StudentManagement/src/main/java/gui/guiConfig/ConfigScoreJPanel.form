@@ -124,6 +124,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtScoreNew">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+          </Properties>
           <Events>
             <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtScoreNewFocusLost"/>
             <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtScoreNewKeyTyped"/>

@@ -56,6 +56,8 @@ public class LopDAL {
             n.setKhoi(p.getKhoi());
             n.setTenLop(p.getTenLop());
             n.setTinhTrang(p.getTinhTrang());
+            n.setCauhinhs(p.getCauhinhs());
+            n.setHocsinhLophocs(p.getHocsinhLophocs());
 
             session.update(n);
             tst.commit();
@@ -86,17 +88,15 @@ public class LopDAL {
         return result;
     }
 
-    
-    private String getTable(String where){
+    private String getTable(String where) {
         return "select distinct l "
-                    + "from Lop as l "
-                    + "left join fetch l.hocsinhLophocs hl "
-                    + "left join fetch l.cauhinhs ch "
-                +where
-                +" order by l.tenLop";
+                + "from Lop as l "
+                + "left join fetch l.hocsinhLophocs hl "
+                + "left join fetch l.cauhinhs ch "
+                + where
+                + " order by l.tenLop";
     }
 
-    
     @SuppressWarnings("unchecked")
     public List<Lop> getAll() {
         list = new ArrayList<Lop>();

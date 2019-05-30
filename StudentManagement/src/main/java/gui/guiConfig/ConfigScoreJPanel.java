@@ -74,6 +74,7 @@ public class ConfigScoreJPanel extends javax.swing.JPanel {
 
         jLabel7.setText("Điểm chuẩn mới:");
 
+        txtScoreNew.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtScoreNew.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtScoreNewFocusLost(evt);

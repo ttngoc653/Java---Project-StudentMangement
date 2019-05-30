@@ -120,6 +120,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtMaxCount">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+          </Properties>
           <Events>
             <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtMaxCountKeyTyped"/>
           </Events>
@@ -256,6 +259,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtMaxCountClass">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+          </Properties>
           <Events>
             <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtMaxCountClassKeyTyped"/>
           </Events>

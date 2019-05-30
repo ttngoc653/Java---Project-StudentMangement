@@ -65,6 +65,7 @@ public class ConfigClassJPanel extends javax.swing.JPanel {
 
         jLabel1.setText("Sỉ số tối đa:");
 
+        txtMaxCount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtMaxCount.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtMaxCountKeyTyped(evt);
@@ -147,6 +148,7 @@ public class ConfigClassJPanel extends javax.swing.JPanel {
 
         jLabel3.setText("Số lượng lớp tối đa:");
 
+        txtMaxCountClass.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtMaxCountClass.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtMaxCountClassKeyTyped(evt);
@@ -278,28 +280,13 @@ public class ConfigClassJPanel extends javax.swing.JPanel {
 
         //init panel max count student
         ckbNew.setSelected(true);
-        List<dto.Lop> lops = new dal.LopDAL().getByTinhTrang(Byte.parseByte("1"));
-        listClass.removeAll();
-        DefaultListModel model = new DefaultListModel();
-        for (Lop lop : lops) {
-            String only = bll.ConfigBLL.getValueMaxClassCurrent(lop.getCauhinhs());
-            model.addElement(lop.getTenLop() + (!only.equals("0") ? (" ~`AD riêng: " + only + " học sinh") : ""));
-        }
-        listClass.setModel(model);
-        listClass.setEnabled(ckbOld.isEnabled());
+        listClass.setModel(bll.ConfigBLL.getListGradeLimitStudent());
+        listClass.setEnabled(ckbOld.isSelected());
 
         //init panel max class
         ckbGeneral.setSelected(true);
-        listType.removeAll();
-        model = new DefaultListModel();
-        for (Lop lop : lops) {
-            dto.Cauhinh cauhinh = new dal.CauHinhDAL().getByNameDetail("Số lớp tối đa của khối ~` " + String.valueOf(lop.getKhoi()));
-            String stringConfig = String.valueOf(lop.getKhoi()) + (cauhinh != null ? (" ~` AD riêng là: " + cauhinh.getGiaTri() + " lớp") : "");
-            model.removeElement(stringConfig);
-            model.addElement(stringConfig);
-        }
-        listType.setModel(model);
-        listType.setEnabled(ckbType.isEnabled());
+        listType.setModel(bll.ConfigBLL.getListBlockLimitGrade());
+        listType.setEnabled(ckbType.isSelected());
     }//GEN-LAST:event_formComponentShown
 
     private void btnMaxSudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaxSudentActionPerformed
