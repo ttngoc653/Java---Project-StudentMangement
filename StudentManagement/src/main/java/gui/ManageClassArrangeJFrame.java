@@ -301,7 +301,9 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
         a.setNamhoc(namhoc);
         Integer namsinh = Integer.parseInt(hocsinh.getNgaySinh().substring(6)), maxAge = bll.ConfigBLL.getMaxAgeStudent(lop), minAge = bll.ConfigBLL.getMinAgeStudent(lop);
         if (minAge >= namsinh || namsinh >= maxAge) {
-            JOptionPane.showMessageDialog(null, "Đã quá giới hạn tuối cho phép để vào lớp.\nTuổi hiện tại là "+namsinh+"\nGiới hạn tuối của lớp từ "+minAge+" đến "+maxAge+" tuối.");
+            JOptionPane.showMessageDialog(null, "Đã quá giới hạn tuối cho phép để vào lớp.\n"
+                    + "Tuổi hiện tại của học sinh " + hocsinh.getIdHocSinh() + " - " + hocsinh.getHoTen() + " là " + namsinh + "\n"
+                    + "Giới hạn tuối của lớp " + lop.getTenLop() + " từ " + minAge + " đến " + maxAge + " tuối.");
         } else if (findStudentByNamHocLop(idHS, namhoc, lop)) {
             JOptionPane.showMessageDialog(null, "MSHS " + idHS + " đã thuộc lớp " + tenLop + " - năm học " + tenNamHoc);
         } else if (checkMaximumStudentInClass(idNamHoc, idLop, SiSoToiDa)) {

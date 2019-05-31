@@ -9,14 +9,14 @@ import dal.NamhocDAL;
 import dto.Hocky;
 import dto.Monhoc;
 import dto.Namhoc;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.SwingWorker;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -33,13 +33,18 @@ import net.sf.jasperreports.view.JasperViewer;
  */
 public class ReportJFrame extends javax.swing.JFrame {
 
+    public gui.LoadingDialog loading;
     public static Boolean openFrame = true;
+
     /**
      * Creates new form ReportFinalSubjectJFrame
      */
     public ReportJFrame() {
         initComponents();
-        
+    }
+
+    private void showLoading() {
+
     }
 
     /**
@@ -212,57 +217,96 @@ public class ReportJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_cbbSubjectPopupMenuWillBecomeVisible
 
     private void btnSummarySubjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSummarySubjectActionPerformed
-        if (cbbSchoolYear.getSelectedItem().toString().trim().isEmpty() || cbbSemester.getSelectedItem().toString().trim().isEmpty() || cbbSubject.getSelectedItem().toString().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn đủ thông tin!");
-            return;
-        }
-        List<Map<String, ?>> dataSource = new bll.ReportBLL().dataReportBySubject(cbbSubject.getSelectedItem().toString(), cbbSchoolYear.getSelectedItem().toString(), Integer.parseInt((String) cbbSemester.getSelectedItem().toString()));
-        if (dataSource.isEmpty()) {
-            JOptionPane.showMessageDialog(rootPane, "Môn " + cbbSubject.getSelectedItem().toString() + " ở học kỳ " + cbbSemester.getSelectedItem().toString() + " thuộc năm học " + cbbSchoolYear.getSelectedItem().toString() + " hiện tại chưa có lớp nào có điểm.");
-            return;
-        }
-        JRDataSource jrSource = new JRBeanCollectionDataSource(dataSource);
 
-        HashMap param = new HashMap();
-        param.put("subjectName", cbbSubject.getSelectedItem().toString());
-        param.put("semester", cbbSemester.getSelectedItem().toString());
-        param.put("schoolYear", cbbSchoolYear.getSelectedItem().toString());
+        final LoadingDialog loading = new LoadingDialog(this, rootPaneCheckingEnabled);
+        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+            @Override
+            protected void done() {
+                loading.dispose();
+            }
 
+            @Override
+            protected Void doInBackground() throws Exception {
+                if (cbbSchoolYear.getSelectedItem().toString().trim().isEmpty() || cbbSemester.getSelectedItem().toString().trim().isEmpty() || cbbSubject.getSelectedItem().toString().trim().isEmpty()) {
+                    JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn đủ thông tin!");
+                    return null;
+                }
+                List<Map<String, ?>> dataSource = new bll.ReportBLL().dataReportBySubject(cbbSubject.getSelectedItem().toString(), cbbSchoolYear.getSelectedItem().toString(), Integer.parseInt((String) cbbSemester.getSelectedItem().toString()));
+                if (dataSource.isEmpty()) {
+                    JOptionPane.showMessageDialog(rootPane, "Môn " + cbbSubject.getSelectedItem().toString() + " ở học kỳ " + cbbSemester.getSelectedItem().toString() + " thuộc năm học " + cbbSchoolYear.getSelectedItem().toString() + " hiện tại chưa có lớp nào có điểm.");
+                    return null;
+                }
+                JRDataSource jrSource = new JRBeanCollectionDataSource(dataSource);
+
+                HashMap param = new HashMap();
+                param.put("subjectName", cbbSubject.getSelectedItem().toString());
+                param.put("semester", cbbSemester.getSelectedItem().toString());
+                param.put("schoolYear", cbbSchoolYear.getSelectedItem().toString());
+
+                try {
+                    JasperReport jR = JasperCompileManager.compileReport("src/main/java/gui/ReportFinalSubjectReport.jrxml");
+                    JasperPrint jP = JasperFillManager.fillReport(jR, param, jrSource);
+                    JasperExportManager.exportReportToPdf(jP);
+                    JasperViewer.viewReport(jP, false);
+                } catch (JRException ex) {
+                    ex.printStackTrace();
+                }
+                return null;
+            }
+        };
+        worker.execute();
+        loading.setVisible(true);
         try {
-            JasperReport jR = JasperCompileManager.compileReport("src/main/java/gui/ReportFinalSubjectReport.jrxml");
-            JasperPrint jP = JasperFillManager.fillReport(jR, param, jrSource);
-            JasperExportManager.exportReportToPdf(jP);
-            JasperViewer.viewReport(jP,false);
-        } catch (JRException ex) {
-            ex.printStackTrace();
+            worker.get();
+        } catch (InterruptedException | ExecutionException e1) {
+            e1.printStackTrace();
         }
     }//GEN-LAST:event_btnSummarySubjectActionPerformed
 
     private void btnSummarySemesterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSummarySemesterActionPerformed
-        
-        if (cbbSchoolYear.getSelectedItem().toString().trim().isEmpty() || cbbSemester.getSelectedItem().toString().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn đủ thông tin!");
-            return;
-        }
-        List<Map<String, ?>> dataSource = new bll.ReportBLL().dataReportBySemester(cbbSchoolYear.getSelectedItem().toString(), Integer.parseInt((String) cbbSemester.getSelectedItem().toString()));
-        if (dataSource.isEmpty()) {
-            JOptionPane.showMessageDialog(rootPane, "Học kỳ " + cbbSemester.getSelectedItem().toString() + " thuộc năm học " + cbbSchoolYear.getSelectedItem().toString() + " này hiện tại chưa có lớp nào điểm.");
-            return;
-        }
-        JRDataSource jrSource = new JRBeanCollectionDataSource(dataSource);
+        final LoadingDialog loading = new LoadingDialog(this, rootPaneCheckingEnabled);
+        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+            @Override
+            protected void done() {
+                loading.dispose();
+            }
 
-        HashMap param = new HashMap();
-        param.put("semester", cbbSemester.getSelectedItem().toString());
-        param.put("schoolYear", cbbSchoolYear.getSelectedItem().toString());
+            @Override
+            protected Void doInBackground() throws Exception {
+                if (cbbSchoolYear.getSelectedItem().toString().trim().isEmpty() || cbbSemester.getSelectedItem().toString().trim().isEmpty()) {
+                    JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn đủ thông tin!");
+                    return null;
+                }
+                List<Map<String, ?>> dataSource = new bll.ReportBLL().dataReportBySemester(cbbSchoolYear.getSelectedItem().toString(), Integer.parseInt((String) cbbSemester.getSelectedItem().toString()));
+                if (dataSource.isEmpty()) {
+                    JOptionPane.showMessageDialog(rootPane, "Học kỳ " + cbbSemester.getSelectedItem().toString() + " thuộc năm học " + cbbSchoolYear.getSelectedItem().toString() + " này hiện tại chưa có lớp nào điểm.");
+                    return null;
+                }
+                JRDataSource jrSource = new JRBeanCollectionDataSource(dataSource);
 
+                HashMap param = new HashMap();
+                param.put("semester", cbbSemester.getSelectedItem().toString());
+                param.put("schoolYear", cbbSchoolYear.getSelectedItem().toString());
+
+                try {
+                    JasperReport jR = JasperCompileManager.compileReport("src/main/java/gui/ReportFinalSemesterReport.jrxml");
+                    JasperPrint jP = JasperFillManager.fillReport(jR, param, jrSource);
+                    JasperExportManager.exportReportToPdf(jP);
+                    JasperViewer.viewReport(jP, false);
+                } catch (JRException ex) {
+                    ex.printStackTrace();
+                }
+                return null;
+            }
+        };
+        worker.execute();
+        loading.setVisible(true);
         try {
-            JasperReport jR = JasperCompileManager.compileReport("src/main/java/gui/ReportFinalSemesterReport.jrxml");
-            JasperPrint jP = JasperFillManager.fillReport(jR, param, jrSource);
-            JasperExportManager.exportReportToPdf(jP);
-            JasperViewer.viewReport(jP,false);
-        } catch (JRException ex) {
-            ex.printStackTrace();
+            worker.get();
+        } catch (InterruptedException | ExecutionException e1) {
+            e1.printStackTrace();
         }
+
     }//GEN-LAST:event_btnSummarySemesterActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
