@@ -534,8 +534,8 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
 
     private void jTableHocSinhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableHocSinhMouseClicked
 
-        String tenHS = this.jTableHocSinh.getValueAt(this.jTableHocSinh.getSelectedRow(), 1).toString();
-        Hocsinh a = new HocsinhDAL().getByName(tenHS);
+        int idHS = Integer.parseInt(this.jTableHocSinh.getValueAt(this.jTableHocSinh.getSelectedRow(), 0).toString());
+        Hocsinh a = new HocsinhDAL().getById(idHS);
 
         this.txtMSHS.setText(a.getIdHocSinh().toString());
         this.txtHoTen.setText(a.getHoTen());

@@ -1,11 +1,13 @@
 package gui;
 
 import static bll.ConfigBLL.getMaxStudent;
+import static bll.HocsinhBLL.dateFormat;
 import static bll.HocsinhLopHocBLL.*;
 import dal.*;
 import dto.*;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.Date;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -299,17 +301,25 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
         a.setHocsinh(hocsinh);
         a.setLop(lop);
         a.setNamhoc(namhoc);
+
         Integer namsinh = Integer.parseInt(hocsinh.getNgaySinh().substring(6)), maxAge = bll.ConfigBLL.getMaxAgeStudent(lop), minAge = bll.ConfigBLL.getMinAgeStudent(lop);
-        if (minAge >= namsinh || namsinh >= maxAge) {
-            JOptionPane.showMessageDialog(null, "Đã quá giới hạn tuối cho phép để vào lớp.\n"
-                    + "Tuổi hiện tại của học sinh " + hocsinh.getIdHocSinh() + " - " + hocsinh.getHoTen() + " là " + namsinh + "\n"
-                    + "Giới hạn tuối của lớp " + lop.getTenLop() + " từ " + minAge + " đến " + maxAge + " tuối.");
-        } else if (findStudentByNamHocLop(idHS, namhoc, lop)) {
+        long millis = System.currentTimeMillis();
+        Date date = new java.sql.Date(millis);
+        String year1 = dateFormat.format(date).substring(6);
+        int year = Integer.parseInt(year1);
+        int tuoi = year - namsinh;
+
+        if (findStudentByNamHocLop(idHS, namhoc, lop)) {
             JOptionPane.showMessageDialog(null, "MSHS " + idHS + " đã thuộc lớp " + tenLop + " - năm học " + tenNamHoc);
         } else if (checkMaximumStudentInClass(idNamHoc, idLop, SiSoToiDa)) {
             JOptionPane.showMessageDialog(null, "Lớp này đã đủ sỉ số: " + SiSoToiDa + " học sinh");
         } else if (findStudentByNamHoc(idHS, namhoc)) {
             JOptionPane.showMessageDialog(null, "Trong 1 năm học sinh chỉ được học 1 lớp duy nhất");
+        }
+        else if (minAge >= tuoi || tuoi >= maxAge) {
+            JOptionPane.showMessageDialog(null, "Đã quá giới hạn tuối cho phép để vào lớp.\n"
+                    + "Tuổi hiện tại của học sinh " + hocsinh.getIdHocSinh() + " - " + hocsinh.getHoTen() + " là " + tuoi + "\n"
+                    + "Giới hạn tuối của lớp " + lop.getTenLop() + " từ " + minAge + " đến " + maxAge + " tuối.");
         } else {
             if (new HocsinhLophocDAL().add(a) != null) {
                 JOptionPane.showMessageDialog(null, "Xếp lớp cho học sinh thành công");
