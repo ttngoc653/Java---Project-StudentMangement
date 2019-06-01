@@ -282,34 +282,43 @@ public class ConfigClassJPanel extends javax.swing.JPanel {
         ckbNew.setSelected(true);
         listClass.setModel(bll.ConfigBLL.getListGradeLimitStudent());
         listClass.setEnabled(ckbOld.isSelected());
-
+        txtMaxCount.setText(bll.ConfigBLL.getMaxStudent().toString());
+        
         //init panel max class
         ckbGeneral.setSelected(true);
         listType.setModel(bll.ConfigBLL.getListBlockLimitGrade());
         listType.setEnabled(ckbType.isSelected());
+        txtMaxCountClass.setText(bll.ConfigBLL.getMaxGrade().toString());
     }//GEN-LAST:event_formComponentShown
 
     private void btnMaxSudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaxSudentActionPerformed
         if (txtMaxCount.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập số lượng học sinh tối đa.");
+            showError("Vui lòng nhập số lượng học sinh tối đa.");
+            return;
+        }else if (!bll.HelperBLL.IsInteger(txtMaxCount.getText())) {
+            showError("Sĩ số tối đa phải là số nguyên.");
             return;
         }
 
         // create or modify number of students of all class in school
         if (ckbNew.isSelected() && !bll.ConfigBLL.saveMaxSizeStudents(txtMaxCount.getText())) {
-            JOptionPane.showMessageDialog(this, "Áp dụng sỉ số tối đa thất bại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            showError("Áp dụng sỉ số tối đa thất bại.");
         }
 
         // create or modify maximun number of students acconding to class seleted in jlist
         if (ckbOld.isSelected() && !bll.ConfigBLL.saveMaxSizeStudentsAccordingToGrade(listClass.getSelectedValuesList(), txtMaxCount.getText())) {
             showError("Lưu sĩ số tối đa theo lớp thất bại.");
         }
-        JOptionPane.showMessageDialog(this, "Cập nhật sĩ số tối đa thành công.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        
+        formComponentShown(null);
     }//GEN-LAST:event_btnMaxSudentActionPerformed
 
     private void btnMaxCountClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaxCountClassActionPerformed
-        if (txtMaxCountClass.getText().isEmpty() && bll.HelperBLL.IsInteger(txtMaxCountClass.getText())) {
+        if (txtMaxCountClass.getText().isEmpty()) {
             showError("Vui lòng nhập số lượng lớp.");
+            return;
+        }else if (!bll.HelperBLL.IsInteger(txtMaxCountClass.getText())) {
+            showError("Số lượng lớp phải có giá trị số.");
             return;
         }
 
@@ -318,24 +327,22 @@ public class ConfigClassJPanel extends javax.swing.JPanel {
         }
 
         if (ckbType.isSelected()) {
-            List selectList = listType.getSelectedValuesList();
-
-            if (!bll.ConfigBLL.saveMaxSizeGradesAccordingToBlock(selectList, txtMaxCountClass.getText())) {
+            if (!bll.ConfigBLL.saveMaxSizeGradesAccordingToBlock( listType.getSelectedValuesList(), txtMaxCountClass.getText())) {
                 showError("Lưu số lớp tối đa theo khối thất bại");
             }
         }
     }//GEN-LAST:event_btnMaxCountClassActionPerformed
 
     private void txtMaxCountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaxCountKeyTyped
-        if (!bll.HelperBLL.IsInteger(txtMaxCount.getText() + evt.getKeyChar())) {
-            evt.consume();
-        }
+//        if (!bll.HelperBLL.IsInteger(txtMaxCount.getText() + evt.getKeyChar())) {
+//            //evt.consume();
+//        }
     }//GEN-LAST:event_txtMaxCountKeyTyped
 
     private void txtMaxCountClassKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaxCountClassKeyTyped
-        if (!bll.HelperBLL.IsInteger(txtMaxCountClass.getText() + evt.getKeyChar())) {
-            evt.consume();
-        }
+//        if (!bll.HelperBLL.IsInteger(txtMaxCountClass.getText() + evt.getKeyChar())) {
+//            evt.consume();
+//        }
     }//GEN-LAST:event_txtMaxCountClassKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

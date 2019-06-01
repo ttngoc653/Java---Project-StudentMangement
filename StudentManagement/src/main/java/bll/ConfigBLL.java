@@ -12,6 +12,7 @@ import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
+import javax.swing.ComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JPopupMenu;
 import javax.swing.ListModel;
@@ -536,4 +537,21 @@ public class ConfigBLL {
         return true;
     }
 
+    public static ListModel getListSubjectCastrate() {
+        List<Monhoc> ds = new dal.MonhocDAL().getByTinhTrang(false);
+        DefaultListModel ten = new DefaultListModel();
+        for (Monhoc mh : ds) {
+            ten.addElement(mh.getTenMh());
+        }
+        return ten;
+    }
+
+    public static ListModel getListSubjectTeaching() {
+        List<Monhoc> ds = new dal.MonhocDAL().getByTinhTrang(true);
+        DefaultListModel ten = new DefaultListModel();
+        for (Monhoc mh : ds) {
+            ten.addElement(mh.getTenMh());
+        }
+        return ten;
+    }
 }

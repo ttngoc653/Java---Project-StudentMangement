@@ -35,33 +35,19 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
     }
 
     void initCBXMonHoc() {
-        MonhocDAL mhDAL = new MonhocDAL();
-        List<Monhoc> ds = new ArrayList<Monhoc>();
-        ds = mhDAL.getAll();
+        List<Monhoc> ds =  new dal.MonhocDAL().getAll();
         cbbSubject.removeAllItems();
         for (Monhoc mh : ds) {
             cbbSubject.addItem(mh.getTenMh());
         }
-
     }
 
     void initTeaching() {
-        List<Monhoc> ds = new MonhocDAL().getByTinhTrang(true);
-        DefaultListModel ten = new DefaultListModel();
-        for (Monhoc mh : ds) {
-            ten.addElement(mh.getTenMh());
-        }
-        lTeaching.setModel(ten);
+        lTeaching.setModel(bll.ConfigBLL.getListSubjectTeaching());
     }
 
     void initCastrate() {
-
-        List<Monhoc> ds = new MonhocDAL().getByTinhTrang(false);
-        DefaultListModel ten = new DefaultListModel();
-        for (Monhoc mh : ds) {
-            ten.addElement(mh.getTenMh());
-        }
-        lCastrate.setModel(ten);
+        lCastrate.setModel(bll.ConfigBLL.getListSubjectCastrate());
     }
 
     /**
@@ -420,22 +406,25 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void txtNumMaxKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumMaxKeyTyped
-        if (!bll.HelperBLL.IsInteger(txtNumMax.getText() + evt.getKeyChar())) {
-            evt.consume();
-        }
+//        if (!bll.HelperBLL.IsInteger(txtNumMax.getText() + evt.getKeyChar())) {
+//            evt.consume();
+//        }
     }//GEN-LAST:event_txtNumMaxKeyTyped
 
     private void txtCoefficientKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCoefficientKeyTyped
-        if (!bll.HelperBLL.IsInteger(txtCoefficient.getText() + evt.getKeyChar())) {
-            evt.consume();
-        } else if (Integer.parseInt(txtCoefficient.getText() + evt.getKeyChar()) < 1) {
-            evt.consume();
-        }
+//        if (!bll.HelperBLL.IsInteger(txtCoefficient.getText() + evt.getKeyChar())) {
+//            evt.consume();
+//        } else if (Integer.parseInt(txtCoefficient.getText() + evt.getKeyChar()) < 1) {
+//            evt.consume();
+//        }
     }//GEN-LAST:event_txtCoefficientKeyTyped
 
     private void btnChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeActionPerformed
         if (txtNumMax.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(txtCoefficient, "Chua nhập số lượng môn");
+            JOptionPane.showMessageDialog(txtCoefficient, "Chua nhập số lượng môn.");
+            return;
+        }else if (!bll.HelperBLL.IsInteger(txtNumMax.getText())) {
+            JOptionPane.showMessageDialog(txtCoefficient, "Số lượng môn tối đa phải là số nguyên.");
             return;
         }
 

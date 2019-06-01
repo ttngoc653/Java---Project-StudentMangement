@@ -5,9 +5,7 @@
  */
 package gui.guiConfig;
 
-import dto.Cauhinh;
 import java.util.List;
-import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -283,9 +281,9 @@ public class ConfigScoreJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnApplyActionPerformed
 
     private void txtScoreNewKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtScoreNewKeyTyped
-        if (!bll.HelperBLL.IsDouble(txtScoreNew.getText() + evt.getKeyChar())) {
-            evt.consume();
-        }
+//        if (!bll.HelperBLL.IsDouble(txtScoreNew.getText() + evt.getKeyChar())) {
+//            evt.consume();
+//        }
     }//GEN-LAST:event_txtScoreNewKeyTyped
 
 

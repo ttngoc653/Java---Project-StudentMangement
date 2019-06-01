@@ -230,7 +230,7 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_ckbApplyActionPerformed
 
     private void btnApplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApplyActionPerformed
-        if (txtMaxAge.getText().isEmpty() && txtMinAge.getText().isEmpty()) {
+        if (txtMaxAge.getText().isEmpty() || txtMinAge.getText().isEmpty()) {
             txtStatus.setText("Tuối tối tiểu hoặc tuối tối đa không được bỏ trống.");
             return;
         }else if (!bll.HelperBLL.IsInteger(txtMinAge.getText())) {
