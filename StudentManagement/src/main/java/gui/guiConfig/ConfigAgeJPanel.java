@@ -197,6 +197,8 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
 
     private void refresh() {
         txtLimitCurrent.setText("Giới hạn chung hiện tại: " + bll.ConfigBLL.getMinAgeStudent() + " - " + bll.ConfigBLL.getMaxAgeStudent() + " tuối");
+        txtMinAge.setText(bll.ConfigBLL.getMinAgeStudent().toString());
+        txtMaxAge.setText(bll.ConfigBLL.getMaxAgeStudent().toString());
         listGrade.setModel(bll.ConfigBLL.addAllClassToTree());
     }
 
@@ -211,14 +213,14 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
 
     private void txtMinAgeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMinAgeKeyTyped
         if (!HelperBLL.IsInteger(Character.toString(evt.getKeyChar()))) {
-            evt.consume();
+            //evt.consume();
         }
         txtStatus.setText("");
     }//GEN-LAST:event_txtMinAgeKeyTyped
 
     private void txtMaxAgeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaxAgeKeyTyped
         if (!HelperBLL.IsInteger(Character.toString(evt.getKeyChar()))) {
-            evt.consume();
+            //evt.consume();
         }
         txtStatus.setText("");
     }//GEN-LAST:event_txtMaxAgeKeyTyped
@@ -229,7 +231,16 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
 
     private void btnApplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApplyActionPerformed
         if (txtMaxAge.getText().isEmpty() && txtMinAge.getText().isEmpty()) {
-            txtStatus.setText("Tuối tối tiểu hoặc tuối tối đa không hợp lệ.");
+            txtStatus.setText("Tuối tối tiểu hoặc tuối tối đa không được bỏ trống.");
+            return;
+        }else if (!bll.HelperBLL.IsInteger(txtMinAge.getText())) {
+            txtStatus.setText("Tuối tối tiểu phải là giá trị số nguyên.");            
+            return;
+        }else if (!bll.HelperBLL.IsInteger(txtMaxAge.getText())) {
+            txtStatus.setText("Tuối tối đa phải là giá trị số nguyên.");            
+            return;
+        }else if (Integer.parseInt(txtMaxAge.getText())<Integer.parseInt(txtMinAge.getText())) {
+            txtStatus.setText("Tuối tối đa phải lớn hơn tuối tối tiểu.");            
             return;
         }
 

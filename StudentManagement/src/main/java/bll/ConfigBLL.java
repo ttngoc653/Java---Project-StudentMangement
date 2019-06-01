@@ -315,7 +315,7 @@ public class ConfigBLL {
 
         for (Lop list_lop1 : list_lop) {
             String stringItem = list_lop1.getTenLop();
-            Integer maxAge = null, minAge = null;
+            Integer maxAge = getMinAgeStudentNull(list_lop1), minAge = getMaxAgeStudentNull(list_lop1);
             if (maxAge != null && minAge != null) {
                 stringItem += " ~` AD riêng: ";
                 if (minAge != null) {
