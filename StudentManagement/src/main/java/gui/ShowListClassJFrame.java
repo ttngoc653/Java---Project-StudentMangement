@@ -29,6 +29,10 @@ public class ShowListClassJFrame extends javax.swing.JFrame {
      */
     public ShowListClassJFrame() {
         initComponents();
+        
+        java.awt.Dimension dim =java.awt. Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
+        
         LoadCbo();
     }
 
@@ -36,6 +40,10 @@ public class ShowListClassJFrame extends javax.swing.JFrame {
 
     public ShowListClassJFrame(Nguoidung nguoidung) {
         initComponents();
+        
+        java.awt.Dimension dim =java.awt. Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
+        
         nd = nguoidung;
         lblTenTaiKhoan.setText(nd.getHoTen());
         LoadCbo();
@@ -67,11 +75,11 @@ public class ShowListClassJFrame extends javax.swing.JFrame {
         jTableDanhSachLop = new javax.swing.JTable();
         lblTenTaiKhoan = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        cboNamHoc = new javax.swing.JComboBox<>();
+        cboNamHoc = new javax.swing.JComboBox<String>();
         jLabel6 = new javax.swing.JLabel();
         btnXem = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        cboTenLop = new javax.swing.JComboBox<>();
+        cboTenLop = new javax.swing.JComboBox<String>();
         txtTenLop = new javax.swing.JTextField();
         txtSiSo = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();

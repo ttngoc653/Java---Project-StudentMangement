@@ -28,6 +28,10 @@ public class EditUserFrame extends javax.swing.JFrame {
      */
     public EditUserFrame() {
         initComponents();
+        
+        java.awt.Dimension dim =java.awt. Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
+        
         init();
         this.setLocationRelativeTo(this);
     }
@@ -35,6 +39,10 @@ public class EditUserFrame extends javax.swing.JFrame {
 
     public EditUserFrame(int idUser) {
         initComponents();
+        
+        java.awt.Dimension dim =java.awt. Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
+        
         nd = new NguoidungDAL().getById(idUser);
         if (nd == null) {
             JOptionPane.showMessageDialog(OKBT, "Khong ton tai nguoi dung");

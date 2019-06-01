@@ -5,6 +5,8 @@
  */
 package gui;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -15,6 +17,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class ConfigJFrame extends javax.swing.JFrame {
 
     public static Boolean openFrame = true;
+
     /**
      * Creates new form ConfigJFrame
      */
@@ -24,18 +27,21 @@ public class ConfigJFrame extends javax.swing.JFrame {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
             ex.printStackTrace();
         }
-       /* try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("CDE/Motif".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(ConfigJFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+        /* try {
+         for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+         if ("CDE/Motif".equals(info.getName())) {
+         javax.swing.UIManager.setLookAndFeel(info.getName());
+         break;
+         }
+         }
+         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+         Logger.getLogger(ConfigJFrame.class.getName()).log(Level.SEVERE, null, ex);
+         }*/
 
         initComponents();
+        
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
     }
 
     /**
@@ -97,12 +103,12 @@ public class ConfigJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_formComponentResized
 
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
-       
+
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         openFrame = true;
-        
+
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
@@ -111,7 +117,7 @@ public class ConfigJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        
+
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {

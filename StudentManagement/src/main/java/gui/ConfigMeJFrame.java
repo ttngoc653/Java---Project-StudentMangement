@@ -1,9 +1,7 @@
 package gui;
 
 import dal.CauHinhDAL;
-import dal.LopDAL;
 import dto.Cauhinh;
-import dto.Lop;
 import dto.Nguoidung;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -29,6 +27,10 @@ public class ConfigMeJFrame extends javax.swing.JFrame {
 
     public ConfigMeJFrame(Nguoidung nguoidung) {
         initComponents();
+        
+        java.awt.Dimension dim =java.awt. Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
+        
         nd = nguoidung;
         lblTenTaiKhoan.setText(nd.getHoTen());
         LoadData();

@@ -15,12 +15,20 @@ public class ManageMainJFrame extends javax.swing.JFrame {
      */
     public ManageMainJFrame() {
         initComponents();
+        
+        java.awt.Dimension dim =java.awt. Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
+        
     }
 
     dto.Nguoidung nd;
 
     public ManageMainJFrame(Nguoidung nguoidung) {
         initComponents();
+        
+        java.awt.Dimension dim =java.awt. Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
+        
         nd = nguoidung;
         lblTenTaiKhoan.setText(nd.getHoTen());
 

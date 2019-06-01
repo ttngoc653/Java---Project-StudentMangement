@@ -19,6 +19,10 @@ public class ManageClassJFrame extends javax.swing.JFrame {
      */
     public ManageClassJFrame() {
         initComponents();
+        
+        java.awt.Dimension dim =java.awt. Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
+        
         LoadData();
     }
 
@@ -26,6 +30,10 @@ public class ManageClassJFrame extends javax.swing.JFrame {
 
     public ManageClassJFrame(Nguoidung nguoidung) {
         initComponents();
+        
+        java.awt.Dimension dim =java.awt. Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
+        
         nd = nguoidung;
         lblTenTaiKhoan.setText(nd.getHoTen());
         LoadData();

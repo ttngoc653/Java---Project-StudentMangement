@@ -29,6 +29,10 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
     public ManageStudentJFrame() {
         //setUndecorated(true); //Bỏ khung viền tiêu đề frame (bỏ 3 nút trên cùng bên phải)
         initComponents();
+        
+        java.awt.Dimension dim =java.awt. Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
+        
         LoadData();
     }
 
@@ -36,6 +40,10 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
 
     public ManageStudentJFrame(Nguoidung nguoidung) {
         initComponents();
+        
+        java.awt.Dimension dim =java.awt. Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
+        
         nd = nguoidung;
         lblTenTaiKhoan.setText(nd.getHoTen());
 
