@@ -33,6 +33,7 @@ public class ConfigClassJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtMaxCount = new javax.swing.JTextField();
@@ -49,8 +50,8 @@ public class ConfigClassJPanel extends javax.swing.JPanel {
         jScrollPane3 = new javax.swing.JScrollPane();
         listType = new javax.swing.JList();
         jLabel5 = new javax.swing.JLabel();
-        ckbGeneral = new javax.swing.JCheckBox();
-        ckbType = new javax.swing.JCheckBox();
+        rdbGerenal = new javax.swing.JRadioButton();
+        rdbType = new javax.swing.JRadioButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
 
@@ -105,7 +106,7 @@ public class ConfigClassJPanel extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(12, 12, 12)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -116,11 +117,13 @@ public class ConfigClassJPanel extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(ckbOld)
-                                    .addComponent(txtMaxCount, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)))
-                            .addComponent(jScrollPane1)))
+                                    .addComponent(txtMaxCount, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(30, 30, 30)
-                        .addComponent(btnMaxSudent)))
+                        .addComponent(btnMaxSudent))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -171,14 +174,11 @@ public class ConfigClassJPanel extends javax.swing.JPanel {
 
         jLabel5.setText("Áp dụng:");
 
-        ckbGeneral.setText("Tất cả các khối");
+        buttonGroup1.add(rdbGerenal);
+        rdbGerenal.setText("Tổng số lớp");
 
-        ckbType.setText("Theo khối:");
-        ckbType.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ckbTypeActionPerformed(evt);
-            }
-        });
+        buttonGroup1.add(rdbType);
+        rdbType.setText("Theo khối");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -199,16 +199,16 @@ public class ConfigClassJPanel extends javax.swing.JPanel {
                         .addGap(0, 2, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane3)))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane3)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(rdbType)
+                                    .addComponent(rdbGerenal))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ckbType)
-                    .addComponent(ckbGeneral))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -219,12 +219,12 @@ public class ConfigClassJPanel extends javax.swing.JPanel {
                     .addComponent(txtMaxCountClass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ckbGeneral)
-                    .addComponent(jLabel5))
+                    .addComponent(jLabel5)
+                    .addComponent(rdbGerenal))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ckbType)
+                .addComponent(rdbType)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 3, Short.MAX_VALUE)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnMaxCountClass)
                 .addContainerGap())
@@ -272,30 +272,27 @@ public class ConfigClassJPanel extends javax.swing.JPanel {
         listClass.setEnabled(ckbOld.isSelected());
     }//GEN-LAST:event_ckbOldActionPerformed
 
-    private void ckbTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckbTypeActionPerformed
-        listType.setEnabled(ckbType.isSelected());
-    }//GEN-LAST:event_ckbTypeActionPerformed
-
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-
         //init panel max count student
         ckbNew.setSelected(true);
         listClass.setModel(bll.ConfigBLL.getListGradeLimitStudent());
         listClass.setEnabled(ckbOld.isSelected());
         txtMaxCount.setText(bll.ConfigBLL.getMaxStudent().toString());
+        txtMaxCount.setToolTipText("Hiện tạ tối đa: "+bll.ConfigBLL.getMaxStudent().toString()+" học sinh");
         
         //init panel max class
-        ckbGeneral.setSelected(true);
+        rdbGerenal.setSelected(true);
         listType.setModel(bll.ConfigBLL.getListBlockLimitGrade());
-        listType.setEnabled(ckbType.isSelected());
+        listType.setEnabled(rdbType.isSelected());
         txtMaxCountClass.setText(bll.ConfigBLL.getMaxGrade().toString());
+        txtMaxCountClass.setToolTipText("Hiện tại tối đa: "+bll.ConfigBLL.getMaxGrade().toString()+" lớp");
     }//GEN-LAST:event_formComponentShown
 
     private void btnMaxSudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaxSudentActionPerformed
         if (txtMaxCount.getText().isEmpty()) {
             showError("Vui lòng nhập số lượng học sinh tối đa.");
             return;
-        }else if (!bll.HelperBLL.IsInteger(txtMaxCount.getText())) {
+        } else if (!bll.HelperBLL.IsInteger(txtMaxCount.getText())) {
             showError("Sĩ số tối đa phải là số nguyên.");
             return;
         }
@@ -309,7 +306,7 @@ public class ConfigClassJPanel extends javax.swing.JPanel {
         if (ckbOld.isSelected() && !bll.ConfigBLL.saveMaxSizeStudentsAccordingToGrade(listClass.getSelectedValuesList(), txtMaxCount.getText())) {
             showError("Lưu sĩ số tối đa theo lớp thất bại.");
         }
-        
+
         formComponentShown(null);
     }//GEN-LAST:event_btnMaxSudentActionPerformed
 
@@ -317,20 +314,24 @@ public class ConfigClassJPanel extends javax.swing.JPanel {
         if (txtMaxCountClass.getText().isEmpty()) {
             showError("Vui lòng nhập số lượng lớp.");
             return;
-        }else if (!bll.HelperBLL.IsInteger(txtMaxCountClass.getText())) {
+        } else if (!bll.HelperBLL.IsInteger(txtMaxCountClass.getText())) {
             showError("Số lượng lớp phải có giá trị số.");
             return;
         }
 
-        if (ckbGeneral.isSelected() && !bll.ConfigBLL.saveMaxSizeGrades(txtMaxCount.getText())) {
+        if (rdbGerenal.isSelected() && !bll.ConfigBLL.saveMaxSizeGrades(txtMaxCount.getText())) {
             showError("Lưu số lớp tối đa thất bại.");
         }
 
-        if (ckbType.isSelected()) {
-            if (!bll.ConfigBLL.saveMaxSizeGradesAccordingToBlock( listType.getSelectedValuesList(), txtMaxCountClass.getText())) {
+        if (rdbType.isSelected()) {
+            if (!bll.ConfigBLL.checkSumBlockCurrent(listType.getSelectedValuesList(), listType.getModel(), Integer.parseInt(txtMaxCountClass.getText()))) {
+                showError("Số lớp trong khối phải nhỏ hơn tổng sô lớp");
+            } else if (!bll.ConfigBLL.saveMaxSizeGradesAccordingToBlock(listType.getSelectedValuesList(), txtMaxCountClass.getText())) {
                 showError("Lưu số lớp tối đa theo khối thất bại");
             }
         }
+
+        formComponentShown(null);
     }//GEN-LAST:event_btnMaxCountClassActionPerformed
 
     private void txtMaxCountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaxCountKeyTyped
@@ -348,10 +349,9 @@ public class ConfigClassJPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnMaxCountClass;
     private javax.swing.JButton btnMaxSudent;
-    private javax.swing.JCheckBox ckbGeneral;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JCheckBox ckbNew;
     private javax.swing.JCheckBox ckbOld;
-    private javax.swing.JCheckBox ckbType;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -364,6 +364,8 @@ public class ConfigClassJPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JList listClass;
     private javax.swing.JList listType;
+    private javax.swing.JRadioButton rdbGerenal;
+    private javax.swing.JRadioButton rdbType;
     private javax.swing.JTextField txtMaxCount;
     private javax.swing.JTextField txtMaxCountClass;
     // End of variables declaration//GEN-END:variables

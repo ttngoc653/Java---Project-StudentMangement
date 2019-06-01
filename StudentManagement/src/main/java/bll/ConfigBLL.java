@@ -236,7 +236,7 @@ public class ConfigBLL {
 
             if (cauhinh == null && new dal.CauHinhDAL().add(new dto.Cauhinh("diemChuanMon" + mon.getIdMonHoc(), "benchmark", benchmark_new, "Điểm chuẩn môn ~` " + subject, null, null, null)) <= 0) {
                 return false;
-            } else {
+            } else if (cauhinh != null) {
                 cauhinh.setGiaTri(benchmark_new);
                 if (!new dal.CauHinhDAL().update(cauhinh)) {
                     return false;
@@ -253,9 +253,9 @@ public class ConfigBLL {
 
             cauhinh = new dal.CauHinhDAL().getByName("diemChuanLop" + lop.getIdLop());
 
-            if (myDouble == null && new dal.CauHinhDAL().add(new Cauhinh("diemChuanLop" + lop.getIdLop(), "benchmark", score, "Điểm chuẩn lớp ~` " + lop.getTenLop(), null, null, null)) <= 0) {
+            if (cauhinh == null && new dal.CauHinhDAL().add(new Cauhinh("diemChuanLop" + lop.getIdLop(), "benchmark", score, "Điểm chuẩn lớp ~` " + lop.getTenLop(), null, null, null)) <= 0) {
                 return false;
-            } else {
+            } else if (cauhinh != null) {
 
                 cauhinh.setGiaTri(score);
                 if (!new dal.CauHinhDAL().update(cauhinh)) {
@@ -271,10 +271,162 @@ public class ConfigBLL {
         dto.Cauhinh cauhinh = new dal.CauHinhDAL().getByName("diemChuan");
         if (cauhinh == null && new dal.CauHinhDAL().add(new dto.Cauhinh("diemChuan", "benchmark", score, "Điểm chuẩn mặc định", null, null, null)) <= 0) {
             return false;
-        } else {
+        } else if (cauhinh == null) {
             cauhinh.setGiaTri(score);
             if (!new dal.CauHinhDAL().update(cauhinh)) {
                 return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean saveSubjectTeaching(List l, boolean b) {
+        try {
+            for (Object l1 : l) {
+                dto.Monhoc monhoc = new dal.MonhocDAL().getByTen(l1.toString());
+                if (monhoc != null) {
+                    monhoc.setDangGiangDay(b);
+
+                    new dal.MonhocDAL().update(monhoc);
+                }
+            }
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean saveLimitAgeGerenal(String minAge, String maxAge) {
+
+        dto.Cauhinh chToiTieu = getAgeMin();
+        dto.Cauhinh chToiDa = getAgeMax();
+
+        if (chToiDa != null) {
+            chToiDa.setGiaTri(maxAge);
+
+            if (!new dal.CauHinhDAL().update(chToiDa)) {
+                return false;
+            }
+        } else if (new dal.CauHinhDAL().add(new dto.Cauhinh("tuoiToiDaDauVao", "maxAge", maxAge, "Tuổi tối đa vào trường", null, null, null)) <= 0) {
+            return false;
+        }
+        if (chToiTieu != null) {
+            chToiTieu.setGiaTri(minAge);
+            if (!new dal.CauHinhDAL().update(chToiTieu)) {
+                return false;
+            }
+        } else if (new dal.CauHinhDAL().add(new dto.Cauhinh("tuoiToiTieuDauVao", "minAge", minAge, "Tuổi tối tiểu vào trường", null, null, null)) <= 0) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public static Cauhinh getAgeMax() {
+        return new dal.CauHinhDAL().getByName("tuoiToiDaDauVao");
+    }
+
+    public static Cauhinh getAgeMin() {
+        return new dal.CauHinhDAL().getByName("tuoiToiTieuDauVao");
+    }
+
+    public static boolean saveLimitAgeAcoordingToGrade(List list_selected, String minAge, String maxAge) {
+        for (Object o : list_selected) {
+            String select_string = o.toString().split(" ~` ")[0];
+            dto.Lop lop = new dal.LopDAL().getByTen(select_string);
+
+            if (lop != null && getMaxAgeStudentNull(lop) == null && getMinAgeStudentNull(lop) == null) {
+                cauhinh = new dto.Cauhinh("tuoiToiTieuLop" + lop.getIdLop(), "minAge", minAge, "Tuổi tối tiểu vào lớp " + lop.getTenLop(), null, null, null);
+                if (new dal.CauHinhDAL().add(cauhinh) <= 0) {
+                    return false;
+                }
+
+                cauhinh = new dto.Cauhinh("tuoiToiDaLop" + lop.getIdLop(), "maxAge", maxAge, "Tuổi tối đa vào lớp " + lop.getTenLop(), null, null, null);
+                if (new dal.CauHinhDAL().add(cauhinh) <= 0) {
+                    return false;
+                }
+            } else if (lop != null) {
+                cauhinh = new dal.CauHinhDAL().getByName("tuoiToiTieuLop" + lop.getIdLop());
+                cauhinh.setGiaTri(minAge);
+                if (!new dal.CauHinhDAL().update(cauhinh)) {
+                    return false;
+                }
+
+                cauhinh = new dal.CauHinhDAL().getByName("tuoiToiDaLop" + lop.getIdLop());
+                cauhinh.setGiaTri(maxAge);
+                if (!new dal.CauHinhDAL().update(cauhinh)) {
+                    return false;
+                }
+            }
+
+        }
+        return true;
+
+    }
+
+    public static boolean saveMaxSizeGrades(String maxSizeGrades) {
+        dto.Cauhinh cauhinh = new dal.CauHinhDAL().getByName("soLopToiDa");
+        if (cauhinh == null) {
+            cauhinh = new Cauhinh("soLopToiDa", "maxSizeGrades", maxSizeGrades, "Số lớp tối đa của trường", null, null, null);
+            if (new dal.CauHinhDAL().add(cauhinh) <= 0) {
+                return false;
+            }
+        } else {
+            cauhinh.setGiaTri(maxSizeGrades);
+            if (!new dal.CauHinhDAL().update(cauhinh)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean saveMaxSizeGradesAccordingToBlock(List selectList, String maxCountClass) {
+        for (Object selectItem : selectList) {
+            String block = selectItem.toString().split(" ~` ")[0];
+            Integer loptoida = bll.ConfigBLL.getMaxGradeNull(block);
+            if (loptoida == null && new dal.CauHinhDAL().add(new Cauhinh("soLopToiDaKhoi", "maxSizeGrades", maxCountClass, "Số lớp tối đa của khối ~` " + block, null, null, null)) <= 0) {
+                return false;
+            } else if (loptoida != null) {
+                dto.Cauhinh cauhinh = new dal.CauHinhDAL().getByNameDetail("Số lớp tối đa của khối ~` " + block);
+                cauhinh.setGiaTri(maxCountClass);
+                if (!new dal.CauHinhDAL().update(cauhinh)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public static boolean saveMaxSizeStudents(String maxSizeStudents) {
+        dto.Cauhinh cauhinh = new dal.CauHinhDAL().getByName("siSoToiDa");
+        if (cauhinh == null) {
+            cauhinh = new Cauhinh("siSoToiDa", "maxSizeStudents", maxSizeStudents, "Sỉ số tối đa chung", null, null, null);
+            if (new dal.CauHinhDAL().add(cauhinh) <= 0) {
+                return false;
+            }
+        } else {
+            cauhinh.setGiaTri(maxSizeStudents);
+            if (!new dal.CauHinhDAL().update(cauhinh)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @SuppressWarnings("null")
+    public static boolean saveMaxSizeStudentsAccordingToGrade(List selectedValuesList, String maxSizeStudents) {
+        for (Object selectList1 : selectedValuesList) {
+            dto.Lop lop = new dal.LopDAL().getByTen(selectList1.toString().split(" ~` ")[0]);
+            if (lop != null) {
+                dto.Cauhinh cauhinh = new dal.CauHinhDAL().getByName("siSoToiDaLop" + lop.getIdLop());
+                if (cauhinh == null && new dal.CauHinhDAL().add(new Cauhinh("siSoToiDaLop" + lop.getIdLop(), "maxSizeStudents", maxSizeStudents, "Sỉ số tối đa lớp ~` " + lop.getTenLop(), null, null, null)) <= 0) {
+                    return false;
+                } else {
+                    cauhinh.setGiaTri(maxSizeStudents);
+                    if (!new dal.CauHinhDAL().update(cauhinh)) {
+                        return false;
+                    }
+                }
             }
         }
         return true;
@@ -333,22 +485,6 @@ public class ConfigBLL {
         return model;
     }
 
-    public static boolean saveSubjectTeaching(List l, boolean b) {
-        try {
-            for (Object l1 : l) {
-                dto.Monhoc monhoc = new dal.MonhocDAL().getByTen(l1.toString());
-                if (monhoc != null) {
-                    monhoc.setDangGiangDay(b);
-
-                    new dal.MonhocDAL().update(monhoc);
-                }
-            }
-        } catch (Exception e) {
-            return false;
-        }
-        return true;
-    }
-
     public static ListModel getListBlockLimitGrade() {
         List<dto.Lop> lops = new dal.LopDAL().getByTinhTrang(Byte.parseByte("1"));
         DefaultListModel model = new DefaultListModel();
@@ -365,8 +501,8 @@ public class ConfigBLL {
         List<dto.Lop> lops = new dal.LopDAL().getAll();
         DefaultListModel model = new DefaultListModel();
         for (Lop lop : lops) {
-            myInt = getMaxStudent(lop);
-            model.addElement(lop.getTenLop() + (myInt != null ? (" ~`AD riêng: " + myInt + " học sinh") : ""));
+            myInt = getMaxStudentNull(lop);
+            model.addElement(lop.getTenLop() + (myInt != null ? (" ~` AD riêng: " + myInt + " học sinh") : ""));
         }
         return model;
     }
@@ -406,142 +542,6 @@ public class ConfigBLL {
         return !error;
     }
 
-    public static boolean saveLimitAgeGerenal(String minAge, String maxAge) {
-
-        dto.Cauhinh chToiTieu = getAgeMin();
-        dto.Cauhinh chToiDa = getAgeMax();
-
-        if (chToiDa != null) {
-            chToiDa.setGiaTri(maxAge);
-
-            if (!new dal.CauHinhDAL().update(chToiDa)) {
-                return false;
-            }
-        } else if (new dal.CauHinhDAL().add(new dto.Cauhinh("tuoiToiDaDauVao", "maxAge", maxAge, "Tuổi tối đa vào trường", null, null, null)) <= 0) {
-            return false;
-        }
-        if (chToiTieu != null) {
-            chToiTieu.setGiaTri(minAge);
-            if (!new dal.CauHinhDAL().update(chToiTieu)) {
-                return false;
-            }
-        } else if (new dal.CauHinhDAL().add(new dto.Cauhinh("tuoiToiTieuDauVao", "minAge", minAge, "Tuổi tối tiểu vào trường", null, null, null)) <= 0) {
-            return false;
-        }
-
-        return true;
-    }
-
-    public static Cauhinh getAgeMax() {
-        return new dal.CauHinhDAL().getByName("tuoiToiDaDauVao");
-    }
-
-    public static Cauhinh getAgeMin() {
-        return new dal.CauHinhDAL().getByName("tuoiToiTieuDauVao");
-    }
-
-    public static boolean saveLimitAgeAcoordingToGrade(List list_selected, String minAge, String maxAge) {
-        for (Object o : list_selected) {
-            String select_string = o.toString().split(" ~` ")[0];
-            dto.Lop lop = new dal.LopDAL().getByTen(select_string);
-
-            if (lop != null && getMaxAgeStudentNull(lop) == null && getMinAgeStudentNull(lop) == null) {
-                cauhinh = new dto.Cauhinh("tuoiToiTieuLop"+lop.getIdLop(), "minAge", minAge, "Tuổi tối tiểu vào lớp "+lop.getTenLop(), null, null, null);
-                if (new dal.CauHinhDAL().add(cauhinh) <= 0) {
-                    return false;
-                }
-
-                cauhinh = new dto.Cauhinh("tuoiToiDaLop"+lop.getIdLop(), "maxAge", maxAge, "Tuổi tối đa vào lớp "+lop.getTenLop(), null, null, null);
-                if (new dal.CauHinhDAL().add(cauhinh) <= 0) {
-                    return false;
-                }
-            } else if (lop != null) {
-                cauhinh = new dal.CauHinhDAL().getByName("tuoiToiTieuLop" + lop.getIdLop());
-                cauhinh.setGiaTri(minAge);
-                if (!new dal.CauHinhDAL().update(cauhinh)) {
-                    return false;
-                }
-
-                cauhinh = new dal.CauHinhDAL().getByName("tuoiToiDaLop" + lop.getIdLop());
-                cauhinh.setGiaTri(maxAge);
-                if (!new dal.CauHinhDAL().update(cauhinh)) {
-                    return false;
-                }
-            }
-
-        }
-        return true;
-
-    }
-
-    public static boolean saveMaxSizeGrades(String maxSizeGrades) {
-        dto.Cauhinh cauhinh = new dal.CauHinhDAL().getByName("soLopToiDa");
-        if (cauhinh == null) {
-            cauhinh = new Cauhinh("soLopToiDa", "maxSizeGrades", maxSizeGrades, "Số lớp tối đa của trường", null, null, null);
-            if (new dal.CauHinhDAL().add(cauhinh) <= 0) {
-                return false;
-            }
-        } else {
-            cauhinh.setGiaTri(maxSizeGrades);
-            if (!new dal.CauHinhDAL().update(cauhinh)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public static boolean saveMaxSizeGradesAccordingToBlock(List selectList, String maxCountClass) {
-        for (Object selectItem : selectList) {
-            String block = selectItem.toString().split(" ~` ")[0];
-            Integer loptoida = bll.ConfigBLL.getMaxGradeNull(block);
-            if (loptoida == null && new dal.CauHinhDAL().add(new Cauhinh("soLopToiDaKhoi", "maxSizeGrades", maxCountClass, "Số lớp tối đa của khối ~` " + block, null, null, null)) >= 0) {
-                return false;
-            } else {
-                dto.Cauhinh cauhinh = new dal.CauHinhDAL().getByNameDetail("Số lớp tối đa của khối ~` " + block);
-                cauhinh.setGiaTri(maxCountClass);
-                if (!new dal.CauHinhDAL().update(cauhinh)) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    public static boolean saveMaxSizeStudents(String maxSizeStudents) {
-        dto.Cauhinh cauhinh = new dal.CauHinhDAL().getByName("siSoToiDa");
-        if (cauhinh == null) {
-            cauhinh = new Cauhinh("siSoToiDa", "maxSizeStudents", maxSizeStudents, "Sỉ số tối đa chung", null, null, null);
-            if (new dal.CauHinhDAL().add(cauhinh) <= 0) {
-                return false;
-            }
-        } else {
-            cauhinh.setGiaTri(maxSizeStudents);
-            if (!new dal.CauHinhDAL().update(cauhinh)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    @SuppressWarnings("null")
-    public static boolean saveMaxSizeStudentsAccordingToGrade(List selectedValuesList, String maxSizeStudents) {
-        for (Object selectList1 : selectedValuesList) {
-            dto.Lop lop = new dal.LopDAL().getByTen(selectList1.toString().split(" ~` ")[0]);
-            if (lop != null) {
-                dto.Cauhinh cauhinh = new dal.CauHinhDAL().getByName("siSoToiDaLop" + lop.getIdLop());
-                if (cauhinh == null && new dal.CauHinhDAL().add(new Cauhinh("siSoToiDaLop" + lop.getIdLop(), "maxSizeStudents", maxSizeStudents, "Sỉ số tối đa lớp ~` " + lop.getTenLop(), null, null, null)) <= 0) {
-                    return false;
-                } else {
-                    cauhinh.setGiaTri(maxSizeStudents);
-                    if (!new dal.CauHinhDAL().update(cauhinh)) {
-                        return false;
-                    }
-                }
-            }
-        }
-        return true;
-    }
-
     public static ListModel getListSubjectCastrate() {
         List<Monhoc> ds = new dal.MonhocDAL().getByTinhTrang(false);
         DefaultListModel ten = new DefaultListModel();
@@ -558,5 +558,26 @@ public class ConfigBLL {
             ten.addElement(mh.getTenMh());
         }
         return ten;
+    }
+
+    public static boolean checkSumBlockCurrent(List selectedValuesList, ListModel model, int maxNew) {
+        myInt = getMaxGrade();
+        boolean check = false;
+        for (int i = 0; i < model.getSize(); i++) {
+            check = false;
+            for (Object selectedValuesList1 : selectedValuesList) {
+                if (selectedValuesList1.toString().split(" ~`")[0].equals(model.getElementAt(i).toString().split(" ~`")[0])) {
+                    myInt = maxNew;
+                    check = true;
+                }
+            }
+            if (!check) {
+                try {
+                    myInt -= getMaxGradeNull(model.getElementAt(i).toString().split(" ~`")[0]);
+                } catch (Exception e) {
+                }
+            }
+        }
+        return myInt >= 1;
     }
 }
