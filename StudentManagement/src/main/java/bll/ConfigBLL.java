@@ -411,20 +411,25 @@ public class ConfigBLL {
         dto.Cauhinh chToiTieu = getAgeMin();
         dto.Cauhinh chToiDa = getAgeMax();
 
-        if (chToiTieu != null && chToiDa != null) {
+        if (chToiDa != null) {
             chToiDa.setGiaTri(maxAge);
 
             if (!new dal.CauHinhDAL().update(chToiDa)) {
                 return false;
             }
-
+        } else if (new dal.CauHinhDAL().add(new dto.Cauhinh("tuoiToiDaDauVao", "maxAge", maxAge, "Tuổi tối đa vào trường", null, null, null)) <= 0) {
+            return false;
+        }
+        if (chToiTieu != null) {
             chToiTieu.setGiaTri(minAge);
             if (!new dal.CauHinhDAL().update(chToiTieu)) {
                 return false;
             }
+        } else if (new dal.CauHinhDAL().add(new dto.Cauhinh("tuoiToiTieuDauVao", "minAge", minAge, "Tuổi tối tiểu vào trường", null, null, null)) <= 0) {
+            return false;
         }
-        return new dal.CauHinhDAL().add(new dto.Cauhinh("tuoiToiTieuDauVao", "minAge", minAge, "Tuổi tối tiểu vào trường", null, null, null)) > 0
-                && new dal.CauHinhDAL().add(new dto.Cauhinh("tuoiToiDaDauVao", "maxAge", maxAge, "Tuổi tối đa vào trường", null, null, null)) > 0;
+
+        return true;
     }
 
     public static Cauhinh getAgeMax() {
@@ -441,12 +446,12 @@ public class ConfigBLL {
             dto.Lop lop = new dal.LopDAL().getByTen(select_string);
 
             if (lop != null && getMaxAgeStudentNull(lop) == null && getMinAgeStudentNull(lop) == null) {
-                cauhinh = new dto.Cauhinh("tuoiToiTieuVaoLop", "minAge", minAge, "Tuổi tối tiểu vào lớp", null, null, null);
+                cauhinh = new dto.Cauhinh("tuoiToiTieuLop"+lop.getIdLop(), "minAge", minAge, "Tuổi tối tiểu vào lớp "+lop.getTenLop(), null, null, null);
                 if (new dal.CauHinhDAL().add(cauhinh) <= 0) {
                     return false;
                 }
 
-                cauhinh = new dto.Cauhinh("tuoiToiDaVaoLop", "maxAge", maxAge, "Tuổi tối đa vào lớp", null, null, null);
+                cauhinh = new dto.Cauhinh("tuoiToiDaLop"+lop.getIdLop(), "maxAge", maxAge, "Tuổi tối đa vào lớp "+lop.getTenLop(), null, null, null);
                 if (new dal.CauHinhDAL().add(cauhinh) <= 0) {
                     return false;
                 }

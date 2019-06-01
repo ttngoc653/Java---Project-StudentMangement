@@ -77,7 +77,7 @@
           <Group type="102" alignment="1" attributes="0">
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jLabel5" pref="43" max="32767" attributes="0"/>
+              <Component id="jLabel5" pref="45" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="ckbApply" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -100,7 +100,7 @@
                       <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                       <Component id="txtStatus" min="-2" pref="32" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jScrollPane" pref="234" max="32767" attributes="0"/>
+                  <Component id="jScrollPane" min="-2" pref="234" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="btnApply" min="-2" max="-2" attributes="0"/>
