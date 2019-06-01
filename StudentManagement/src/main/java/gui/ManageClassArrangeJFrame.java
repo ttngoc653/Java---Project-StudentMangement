@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
  * @author tuhuy
  */
 public class ManageClassArrangeJFrame extends javax.swing.JFrame {
-
+    
     public static Boolean openFrame = true;
 
     //int SiSoToiDa = 2;
@@ -29,9 +29,9 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
         LoadCbo();
         LoadData();
     }
-
+    
     dto.Nguoidung nd;
-
+    
     public ManageClassArrangeJFrame(Nguoidung nguoidung) {
         initComponents();
         nd = nguoidung;
@@ -39,7 +39,7 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
         LoadCbo();
         LoadData();
     }
-
+    
     private void LoadData() {
         DefaultTableModel dtm = new DefaultTableModel() {
             //Chặn edit các ô trong JTable
@@ -52,12 +52,12 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
         dtm.addColumn("Họ tên");
         dtm.addColumn("Tên lớp");
         dtm.addColumn("Năm học");
-
+        
         List<HocsinhLophoc> l = new HocsinhLophocDAL().getAll();
         for (HocsinhLophoc a : l) {
             dtm.addRow(new Object[]{a.getIdHocSinhLopHoc(), a.getHocsinh().getIdHocSinh(), a.getHocsinh().getHoTen(), new LopDAL().getById(a.getLop().getIdLop()).getTenLop(), new NamhocDAL().getById(a.getNamhoc().getIdNamHoc()).getTenNamHoc()});
         }
-
+        
         this.jTableXepLop.setModel(dtm);
         this.jTableXepLop.getColumnModel().getColumn(0).setPreferredWidth(10);  //ID
         this.jTableXepLop.getColumnModel().getColumn(1).setPreferredWidth(10);   //MSHS
@@ -67,16 +67,16 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
 
         this.jTableXepLop.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
     }
-
+    
     private void LoadCbo() {
         for (Hocsinh a : new HocsinhDAL().getAll()) {
             cboMSHS.addItem(a.getIdHocSinh().toString() + " - " + a.getHoTen());
         }
-
+        
         for (Lop a : new LopDAL().getAll()) {
             cboTenLop.addItem(a.getTenLop());
         }
-
+        
         for (Namhoc a : new NamhocDAL().getAll()) {
             cboNamHoc.addItem(a.getTenNamHoc());
         }
@@ -264,13 +264,13 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTableXepLopMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableXepLopMouseClicked
-
+        
         String idHocSinhLopHoc = this.jTableXepLop.getValueAt(this.jTableXepLop.getSelectedRow(), 0).toString();
         String idHS = this.jTableXepLop.getValueAt(this.jTableXepLop.getSelectedRow(), 1).toString();
         String hoTenHS = this.jTableXepLop.getValueAt(this.jTableXepLop.getSelectedRow(), 2).toString();
         String idLop = this.jTableXepLop.getValueAt(this.jTableXepLop.getSelectedRow(), 3).toString();
         String idNamHoc = this.jTableXepLop.getValueAt(this.jTableXepLop.getSelectedRow(), 4).toString();
-
+        
         this.txtID.setText(idHocSinhLopHoc);
         //this.cboMSHS.setSelectedItem(idHS);
         this.cboMSHS.setSelectedItem(idHS + " - " + hoTenHS);
@@ -279,44 +279,43 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jTableXepLopMouseClicked
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-
-//        int SiSoToiDa = Integer.parseInt(new CauHinhDAL().getByName("SiSoToiDa").getGiaTri());
-        int SiSoToiDa = getMaxStudent();
-        //JOptionPane.showMessageDialog(null, SiSoToiDa);
-
+        
         String ThongTinHocSinh = this.cboMSHS.getSelectedItem().toString();                   // MSHS - Họ tên học sinh 
         String[] thongTinHs = ThongTinHocSinh.split(" - "); //Cắt tách chuỗi theo kí tự " - " // => [0] - [1]
         int idHS = Integer.parseInt(thongTinHs[0]);
         Hocsinh hocsinh = new HocsinhDAL().getById(idHS);
-
+        
         String tenLop = this.cboTenLop.getSelectedItem().toString();
         Lop lop = new LopDAL().getByTen(tenLop);
         int idLop = lop.getIdLop();
 
+//        int SiSoToiDa = Integer.parseInt(new CauHinhDAL().getByName("SiSoToiDa").getGiaTri());
+        int SiSoToiDa = getMaxStudent(lop);
+        //JOptionPane.showMessageDialog(null, SiSoToiDa);
+
         String tenNamHoc = this.cboNamHoc.getSelectedItem().toString();
         Namhoc namhoc = new NamhocDAL().getByTen(tenNamHoc);
         int idNamHoc = namhoc.getIdNamHoc();
-
+        
         HocsinhLophoc a = new HocsinhLophoc();
         a.setHocsinh(hocsinh);
         a.setLop(lop);
         a.setNamhoc(namhoc);
-
+        
         Integer namsinh = Integer.parseInt(hocsinh.getNgaySinh().substring(6)), maxAge = bll.ConfigBLL.getMaxAgeStudent(lop), minAge = bll.ConfigBLL.getMinAgeStudent(lop);
         long millis = System.currentTimeMillis();
         Date date = new java.sql.Date(millis);
         String year1 = dateFormat.format(date).substring(6);
         int year = Integer.parseInt(year1);
         int tuoi = year - namsinh;
-
+        
         if (findStudentByNamHocLop(idHS, namhoc, lop)) {
             JOptionPane.showMessageDialog(null, "MSHS " + idHS + " đã thuộc lớp " + tenLop + " - năm học " + tenNamHoc);
-        } else if (checkMaximumStudentInClass(idNamHoc, idLop, SiSoToiDa)) {
+        } else if (bll.HocsinhLopHocBLL.checkMaximumStudentInClass(idNamHoc, idLop, SiSoToiDa)) {
             JOptionPane.showMessageDialog(null, "Lớp này đã đủ sỉ số: " + SiSoToiDa + " học sinh");
         } else if (findStudentByNamHoc(idHS, namhoc)) {
             JOptionPane.showMessageDialog(null, "Trong 1 năm học sinh chỉ được học 1 lớp duy nhất");
-        }
-        else if (minAge >= tuoi || tuoi >= maxAge) {
+        } else if (minAge >= tuoi || tuoi >= maxAge) {
             JOptionPane.showMessageDialog(null, "Đã quá giới hạn tuối cho phép để vào lớp.\n"
                     + "Tuổi hiện tại của học sinh " + hocsinh.getIdHocSinh() + " - " + hocsinh.getHoTen() + " là " + tuoi + "\n"
                     + "Giới hạn tuối của lớp " + lop.getTenLop() + " từ " + minAge + " đến " + maxAge + " tuối.");
@@ -331,7 +330,7 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-
+        
         if (txtID.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Chọn dòng thông tin bạn muốn xóa");
         } else {
@@ -346,7 +345,7 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnQuayLaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuayLaiActionPerformed
-
+        
         if (ManageStudentJFrame.openFrame == true) {
             ManageStudentJFrame.openFrame = false;
             ManageStudentJFrame f = new ManageStudentJFrame(nd);
@@ -383,21 +382,21 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-
+                    
                 }
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(ManageClassArrangeJFrame.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(ManageClassArrangeJFrame.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(ManageClassArrangeJFrame.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(ManageClassArrangeJFrame.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
