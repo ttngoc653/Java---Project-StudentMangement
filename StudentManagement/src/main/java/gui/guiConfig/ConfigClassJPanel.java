@@ -96,6 +96,11 @@ public class ConfigClassJPanel extends javax.swing.JPanel {
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
+        listClass.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listClassMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(listClass);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -169,6 +174,11 @@ public class ConfigClassJPanel extends javax.swing.JPanel {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
+        });
+        listType.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listTypeMouseClicked(evt);
+            }
         });
         jScrollPane3.setViewportView(listType);
 
@@ -278,14 +288,14 @@ public class ConfigClassJPanel extends javax.swing.JPanel {
         listClass.setModel(bll.ConfigBLL.getListGradeLimitStudent());
         listClass.setEnabled(ckbOld.isSelected());
         txtMaxCount.setText(bll.ConfigBLL.getMaxStudent().toString());
-        txtMaxCount.setToolTipText("Hiện tạ tối đa: "+bll.ConfigBLL.getMaxStudent().toString()+" học sinh");
-        
+        txtMaxCount.setToolTipText("Hiện tạ tối đa: " + bll.ConfigBLL.getMaxStudent().toString() + " học sinh");
+
         //init panel max class
         rdbGerenal.setSelected(true);
         listType.setModel(bll.ConfigBLL.getListBlockLimitGrade());
         listType.setEnabled(rdbType.isSelected());
         txtMaxCountClass.setText(bll.ConfigBLL.getMaxGrade().toString());
-        txtMaxCountClass.setToolTipText("Hiện tại tối đa: "+bll.ConfigBLL.getMaxGrade().toString()+" lớp");
+        txtMaxCountClass.setToolTipText("Hiện tại tối đa: " + bll.ConfigBLL.getMaxGrade().toString() + " lớp");
     }//GEN-LAST:event_formComponentShown
 
     private void btnMaxSudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaxSudentActionPerformed
@@ -345,6 +355,21 @@ public class ConfigClassJPanel extends javax.swing.JPanel {
 //            evt.consume();
 //        }
     }//GEN-LAST:event_txtMaxCountClassKeyTyped
+
+    private void listClassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listClassMouseClicked
+        if (javax.swing.SwingUtilities.isRightMouseButton(evt)) {
+            bll.ConfigBLL.deleteOwnConfig(evt.getPoint(), "siSoToiDaLop", listClass);
+            formComponentShown(null);
+        }
+
+    }//GEN-LAST:event_listClassMouseClicked
+
+    private void listTypeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listTypeMouseClicked
+        if (javax.swing.SwingUtilities.isRightMouseButton(evt)) {
+            bll.ConfigBLL.deleteOwnConfig(evt.getPoint(), "soLopToiDaKhoi", listType);
+            formComponentShown(null);
+        }
+    }//GEN-LAST:event_listTypeMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnMaxCountClass;

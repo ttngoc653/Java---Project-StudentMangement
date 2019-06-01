@@ -6,6 +6,7 @@
 package gui.guiConfig;
 
 import bll.HelperBLL;
+import java.awt.Color;
 import java.util.List;
 import javax.swing.SwingUtilities;
 
@@ -224,6 +225,9 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_ckbApplyActionPerformed
 
     private void btnApplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApplyActionPerformed
+        txtStatus.setForeground(Color.BLACK);
+        txtStatus.setText("Kiểm tra giá trị...");
+
         if (txtMaxAge.getText().isEmpty() || txtMinAge.getText().isEmpty()) {
             txtStatus.setText("Tuối tối tiểu hoặc tuối tối đa không được bỏ trống.");
             return;

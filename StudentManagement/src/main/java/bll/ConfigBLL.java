@@ -9,6 +9,10 @@ import dto.Cauhinh;
 import dto.Lop;
 import dto.Monhoc;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
@@ -513,33 +517,64 @@ public class ConfigBLL {
         error = false;
         if (!list.isSelectionEmpty()) {
             javax.swing.JPopupMenu menu = new JPopupMenu();
-            menu.add(new javax.swing.JMenuItem("Xóa áp dụng riêng"));
+            javax.swing.JMenuItem menuItem = new javax.swing.JMenuItem("Xóa áp dụng riêng");
+            menu.add(menuItem);
             menu.show(list, point.x, point.y);
 
-            menu.addMouseListener(new MouseAdapter() {
+            menuItem.addActionListener(new ActionListener() {
 
                 @Override
-                public void mouseClicked(MouseEvent e) {
-                    super.mouseClicked(e); //To change body of generated methods, choose Tools | Templates.
-                    String value = list.getModel().getElementAt(list.locationToIndex(point)).toString().split(" ~` ")[0];
-
-                    switch (name_config) {
-                        case "tuoiVaoLop":
-                            cauhinh = new dal.CauHinhDAL().getByNameDetail("Tuối tối đa lớp " + value);
-                            if (!new dal.CauHinhDAL().delete(cauhinh.getIdCauHinh())) {
-                                error = true;
-                            }
-                            cauhinh = new dal.CauHinhDAL().getByNameDetail("Tuối tối tiếu lớp " + value);
-                            if (!new dal.CauHinhDAL().delete(cauhinh.getIdCauHinh())) {
-                                error = true;
-                            }
-                            break;
-                    }
+                public void actionPerformed(ActionEvent e) {
+                    procesDelete(point, name_config, list);
                 }
-
             });
         }
         return !error;
+    }
+
+    static void procesDelete(final Point point, final String name_config, final javax.swing.JList list) {
+        String value = list.getModel().getElementAt(list.locationToIndex(point)).toString().split(" ~` ")[0];
+        dto.Lop lop;
+
+        switch (name_config) {
+            case "tuoiVaoLop":
+                cauhinh = new dal.CauHinhDAL().getByNameDetail("Tuối tối đa lớp " + value);
+                if (!new dal.CauHinhDAL().delete(cauhinh.getIdCauHinh())) {
+                    error = true;
+                }
+                cauhinh = new dal.CauHinhDAL().getByNameDetail("Tuối tối tiếu lớp " + value);
+                if (!new dal.CauHinhDAL().delete(cauhinh.getIdCauHinh())) {
+                    error = true;
+                }
+                break;
+            case "siSoToiDaLop":
+                lop = new dal.LopDAL().getByTen(value);
+                cauhinh = new dal.CauHinhDAL().getByName(name_config + lop.getIdLop());
+                if (!new dal.CauHinhDAL().delete(cauhinh.getIdCauHinh())) {
+                    error = true;
+                }
+                break;
+            case "soLopToiDaKhoi":
+                cauhinh = new dal.CauHinhDAL().getByNameDetail("Số lớp tối đa của khối ~` " + value);
+                if (!new dal.CauHinhDAL().delete(cauhinh.getIdCauHinh())) {
+                    error = true;
+                }
+                break;
+            case "diemChuanMon":
+                dto.Monhoc monhoc = new dal.MonhocDAL().getByTen(value);
+                cauhinh = new dal.CauHinhDAL().getByName(name_config + monhoc.getIdMonHoc());
+                if (!new dal.CauHinhDAL().delete(cauhinh.getIdCauHinh())) {
+                    error = true;
+                }
+                break;
+            case "diemChuanLop":
+                lop = new dal.LopDAL().getByTen(value);
+                cauhinh = new dal.CauHinhDAL().getByName(name_config + lop.getIdLop());
+                if (!new dal.CauHinhDAL().delete(cauhinh.getIdCauHinh())) {
+                    error = true;
+                }
+                break;
+        }
     }
 
     public static ListModel getListSubjectCastrate() {

@@ -8,9 +8,7 @@ package gui.guiConfig;
 import dal.MonhocDAL;
 import dto.Cauhinh;
 import dto.Monhoc;
-import java.util.ArrayList;
 import java.util.List;
-import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -25,27 +23,31 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
     public ConfigSubjectJPanel() {
         initComponents();
         refresh();
-
+        
     }
-
+    
     private void refresh() {
+        txtNumMax.setText(bll.ConfigBLL.getMaxSubject().toString());
+        txtNumMax.setToolTipText("Hiện tại, số môn tối đa cho phép: " + bll.ConfigBLL.getMaxSubject().toString());
         initCBXMonHoc();
         initTeaching();
         initCastrate();
+        lblNumAll.setText(String.valueOf(new dal.MonhocDAL().getAll().size()));
+        lblNumStuding.setText(String.valueOf(new dal.MonhocDAL().getByTinhTrang(true).size()));
     }
-
+    
     void initCBXMonHoc() {
-        List<Monhoc> ds =  new dal.MonhocDAL().getAll();
+        List<Monhoc> ds = new dal.MonhocDAL().getAll();
         cbbSubject.removeAllItems();
         for (Monhoc mh : ds) {
             cbbSubject.addItem(mh.getTenMh());
         }
     }
-
+    
     void initTeaching() {
         lTeaching.setModel(bll.ConfigBLL.getListSubjectTeaching());
     }
-
+    
     void initCastrate() {
         lCastrate.setModel(bll.ConfigBLL.getListSubjectCastrate());
     }
@@ -202,7 +204,7 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Quản lý số lượng môn học"));
 
-        jLabel7.setText("Số lượng môn:");
+        jLabel7.setText("Số môn tối đa:");
 
         txtNumMax.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtNumMax.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -365,7 +367,7 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
         } else if (txtCoefficient.getText().isEmpty() && JOptionPane.showConfirmDialog(this, "Chưa nhập hệ số. Hệ thống sẽ lưu với hệ số môn học là 1.", "Cảnh báo", JOptionPane.YES_NO_OPTION) != 0) {
             return;
         }
-
+        
         Monhoc mh = new Monhoc();
         mh.setTenMh(txtSubject.getText());
         try {
@@ -374,7 +376,7 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
             mh.setHeSo(1);
         }
         mh.setDangGiangDay(true);
-
+        
         if (bll.ConfigBLL.getMaxSubject() == lCastrate.getModel().getSize() + lTeaching.getModel().getSize()) {
             JOptionPane.showMessageDialog(this, "Đã đủ giới hạn lớp cho phép.");
         } else if (new MonhocDAL().getByTen(mh.getTenMh()) == null) {
@@ -387,7 +389,7 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
         } else {
             JOptionPane.showMessageDialog(this, "Môn học đã tồn tại");
         }
-
+        
         refresh();
     }//GEN-LAST:event_btnAddActionPerformed
 
@@ -423,11 +425,11 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
         if (txtNumMax.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(txtCoefficient, "Chua nhập số lượng môn.");
             return;
-        }else if (!bll.HelperBLL.IsInteger(txtNumMax.getText())) {
+        } else if (!bll.HelperBLL.IsInteger(txtNumMax.getText())) {
             JOptionPane.showMessageDialog(txtCoefficient, "Số lượng môn tối đa phải là số nguyên.");
             return;
         }
-
+        
         dto.Cauhinh cauhinh = new dal.CauHinhDAL().getByName("soMonToiDa");
         if (cauhinh != null) {
             cauhinh.setGiaTri(txtNumMax.getText());
@@ -440,6 +442,7 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Tạo số lượng môn tối đa thất bại.");
             }
         }
+        refresh();
     }//GEN-LAST:event_btnChangeActionPerformed
 
     private void btnHideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHideActionPerformed

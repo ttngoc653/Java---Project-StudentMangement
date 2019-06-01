@@ -100,6 +100,11 @@ public class ConfigScoreJPanel extends javax.swing.JPanel {
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
+        listSubjects.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listSubjectsMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(listSubjects);
 
         listClass.setModel(new javax.swing.AbstractListModel() {
@@ -217,7 +222,7 @@ public class ConfigScoreJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        txtScoreNew.setText( bll.ConfigBLL.getBenchMask().toString());
+        txtScoreNew.setText(bll.ConfigBLL.getBenchMask().toString());
         txtScoreNew.setToolTipText("Hiện tại " + bll.ConfigBLL.getBenchMask() + "điểm");
 
         listSubjects.setModel(bll.ConfigBLL.getListSubjectBenchmark());
@@ -249,7 +254,7 @@ public class ConfigScoreJPanel extends javax.swing.JPanel {
             showError("Điểm chuẩn không được bỏ trống!");
             txtScoreNew.setFocusable(true);
             return;
-        }else if (!bll.HelperBLL.IsDouble(score)) {
+        } else if (!bll.HelperBLL.IsDouble(score)) {
             showError("Điểm chuẩn phải là số thập phân!");
             txtScoreNew.setFocusable(true);
             return;
@@ -284,6 +289,13 @@ public class ConfigScoreJPanel extends javax.swing.JPanel {
 //            evt.consume();
 //        }
     }//GEN-LAST:event_txtScoreNewKeyTyped
+
+    private void listSubjectsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listSubjectsMouseClicked
+        if (javax.swing.SwingUtilities.isRightMouseButton(evt)) {
+            bll.ConfigBLL.deleteOwnConfig(evt.getPoint(), "diemChuanMon", listSubjects);
+            formComponentShown(null);
+        }
+    }//GEN-LAST:event_listSubjectsMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

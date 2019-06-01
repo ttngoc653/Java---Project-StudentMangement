@@ -179,6 +179,9 @@
                   </StringArray>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="listClassMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -301,6 +304,9 @@
                   </StringArray>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="listTypeMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
