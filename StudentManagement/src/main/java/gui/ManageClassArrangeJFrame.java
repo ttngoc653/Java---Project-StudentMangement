@@ -8,9 +8,21 @@ import dto.*;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ExecutionException;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -88,6 +100,11 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
         for (Namhoc a : new NamhocDAL().getAll()) {
             cboNamHoc.addItem(a.getTenNamHoc());
         }
+         
+        cbbSemester.removeAllItems();
+        for (dto.Hocky a : new dal.HockyDAL().getAll()) {
+            cbbSemester.addItem(a.getTenHocKy());
+        }
     }
 
     /**
@@ -103,13 +120,17 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtID = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        cboNamHoc = new javax.swing.JComboBox<>();
+        cboNamHoc = new javax.swing.JComboBox<String>();
         jLabel3 = new javax.swing.JLabel();
         btnThem = new javax.swing.JButton();
         btnXoa = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        cboTenLop = new javax.swing.JComboBox<>();
-        cboMSHS = new javax.swing.JComboBox<>();
+        cboTenLop = new javax.swing.JComboBox<String>();
+        cboMSHS = new javax.swing.JComboBox<String>();
+        btnSummaryFinish = new javax.swing.JToggleButton();
+        cbbSemester = new javax.swing.JComboBox();
+        jLabel6 = new javax.swing.JLabel();
+        btnSummarySemester = new javax.swing.JToggleButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableXepLop = new javax.swing.JTable();
         lblTenTaiKhoan = new javax.swing.JLabel();
@@ -148,6 +169,19 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
 
         jLabel4.setText("Tên lớp:");
 
+        btnSummaryFinish.setText("Kết quả cuối năm");
+
+        cbbSemester.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel6.setText("Học kỳ:");
+
+        btnSummarySemester.setText("Kết quả học kỳ");
+        btnSummarySemester.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSummarySemesterActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -157,24 +191,31 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                         .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnThem)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnXoa)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSummaryFinish, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel4))
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel6))
                         .addGap(14, 14, 14)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnThem)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnXoa)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(cbbSemester, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cboNamHoc, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cboTenLop, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cboMSHS, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSummarySemester)
+                .addGap(90, 90, 90))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -197,9 +238,16 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnThem)
-                    .addComponent(btnXoa))
-                .addContainerGap(106, Short.MAX_VALUE))
+                    .addComponent(btnSummaryFinish)
+                    .addComponent(btnXoa)
+                    .addComponent(btnThem))
+                .addGap(32, 32, 32)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbbSemester, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSummarySemester)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTableXepLop.setModel(new javax.swing.table.DefaultTableModel(
@@ -243,7 +291,7 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createSequentialGroup()
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -263,7 +311,7 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addContainerGap())
     );
@@ -376,6 +424,69 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
         openFrame = true;
     }//GEN-LAST:event_formWindowClosed
 
+    private void btnSummarySemesterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSummarySemesterActionPerformed
+        /*
+        schoolyear
+semester
+grade
+studentname
+studentkey
+studentsex
+studentdob
+mediumscore
+summaryresult
+
+
+
+no	subject	score15 score1	scorefinish	scoresummary	resurt 
+
+        */ 
+        
+        final LoadingDialog loading = new LoadingDialog(this, rootPaneCheckingEnabled);
+        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+            @Override
+            protected void done() {
+                loading.dispose();
+            }
+
+            @Override
+            protected Void doInBackground() throws Exception {
+                if (cboNamHoc.getSelectedItem().toString().trim().isEmpty() || cbbSemester.getSelectedItem().toString().trim().isEmpty() || cbbSubject.getSelectedItem().toString().trim().isEmpty()) {
+                    JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn đủ thông tin!");
+                    return null;
+                }
+                /*List<Map<String, ?>> dataSource = new bll.ReportBLL().dataReportBySubject(cbbSubject.getSelectedItem().toString(), cbbSchoolYear.getSelectedItem().toString(), Integer.parseInt((String) cbbSemester.getSelectedItem().toString()));
+                if (dataSource.isEmpty()) {
+                    JOptionPane.showMessageDialog(rootPane, "Môn " + cbbSubject.getSelectedItem().toString() + " ở học kỳ " + cbbSemester.getSelectedItem().toString() + " thuộc năm học " + cbbSchoolYear.getSelectedItem().toString() + " hiện tại chưa có lớp nào có điểm.");
+                    return null;
+                }*/
+                JRDataSource jrSource = new JRBeanCollectionDataSource(dataSource);
+
+                HashMap param = new HashMap();
+                param.put("schoolyear", cboNamHoc.getSelectedItem().toString());
+                param.put("semester", cbbSemester.getSelectedItem().toString());
+                param.put("grade", cboTenLop.getSelectedItem().toString());
+
+                try {
+                    JasperReport jR = JasperCompileManager.compileReport("src/main/java/gui/ReportFinalSubjectReport.jrxml");
+                    JasperPrint jP = JasperFillManager.fillReport(jR, param, jrSource);
+                    JasperExportManager.exportReportToPdf(jP);
+                    JasperViewer.viewReport(jP, false);
+                } catch (JRException ex) {
+                    ex.printStackTrace();
+                }
+                return null;
+            }
+        };
+        worker.execute();
+        loading.setVisible(true);
+        try {
+            worker.get();
+        } catch (InterruptedException | ExecutionException e1) {
+            e1.printStackTrace();
+        }
+    }//GEN-LAST:event_btnSummarySemesterActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -427,8 +538,11 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnQuayLai;
+    private javax.swing.JToggleButton btnSummaryFinish;
+    private javax.swing.JToggleButton btnSummarySemester;
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnXoa;
+    private javax.swing.JComboBox cbbSemester;
     private javax.swing.JComboBox<String> cboMSHS;
     private javax.swing.JComboBox<String> cboNamHoc;
     private javax.swing.JComboBox<String> cboTenLop;
@@ -437,6 +551,7 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableXepLop;

@@ -45,6 +45,23 @@ public class ReportJFrame extends javax.swing.JFrame {
         java.awt.Dimension dim =java.awt. Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
         
+        List<dto.Namhoc> lNh = new dal.NamhocDAL().getAll();
+        cbbSchoolYear.removeAllItems();
+        for (Namhoc i : lNh) {
+            cbbSchoolYear.addItem(i.getTenNamHoc());
+        }
+        
+        List<dto.Hocky> lHk = new dal.HockyDAL().getAll();
+        cbbSemester.removeAllItems();
+        for (Hocky i : lHk) {
+            cbbSemester.addItem(i.getTenHocKy());
+        }
+        
+        List<dto.Monhoc> lMh = new dal.MonhocDAL().getAll();
+        cbbSubject.removeAllItems();
+        for (Monhoc i : lMh) {
+            cbbSubject.addItem(i.getTenMh());
+        }
     }
 
     /**
@@ -193,27 +210,15 @@ public class ReportJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cbbSchoolYearPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_cbbSchoolYearPopupMenuWillBecomeVisible
-        List<Namhoc> l = new NamhocDAL().getAll();
-        cbbSchoolYear.removeAllItems();
-        for (Namhoc i : l) {
-            cbbSchoolYear.addItem(i.getTenNamHoc());
-        }
+        
     }//GEN-LAST:event_cbbSchoolYearPopupMenuWillBecomeVisible
 
     private void cbbSemesterPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_cbbSemesterPopupMenuWillBecomeVisible
-        List<Hocky> l = new dal.HockyDAL().getAll();
-        cbbSemester.removeAllItems();
-        for (Hocky i : l) {
-            cbbSemester.addItem(i.getTenHocKy());
-        }
+        
     }//GEN-LAST:event_cbbSemesterPopupMenuWillBecomeVisible
 
     private void cbbSubjectPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_cbbSubjectPopupMenuWillBecomeVisible
-        List<Monhoc> l = new dal.MonhocDAL().getAll();
-        cbbSubject.removeAllItems();
-        for (Monhoc i : l) {
-            cbbSubject.addItem(i.getTenMh());
-        }
+        
     }//GEN-LAST:event_cbbSubjectPopupMenuWillBecomeVisible
 
     private void btnSummarySubjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSummarySubjectActionPerformed
