@@ -6,6 +6,16 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -143,4 +153,69 @@ public class ReportBLL {
         }
         return lResult;
     }
+
+    public boolean dataReportCardBySemester(int keyStudent, String schoolYear, String semester, String grade) {
+        dto.Hocsinh hocsinh = new dal.HocsinhDAL().getById(keyStudent);
+        dto.Namhoc namhoc = new dal.NamhocDAL().getByTen(schoolYear);
+        dto.Hocky hocky = new dal.HockyDAL().getByTen(Integer.parseInt(semester));
+        dto.Lop lop = new dal.LopDAL().getByTen(grade);
+        dto.HocsinhLophoc hocsinhLophoc = new dal.HocsinhLophocDAL().getByNamHocLopHocSinh(namhoc, lop, hocsinh);
+        List<dto.Diem> diems = new dal.DiemDAL().getByHocSinhLopHocHocKy(hocsinhLophoc, hocky);
+
+        Double diem15, diem1, diemhk, dtb, tongdiemHK = 0D, sum_heso = 0D;
+        boolean bReacted = true;
+        List<Map<String, ?>> lResult = new ArrayList<>();
+        for (int i = 0; i < diems.size(); i++) {
+            Map<String, Object> map = new HashMap<String, Object>();
+            diem15 = diems.get(i).getDiem15phut();
+            diem1 = diems.get(i).getDiem1tiet();
+            diemhk = diems.get(i).getDiemCuoiKy();
+            dtb = ((diem15 != null ? diem15 : 0) + (diem1 != null ? diem1 : 0) * 2 + (diemhk != null ? diemhk : 0) * 3) / 6;
+
+            tongdiemHK += dtb * diems.get(i).getMonhoc().getHeSo();
+            sum_heso += diems.get(i).getMonhoc().getHeSo();
+
+            if (dtb < bll.ConfigBLL.getBenchMark(diems.get(i).getMonhoc())) {
+                bReacted = false;
+            }
+            map.put("no", i + 1);
+            map.put("subject", diems.get(i).getMonhoc().getTenMh());
+            map.put("score15", diem15 != null ? diem15 : "");
+            map.put("score1", diem1 != null ? diem1 : "");
+            map.put("scorefinish", diemhk != null ? diemhk : "");
+            map.put("scoresummary", (double) Math.round(dtb * 100) / 100);
+            map.put("result", bll.ConfigBLL.getBenchMark(diems.get(i).getMonhoc()) >= dtb ? "ĐẠT" : "KHÔNG ĐẠT");
+
+            lResult.add(map);
+        }
+        if (lResult.isEmpty()) {
+            return false;
+        } else if (bReacted && tongdiemHK / sum_heso < bll.ConfigBLL.getBenchMark(lop)) {
+            bReacted = false;
+        }
+        JRDataSource jrSource = new JRBeanCollectionDataSource(lResult);
+
+        HashMap param = new HashMap();
+        param.put("schoolyear", schoolYear);
+        param.put("semester", semester);
+        param.put("grade", grade);
+        param.put("studentname", hocsinh.getHoTen());
+        param.put("studentkey", hocsinh.getIdHocSinh());
+        param.put("studentsex", hocsinh.getGioiTinh());
+        param.put("studentdob", hocsinh.getNgaySinh());
+        param.put("mediumscore", (double) Math.round(tongdiemHK / sum_heso * 100) / 100);
+        param.put("summaryresult", bReacted ? "ĐẠT" : "KHÔNG ĐẠT");
+
+        try {
+            JasperReport jR = JasperCompileManager.compileReport("src/main/java/gui/SummaryStudentScore.jrxml");
+            JasperPrint jP = JasperFillManager.fillReport(jR, param, jrSource);
+            JasperExportManager.exportReportToPdf(jP);
+            JasperViewer.viewReport(jP, false);
+        } catch (JRException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
 }

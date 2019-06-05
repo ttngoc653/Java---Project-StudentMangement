@@ -29,7 +29,7 @@ import net.sf.jasperreports.view.JasperViewer;
  * @author tuhuy
  */
 public class ManageClassArrangeJFrame extends javax.swing.JFrame {
-    
+
     public static Boolean openFrame = true;
 
     //int SiSoToiDa = 2;
@@ -38,28 +38,28 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
      */
     public ManageClassArrangeJFrame() {
         initComponents();
-        
-        java.awt.Dimension dim =java.awt. Toolkit.getDefaultToolkit().getScreenSize();
+
+        java.awt.Dimension dim = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
-        
+
         LoadCbo();
         LoadData();
     }
-    
+
     dto.Nguoidung nd;
-    
+
     public ManageClassArrangeJFrame(Nguoidung nguoidung) {
         initComponents();
-        
-        java.awt.Dimension dim =java.awt. Toolkit.getDefaultToolkit().getScreenSize();
+
+        java.awt.Dimension dim = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
-        
+
         nd = nguoidung;
         lblTenTaiKhoan.setText(nd.getHoTen());
         LoadCbo();
         LoadData();
     }
-    
+
     private void LoadData() {
         DefaultTableModel dtm = new DefaultTableModel() {
             //Chặn edit các ô trong JTable
@@ -72,12 +72,12 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
         dtm.addColumn("Họ tên");
         dtm.addColumn("Tên lớp");
         dtm.addColumn("Năm học");
-        
+
         List<HocsinhLophoc> l = new HocsinhLophocDAL().getAll();
         for (HocsinhLophoc a : l) {
             dtm.addRow(new Object[]{a.getIdHocSinhLopHoc(), a.getHocsinh().getIdHocSinh(), a.getHocsinh().getHoTen(), new LopDAL().getById(a.getLop().getIdLop()).getTenLop(), new NamhocDAL().getById(a.getNamhoc().getIdNamHoc()).getTenNamHoc()});
         }
-        
+
         this.jTableXepLop.setModel(dtm);
         this.jTableXepLop.getColumnModel().getColumn(0).setPreferredWidth(10);  //ID
         this.jTableXepLop.getColumnModel().getColumn(1).setPreferredWidth(10);   //MSHS
@@ -87,20 +87,20 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
 
         this.jTableXepLop.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
     }
-    
+
     private void LoadCbo() {
         for (Hocsinh a : new HocsinhDAL().getAll()) {
             cboMSHS.addItem(a.getIdHocSinh().toString() + " - " + a.getHoTen());
         }
-        
+
         for (Lop a : new LopDAL().getAll()) {
             cboTenLop.addItem(a.getTenLop());
         }
-        
+
         for (Namhoc a : new NamhocDAL().getAll()) {
             cboNamHoc.addItem(a.getTenNamHoc());
         }
-         
+
         cbbSemester.removeAllItems();
         for (dto.Hocky a : new dal.HockyDAL().getAll()) {
             cbbSemester.addItem(a.getTenHocKy());
@@ -320,13 +320,13 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTableXepLopMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableXepLopMouseClicked
-        
+
         String idHocSinhLopHoc = this.jTableXepLop.getValueAt(this.jTableXepLop.getSelectedRow(), 0).toString();
         String idHS = this.jTableXepLop.getValueAt(this.jTableXepLop.getSelectedRow(), 1).toString();
         String hoTenHS = this.jTableXepLop.getValueAt(this.jTableXepLop.getSelectedRow(), 2).toString();
         String idLop = this.jTableXepLop.getValueAt(this.jTableXepLop.getSelectedRow(), 3).toString();
         String idNamHoc = this.jTableXepLop.getValueAt(this.jTableXepLop.getSelectedRow(), 4).toString();
-        
+
         this.txtID.setText(idHocSinhLopHoc);
         //this.cboMSHS.setSelectedItem(idHS);
         this.cboMSHS.setSelectedItem(idHS + " - " + hoTenHS);
@@ -335,12 +335,12 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jTableXepLopMouseClicked
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        
+
         String ThongTinHocSinh = this.cboMSHS.getSelectedItem().toString();                   // MSHS - Họ tên học sinh 
         String[] thongTinHs = ThongTinHocSinh.split(" - "); //Cắt tách chuỗi theo kí tự " - " // => [0] - [1]
         int idHS = Integer.parseInt(thongTinHs[0]);
         Hocsinh hocsinh = new HocsinhDAL().getById(idHS);
-        
+
         String tenLop = this.cboTenLop.getSelectedItem().toString();
         Lop lop = new LopDAL().getByTen(tenLop);
         int idLop = lop.getIdLop();
@@ -352,19 +352,19 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
         String tenNamHoc = this.cboNamHoc.getSelectedItem().toString();
         Namhoc namhoc = new NamhocDAL().getByTen(tenNamHoc);
         int idNamHoc = namhoc.getIdNamHoc();
-        
+
         HocsinhLophoc a = new HocsinhLophoc();
         a.setHocsinh(hocsinh);
         a.setLop(lop);
         a.setNamhoc(namhoc);
-        
+
         Integer namsinh = Integer.parseInt(hocsinh.getNgaySinh().substring(6)), maxAge = bll.ConfigBLL.getMaxAgeStudent(lop), minAge = bll.ConfigBLL.getMinAgeStudent(lop);
         long millis = System.currentTimeMillis();
         Date date = new java.sql.Date(millis);
         String year1 = dateFormat.format(date).substring(6);
         int year = Integer.parseInt(year1);
         int tuoi = year - namsinh;
-        
+
         if (findStudentByNamHocLop(idHS, namhoc, lop)) {
             JOptionPane.showMessageDialog(null, "MSHS " + idHS + " đã thuộc lớp " + tenLop + " - năm học " + tenNamHoc);
         } else if (bll.HocsinhLopHocBLL.checkMaximumStudentInClass(idNamHoc, idLop, SiSoToiDa)) {
@@ -386,7 +386,7 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        
+
         if (txtID.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Chọn dòng thông tin bạn muốn xóa");
         } else {
@@ -401,7 +401,7 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnQuayLaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuayLaiActionPerformed
-        
+
         if (ManageStudentJFrame.openFrame == true) {
             ManageStudentJFrame.openFrame = false;
             ManageStudentJFrame f = new ManageStudentJFrame(nd);
@@ -411,12 +411,11 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
             f.setVisible(true);
             f.setResizable(false);
             this.setVisible(false);
-            this.openFrame = true;
         } else {
             //JOptionPane.showMessageDialog(null, "Màn hình quản lý lớp đã mở rồi");
             this.setVisible(false);
-            this.openFrame = true;
         }
+        this.openFrame = true;
     }//GEN-LAST:event_btnQuayLaiActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
@@ -426,22 +425,19 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
 
     private void btnSummarySemesterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSummarySemesterActionPerformed
         /*
-        schoolyear
-semester
-grade
-studentname
-studentkey
-studentsex
-studentdob
-mediumscore
-summaryresult
+         schoolyear
+         semester
+         grade
+         studentname
+         studentkey
+         studentsex
+         studentdob
+         mediumscore
+         summaryresult
 
+         no	subject	score15 score1	scorefinish	scoresummary	resurt 
+         */
 
-
-no	subject	score15 score1	scorefinish	scoresummary	resurt 
-
-        */ 
-        
         final LoadingDialog loading = new LoadingDialog(this, rootPaneCheckingEnabled);
         SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
             @Override
@@ -451,29 +447,16 @@ no	subject	score15 score1	scorefinish	scoresummary	resurt
 
             @Override
             protected Void doInBackground() throws Exception {
-                if (cboNamHoc.getSelectedItem().toString().trim().isEmpty() || cbbSemester.getSelectedItem().toString().trim().isEmpty() || cbbSubject.getSelectedItem().toString().trim().isEmpty()) {
-                    JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn đủ thông tin!");
+                if (cboNamHoc.getSelectedItem().toString().trim().isEmpty()
+                        || cbbSemester.getSelectedItem().toString().trim().isEmpty()
+                        || cboTenLop.getSelectedItem().toString().trim().isEmpty()
+                        || cboMSHS.getSelectedItem().toString().isEmpty()) {
+                    JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn đủ thông tin bao gồm học sinh, lớp, năm học và học kỳ!");
                     return null;
                 }
-                /*List<Map<String, ?>> dataSource = new bll.ReportBLL().dataReportBySubject(cbbSubject.getSelectedItem().toString(), cbbSchoolYear.getSelectedItem().toString(), Integer.parseInt((String) cbbSemester.getSelectedItem().toString()));
-                if (dataSource.isEmpty()) {
-                    JOptionPane.showMessageDialog(rootPane, "Môn " + cbbSubject.getSelectedItem().toString() + " ở học kỳ " + cbbSemester.getSelectedItem().toString() + " thuộc năm học " + cbbSchoolYear.getSelectedItem().toString() + " hiện tại chưa có lớp nào có điểm.");
-                    return null;
-                }*/
-                JRDataSource jrSource = new JRBeanCollectionDataSource(dataSource);
 
-                HashMap param = new HashMap();
-                param.put("schoolyear", cboNamHoc.getSelectedItem().toString());
-                param.put("semester", cbbSemester.getSelectedItem().toString());
-                param.put("grade", cboTenLop.getSelectedItem().toString());
-
-                try {
-                    JasperReport jR = JasperCompileManager.compileReport("src/main/java/gui/ReportFinalSubjectReport.jrxml");
-                    JasperPrint jP = JasperFillManager.fillReport(jR, param, jrSource);
-                    JasperExportManager.exportReportToPdf(jP);
-                    JasperViewer.viewReport(jP, false);
-                } catch (JRException ex) {
-                    ex.printStackTrace();
+                if ( new bll.ReportBLL().dataReportCardBySemester(Integer.parseInt(cboMSHS.getSelectedItem().toString().split(" - ")[0]), cboNamHoc.getSelectedItem().toString(), cbbSemester.getSelectedItem().toString(), cboTenLop.getSelectedItem().toString())){
+                      JOptionPane.showMessageDialog(rootPane, "Học sinh " +cboMSHS.getSelectedItem().toString() + " ở học kỳ " + cbbSemester.getSelectedItem().toString() + " thuộc lớp " + cboTenLop.getSelectedItem().toString() + " năm học " + cboNamHoc.getSelectedItem().toString() + " hiện tại chưa có điểm.");
                 }
                 return null;
             }
@@ -501,21 +484,21 @@ no	subject	score15 score1	scorefinish	scoresummary	resurt
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                    
+
                 }
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(ManageClassArrangeJFrame.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            
+
         } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(ManageClassArrangeJFrame.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            
+
         } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(ManageClassArrangeJFrame.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(ManageClassArrangeJFrame.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
