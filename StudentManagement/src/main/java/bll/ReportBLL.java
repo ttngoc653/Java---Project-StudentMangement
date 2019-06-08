@@ -154,7 +154,7 @@ public class ReportBLL {
         return lResult;
     }
 
-    public boolean dataReportCardBySemester(int keyStudent, String schoolYear, String semester, String grade) {
+    public Result dataReportCardBySemester(int keyStudent, String schoolYear, String semester, String grade) {
         dto.Hocsinh hocsinh = new dal.HocsinhDAL().getById(keyStudent);
         dto.Namhoc namhoc = new dal.NamhocDAL().getByTen(schoolYear);
         dto.Hocky hocky = new dal.HockyDAL().getByTen(Integer.parseInt(semester));
@@ -162,6 +162,10 @@ public class ReportBLL {
         dto.HocsinhLophoc hocsinhLophoc = new dal.HocsinhLophocDAL().getByNamHocLopHocSinh(namhoc, lop, hocsinh);
         List<dto.Diem> diems = new dal.DiemDAL().getByHocSinhLopHocHocKy(hocsinhLophoc, hocky);
 
+        /*
+         Parameter:  schoolyear  semester    grade   studentname studentkey  studentsex  studentdob  mediumscore summaryresult
+         Field:   no subject score15 score1  scorefinish scoresummary    resurt 
+         */
         Double diem15, diem1, diemhk, dtb, tongdiemHK = 0D, sum_heso = 0D;
         boolean bReacted = true;
         List<Map<String, ?>> lResult = new ArrayList<>();
@@ -184,12 +188,12 @@ public class ReportBLL {
             map.put("score1", diem1 != null ? diem1 : "");
             map.put("scorefinish", diemhk != null ? diemhk : "");
             map.put("scoresummary", (double) Math.round(dtb * 100) / 100);
-            map.put("result", bll.ConfigBLL.getBenchMark(diems.get(i).getMonhoc()) >= dtb ? "ĐẠT" : "KHÔNG ĐẠT");
+            map.put("result", bll.ConfigBLL.getBenchMark(diems.get(i).getMonhoc()) >= dtb ? "Đạt" : "Rớt");
 
             lResult.add(map);
         }
         if (lResult.isEmpty()) {
-            return false;
+            return Result.EMPTY;
         } else if (bReacted && tongdiemHK / sum_heso < bll.ConfigBLL.getBenchMark(lop)) {
             bReacted = false;
         }
@@ -204,18 +208,18 @@ public class ReportBLL {
         param.put("studentsex", hocsinh.getGioiTinh());
         param.put("studentdob", hocsinh.getNgaySinh());
         param.put("mediumscore", (double) Math.round(tongdiemHK / sum_heso * 100) / 100);
-        param.put("summaryresult", bReacted ? "ĐẠT" : "KHÔNG ĐẠT");
+        param.put("summaryresult", bReacted ? "Đạt" : "Không đạt");
 
         try {
-            JasperReport jR = JasperCompileManager.compileReport("src/main/java/gui/SummaryStudentScore.jrxml");
+            JasperReport jR = JasperCompileManager.compileReport("src/main/java/gui/SummaryStudentScoreAccordingToSemester.jrxml");
             JasperPrint jP = JasperFillManager.fillReport(jR, param, jrSource);
             JasperExportManager.exportReportToPdf(jP);
             JasperViewer.viewReport(jP, false);
         } catch (JRException ex) {
             ex.printStackTrace();
-            return false;
+            return Result.ERROR;
         }
-        return true;
+        return Result.SUCCESS;
     }
 
 }

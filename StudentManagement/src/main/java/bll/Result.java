@@ -10,7 +10,6 @@ package bll;
  * @author Jossion
  */
 public enum Result {
-    SUCCESS,
-    ERROR,
-    FAILURE
+
+    SUCCESS, ERROR, FAILURE, EMPTY
 }

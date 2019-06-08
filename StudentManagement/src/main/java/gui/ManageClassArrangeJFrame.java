@@ -427,20 +427,6 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosed
 
     private void btnSummarySemesterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSummarySemesterActionPerformed
-        /*
-         schoolyear
-         semester
-         grade
-         studentname
-         studentkey
-         studentsex
-         studentdob
-         mediumscore
-         summaryresult
-
-         no	subject	score15 score1	scorefinish	scoresummary	resurt 
-         */
-
         final LoadingDialog loading = new LoadingDialog(this, rootPaneCheckingEnabled);
         SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
             @Override
@@ -458,8 +444,16 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
                     return null;
                 }
 
-                if (new bll.ReportBLL().dataReportCardBySemester(Integer.parseInt(cboMSHS.getSelectedItem().toString().split(" - ")[0]), cboNamHoc.getSelectedItem().toString(), cbbSemester.getSelectedItem().toString(), cboTenLop.getSelectedItem().toString())) {
-                    JOptionPane.showMessageDialog(rootPane, "Học sinh " + cboMSHS.getSelectedItem().toString() + " ở học kỳ " + cbbSemester.getSelectedItem().toString() + " thuộc lớp " + cboTenLop.getSelectedItem().toString() + " năm học " + cboNamHoc.getSelectedItem().toString() + " hiện tại chưa có điểm.");
+                Result r = new bll.ReportBLL().dataReportCardBySemester(Integer.parseInt(cboMSHS.getSelectedItem().toString().split(" - ")[0]), cboNamHoc.getSelectedItem().toString(), cbbSemester.getSelectedItem().toString(), cboTenLop.getSelectedItem().toString());
+
+                if (r == Result.EMPTY) {
+                    JOptionPane.showMessageDialog(rootPane, "Học sinh " + cboMSHS.getSelectedItem().toString()
+                            + " ở học kỳ " + cbbSemester.getSelectedItem().toString()
+                            + " thuộc lớp " + cboTenLop.getSelectedItem().toString()
+                            + " năm học " + cboNamHoc.getSelectedItem().toString()
+                            + " hiện tại chưa có điểm.");
+                } else if (r == Result.ERROR) {
+                    JOptionPane.showMessageDialog(rootPane, "Có lỗi xảy ra khi tạo kết quả học tập.");
                 }
                 return null;
             }

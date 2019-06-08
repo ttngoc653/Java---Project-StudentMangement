@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--source: https://smas.edu.vn/HDSD/GVBM/pages/doc_files/image062.jpg-->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="54d58616-032b-4ffd-83cf-a200e817a16e">
+	<property name="ireport.zoom" value="0.9090909090909091"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="schoolyear" class="java.lang.String"/>
+	<parameter name="semester" class="java.lang.String"/>
+	<parameter name="grade" class="java.lang.String"/>
+	<parameter name="studentname" class="java.lang.String"/>
+	<parameter name="studentkey" class="java.lang.String"/>
+	<parameter name="studentdob" class="java.lang.String"/>
+	<parameter name="mediumscore" class="java.lang.String"/>
+	<parameter name="summaryresult" class="java.lang.String"/>
+	<field name="no" class="java.lang.String"/>
+	<field name="subject" class="java.lang.String"/>
+	<field name="score15" class="java.lang.String"/>
+	<field name="score1" class="java.lang.String"/>
+	<field name="scorefinish" class="java.lang.String"/>
+	<field name="scoresummary" class="java.lang.String"/>
+	<field name="result" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="123" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="31" uuid="918ed6aa-d4c4-4608-b3a0-a7360ccfd192"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[KẾT QUẢ HỌC TẬP]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="31" width="555" height="24" uuid="081fb8d8-a7ea-49cc-859a-582ac797dc74"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["HỌC KỲ "+$P{semester}+" - "+$P{schoolyear}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="42" y="72" width="265" height="20" uuid="1cc09596-028b-42ec-a1f2-d6f99023d165"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Mã học sinh: "+$P{studentkey}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="42" y="92" width="265" height="20" uuid="9d779a8c-b685-4263-939d-461c64fe46ba"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Họ và tên: "+$P{studentname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="307" y="72" width="116" height="20" uuid="c9006ade-0c04-4658-8055-e10a6a05906a"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Lớp: "+$P{grade}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="25" height="20" uuid="12f60379-037f-494b-825f-3340688e28f2"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[STT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="25" y="0" width="163" height="20" uuid="f9463729-7f02-45d3-b362-29788f4babaa"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[MÔN HỌC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="188" y="0" width="78" height="20" uuid="e690206f-a97e-47c3-9c60-28a476880083"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ĐIỂM 15 PHÚT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="266" y="0" width="65" height="20" uuid="2da77f81-67b6-4d8c-a95e-1441529917b6"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ĐIỂM 1 TIẾT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="331" y="0" width="79" height="20" uuid="f2b04256-4b24-4677-af33-236795ed23cc"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ĐIỂM CUỐI KỲ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="410" y="0" width="90" height="20" uuid="6e53e900-90c1-4147-9906-59428266593f"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ĐIỂM TỔNG KẾT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="500" y="0" width="55" height="20" uuid="46508977-0ec0-42cb-98a1-db8e0a2abda5"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[KẾT QUẢ]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="25" height="20" uuid="16d05e7c-223f-4d48-82d2-e0546dac83a0"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{no}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="25" y="0" width="163" height="20" uuid="d00fe09d-a61c-40ec-966f-5c750ed03a78"/>
+				<box topPadding="0" leftPadding="5" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{subject}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="188" y="0" width="78" height="20" uuid="b727c71c-7fa8-4c5b-8cab-595bb4ec9e79"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{score15}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="266" y="0" width="65" height="20" uuid="eae1e87d-809f-4a5d-b995-d6e884f3f630"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{score1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="331" y="0" width="79" height="20" uuid="3d05b4bb-ce74-404b-8e82-9101ba2abcd2"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{scorefinish}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="410" y="0" width="90" height="20" uuid="abcfcd22-d7d4-4ba4-a9e2-e5720f5949a6"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{scoresummary}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="500" y="0" width="55" height="20" uuid="874ab555-4d4d-4aab-81b8-49819a4ebe40"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{result}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="284" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="70" height="61" uuid="f844cc6d-44ff-4201-a6e5-342d269091e8"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[TỔNG KẾT:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="70" y="0" width="100" height="41" uuid="4e8b1b65-df65-434d-ba23-4796dfa3a06e"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TỔNG KẾT ĐIỂM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="355" y="0" width="100" height="41" uuid="4de2afea-89d8-4c9c-b451-0f259349551d"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[SỐ BUỔI NGHỈ CÓ PHÉP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="170" y="0" width="100" height="41" uuid="64bbc18c-0fb5-41d0-a103-0ee49d0bc9bf"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[HỌC LỰC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="0" width="100" height="41" uuid="3b62861b-0ff7-4e13-b9ac-b4dc027c08b5"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[SỐ BUỔI NGHỈ KHÔNG PHÉP]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="70" y="41" width="100" height="20" uuid="20dc4afe-693a-44c1-ba25-f319bb8dbe88"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{mediumscore}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="170" y="41" width="100" height="20" uuid="6f68fe6a-a342-4bdf-9a24-a9ca0edf4a3d"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{summaryresult}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="455" y="41" width="100" height="20" uuid="9d0d15f6-f726-46e0-a8af-836b726a0ded"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[.................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="355" y="41" width="100" height="20" uuid="79f1d321-655b-49b2-a7c3-a772d22e2fb5"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[......................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="270" y="0" width="85" height="41" uuid="226c1f8d-f7b8-4683-8363-ef1859c5c5d2"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[HẠNH KIỂM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="270" y="41" width="85" height="20" uuid="2582269a-828d-4e97-816a-ca73c0715c74"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<text><![CDATA[.......................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="61" width="555" height="91" uuid="ed53333e-e7a7-428d-9fd9-30e25142105d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[NHẬN XÉT CỦA GVCN:
+...................................................................................................................................................................
+...................................................................................................................................................................
+...................................................................................................................................................................
+...................................................................................................................................................................
+...................................................................................................................................................................]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="331" y="164" width="224" height="20" uuid="6baab0bf-48fe-4405-aa4e-f861b33e0f38"/>
+				<box rightPadding="5"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[".............................., ngày " + (new SimpleDateFormat("dd")).format(new Date()) 
++ " tháng " + (new SimpleDateFormat("MM")).format(new Date())
++ " năm " + (new SimpleDateFormat("yyyy")).format(new Date())]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="331" y="184" width="224" height="20" uuid="56663f9d-a4a0-4dfe-b528-71292a46f16e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Chữ ký của GVCN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="42" y="184" width="224" height="20" uuid="8222c579-4303-489a-99ba-9d27a9aac071"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Hiệu trưởng]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>
