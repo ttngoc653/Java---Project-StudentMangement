@@ -51,6 +51,40 @@ public class ScoreFrameBLL {
         return new EditableTableModel(data, new String[]{"STT", "Họ Tên", "Điểm 15'", "Điểm 1 tiết", "Điểm cuối kỳ"});
     }
 
+    public boolean CreateListScore(Integer idHocSinhLopHoc) {
+        try {
+            dto.HocsinhLophoc hocsinhLophoc = new dal.HocsinhLophocDAL().get(idHocSinhLopHoc);
+            List<dto.Hocky> hockys = new dal.HockyDAL().getAll();
+            List<dto.Monhoc> monhocs = new dal.MonhocDAL().getByTinhTrang(true);
+            for (Monhoc monhoc : monhocs) {
+                for (Hocky hocky : hockys) {
+                    new dal.DiemDAL().add(new dto.Diem(hocky, hocsinhLophoc, monhoc));
+                }
+            }
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    public Result DeleteListScoreIfNull(Integer idHocsinhLophoc) {
+        try {
+            dto.HocsinhLophoc hocsinhLophoc = new dal.HocsinhLophocDAL().get(idHocsinhLophoc);
+            List<dto.Diem> diems = new dal.DiemDAL().getByHocSinhLopHoc(hocsinhLophoc);
+            for (Diem diem : diems) {
+                if (diem.getDiem15phut() != null || diem.getDiem1tiet() != null || diem.getDiemCuoiKy() != null) {
+                    return Result.FAILURE;
+                }
+            }
+            for (Diem diem : diems) {
+                new dal.DiemDAL().delete(diem.getIdDiem());
+            }
+        } catch (Exception e) {
+            return Result.ERROR;
+        }
+        return Result.SUCCESS;
+    }
+
     private static class EditableTableModel extends DefaultTableModel {
 
         boolean[] columnEditable;
@@ -62,7 +96,7 @@ public class ScoreFrameBLL {
             super(data, string);
             columnEditable = new boolean[string.length];
             Arrays.fill(columnEditable, true);
-            
+
             setColumnEditable(0, false);
             setColumnEditable(1, false);
         }

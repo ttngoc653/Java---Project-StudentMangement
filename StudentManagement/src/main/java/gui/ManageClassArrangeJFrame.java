@@ -3,6 +3,7 @@ package gui;
 import static bll.ConfigBLL.getMaxStudent;
 import static bll.HocsinhBLL.dateFormat;
 import static bll.HocsinhLopHocBLL.*;
+import bll.Result;
 import dal.*;
 import dto.*;
 import java.awt.Dimension;
@@ -376,7 +377,9 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
                     + "Tuổi hiện tại của học sinh " + hocsinh.getIdHocSinh() + " - " + hocsinh.getHoTen() + " là " + tuoi + "\n"
                     + "Giới hạn tuối của lớp " + lop.getTenLop() + " từ " + minAge + " đến " + maxAge + " tuối.");
         } else {
-            if (new HocsinhLophocDAL().add(a) != null) {
+            Integer id = new HocsinhLophocDAL().add(a);
+            if (id != null) {
+                new bll.ScoreFrameBLL().CreateListScore(id);
                 JOptionPane.showMessageDialog(null, "Xếp lớp cho học sinh thành công");
                 LoadData();
             } else {
@@ -391,7 +394,7 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Chọn dòng thông tin bạn muốn xóa");
         } else {
             int idHocSinhLopHoc = Integer.parseInt(txtID.getText());
-            if (new HocsinhLophocDAL().delete(idHocSinhLopHoc)) {
+            if (new bll.ScoreFrameBLL().DeleteListScoreIfNull(idHocSinhLopHoc) == Result.SUCCESS && new HocsinhLophocDAL().delete(idHocSinhLopHoc)) {
                 JOptionPane.showMessageDialog(null, "Xóa thành công");
                 LoadData();
             } else {
@@ -455,8 +458,8 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
                     return null;
                 }
 
-                if ( new bll.ReportBLL().dataReportCardBySemester(Integer.parseInt(cboMSHS.getSelectedItem().toString().split(" - ")[0]), cboNamHoc.getSelectedItem().toString(), cbbSemester.getSelectedItem().toString(), cboTenLop.getSelectedItem().toString())){
-                      JOptionPane.showMessageDialog(rootPane, "Học sinh " +cboMSHS.getSelectedItem().toString() + " ở học kỳ " + cbbSemester.getSelectedItem().toString() + " thuộc lớp " + cboTenLop.getSelectedItem().toString() + " năm học " + cboNamHoc.getSelectedItem().toString() + " hiện tại chưa có điểm.");
+                if (new bll.ReportBLL().dataReportCardBySemester(Integer.parseInt(cboMSHS.getSelectedItem().toString().split(" - ")[0]), cboNamHoc.getSelectedItem().toString(), cbbSemester.getSelectedItem().toString(), cboTenLop.getSelectedItem().toString())) {
+                    JOptionPane.showMessageDialog(rootPane, "Học sinh " + cboMSHS.getSelectedItem().toString() + " ở học kỳ " + cbbSemester.getSelectedItem().toString() + " thuộc lớp " + cboTenLop.getSelectedItem().toString() + " năm học " + cboNamHoc.getSelectedItem().toString() + " hiện tại chưa có điểm.");
                 }
                 return null;
             }
