@@ -29,10 +29,10 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
     public ManageStudentJFrame() {
         //setUndecorated(true); //Bỏ khung viền tiêu đề frame (bỏ 3 nút trên cùng bên phải)
         initComponents();
-        
-        java.awt.Dimension dim =java.awt. Toolkit.getDefaultToolkit().getScreenSize();
+
+        java.awt.Dimension dim = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
-        
+
         LoadData();
     }
 
@@ -40,10 +40,10 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
 
     public ManageStudentJFrame(Nguoidung nguoidung) {
         initComponents();
-        
-        java.awt.Dimension dim =java.awt. Toolkit.getDefaultToolkit().getScreenSize();
+
+        java.awt.Dimension dim = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
-        
+
         nd = nguoidung;
         lblTenTaiKhoan.setText(nd.getHoTen());
 
@@ -304,7 +304,7 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
                     .addComponent(txtSdtGiamHo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
                     .addComponent(jButton1))
-                .addGap(19, 19, 19)
+                .addGap(17, 17, 17)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rbNam)
                     .addComponent(rbNu)
@@ -404,8 +404,8 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -429,7 +429,7 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
 //        int TuoiToiDa = Integer.parseInt(new CauHinhDAL().getByName("TuoiToiDa").getGiaTri());
         int TuoiToiThieu = getMinAgeStudent();
         int TuoiToiDa = getMaxAgeStudent();
-        
+
         Date newDate = jDateChooserNgaySinh.getDate();
         int kqNgaySinh = 0;
         if (checkDateOfBirth(newDate)) {
@@ -587,8 +587,10 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
 
-        int TuoiToiThieu = Integer.parseInt(new CauHinhDAL().getByName("TuoiToiThieu").getGiaTri());
-        int TuoiToiDa = Integer.parseInt(new CauHinhDAL().getByName("TuoiToiDa").getGiaTri());
+//        int TuoiToiThieu = Integer.parseInt(new CauHinhDAL().getByName("TuoiToiThieu").getGiaTri());
+//        int TuoiToiDa = Integer.parseInt(new CauHinhDAL().getByName("TuoiToiDa").getGiaTri());
+        int TuoiToiThieu = getMinAgeStudent();
+        int TuoiToiDa = getMaxAgeStudent();
 
         if (txtMSHS.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Chọn học sinh bạn muốn sửa");
