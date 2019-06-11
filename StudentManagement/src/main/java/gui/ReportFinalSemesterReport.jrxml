@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5c37b73e-740a-407c-892c-d5d356c8a4cd">
 	<property name="ireport.zoom" value="1.3310000000000006"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="15"/>
+	<property name="ireport.y" value="109"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
 	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
@@ -191,18 +191,10 @@
 				<textFieldExpression><![CDATA[$F{no}]]></textFieldExpression>
 			</textField>
 		</band>
-	</detail>
-	<columnFooter>
-		<band height="291" splitType="Stretch">
-			<line>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="d8b67828-b96f-4ece-b3c7-b603f8847361"/>
-				<graphicElement>
-					<pen lineWidth="0.5" lineColor="#999999"/>
-				</graphicElement>
-			</line>
+		<band height="291">
 			<stackedBarChart>
 				<chart>
-					<reportElement x="2" y="4" width="551" height="155" uuid="dd926f6c-64ad-489a-9cfd-da23e6d402e6"/>
+					<reportElement x="2" y="18" width="551" height="155" uuid="dd926f6c-64ad-489a-9cfd-da23e6d402e6"/>
 					<chartTitle/>
 					<chartSubtitle/>
 					<chartLegend/>
@@ -227,19 +219,29 @@
 				</barPlot>
 			</stackedBarChart>
 			<staticText>
-				<reportElement x="363" y="184" width="178" height="21" uuid="6055680f-c5cf-4c32-a8f5-696e93681d7f"/>
+				<reportElement x="359" y="205" width="178" height="21" uuid="6055680f-c5cf-4c32-a8f5-696e93681d7f"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font fontName="Tahoma" size="10"/>
 				</textElement>
 				<text><![CDATA[Chữ ký của Hiệu trưởng]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="245" y="169" width="296" height="15" uuid="6163dfc6-d5c5-4231-8118-0cbd3ae37412"/>
+				<reportElement x="241" y="190" width="296" height="15" uuid="6163dfc6-d5c5-4231-8118-0cbd3ae37412"/>
 				<textElement textAlignment="Right" verticalAlignment="Bottom">
 					<font fontName="Tahoma" size="10"/>
 				</textElement>
 				<text><![CDATA[..................., Ngày ....... tháng ....... năm ....]]></text>
 			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="8" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="d8b67828-b96f-4ece-b3c7-b603f8847361"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
 		</band>
 	</columnFooter>
 	<pageFooter>

@@ -2,3 +2,8 @@ StudentManagement/target/
 StudentManagement/src/main/java/App.java
 StudentManagement/target/classes/gui/ManageClassArrangeJFrame.class
 StudentManagement/target/classes/gui/ManageStudentJFrame.class
+StudentManagement/target/classes/gui/ManageClassArrangeJFrame.class
+StudentManagement/target/classes/gui/ManageClassJFrame.class
+StudentManagement/target/classes/gui/ManageMainJFrame.class
+StudentManagement/target/classes/gui/ManageStudentJFrame.class
+StudentManagement/target/classes/gui/RegisterFrame.class
