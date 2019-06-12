@@ -1,5 +1,6 @@
 package bll;
 
+import dto.Diem;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -63,6 +64,7 @@ public class ReportBLL {
         List<dto.Lop> lLop = new dal.LopDAL().getAll();
         dto.Monhoc monhoc = new dal.MonhocDAL().getByTen(subject);
         dto.Namhoc namhoc = new dal.NamhocDAL().getByTen(schoolYear);
+        dto.Hocky hocky = new dal.HockyDAL().getByTen(semester);
 
         List<dto.HocsinhLophoc> lHL = null;
         for (int i = 0; i < lLop.size(); i++) {
@@ -71,17 +73,15 @@ public class ReportBLL {
             int summary = 0, reacted = 0;
             Double diem15, diem1, diemhk, dtb;
             for (dto.HocsinhLophoc lHL1 : lHL) {
-                List<dto.Diem> lDiem = new dal.DiemDAL().getByHocSinhLopHocMonHoc(lHL1, monhoc);
-                for (dto.Diem lDiem1 : lDiem) {
-                    if (lDiem1.getHocky().getTenHocKy() == semester) {
-                        summary++;
-                        diem15 = lDiem1.getDiem15phut();
-                        diem1 = lDiem1.getDiem1tiet();
-                        diemhk = lDiem1.getDiemCuoiKy();
-                        dtb = ((diem15 != null ? diem15 : 0) + (diem1 != null ? diem1 : 0) * 2 + (diemhk != null ? diemhk : 0) * 3) / ((diem15 != null ? 1 : 0) + (diem1 != null ? 2 : 0) + (diemhk != null ? 3 : 0));
-                        if (dtb >= bll.ConfigBLL.getBenchMark(monhoc)) {
-                            reacted++;
-                        }
+                Diem diem = new dal.DiemDAL().getByLopHocHocKyMonHocHocSinh(lHL1, hocky, monhoc);
+                if(diem!=null) {
+                    summary++;
+                    diem15 = diem.getDiem15phut();
+                    diem1 = diem.getDiem1tiet();
+                    diemhk = diem.getDiemCuoiKy();
+                    dtb = ((diem15 != null ? diem15 : 0) + (diem1 != null ? diem1 : 0) * 2 + (diemhk != null ? diemhk : 0) * 3) / ((diem15 != null ? 1 : 0) + (diem1 != null ? 2 : 0) + (diemhk != null ? 3 : 0));
+                    if (dtb >= bll.ConfigBLL.getBenchMark(monhoc)) {
+                        reacted++;
                     }
                 }
             }
@@ -188,7 +188,7 @@ public class ReportBLL {
             map.put("score1", diem1 != null ? diem1 : "");
             map.put("scorefinish", diemhk != null ? diemhk : "");
             map.put("scoresummary", (double) Math.round(dtb * 100) / 100);
-            map.put("result", bll.ConfigBLL.getBenchMark(diems.get(i).getMonhoc()) >= dtb ? "Đạt" : "Rớt");
+            map.put("result", bll.ConfigBLL.getBenchMark(diems.get(i).getMonhoc()) <= dtb ? "Đạt" : "Rớt");
 
             lResult.add(map);
         }
