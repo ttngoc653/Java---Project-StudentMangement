@@ -375,9 +375,9 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
             mh.setHeSo(1);
         }
         mh.setDangGiangDay(true);
-        
+        txtCoefficient.setText("");
         if (bll.ConfigBLL.getMaxSubject() == lCastrate.getModel().getSize() + lTeaching.getModel().getSize()) {
-            JOptionPane.showMessageDialog(this, "Đã đủ giới hạn lớp cho phép.");
+            JOptionPane.showMessageDialog(this, "Đã tới giới hạn môn cho phép.");
         } else if (new MonhocDAL().getByTen(mh.getTenMh()) == null) {
             if (new MonhocDAL().add(mh) > 0) {
                 JOptionPane.showMessageDialog(this, "Thêm thành công");

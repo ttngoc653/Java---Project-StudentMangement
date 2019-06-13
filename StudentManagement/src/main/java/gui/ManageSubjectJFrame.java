@@ -49,7 +49,6 @@ public class ManageSubjectJFrame extends javax.swing.JFrame {
         lblTenTaiKhoan.setText("Tên tài khoản");
 
         configSubjectJPanel1.setMinimumSize(new java.awt.Dimension(429, 503));
-        configSubjectJPanel1.setPreferredSize(new java.awt.Dimension(429, 503));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
