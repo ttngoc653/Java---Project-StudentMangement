@@ -309,7 +309,7 @@ public class ManageMainJFrame extends javax.swing.JFrame {
             ManageStudentJFrame.openFrame = false;
             ManageStudentJFrame f = new ManageStudentJFrame(nd);
             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-            f.setSize((screenSize.width), 700);
+            //f.setSize((screenSize.width), 700);
             f.setLocationRelativeTo(null);
             f.setVisible(true);
             f.setResizable(false);
