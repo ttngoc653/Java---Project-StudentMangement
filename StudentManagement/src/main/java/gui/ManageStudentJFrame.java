@@ -43,7 +43,6 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
 
 //        java.awt.Dimension dim = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
 //        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
-
         nd = nguoidung;
         lblTenTaiKhoan.setText(nd.getHoTen());
 
@@ -83,16 +82,6 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
 
         this.jTableHocSinh.setModel(dtm);
 
-//        this.jTableHocSinh.getColumnModel().getColumn(0).setPreferredWidth(10);  //MSHS
-//        this.jTableHocSinh.getColumnModel().getColumn(1).setPreferredWidth(150); //Họ tên
-//        this.jTableHocSinh.getColumnModel().getColumn(2).setPreferredWidth(120); //Ngày sinh
-//        this.jTableHocSinh.getColumnModel().getColumn(3).setPreferredWidth(200); //Email
-//        this.jTableHocSinh.getColumnModel().getColumn(4).setPreferredWidth(20);  //Giới tính
-//        this.jTableHocSinh.getColumnModel().getColumn(5).setPreferredWidth(200); //Địa chỉ
-//        this.jTableHocSinh.getColumnModel().getColumn(6).setPreferredWidth(100); //SĐT cá nhân
-//        this.jTableHocSinh.getColumnModel().getColumn(7).setPreferredWidth(100); //SĐT giám hộ
-//        //this.jTableHocSinh.getColumnModel().getColumn(8).setPreferredWidth(100); //Tình trạng
-
         this.jTableHocSinh.getColumnModel().getColumn(0).setPreferredWidth(50);  //MSHS
         this.jTableHocSinh.getColumnModel().getColumn(1).setPreferredWidth(200); //Họ tên
         this.jTableHocSinh.getColumnModel().getColumn(2).setPreferredWidth(80); //Ngày sinh
@@ -103,8 +92,13 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
         this.jTableHocSinh.getColumnModel().getColumn(7).setPreferredWidth(90); //SĐT giám hộ
         //this.jTableHocSinh.getColumnModel().getColumn(8).setPreferredWidth(100); //Tình trạng
 
+        //Canh phải cho cột
+        DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+        rightRenderer.setHorizontalAlignment(JLabel.RIGHT);
+        this.jTableHocSinh.getColumnModel().getColumn(0).setCellRenderer(rightRenderer);//Canh phải cột MSHS
+
         this.jTableHocSinh.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
-        
+
         if (jTableHocSinh.getPreferredSize().width < jTableHocSinh.getParent().getWidth()) {
             jTableHocSinh.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         } else {
@@ -445,8 +439,25 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
             kqNgaySinh = 0;
         }
 
-        if (!this.txtHoTen.getText().equals("") && !this.txtDiaChi.getText().equals("") && kqNgaySinh == 1) {
-            Hocsinh hs = new Hocsinh();
+        if (this.txtHoTen.getText().equals("") || this.txtDiaChi.getText().equals("") && kqNgaySinh == 0) {
+            JOptionPane.showMessageDialog(null, "Điền thông tin cho các ô có (*) và ngày sinh phải hợp lệ");
+        } else if (kqNgaySinh == 1) {
+            if (checkAge(dateFormat.format(newDate), TuoiToiDa, TuoiToiThieu) == false) {
+                JOptionPane.showMessageDialog(null, "Tuổi từ " + TuoiToiThieu + " đến " + TuoiToiDa);
+            }
+        } else if (!this.txtEmail.getText().equals("")) {
+            if (!checkEmail(this.txtEmail.getText())) {
+                JOptionPane.showMessageDialog(null, "Email không hợp lệ");
+            }
+        } else if (!this.txtSdtCaNhan.getText().equals("") || !this.txtSdtGiamHo.getText().equals("")) {
+            if (!checkPhoneNumber(this.txtSdtCaNhan.getText()) || !checkPhoneNumber(this.txtSdtGiamHo.getText())) {
+                JOptionPane.showMessageDialog(null, "Số điện thoại không hợp lệ");
+            }
+        } else if (!this.txtHoTen.getText().equals("") && !this.txtDiaChi.getText().equals("") && kqNgaySinh == 1) {
+            if (!checkStudentExists(this.txtHoTen.getText(), this.txtDiaChi.getText(), dateFormat.format(newDate))) {
+                JOptionPane.showMessageDialog(null, "Học sinh đã tồn tại");
+            }
+        } else {
             String hoTen = this.txtHoTen.getText();
             String ngaySinh = dateFormat.format(newDate);
             String email = this.txtEmail.getText();
@@ -461,43 +472,76 @@ public class ManageStudentJFrame extends javax.swing.JFrame {
             String sdtGiamHo = this.txtSdtGiamHo.getText();
             Byte tinhTrang = Byte.parseByte("1");
 
-            if (checkAge(ngaySinh, TuoiToiDa, TuoiToiThieu) == true) {
-                hs.setHoTen(hoTen);
-                hs.setNgaySinh(ngaySinh);
-                hs.setEmail(email);
-                hs.setGioiTinh(gioiTinh);
-                hs.setDiaChi(diaChi);
-                hs.setSdtCaNhan(sdtCaNhan);
-                hs.setSdtGiamHo(sdtGiamHo);
-                hs.setTinhTrang(tinhTrang);
-
-                if (checkEmail(email)) {
-                    if (checkPhoneNumber(sdtCaNhan) && checkPhoneNumber(sdtGiamHo)) {
-                        if (checkStudentExists(hoTen, diaChi, ngaySinh)) {
-                            if (new HocsinhDAL().add(hs) != -1) {
-                                JOptionPane.showMessageDialog(null, "Thêm học sinh thành công");
-                                LoadData();
-                            } else {
-                                JOptionPane.showMessageDialog(null, "Thêm học sinh thất bại");
-                            }
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Học sinh đã tồn tại");
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Số điện thoại không hợp lệ");
-                    }
-
-                } else {
-                    JOptionPane.showMessageDialog(null, "Email không hợp lệ");
-                }
-
+            Hocsinh hs = new Hocsinh();
+            hs.setHoTen(hoTen);
+            hs.setNgaySinh(ngaySinh);
+            hs.setEmail(email);
+            hs.setGioiTinh(gioiTinh);
+            hs.setDiaChi(diaChi);
+            hs.setSdtCaNhan(sdtCaNhan);
+            hs.setSdtGiamHo(sdtGiamHo);
+            hs.setTinhTrang(tinhTrang);
+            if (new HocsinhDAL().add(hs) != -1) {
+                JOptionPane.showMessageDialog(null, "Thêm học sinh thành công");
+                LoadData();
             } else {
-                JOptionPane.showMessageDialog(null, "Tuổi từ " + TuoiToiThieu + " đến " + TuoiToiDa);
+                JOptionPane.showMessageDialog(null, "Thêm học sinh thất bại");
             }
-
-        } else {
-            JOptionPane.showMessageDialog(null, "Điền thông tin cho các ô có (*) và ngày sinh phải hợp lệ");
         }
+
+//        if (!this.txtHoTen.getText().equals("") && !this.txtDiaChi.getText().equals("") && kqNgaySinh == 1) {
+//            Hocsinh hs = new Hocsinh();
+//            String hoTen = this.txtHoTen.getText();
+//            String ngaySinh = dateFormat.format(newDate);
+//            String email = this.txtEmail.getText();
+//            String gioiTinh = "";
+//            if (rbNam.isSelected()) {
+//                gioiTinh = "Nam";
+//            } else {
+//                gioiTinh = "Nữ";
+//            }
+//            String diaChi = this.txtDiaChi.getText();
+//            String sdtCaNhan = this.txtSdtCaNhan.getText();
+//            String sdtGiamHo = this.txtSdtGiamHo.getText();
+//            Byte tinhTrang = Byte.parseByte("1");
+//
+//            if (checkAge(ngaySinh, TuoiToiDa, TuoiToiThieu) == true) {
+//                hs.setHoTen(hoTen);
+//                hs.setNgaySinh(ngaySinh);
+//                hs.setEmail(email);
+//                hs.setGioiTinh(gioiTinh);
+//                hs.setDiaChi(diaChi);
+//                hs.setSdtCaNhan(sdtCaNhan);
+//                hs.setSdtGiamHo(sdtGiamHo);
+//                hs.setTinhTrang(tinhTrang);
+//
+//                if (checkEmail(email)) {
+//                    if (checkPhoneNumber(sdtCaNhan) && checkPhoneNumber(sdtGiamHo)) {
+//                        if (checkStudentExists(hoTen, diaChi, ngaySinh)) {
+//                            if (new HocsinhDAL().add(hs) != -1) {
+//                                JOptionPane.showMessageDialog(null, "Thêm học sinh thành công");
+//                                LoadData();
+//                            } else {
+//                                JOptionPane.showMessageDialog(null, "Thêm học sinh thất bại");
+//                            }
+//                        } else {
+//                            JOptionPane.showMessageDialog(null, "Học sinh đã tồn tại");
+//                        }
+//                    } else {
+//                        JOptionPane.showMessageDialog(null, "Số điện thoại không hợp lệ");
+//                    }
+//
+//                } else {
+//                    JOptionPane.showMessageDialog(null, "Email không hợp lệ");
+//                }
+//
+//            } else {
+//                JOptionPane.showMessageDialog(null, "Tuổi từ " + TuoiToiThieu + " đến " + TuoiToiDa);
+//            }
+//
+//        } else {
+//            JOptionPane.showMessageDialog(null, "Điền thông tin cho các ô có (*) và ngày sinh phải hợp lệ");
+//        }
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnXepLopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXepLopActionPerformed
