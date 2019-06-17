@@ -407,9 +407,9 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void txtNumMaxKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumMaxKeyTyped
-//        if (!bll.HelperBLL.IsInteger(txtNumMax.getText() + evt.getKeyChar())) {
-//            evt.consume();
-//        }
+        if (!bll.HelperBLL.IsInteger(txtNumMax.getText() + evt.getKeyChar())) {
+            evt.consume();
+        }
     }//GEN-LAST:event_txtNumMaxKeyTyped
 
     private void txtCoefficientKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCoefficientKeyTyped
