@@ -41,27 +41,13 @@ public class HocsinhBLL {
         if ((matcher.matches() && number.length() == 10) || number.equals("")) {
             return true;
         } else if ((matcher.matches() && number.length() == 11) || number.equals("")) {
+            if (number.substring(0, 2).equals("02")) {
             return true;
+            }
+            return false;
         } else {
             return false;
         }
-
-//        int check = 1;
-//        if (!matcher.matches()) {
-//            check = 0;
-//        } else if (number.length() == 10 || number.length() == 11) {
-//            if (!number.substring(0, 2).equals("02")) {
-//                check = 0;
-//            }
-//        } else {
-//            check = 0;
-//        }
-//        
-//        if(check == 0){
-//           return false; 
-//        }else{
-//            return true;
-//        }
     }
 
     /*

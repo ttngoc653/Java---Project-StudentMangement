@@ -27,7 +27,6 @@ public class ManageClassJFrame extends javax.swing.JFrame {
     public ManageClassJFrame(Nguoidung nguoidung) {
         initComponents();
         nd = nguoidung;
-        lblTenTaiKhoan.setText(nd.getHoTen());
         LoadData();
     }
 
@@ -67,7 +66,6 @@ public class ManageClassJFrame extends javax.swing.JFrame {
         cboKhoi = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         txtMaLop = new javax.swing.JTextField();
-        lblTenTaiKhoan = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         btnThem = new javax.swing.JButton();
         btnXoa = new javax.swing.JButton();
@@ -137,8 +135,6 @@ public class ManageClassJFrame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        lblTenTaiKhoan.setText("Tên tài khoản");
-
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Quản lý lớp");
@@ -197,9 +193,6 @@ public class ManageClassJFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 760, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(lblTenTaiKhoan))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -217,9 +210,7 @@ public class ManageClassJFrame extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblTenTaiKhoan)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(20, 20, 20)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -429,7 +420,6 @@ public class ManageClassJFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableLop;
-    private javax.swing.JLabel lblTenTaiKhoan;
     private javax.swing.JTextField txtMaLop;
     private javax.swing.JTextField txtTenLop;
     // End of variables declaration//GEN-END:variables
