@@ -10,6 +10,7 @@ package bll;
  * @author Tan
  */
 public class ShoolYearBLL {
+
     public boolean ktnamhople(String nam) {
         int temp;
         try {
@@ -23,5 +24,13 @@ public class ShoolYearBLL {
         return false;
 
     }
-    
+
+    public static boolean CheckSchoolYear(int NamHoc1, int NamHoc2) {
+
+        if(NamHoc1 >= NamHoc2){
+            return false;
+        }
+        return true;
+    }
+
 }

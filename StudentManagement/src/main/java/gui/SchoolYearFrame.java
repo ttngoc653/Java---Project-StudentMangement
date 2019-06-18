@@ -6,6 +6,7 @@
 package gui;
 
 import bll.ShoolYearBLL;
+import static bll.ShoolYearBLL.CheckSchoolYear;
 import dal.NamhocDAL;
 import dto.Namhoc;
 import java.util.ArrayList;
@@ -21,15 +22,16 @@ import javax.swing.table.DefaultTableModel;
 public class SchoolYearFrame extends javax.swing.JFrame {
 
     public static Boolean openFrame = true;
+
     /**
      * Creates new form SchoolYearFrame
      */
     public SchoolYearFrame() {
         initComponents();
-        
-        java.awt.Dimension dim =java.awt. Toolkit.getDefaultToolkit().getScreenSize();
+
+        java.awt.Dimension dim = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
-        
+
         showtable();
         this.setLocationRelativeTo(this);
     }
@@ -236,20 +238,26 @@ public class SchoolYearFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         //  if(new NamhocDAL())){
         //      JOptionPane.showMessageDialog(this, "Năm học đã tồn tại");
         //  }
         ShoolYearBLL bll = new ShoolYearBLL();
         if (bll.ktnamhople(namhocTF1.getText()) && bll.ktnamhople(namhocTF2.getText())) {
-            Namhoc nh = new Namhoc();
-            nh.setTenNamHoc(namhocTF1.getText() + "-" + namhocTF2.getText());
-            NamhocDAL nhdal = new NamhocDAL();
-            if (nhdal.add(nh) >= 0) {
-                showtable();
-            } else {
-                JOptionPane.showMessageDialog(this, "Thêm năm học thất bại.");
+            int NamHoc1 = Integer.parseInt(namhocTF1.getText());
+            int NamHoc2 = Integer.parseInt(namhocTF2.getText());
+            if (CheckSchoolYear(NamHoc1, NamHoc2)) {
+                Namhoc nh = new Namhoc();
+                nh.setTenNamHoc(namhocTF1.getText() + "-" + namhocTF2.getText());
+                NamhocDAL nhdal = new NamhocDAL();
+                if (nhdal.add(nh) >= 0) {
+                    showtable();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Thêm năm học thất bại.");
+                }
+            }else{
+                JOptionPane.showMessageDialog(this, "Năm học bắt đầu phải nhỏ hơn năm kết thúc");
             }
         } else {
             JOptionPane.showMessageDialog(this, "Năm học không hợp lê, xin thử lại");
@@ -279,13 +287,13 @@ public class SchoolYearFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_namhocTF2FocusLost
 
     private void namhocTF1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_namhocTF1KeyTyped
-        if (!bll.HelperBLL.IsInteger(namhocTF1.getText()+evt.getKeyChar())) {
+        if (!bll.HelperBLL.IsInteger(namhocTF1.getText() + evt.getKeyChar())) {
             evt.consume();
         }
     }//GEN-LAST:event_namhocTF1KeyTyped
 
     private void namhocTF2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_namhocTF2KeyTyped
-        if (!bll.HelperBLL.IsInteger(namhocTF2.getText()+evt.getKeyChar())) {
+        if (!bll.HelperBLL.IsInteger(namhocTF2.getText() + evt.getKeyChar())) {
             evt.consume();
         }
     }//GEN-LAST:event_namhocTF2KeyTyped
