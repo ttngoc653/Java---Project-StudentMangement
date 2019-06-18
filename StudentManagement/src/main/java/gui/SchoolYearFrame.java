@@ -243,11 +243,6 @@ public class SchoolYearFrame extends javax.swing.JFrame {
         //  }
         ShoolYearBLL bll = new ShoolYearBLL();
         if (bll.ktnamhople(namhocTF1.getText()) && bll.ktnamhople(namhocTF2.getText())) {
-            if(Integer.parseInt(namhocTF1.getText())>Integer.parseInt(namhocTF2.getText()))
-            {
-                JOptionPane.showMessageDialog(this, "Năm học bắt đầu phải nhỏ hơn năm học kết thúc.");
-                return;
-            }
             Namhoc nh = new Namhoc();
             nh.setTenNamHoc(namhocTF1.getText() + "-" + namhocTF2.getText());
             NamhocDAL nhdal = new NamhocDAL();

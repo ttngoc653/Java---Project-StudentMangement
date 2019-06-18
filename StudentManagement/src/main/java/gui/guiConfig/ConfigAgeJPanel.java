@@ -198,7 +198,7 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
     }
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        setStatus("");
+        txtStatus.setText("");
 
         refresh();
 
@@ -210,14 +210,14 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
         if (!HelperBLL.IsInteger(Character.toString(evt.getKeyChar()))) {
             //evt.consume();
         }
-        setStatus("");
+        txtStatus.setText("");
     }//GEN-LAST:event_txtMinAgeKeyTyped
 
     private void txtMaxAgeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaxAgeKeyTyped
         if (!HelperBLL.IsInteger(Character.toString(evt.getKeyChar()))) {
             //evt.consume();
         }
-        setStatus("");
+        txtStatus.setText("");
     }//GEN-LAST:event_txtMaxAgeKeyTyped
 
     private void ckbApplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckbApplyActionPerformed
@@ -226,49 +226,49 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
 
     private void btnApplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApplyActionPerformed
         txtStatus.setForeground(Color.BLACK);
-        setStatus("Kiểm tra giá trị...");
+        txtStatus.setText("Kiểm tra giá trị...");
 
         if (txtMaxAge.getText().isEmpty() || txtMinAge.getText().isEmpty()) {
-            setStatus("Tuối tối tiểu hoặc tuối tối đa không được bỏ trống.");
+            txtStatus.setText("Tuối tối tiểu hoặc tuối tối đa không được bỏ trống.");
             return;
         }else if (!bll.HelperBLL.IsInteger(txtMinAge.getText())) {
-            setStatus("Tuối tối tiểu phải là giá trị số nguyên.");            
+            txtStatus.setText("Tuối tối tiểu phải là giá trị số nguyên.");            
             return;
         }else if (!bll.HelperBLL.IsInteger(txtMaxAge.getText())) {
-            setStatus("Tuối tối đa phải là giá trị số nguyên.");            
+            txtStatus.setText("Tuối tối đa phải là giá trị số nguyên.");            
             return;
         }else if (Integer.parseInt(txtMaxAge.getText())<Integer.parseInt(txtMinAge.getText())) {
-            setStatus("Tuối tối đa phải lớn hơn tuối tối tiểu.");            
+            txtStatus.setText("Tuối tối đa phải lớn hơn tuối tối tiểu.");            
             return;
         }
 
         disableAllControl();
 
-        setStatus("Bắt đầu lưu...");
+        txtStatus.setText("Bắt đầu lưu...");
 
-        setStatus("Đã nhận giá trị cũ...");
+        txtStatus.setText("Đã nhận giá trị cũ...");
 
         if (cbxApplyAll.isSelected()) {
             if (bll.ConfigBLL.saveLimitAgeGerenal(txtMinAge.getText(), txtMaxAge.getText())) {
-                setStatus("Lưu thành công tuổi tối đa/tối tiếu đầu vào của trường.");
+                txtStatus.setText("Lưu thành công tuổi tối đa/tối tiếu đầu vào của trường.");
             } else {
-                setStatus("Lỗi khi lưu giới hạn tuối của hoc sinh.");
+                txtStatus.setText("Lỗi khi lưu giới hạn tuối của hoc sinh.");
                 return;
             }
         }
 
         if (ckbApply.isSelected()) {
-            setStatus("Bắt đầu lưu giới hạn tuổi theo lớp...");
+            txtStatus.setText("Bắt đầu lưu giới hạn tuổi theo lớp...");
 
             List list_selected = listGrade.getSelectedValuesList();
 
             if (!bll.ConfigBLL.saveLimitAgeAcoordingToGrade(list_selected, txtMinAge.getText(), txtMaxAge.getText())) {
-                setStatus("Lỗi khi lưu giới hạn tuổi theo lớp.");
+                txtStatus.setText("Lỗi khi lưu giới hạn tuổi theo lớp.");
                 return;
             }
         }
 
-        setStatus("Hoàn tất áp dụng.");
+        txtStatus.setText("Hoàn tất áp dụng.");
 
         refresh();
 
@@ -315,9 +315,5 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
         cbxApplyAll.setEnabled(true);
         ckbApply.setEnabled(true);
         jScrollPane.setEnabled(ckbApply.isSelected());
-    }
-    
-    private void setStatus(String status){
-        txtStatus.setText("<html>"+status+"</html>");
     }
 }
