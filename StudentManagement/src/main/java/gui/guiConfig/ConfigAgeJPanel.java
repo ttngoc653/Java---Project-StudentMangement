@@ -198,7 +198,7 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
     }
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        txtStatus.setText("");
+        setStatus("");
 
         refresh();
 
@@ -210,14 +210,14 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
         if (!HelperBLL.IsInteger(Character.toString(evt.getKeyChar()))) {
             //evt.consume();
         }
-        txtStatus.setText("");
+        setStatus("");
     }//GEN-LAST:event_txtMinAgeKeyTyped
 
     private void txtMaxAgeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaxAgeKeyTyped
         if (!HelperBLL.IsInteger(Character.toString(evt.getKeyChar()))) {
             //evt.consume();
         }
-        txtStatus.setText("");
+        setStatus("");
     }//GEN-LAST:event_txtMaxAgeKeyTyped
 
     private void ckbApplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckbApplyActionPerformed
@@ -226,49 +226,49 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
 
     private void btnApplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApplyActionPerformed
         txtStatus.setForeground(Color.BLACK);
-        txtStatus.setText("Kiểm tra giá trị...");
+        setStatus("Kiểm tra giá trị...");
 
         if (txtMaxAge.getText().isEmpty() || txtMinAge.getText().isEmpty()) {
-            txtStatus.setText("Tuối tối tiểu hoặc tuối tối đa không được bỏ trống.");
+            setStatus("Tuối tối tiểu hoặc tuối tối đa không được bỏ trống.");
             return;
         }else if (!bll.HelperBLL.IsInteger(txtMinAge.getText())) {
-            txtStatus.setText("Tuối tối tiểu phải là giá trị số nguyên.");            
+            setStatus("Tuối tối tiểu phải là giá trị số nguyên.");            
             return;
         }else if (!bll.HelperBLL.IsInteger(txtMaxAge.getText())) {
-            txtStatus.setText("Tuối tối đa phải là giá trị số nguyên.");            
+            setStatus("Tuối tối đa phải là giá trị số nguyên.");            
             return;
         }else if (Integer.parseInt(txtMaxAge.getText())<Integer.parseInt(txtMinAge.getText())) {
-            txtStatus.setText("Tuối tối đa phải lớn hơn tuối tối tiểu.");            
+            setStatus("Tuối tối đa phải lớn hơn tuối tối tiểu.");            
             return;
         }
 
         disableAllControl();
 
-        txtStatus.setText("Bắt đầu lưu...");
+        setStatus("Bắt đầu lưu...");
 
-        txtStatus.setText("Đã nhận giá trị cũ...");
+        setStatus("Đã nhận giá trị cũ...");
 
         if (cbxApplyAll.isSelected()) {
             if (bll.ConfigBLL.saveLimitAgeGerenal(txtMinAge.getText(), txtMaxAge.getText())) {
-                txtStatus.setText("Lưu thành công tuổi tối đa/tối tiếu đầu vào của trường.");
+                setStatus("Lưu thành công tuổi tối đa/tối tiếu đầu vào của trường.");
             } else {
-                txtStatus.setText("Lỗi khi lưu giới hạn tuối của hoc sinh.");
+                setStatus("Lỗi khi lưu giới hạn tuối của hoc sinh.");
                 return;
             }
         }
 
         if (ckbApply.isSelected()) {
-            txtStatus.setText("Bắt đầu lưu giới hạn tuổi theo lớp...");
+            setStatus("Bắt đầu lưu giới hạn tuổi theo lớp...");
 
             List list_selected = listGrade.getSelectedValuesList();
 
             if (!bll.ConfigBLL.saveLimitAgeAcoordingToGrade(list_selected, txtMinAge.getText(), txtMaxAge.getText())) {
-                txtStatus.setText("Lỗi khi lưu giới hạn tuổi theo lớp.");
+                setStatus("Lỗi khi lưu giới hạn tuổi theo lớp.");
                 return;
             }
         }
 
-        txtStatus.setText("Hoàn tất áp dụng.");
+        setStatus("Hoàn tất áp dụng.");
 
         refresh();
 
@@ -276,6 +276,10 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnApplyActionPerformed
 
+    private void setStatus(String status){
+        txtStatus.setText("<html>"+status+"</status>");
+    }
+        
     private void listGradeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listGradeMouseClicked
         if (SwingUtilities.isRightMouseButton(evt)) {
             bll.ConfigBLL.deleteOwnConfig(evt.getPoint(), "tuoiVaoLop", listGrade);
