@@ -77,9 +77,6 @@
   </Layout>
   <SubComponents>
     <Component class="javax.swing.JTextField" name="txtTenTaiKhoan">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="admin"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnDangNhap">
       <Properties>
