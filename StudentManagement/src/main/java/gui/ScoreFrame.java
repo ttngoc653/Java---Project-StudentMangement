@@ -306,6 +306,12 @@ public class ScoreFrame extends javax.swing.JFrame {
         hocky = new dal.HockyDAL().getByTen(Integer.valueOf(hockyCBX.getSelectedItem().toString()));
         lop = new dal.LopDAL().getByTen(lopCBX.getSelectedItem().toString());
         this.jTable1.setModel(new bll.ScoreFrameBLL().getData(lopCBX.getSelectedItem().toString(), monCBX.getSelectedItem().toString(), namhocCBX.getSelectedItem().toString(), hockyCBX.getSelectedItem().toString()));
+        
+        if (jTable1.getPreferredSize().width < jTable1.getParent().getWidth()) {
+            jTable1.setAutoResizeMode(jTable1.AUTO_RESIZE_ALL_COLUMNS);
+        } else {
+            jTable1.setAutoResizeMode(jTable1.AUTO_RESIZE_OFF);
+        }
     }//GEN-LAST:event_chonBTActionPerformed
 
     String value_old;
