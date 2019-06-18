@@ -47,6 +47,8 @@ public class ListScoreStudentByClass extends javax.swing.JFrame {
         for (dto.Lop i : lL) {
             cbbGrade.addItem(i.getTenLop());
         }
+        
+        process(cbbSchoolYear.getSelectedItem().toString(), cbbBlock.getSelectedItem().toString(), cbbGrade.getSelectedItem().toString());
     }
 
     /**
