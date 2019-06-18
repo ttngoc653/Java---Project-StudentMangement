@@ -148,7 +148,7 @@ public class LopDAL {
         return n;
     }
 
-    public List<Lop> getByKhoi(int khoi) {
+    public List<Lop> getByKhoi(String khoi) {
         list = new ArrayList<>();
         try {
             tst = session.beginTransaction();

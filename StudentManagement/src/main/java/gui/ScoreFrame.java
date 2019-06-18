@@ -36,10 +36,10 @@ public class ScoreFrame extends javax.swing.JFrame {
      */
     public ScoreFrame() {
         initComponents();
-        
-        java.awt.Dimension dim =java.awt. Toolkit.getDefaultToolkit().getScreenSize();
+
+        java.awt.Dimension dim = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
-        
+
         initLop();
         initHocky();
         initMonhoc();
@@ -306,7 +306,7 @@ public class ScoreFrame extends javax.swing.JFrame {
         hocky = new dal.HockyDAL().getByTen(Integer.valueOf(hockyCBX.getSelectedItem().toString()));
         lop = new dal.LopDAL().getByTen(lopCBX.getSelectedItem().toString());
         this.jTable1.setModel(new bll.ScoreFrameBLL().getData(lopCBX.getSelectedItem().toString(), monCBX.getSelectedItem().toString(), namhocCBX.getSelectedItem().toString(), hockyCBX.getSelectedItem().toString()));
-        
+
         if (jTable1.getPreferredSize().width < jTable1.getParent().getWidth()) {
             jTable1.setAutoResizeMode(jTable1.AUTO_RESIZE_ALL_COLUMNS);
         } else {
@@ -325,10 +325,14 @@ public class ScoreFrame extends javax.swing.JFrame {
         }
         if (temp == jTable1.getSelectedRow() && jTable1.getSelectedRow() != -1) {
             System.out.println(jTable1.getSelectedRow() + "____" + jTable1.getSelectedColumn() + "____" + value);
-            if (!value.isEmpty() && !(Double.parseDouble(value) >= 0 && Double.parseDouble(value) <= 10D)) {
-                JOptionPane.showMessageDialog(this, "Điểm không hợp lệ. Điểm phải từ 0 đến 10.", value, WIDTH);
+            try {
+                if (!value.isEmpty() && !(Double.parseDouble(value) >= 0 && Double.parseDouble(value) <= 10D)) {
+                    JOptionPane.showMessageDialog(this, "Điểm không hợp lệ. Điểm phải từ 0 đến 10.", value, WIDTH);
+                    jTable1.setValueAt(value_old, jTable1.getSelectedRow(), jTable1.getSelectedColumn());
+                    return;
+                }
+            } catch (Exception e) {
                 jTable1.setValueAt(value_old, jTable1.getSelectedRow(), jTable1.getSelectedColumn());
-                return;
             }
             String strTenHocSinh = jTable1.getModel().getValueAt(temp, 1).toString();
             dto.Hocsinh hs = new dal.HocsinhDAL().getByName(strTenHocSinh);

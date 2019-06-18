@@ -198,41 +198,10 @@
 				<textFieldExpression><![CDATA[$F{no}]]></textFieldExpression>
 			</textField>
 		</band>
-		<band height="153">
-			<pieChart>
-				<chart>
-					<reportElement x="0" y="0" width="266" height="145" uuid="bb9b9620-342e-4527-bccd-4f32d65edf0a"/>
-					<chartTitle/>
-					<chartSubtitle/>
-					<chartLegend/>
-				</chart>
-				<pieDataset>
-					<keyExpression><![CDATA[$F{className}]]></keyExpression>
-					<valueExpression><![CDATA[Integer.parseInt( $F{reached} )/Integer.parseInt( $F{summary} )*100]]></valueExpression>
-				</pieDataset>
-				<piePlot>
-					<plot/>
-					<itemLabel/>
-				</piePlot>
-			</pieChart>
-			<staticText>
-				<reportElement x="360" y="37" width="169" height="21" uuid="cc7dda6c-7c86-4474-a998-21b0b31dba29"/>
-				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Tahoma" size="10"/>
-				</textElement>
-				<text><![CDATA[Chữ ký của Hiệu trưởng]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="269" y="22" width="260" height="15" uuid="a1aefe76-8a4c-4c72-aeaf-25cb77d6625d"/>
-				<textElement textAlignment="Right" verticalAlignment="Bottom">
-					<font fontName="Tahoma" size="10"/>
-				</textElement>
-				<text><![CDATA[..................., Ngày ....... tháng ....... năm ....]]></text>
-			</staticText>
-		</band>
+		<band/>
 	</detail>
 	<columnFooter>
-		<band height="16" splitType="Stretch">
+		<band height="24" splitType="Stretch">
 			<line>
 				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="6ce41e4e-0eec-47e5-8129-9f13a1108fc8"/>
 				<graphicElement>
@@ -267,6 +236,37 @@
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="44" splitType="Stretch"/>
+		<band height="169" splitType="Stretch">
+			<pieChart>
+				<chart>
+					<reportElement x="0" y="23" width="266" height="145" uuid="bb9b9620-342e-4527-bccd-4f32d65edf0a"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<keyExpression><![CDATA[$F{className}]]></keyExpression>
+					<valueExpression><![CDATA[Integer.parseInt( $F{reached} )/Integer.parseInt( $F{summary} )*100]]></valueExpression>
+				</pieDataset>
+				<piePlot>
+					<plot/>
+					<itemLabel/>
+				</piePlot>
+			</pieChart>
+			<staticText>
+				<reportElement x="360" y="38" width="169" height="21" uuid="cc7dda6c-7c86-4474-a998-21b0b31dba29"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Tahoma" size="10"/>
+				</textElement>
+				<text><![CDATA[Chữ ký của Hiệu trưởng]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="269" y="23" width="260" height="15" uuid="a1aefe76-8a4c-4c72-aeaf-25cb77d6625d"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Tahoma" size="10"/>
+				</textElement>
+				<text><![CDATA[..................., Ngày ....... tháng ....... năm ....]]></text>
+			</staticText>
+		</band>
 	</summary>
 </jasperReport>
