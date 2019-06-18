@@ -177,6 +177,10 @@ public class ReportBLL {
             diem15 = diems.get(i).getDiem15phut();
             diem1 = diems.get(i).getDiem1tiet();
             diemhk = diems.get(i).getDiemCuoiKy();
+            
+            if(diem15 == null && diem1 == null && diemhk==null)
+                return Result.EMPTY;
+            
             dtb = ((diem15 != null ? diem15 : 0) + (diem1 != null ? diem1 : 0) * 2 + (diemhk != null ? diemhk : 0) * 3) / 6;
 
             tongdiemHK += dtb * diems.get(i).getMonhoc().getHeSo();
