@@ -72,13 +72,14 @@ public class HocsinhDAL {
 
             n.setChitietCauhinhHocsinhs(hs.getChitietCauhinhHocsinhs() != null ? hs.getChitietCauhinhHocsinhs() : n.getChitietCauhinhHocsinhs());
             n.setDiaChi(hs.getDiaChi().length() > 0 ? hs.getDiaChi() : n.getDiaChi());
-            n.setEmail(hs.getEmail().length() > 0 ? hs.getEmail() : n.getDiaChi());
+            n.setEmail(hs.getEmail().length() > 0 ? hs.getEmail() : n.getEmail());
             n.setGioiTinh(hs.getGioiTinh().length() > 0 ? hs.getGioiTinh() : n.getGioiTinh());
             n.setHoTen(hs.getHoTen().length() > 0 ? hs.getHoTen() : n.getHoTen());
             n.setHocsinhLophocs(hs.getHocsinhLophocs().isEmpty() ? hs.getHocsinhLophocs() : n.getHocsinhLophocs());
             n.setNgaySinh(hs.getNgaySinh() != null ? hs.getNgaySinh() : n.getNgaySinh());
-            n.setSdtCaNhan(hs.getSdtCaNhan().length() > 0 ? hs.getSdtCaNhan() : n.getSdtCaNhan());
-            n.setSdtGiamHo(hs.getSdtGiamHo().length() > 0 ? hs.getSdtGiamHo() : n.getSdtGiamHo());
+            //n.setSdtCaNhan(hs.getSdtCaNhan().length() > 0 ? hs.getSdtCaNhan() : n.getSdtCaNhan());
+            n.setSdtCaNhan(hs.getSdtCaNhan());
+            n.setSdtGiamHo(hs.getSdtGiamHo());
             n.setTinhTrang(hs.getTinhTrang() != -1 ? hs.getTinhTrang() : n.getTinhTrang());
 
             session.update(n);
@@ -93,21 +94,21 @@ public class HocsinhDAL {
         return result;
     }
 
-    public boolean update2(Hocsinh hs) {
-        Boolean result = false;
-        try {
-            tst = session.beginTransaction();
-            session.update(hs);
-            tst.commit();
-            result = true;
-        } catch (Exception e) {
-            if (tst != null) {
-                tst.rollback();
-            }
-            e.printStackTrace();
-        }
-        return result;
-    }
+//    public boolean update2(Hocsinh hs) {
+//        Boolean result = false;
+//        try {
+//            tst = session.beginTransaction();
+//            session.update(hs);
+//            tst.commit();
+//            result = true;
+//        } catch (Exception e) {
+//            if (tst != null) {
+//                tst.rollback();
+//            }
+//            e.printStackTrace();
+//        }
+//        return result;
+//    }
 
     public boolean delete(int idHocsinh) {
         Boolean result = false;

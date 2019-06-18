@@ -15,31 +15,23 @@ public class ManageMainJFrame extends javax.swing.JFrame {
      */
     public ManageMainJFrame() {
         initComponents();
-        
-        java.awt.Dimension dim =java.awt. Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
-        
     }
 
     dto.Nguoidung nd;
 
     public ManageMainJFrame(Nguoidung nguoidung) {
         initComponents();
-        
-        java.awt.Dimension dim =java.awt. Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
-        
         nd = nguoidung;
         lblTenTaiKhoan.setText(nd.getHoTen());
 
         if (nd.getLoaiNguoiDung() != 1) {
             btnHocSinh.setVisible(false);
             btnLop.setVisible(false);
+            btnNamHoc.setVisible(false);
+            btnMonHoc.setVisible(false);
             btnBaoCao.setVisible(false);
             btnCauHinh.setVisible(false);
             btnTaiKhoan.setVisible(false);
-            //btnDiem.setMargin(new Insets(4, 16, 4, 16));
-            //btnDiem.setSize(369, 53);
         }
     }
 
@@ -334,12 +326,10 @@ public class ManageMainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCauHinhActionPerformed
 
     private void lblDangXuatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDangXuatMouseClicked
-        // TODO add your handling code here:
 
         int cf = JOptionPane.showConfirmDialog(null, "Bạn muốn đăng xuất tài khoản này phải không? ", "Xác nhận", JOptionPane.YES_OPTION);
 
         if (cf == JOptionPane.YES_OPTION) {
-            //JOptionPane.showMessageDialog(null, "Log out");
             LoginJFrame f = new LoginJFrame();
             f.setLocationRelativeTo(null);
             f.setVisible(true);
@@ -349,7 +339,7 @@ public class ManageMainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_lblDangXuatMouseClicked
 
     private void lblTenTaiKhoanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTenTaiKhoanMouseClicked
-        // TODO add your handling code here:
+
         if (EditUserFrame.openFrame == true) {
             EditUserFrame.openFrame = false;
             EditUserFrame f = new EditUserFrame(nd.getIdNguoiDung());

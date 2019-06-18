@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bll;
 
 import dal.HocsinhLophocDAL;
@@ -30,13 +25,12 @@ public class HocsinhLopHocBLL {
     }
 
     /*
-    Kiểm tra sỉ sổ lớp
+    Kiểm tra sỉ số lớp
      */
     public static boolean checkMaximumStudentInClass(int idNamHoc, int idLop, int SiSoToiDa) {
 
         Namhoc namhoc = new NamhocDAL().getById(idNamHoc);
         Lop lop = new LopDAL().getById(idLop);
-        //int Size = new HocsinhLophocDAL().getByNamHocLop(a, b).size();
 
         int Size = new HocsinhLophocDAL().getByNamHocLop(namhoc, lop).size();
         if (Size == SiSoToiDa) {

@@ -19,10 +19,6 @@ public class ManageClassJFrame extends javax.swing.JFrame {
      */
     public ManageClassJFrame() {
         initComponents();
-        
-        java.awt.Dimension dim =java.awt. Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
-        
         LoadData();
     }
 
@@ -30,10 +26,6 @@ public class ManageClassJFrame extends javax.swing.JFrame {
 
     public ManageClassJFrame(Nguoidung nguoidung) {
         initComponents();
-        
-        java.awt.Dimension dim =java.awt. Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
-        
         nd = nguoidung;
         lblTenTaiKhoan.setText(nd.getHoTen());
         LoadData();
@@ -50,17 +42,13 @@ public class ManageClassJFrame extends javax.swing.JFrame {
         dtm.addColumn("Mã lớp");
         dtm.addColumn("Tên lớp");
         dtm.addColumn("Khối");
-        //dtm.addColumn("Tình trạng");
-
+        
         for (Lop a : new LopDAL().getAll()) {
-            //dtm.addRow(new Object[]{a.getIdLop(), a.getTenLop(), a.getKhoi(), a.getTinhTrang()});
             dtm.addRow(new Object[]{a.getIdLop(), a.getTenLop(), a.getKhoi()});
         }
 
         this.jTableLop.setModel(dtm);
         this.jTableLop.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
-        //this.jTableLop.repaint();
-        //this.jTableLop.revalidate();
     }
 
     /**
@@ -306,7 +294,6 @@ public class ManageClassJFrame extends javax.swing.JFrame {
     private void jTableLopMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableLopMouseClicked
 
         String tenLop = this.jTableLop.getValueAt(this.jTableLop.getSelectedRow(), 1).toString();
-        //Lop a = this.lopDao.getByTen2(tenLop);
         Lop a = new LopDAL().getByTen(tenLop);
 
         int indexCbo = 0;
@@ -325,7 +312,6 @@ public class ManageClassJFrame extends javax.swing.JFrame {
         this.txtMaLop.setText(a.getIdLop().toString());
         this.txtTenLop.setText(a.getTenLop());
         this.cboKhoi.setSelectedIndex(indexCbo);
-        //this.txtTinhTrang.setText(a.getTinhTrang().toString());
     }//GEN-LAST:event_jTableLopMouseClicked
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
@@ -338,7 +324,6 @@ public class ManageClassJFrame extends javax.swing.JFrame {
             int cf = JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa lớp " + tenLop + " không?", "Xác nhận", JOptionPane.YES_OPTION);
 
             if (cf == JOptionPane.YES_OPTION) {
-                //if (this.lopDao.delete(lopDao.find(idLop))) {
                 if (new LopDAL().delete(idLop)) {
                     JOptionPane.showMessageDialog(null, "Xóa lớp thành công");
                     LoadData();
@@ -392,7 +377,7 @@ public class ManageClassJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        // TODO add your handling code here:
+
         openFrame = true;
     }//GEN-LAST:event_formWindowClosed
 

@@ -29,10 +29,6 @@ public class ShowListClassJFrame extends javax.swing.JFrame {
      */
     public ShowListClassJFrame() {
         initComponents();
-        
-        java.awt.Dimension dim =java.awt. Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
-        
         LoadCbo();
     }
 
@@ -40,10 +36,6 @@ public class ShowListClassJFrame extends javax.swing.JFrame {
 
     public ShowListClassJFrame(Nguoidung nguoidung) {
         initComponents();
-        
-        java.awt.Dimension dim =java.awt. Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
-        
         nd = nguoidung;
         lblTenTaiKhoan.setText(nd.getHoTen());
         LoadCbo();
@@ -75,11 +67,11 @@ public class ShowListClassJFrame extends javax.swing.JFrame {
         jTableDanhSachLop = new javax.swing.JTable();
         lblTenTaiKhoan = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        cboNamHoc = new javax.swing.JComboBox<String>();
+        cboNamHoc = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         btnXem = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        cboTenLop = new javax.swing.JComboBox<String>();
+        cboTenLop = new javax.swing.JComboBox<>();
         txtTenLop = new javax.swing.JTextField();
         txtSiSo = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -284,7 +276,7 @@ public class ShowListClassJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnXemActionPerformed
 
     private void btnQuayLaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuayLaiActionPerformed
-        // TODO add your handling code here:  
+
         if (ManageClassJFrame.openFrame == true) {
             ManageClassJFrame.openFrame = false;
             ManageClassJFrame f = new ManageClassJFrame(nd);
@@ -301,7 +293,7 @@ public class ShowListClassJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnQuayLaiActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        // TODO add your handling code here:
+
         openFrame = true;
     }//GEN-LAST:event_formWindowClosed
 

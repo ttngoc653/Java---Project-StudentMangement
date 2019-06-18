@@ -18,11 +18,7 @@ public class LoginJFrame extends javax.swing.JFrame {
      * Creates new form LoginFrame
      */
     public LoginJFrame() {
-        initComponents();
-        
-        java.awt.Dimension dim =java.awt. Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
-        
+        initComponents();        
     }
 
     /**
@@ -129,24 +125,13 @@ public class LoginJFrame extends javax.swing.JFrame {
             try {
                 nd = user.LogIn(Ten, MatKhau);
 
-                if (nd != null) {
-                    //JOptionPane.showMessageDialog(null, "Đăng nhập thành công");
+                if (nd != null) { 
+                    //Đăng nhập thành công
                     ManageMainJFrame f = new ManageMainJFrame(nd);
                     f.setLocationRelativeTo(null);
                     f.setVisible(true);
                     f.setResizable(false);
                     this.setVisible(false);
-
-//                    MainJFrame f = new MainJFrame(nd);
-////                    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-////                    //f.setSize(screenSize.width, screenSize.height);
-////                    f.setSize(screenSize.width, 730);
-//                    Dimension DimMax = Toolkit.getDefaultToolkit().getScreenSize();
-//                    f.setMaximumSize(DimMax);
-//                    f.setExtendedState(JFrame.MAXIMIZED_BOTH);
-//                    f.setLocationRelativeTo(null);
-//                    f.setVisible(true);
-//                    this.setVisible(false);
                 } else {
                     JOptionPane.showMessageDialog(null, "Đăng nhập thất bại");
                 }
@@ -159,7 +144,7 @@ public class LoginJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDangNhapActionPerformed
 
     private void lblQuenMatKhauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQuenMatKhauMouseClicked
-        // TODO add your handling code here:
+
         ForgotPasswordJFrame f = new ForgotPasswordJFrame();
         f.setLocationRelativeTo(null);
         f.setVisible(true);

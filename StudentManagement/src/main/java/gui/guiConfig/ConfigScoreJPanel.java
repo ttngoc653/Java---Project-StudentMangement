@@ -285,9 +285,9 @@ public class ConfigScoreJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnApplyActionPerformed
 
     private void txtScoreNewKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtScoreNewKeyTyped
-//        if (!bll.HelperBLL.IsDouble(txtScoreNew.getText() + evt.getKeyChar())) {
-//            evt.consume();
-//        }
+        if (!bll.HelperBLL.IsDouble(txtScoreNew.getText() + evt.getKeyChar())) {
+            evt.consume();
+        }
     }//GEN-LAST:event_txtScoreNewKeyTyped
 
     private void listSubjectsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listSubjectsMouseClicked

@@ -39,10 +39,6 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
      */
     public ManageClassArrangeJFrame() {
         initComponents();
-
-        java.awt.Dimension dim = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
-
         LoadCbo();
         LoadData();
     }
@@ -51,10 +47,6 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
 
     public ManageClassArrangeJFrame(Nguoidung nguoidung) {
         initComponents();
-
-        java.awt.Dimension dim = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
-
         nd = nguoidung;
         lblTenTaiKhoan.setText(nd.getHoTen());
         LoadCbo();
@@ -327,7 +319,6 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
         String idNamHoc = this.jTableXepLop.getValueAt(this.jTableXepLop.getSelectedRow(), 4).toString();
 
         this.txtID.setText(idHocSinhLopHoc);
-        //this.cboMSHS.setSelectedItem(idHS);
         this.cboMSHS.setSelectedItem(idHS + " - " + hoTenHS);
         this.cboTenLop.setSelectedItem(idLop);
         this.cboNamHoc.setSelectedItem(idNamHoc);
@@ -346,7 +337,6 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
 
 //        int SiSoToiDa = Integer.parseInt(new CauHinhDAL().getByName("SiSoToiDa").getGiaTri());
         int SiSoToiDa = getMaxStudent(lop);
-        //JOptionPane.showMessageDialog(null, SiSoToiDa);
 
         String tenNamHoc = this.cboNamHoc.getSelectedItem().toString();
         Namhoc namhoc = new NamhocDAL().getByTen(tenNamHoc);
@@ -406,8 +396,6 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
         if (ManageStudentJFrame.openFrame == true) {
             ManageStudentJFrame.openFrame = false;
             ManageStudentJFrame f = new ManageStudentJFrame(nd);
-            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-            f.setSize(screenSize.width, 700);
             f.setLocationRelativeTo(null);
             f.setVisible(true);
             f.setResizable(false);
@@ -420,7 +408,7 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnQuayLaiActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        // TODO add your handling code here:
+
         openFrame = true;
     }//GEN-LAST:event_formWindowClosed
 

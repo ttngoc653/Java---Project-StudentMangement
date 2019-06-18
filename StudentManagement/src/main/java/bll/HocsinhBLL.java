@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bll;
 
 import dal.HocsinhDAL;
@@ -43,18 +38,30 @@ public class HocsinhBLL {
     public static boolean checkPhoneNumber(String number) {
         Pattern pattern = Pattern.compile("^[0-9]*$");
         Matcher matcher = pattern.matcher(number);
-//        if (!matcher.matches()) {
-//            return "Chuỗi nhập vào không phải là số!";
-//        } else if (number.length() == 10) {
-//            return "Chuỗi nhập vào là số điện thoại!";
-//        } else {
-//            return "Độ dài số điện thoại không hợp lệ!";
-//        }
         if ((matcher.matches() && number.length() == 10) || number.equals("")) {
+            return true;
+        } else if ((matcher.matches() && number.length() == 11) || number.equals("")) {
             return true;
         } else {
             return false;
         }
+
+//        int check = 1;
+//        if (!matcher.matches()) {
+//            check = 0;
+//        } else if (number.length() == 10 || number.length() == 11) {
+//            if (!number.substring(0, 2).equals("02")) {
+//                check = 0;
+//            }
+//        } else {
+//            check = 0;
+//        }
+//        
+//        if(check == 0){
+//           return false; 
+//        }else{
+//            return true;
+//        }
     }
 
     /*
