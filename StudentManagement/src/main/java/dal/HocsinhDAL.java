@@ -94,22 +94,6 @@ public class HocsinhDAL {
         return result;
     }
 
-//    public boolean update2(Hocsinh hs) {
-//        Boolean result = false;
-//        try {
-//            tst = session.beginTransaction();
-//            session.update(hs);
-//            tst.commit();
-//            result = true;
-//        } catch (Exception e) {
-//            if (tst != null) {
-//                tst.rollback();
-//            }
-//            e.printStackTrace();
-//        }
-//        return result;
-//    }
-
     public boolean delete(int idHocsinh) {
         Boolean result = false;
         try {

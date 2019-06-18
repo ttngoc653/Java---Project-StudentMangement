@@ -1,8 +1,6 @@
 package gui;
 
 import dal.*;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;

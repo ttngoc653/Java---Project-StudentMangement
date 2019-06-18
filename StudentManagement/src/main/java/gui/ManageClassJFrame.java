@@ -60,8 +60,6 @@ public class ManageClassJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTableLop = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtTenLop = new javax.swing.JTextField();
@@ -75,6 +73,8 @@ public class ManageClassJFrame extends javax.swing.JFrame {
         btnXoa = new javax.swing.JButton();
         btnSua = new javax.swing.JButton();
         btnXem = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableLop = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Quản lý lớp");
@@ -83,24 +83,6 @@ public class ManageClassJFrame extends javax.swing.JFrame {
                 formWindowClosed(evt);
             }
         });
-
-        jTableLop.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jTableLop.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTableLopMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(jTableLop);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin lớp học"));
 
@@ -130,13 +112,11 @@ public class ManageClassJFrame extends javax.swing.JFrame {
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
-                                .addGap(0, 9, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cboKhoi, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(txtTenLop, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtTenLop)
+                            .addComponent(cboKhoi, 0, 208, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -191,6 +171,24 @@ public class ManageClassJFrame extends javax.swing.JFrame {
             }
         });
 
+        jTableLop.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jTableLop.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableLopMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTableLop);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -198,24 +196,22 @@ public class ManageClassJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 760, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(lblTenTaiKhoan))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(btnXem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnSua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                .addComponent(btnSua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnXem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -227,7 +223,6 @@ public class ManageClassJFrame extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -236,7 +231,8 @@ public class ManageClassJFrame extends javax.swing.JFrame {
                             .addComponent(btnXoa)
                             .addComponent(btnSua))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnXem)))
+                        .addComponent(btnXem))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -290,29 +286,6 @@ public class ManageClassJFrame extends javax.swing.JFrame {
         this.setVisible(false);
         this.openFrame = true;
     }//GEN-LAST:event_btnXemActionPerformed
-
-    private void jTableLopMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableLopMouseClicked
-
-        String tenLop = this.jTableLop.getValueAt(this.jTableLop.getSelectedRow(), 1).toString();
-        Lop a = new LopDAL().getByTen(tenLop);
-
-        int indexCbo = 0;
-        switch (a.getKhoi()) {
-            case "10":
-                indexCbo = 0;
-                break;
-            case "11":
-                indexCbo = 1;
-                break;
-            case "12":
-                indexCbo = 2;
-                break;
-        }
-
-        this.txtMaLop.setText(a.getIdLop().toString());
-        this.txtTenLop.setText(a.getTenLop());
-        this.cboKhoi.setSelectedIndex(indexCbo);
-    }//GEN-LAST:event_jTableLopMouseClicked
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
 
@@ -380,6 +353,29 @@ public class ManageClassJFrame extends javax.swing.JFrame {
 
         openFrame = true;
     }//GEN-LAST:event_formWindowClosed
+
+    private void jTableLopMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableLopMouseClicked
+
+        String tenLop = this.jTableLop.getValueAt(this.jTableLop.getSelectedRow(), 1).toString();
+        Lop a = new LopDAL().getByTen(tenLop);
+
+        int indexCbo = 0;
+        switch (a.getKhoi()) {
+            case "10":
+            indexCbo = 0;
+            break;
+            case "11":
+            indexCbo = 1;
+            break;
+            case "12":
+            indexCbo = 2;
+            break;
+        }
+
+        this.txtMaLop.setText(a.getIdLop().toString());
+        this.txtTenLop.setText(a.getTenLop());
+        this.cboKhoi.setSelectedIndex(indexCbo);
+    }//GEN-LAST:event_jTableLopMouseClicked
 
     /**
      * @param args the command line arguments

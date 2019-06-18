@@ -6,24 +6,11 @@ import static bll.HocsinhLopHocBLL.*;
 import bll.Result;
 import dal.*;
 import dto.*;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -73,12 +60,18 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
 
         this.jTableXepLop.setModel(dtm);
         this.jTableXepLop.getColumnModel().getColumn(0).setPreferredWidth(10);  //ID
-        this.jTableXepLop.getColumnModel().getColumn(1).setPreferredWidth(10);   //MSHS
-        this.jTableXepLop.getColumnModel().getColumn(2).setPreferredWidth(100); //Họ tên
-        this.jTableXepLop.getColumnModel().getColumn(3).setPreferredWidth(50); //Tên lớp
-        this.jTableXepLop.getColumnModel().getColumn(4).setPreferredWidth(50); //Năm học
+        this.jTableXepLop.getColumnModel().getColumn(1).setPreferredWidth(10);  //MSHS
+        this.jTableXepLop.getColumnModel().getColumn(2).setPreferredWidth(150); //Họ tên
+        this.jTableXepLop.getColumnModel().getColumn(3).setPreferredWidth(80);  //Tên lớp
+        this.jTableXepLop.getColumnModel().getColumn(4).setPreferredWidth(50);  //Năm học
 
         this.jTableXepLop.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+
+        if (jTableXepLop.getPreferredSize().width < jTableXepLop.getParent().getWidth()) {
+            jTableXepLop.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        } else {
+            jTableXepLop.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        }
     }
 
     private void LoadCbo() {
@@ -120,15 +113,15 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         cboTenLop = new javax.swing.JComboBox<>();
         cboMSHS = new javax.swing.JComboBox<>();
-        btnSummaryFinish = new javax.swing.JToggleButton();
-        cbbSemester = new javax.swing.JComboBox();
-        jLabel6 = new javax.swing.JLabel();
-        btnSummarySemester = new javax.swing.JToggleButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTableXepLop = new javax.swing.JTable();
         lblTenTaiKhoan = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         btnQuayLai = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableXepLop = new javax.swing.JTable();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        cbbSemester = new javax.swing.JComboBox();
+        btnSummarySemester = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Quản lý xếp lớp");
@@ -137,6 +130,8 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
                 formWindowClosed(evt);
             }
         });
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin xếp lớp"));
 
         jLabel1.setText("ID:");
 
@@ -162,19 +157,6 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
 
         jLabel4.setText("Tên lớp:");
 
-        btnSummaryFinish.setText("Kết quả cuối năm");
-
-        cbbSemester.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jLabel6.setText("Học kỳ:");
-
-        btnSummarySemester.setText("Kết quả học kỳ");
-        btnSummarySemester.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSummarySemesterActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -183,30 +165,23 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnThem)
+                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnXoa)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSummaryFinish, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE))
+                        .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel6)
                             .addComponent(jLabel1))
                         .addGap(14, 14, 14)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtID)
-                            .addComponent(cbbSemester, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cboNamHoc, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cboTenLop, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cboMSHS, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(cboMSHS, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cboNamHoc, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnSummarySemester)
-                .addGap(90, 90, 90))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,17 +204,23 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSummaryFinish)
                     .addComponent(btnXoa)
                     .addComponent(btnThem))
-                .addGap(32, 32, 32)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbbSemester, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSummarySemester)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        lblTenTaiKhoan.setText("Tên tài khoản");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Quản lý xếp lớp");
+
+        btnQuayLai.setText("Quay lại");
+        btnQuayLai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuayLaiActionPerformed(evt);
+            }
+        });
 
         jTableXepLop.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -260,18 +241,44 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
     });
     jScrollPane2.setViewportView(jTableXepLop);
 
-    lblTenTaiKhoan.setText("Tên tài khoản");
+    jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Kết quả học kỳ"));
 
-    jLabel5.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-    jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    jLabel5.setText("Quản lý xếp lớp");
+    jLabel6.setText("Học kỳ:");
 
-    btnQuayLai.setText("Quay lại");
-    btnQuayLai.addActionListener(new java.awt.event.ActionListener() {
+    cbbSemester.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+    btnSummarySemester.setText("Kết quả học kỳ");
+    btnSummarySemester.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            btnQuayLaiActionPerformed(evt);
+            btnSummarySemesterActionPerformed(evt);
         }
     });
+
+    javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+    jPanel2.setLayout(jPanel2Layout);
+    jPanel2Layout.setHorizontalGroup(
+        jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(jPanel2Layout.createSequentialGroup()
+            .addContainerGap()
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addComponent(btnSummarySemester, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addComponent(jLabel6)
+                    .addGap(18, 18, 18)
+                    .addComponent(cbbSemester, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addContainerGap())
+    );
+    jPanel2Layout.setVerticalGroup(
+        jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(jPanel2Layout.createSequentialGroup()
+            .addContainerGap()
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(cbbSemester, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel6))
+            .addGap(18, 18, Short.MAX_VALUE)
+            .addComponent(btnSummarySemester)
+            .addContainerGap())
+    );
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
@@ -281,14 +288,16 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
             .addContainerGap()
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createSequentialGroup()
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                     .addComponent(btnQuayLai)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblTenTaiKhoan)))
+                    .addComponent(lblTenTaiKhoan))
+                .addGroup(layout.createSequentialGroup()
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 595, javax.swing.GroupLayout.PREFERRED_SIZE)))
             .addContainerGap())
     );
     layout.setVerticalGroup(
@@ -300,29 +309,18 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
                 .addComponent(btnQuayLai))
             .addGap(3, 3, 3)
             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createSequentialGroup()
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
             .addContainerGap())
     );
 
     pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jTableXepLopMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableXepLopMouseClicked
-
-        String idHocSinhLopHoc = this.jTableXepLop.getValueAt(this.jTableXepLop.getSelectedRow(), 0).toString();
-        String idHS = this.jTableXepLop.getValueAt(this.jTableXepLop.getSelectedRow(), 1).toString();
-        String hoTenHS = this.jTableXepLop.getValueAt(this.jTableXepLop.getSelectedRow(), 2).toString();
-        String idLop = this.jTableXepLop.getValueAt(this.jTableXepLop.getSelectedRow(), 3).toString();
-        String idNamHoc = this.jTableXepLop.getValueAt(this.jTableXepLop.getSelectedRow(), 4).toString();
-
-        this.txtID.setText(idHocSinhLopHoc);
-        this.cboMSHS.setSelectedItem(idHS + " - " + hoTenHS);
-        this.cboTenLop.setSelectedItem(idLop);
-        this.cboNamHoc.setSelectedItem(idNamHoc);
-    }//GEN-LAST:event_jTableXepLopMouseClicked
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
 
@@ -335,7 +333,7 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
         Lop lop = new LopDAL().getByTen(tenLop);
         int idLop = lop.getIdLop();
 
-//        int SiSoToiDa = Integer.parseInt(new CauHinhDAL().getByName("SiSoToiDa").getGiaTri());
+//      int SiSoToiDa = Integer.parseInt(new CauHinhDAL().getByName("SiSoToiDa").getGiaTri());
         int SiSoToiDa = getMaxStudent(lop);
 
         String tenNamHoc = this.cboNamHoc.getSelectedItem().toString();
@@ -453,6 +451,20 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnSummarySemesterActionPerformed
 
+    private void jTableXepLopMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableXepLopMouseClicked
+
+        String idHocSinhLopHoc = this.jTableXepLop.getValueAt(this.jTableXepLop.getSelectedRow(), 0).toString();
+        String idHS = this.jTableXepLop.getValueAt(this.jTableXepLop.getSelectedRow(), 1).toString();
+        String hoTenHS = this.jTableXepLop.getValueAt(this.jTableXepLop.getSelectedRow(), 2).toString();
+        String idLop = this.jTableXepLop.getValueAt(this.jTableXepLop.getSelectedRow(), 3).toString();
+        String idNamHoc = this.jTableXepLop.getValueAt(this.jTableXepLop.getSelectedRow(), 4).toString();
+
+        this.txtID.setText(idHocSinhLopHoc);
+        this.cboMSHS.setSelectedItem(idHS + " - " + hoTenHS);
+        this.cboTenLop.setSelectedItem(idLop);
+        this.cboNamHoc.setSelectedItem(idNamHoc);
+    }//GEN-LAST:event_jTableXepLopMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -504,7 +516,6 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnQuayLai;
-    private javax.swing.JToggleButton btnSummaryFinish;
     private javax.swing.JToggleButton btnSummarySemester;
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnXoa;
@@ -519,6 +530,7 @@ public class ManageClassArrangeJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableXepLop;
     private javax.swing.JLabel lblTenTaiKhoan;
