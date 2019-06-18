@@ -1,13 +1,16 @@
 package bll;
 
 import dto.Diem;
+import dto.Lop;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.swing.ComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListDataListener;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -220,6 +223,16 @@ public class ReportBLL {
             return Result.ERROR;
         }
         return Result.SUCCESS;
+    }
+
+    public ComboBoxModel listGrade() {
+        List<dto.Lop> list=new dal.LopDAL().getAll();
+        List<String> output=new ArrayList<>();
+        for (Lop list1 : list) {
+            output.add(list1.getTenLop());
+        }
+        
+        return (ComboBoxModel) output;
     }
 
 }
