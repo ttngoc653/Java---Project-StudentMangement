@@ -13,6 +13,7 @@ import dto.Namhoc;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -48,6 +49,18 @@ public class ListScoreStudentByClass extends javax.swing.JFrame {
             cbbGrade.addItem(i.getTenLop());
         }
         
+        this.jTable1.getColumnModel().getColumn(0).setPreferredWidth(10);
+        this.jTable1.getColumnModel().getColumn(1).setPreferredWidth(125);
+        
+        this.jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+
+        if (jTable1.getPreferredSize().width < jTable1.getParent().getWidth()) {
+            jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        } else {
+            jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        }
+        
+        
         process(cbbSchoolYear.getSelectedItem().toString(), cbbBlock.getSelectedItem().toString(), cbbGrade.getSelectedItem().toString());
     }
 
@@ -71,6 +84,7 @@ public class ListScoreStudentByClass extends javax.swing.JFrame {
         cbbGrade = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -200,7 +214,11 @@ public class ListScoreStudentByClass extends javax.swing.JFrame {
         List<dto.HocsinhLophoc> hocsinhLophocs = new dal.HocsinhLophocDAL().getAll();
 
         dto.Namhoc namhoc = new dal.NamhocDAL().getByTen(schoolyear);
-        List<dto.Lop> lops = new dal.LopDAL().getByKhoi(Integer.parseInt(block));
+        List<dto.Lop> lops=null;
+        try {
+            lops = new dal.LopDAL().getByKhoi(block);
+        } catch (Exception e) {
+        }
         dto.Lop lop = new dal.LopDAL().getByTen(grade);
 
         for (HocsinhLophoc hocsinhLophoc : hocsinhLophocs) {
@@ -230,7 +248,7 @@ public class ListScoreStudentByClass extends javax.swing.JFrame {
         List<Double> tongdiemHK = new ArrayList<>();
         for (int j = 0; j < hocsinhLophocs.size(); j++) {
             for (int i = 0; i < hockys.size(); i++) {
-                tongdiemHK.set(i, 0D);
+                tongdiemHK.add(0D);
                 dtb = 0D;
                 heso = 0;
                 List<dto.Diem> diems = new dal.DiemDAL().getByHocSinhLopHocHocKy(hocsinhLophocs.get(j), hockys.get(i));
@@ -248,6 +266,8 @@ public class ListScoreStudentByClass extends javax.swing.JFrame {
             }
 
             dm.addRow(new Object[]{j, hocsinhLophocs.get(j).getHocsinh().getHoTen(), hocsinhLophocs.get(j).getLop().getTenLop(), tongdiemHK.get(0), tongdiemHK.get(1)});
+            
+            tongdiemHK.clear();
         }
     }
 

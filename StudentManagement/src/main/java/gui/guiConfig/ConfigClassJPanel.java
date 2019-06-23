@@ -305,6 +305,9 @@ public class ConfigClassJPanel extends javax.swing.JPanel {
         } else if (!bll.HelperBLL.IsInteger(txtMaxCount.getText())) {
             showError("Sĩ số tối đa phải là số nguyên.");
             return;
+        }else if(Integer.parseInt(txtMaxCount.getText())<=0){
+            showError("Số lượng phải lớn hơn 0.");
+            return;
         }
 
         // create or modify number of students of all class in school
@@ -326,6 +329,9 @@ public class ConfigClassJPanel extends javax.swing.JPanel {
             return;
         } else if (!bll.HelperBLL.IsInteger(txtMaxCountClass.getText())) {
             showError("Số lượng lớp phải có giá trị số.");
+            return;
+        }else if(Integer.parseInt(txtMaxCountClass.getText())<=0){
+            showError("Số lượngi phải lớn hơn 0.");
             return;
         }
 

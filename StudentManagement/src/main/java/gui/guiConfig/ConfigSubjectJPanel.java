@@ -23,9 +23,9 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
     public ConfigSubjectJPanel() {
         initComponents();
         refresh();
-        
+
     }
-    
+
     private void refresh() {
         txtNumMax.setText(bll.ConfigBLL.getMaxSubject().toString());
         txtNumMax.setToolTipText("Hiện tại, số môn tối đa cho phép: " + bll.ConfigBLL.getMaxSubject().toString());
@@ -35,7 +35,7 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
         lblNumAll.setText(String.valueOf(new dal.MonhocDAL().getAll().size()));
         lblNumStuding.setText(String.valueOf(new dal.MonhocDAL().getByTinhTrang(true).size()));
     }
-    
+
     void initCBXMonHoc() {
         List<Monhoc> ds = new dal.MonhocDAL().getAll();
         cbbSubject.removeAllItems();
@@ -43,11 +43,11 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
             cbbSubject.addItem(mh.getTenMh());
         }
     }
-    
+
     void initTeaching() {
         lTeaching.setModel(bll.ConfigBLL.getListSubjectTeaching());
     }
-    
+
     void initCastrate() {
         lCastrate.setModel(bll.ConfigBLL.getListSubjectCastrate());
     }
@@ -366,7 +366,7 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
         } else if (txtCoefficient.getText().isEmpty() && JOptionPane.showConfirmDialog(this, "Chưa nhập hệ số. Hệ thống sẽ lưu với hệ số môn học là 1.", "Cảnh báo", JOptionPane.YES_NO_OPTION) != 0) {
             return;
         }
-        
+
         Monhoc mh = new Monhoc();
         mh.setTenMh(txtSubject.getText());
         try {
@@ -388,7 +388,7 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
         } else {
             JOptionPane.showMessageDialog(this, "Môn học đã tồn tại");
         }
-        
+
         refresh();
     }//GEN-LAST:event_btnAddActionPerformed
 
@@ -427,8 +427,11 @@ public class ConfigSubjectJPanel extends javax.swing.JPanel {
         } else if (!bll.HelperBLL.IsInteger(txtNumMax.getText())) {
             JOptionPane.showMessageDialog(txtCoefficient, "Số lượng môn tối đa phải là số nguyên.");
             return;
+        } else if (Integer.parseInt(txtNumMax.getText()) <= 0) {
+            JOptionPane.showMessageDialog(txtCoefficient, "Số lượng môn phải lớn hơn 0.");
+            return;
         }
-        
+
         dto.Cauhinh cauhinh = new dal.CauHinhDAL().getByName("soMonToiDa");
         if (cauhinh != null) {
             cauhinh.setGiaTri(txtNumMax.getText());

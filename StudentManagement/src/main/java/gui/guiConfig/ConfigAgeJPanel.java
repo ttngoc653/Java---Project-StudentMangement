@@ -231,14 +231,17 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
         if (txtMaxAge.getText().isEmpty() || txtMinAge.getText().isEmpty()) {
             setStatus("Tuối tối tiểu hoặc tuối tối đa không được bỏ trống.");
             return;
-        }else if (!bll.HelperBLL.IsInteger(txtMinAge.getText())) {
-            setStatus("Tuối tối tiểu phải là giá trị số nguyên.");            
+        } else if (!bll.HelperBLL.IsInteger(txtMinAge.getText())) {
+            setStatus("Tuối tối tiểu phải là giá trị số nguyên.");
             return;
-        }else if (!bll.HelperBLL.IsInteger(txtMaxAge.getText())) {
-            setStatus("Tuối tối đa phải là giá trị số nguyên.");            
+        } else if (!bll.HelperBLL.IsInteger(txtMaxAge.getText())) {
+            setStatus("Tuối tối đa phải là giá trị số nguyên.");
             return;
-        }else if (Integer.parseInt(txtMaxAge.getText())<Integer.parseInt(txtMinAge.getText())) {
-            setStatus("Tuối tối đa phải lớn hơn tuối tối tiểu.");            
+        } else if (Integer.parseInt(txtMaxAge.getText()) < Integer.parseInt(txtMinAge.getText())) {
+            setStatus("Tuối tối đa phải lớn hơn tuối tối tiểu.");
+            return;
+        } else if (Integer.parseInt(txtMaxAge.getText()) <= 0 || 0 >= Integer.parseInt(txtMinAge.getText())) {
+            setStatus("Tuối phải lớn hơn 0.");
             return;
         }
 
@@ -276,10 +279,10 @@ public class ConfigAgeJPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnApplyActionPerformed
 
-    private void setStatus(String status){
-        txtStatus.setText("<html>"+status+"</status>");
+    private void setStatus(String status) {
+        txtStatus.setText("<html>" + status + "</status>");
     }
-        
+
     private void listGradeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listGradeMouseClicked
         if (SwingUtilities.isRightMouseButton(evt)) {
             bll.ConfigBLL.deleteOwnConfig(evt.getPoint(), "tuoiVaoLop", listGrade);

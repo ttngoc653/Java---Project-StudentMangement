@@ -258,6 +258,9 @@ public class ConfigScoreJPanel extends javax.swing.JPanel {
             showError("Điểm chuẩn phải là số thập phân!");
             txtScoreNew.setFocusable(true);
             return;
+        }else if(Double.parseDouble(score)<=0){
+            showError("Điểm phải lớn hơn 0.");
+            return;
         }
 
         if (ckbGeneral.isSelected()) {
