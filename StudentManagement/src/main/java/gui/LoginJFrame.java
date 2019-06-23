@@ -50,8 +50,6 @@ public class LoginJFrame extends javax.swing.JFrame {
 
         jLabel2.setText("Mật khẩu:");
 
-        txtMatKhau.setText("123456");
-
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Đăng nhập");
